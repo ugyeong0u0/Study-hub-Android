@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+
+    <color name="syswhite">#FFFFFFFF</color>
+    <color name="sysblack1">#202020</color>
+    <color name="sysblack2">#0F0F0F</color>
+
+
+    <color name="error">#FF1B36</color>
+    <color name="success">#28D22F</color>
+    <!--    orange-->
+    <color name="O_50">#FF5530</color>
+    <color name="O_60">#EE4C29</color>
+
+    <!--    grey-->
+    <color name="G_60">#8F8F8F</color>
+    <color name="G_80">#636363</color>
+
+<!--    red-->
+    <color name="R_50">#FF1B36</color>
+</resources>

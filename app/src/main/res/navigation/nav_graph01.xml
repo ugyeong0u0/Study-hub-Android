@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph01"
+    app:startDestination="@id/login">
+
+    <fragment
+        android:id="@+id/login"
+        android:name="kr.co.gamja.study_hub.LoginFragment"
+        android:label=" "
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_createAccount"
+            app:destination="@id/CreateAccountFragment01" />
+    </fragment>
+    <fragment
+        android:id="@+id/CreateAccountFragment01"
+        android:name="kr.co.gamja.study_hub.CreateAccountFragment01"
+        android:label="@string/word_registration"
+        tools:layout="@layout/fragment_create_account01" >
+        <action
+            android:id="@+id/action_createAccountFragment01_to_createAccountFragment02"
+            app:destination="@id/createAccountFragment02" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFragment02"
+        android:name="kr.co.gamja.study_hub.CreateAccountFragment02"
+        android:label="fragment_create_account02"
+        tools:layout="@layout/fragment_create_account02" >
+        <action
+            android:id="@+id/action_createAccountFragment02_to_createAccountFragment03"
+            app:destination="@id/createAccountFragment03" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFragment03"
+        android:name="kr.co.gamja.study_hub.CreateAccountFragment03"
+        android:label="fragment_create_account03"
+        tools:layout="@layout/fragment_create_account03" >
+        <action
+            android:id="@+id/action_createAccountFragment03_to_createAccountFragment04"
+            app:destination="@id/createAccountFragment04" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFragment04"
+        android:name="kr.co.gamja.study_hub.CreateAccountFragment04"
+        android:label="fragment_create_account04"
+        tools:layout="@layout/fragment_create_account04" >
+        <action
+            android:id="@+id/action_createAccountFragment04_to_createAccountFragmentEnd05"
+            app:destination="@id/createAccountFragmentEnd05" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFragmentEnd05"
+        android:name="kr.co.gamja.study_hub.CreateAccountFragmentEnd05"
+        android:label="fragment_create_account_end05"
+        tools:layout="@layout/fragment_create_account_end05" >
+        <action
+            android:id="@+id/action_createAccountFragmentEnd05_to_login"
+            app:destination="@id/login" />
+    </fragment>
+</navigation>

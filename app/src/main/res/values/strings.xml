@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Study-Hub</string>
+    <!--    로그인화면-->
+    <string name="welcome01">지금 스터디 허브에서</string>
+    <string name="welcome02">나의 팀원을 만나보세요</string>
+
+    <string name="txt_word_email">이메일</string>
+    <string name="txt_word_password">비밀번호</string>
+    <string name="hint_email">이메일 주소를 입력해주세요(@inu.ac.kr)</string>
+    <string name="hint_password">비밀번호를 입력해주세요</string>
+    <string name="btn_login">로그인하기</string>
+    <string name="next_forget_password">비밀번호가 기억나지 않으시나요?</string>
+    <string name="ask_registration">회원이 아니신가요?</string>
+    <string name="word_registration">회원가입</string>
+    <string name="txterror_email">잘못된 주소입니다. 다시 입력해주세요</string>
+    <string name="txterror_password">잘못된 비밀번호입니다.(10자리 이상, 특수문자 포함 필수)</string>
+    <!--    회원가입-->
+    <string name="txt_pagenumber">%d\/4</string>
+
+    <string name="txt_email">이메일을 입력해주세요</string>
+    <string name="hint_univaddress">\@inu.ac.kr</string>
+    <string name="btn_nextpage">다음</string>
+    <string name="txt_emailconfirmation">인증 코드를 메일로 보내드렸어요</string>
+    <string name="hint_authcode">인증코드를 입력해주세요</string>
+    <string name="txt_authcode">인증코드</string>
+    <string name="btn_resendauth">재전송</string>
+
+    <string name="txt1_password">비밀번호를 설정해주세요</string>
+    <string name="txt2_password">10자리 이상, 특수문자 포함(\!,\@,\#,\$,\%,\^,\&amp;,\*,\?,\~,\_) 필수예요</string>
+    <string name="txterror_rs_password">10자리이하, 특수문자 미포함 시 사용이 불가해요</string>
+    <string name="txt_nickname">닉네임을 설정해주세요</string>
+    <string name="txt_word_nickname">닉네임</string>
+    <string name="hint_nickname">닉네임을 입력해주세요</string>
+    <string name="txtok_nickname">사용 가능한 닉네임이예요</string>
+    <string name="texterror_nickname">이미 존재하는 닉네임이예요. 다시 설정해주세요</string>
+
+    <string name="txt_major">학과를 알려주세요</string>
+    <string name="txt_word_major">학과</string>
+    <string name="hint_major">현재 재학중인 학과를 적어주세요</string>
+
+    <!--    학과이름-->
+    <string-array name="array_majors">
+        <item>컴퓨터 공학부</item>
+        <item>컴퓨터 공학부</item>
+    </string-array>
+
+    <string name="txt1_joincomplete">가입을 축하드립니다.</string>
+    <string name="txt2_joincomplete">지금 바로 스터디 팀원을 모집하여 \n함께 목표를 달성해 보세요!</string>
+    <string name="btn_start">시작하기</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

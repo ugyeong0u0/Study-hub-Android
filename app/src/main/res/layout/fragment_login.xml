@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="w, 1:2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearlayout1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical|start"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/linearlayout2"
+            app:layout_constraintLeft_toLeftOf="@id/constraint"
+            app:layout_constraintRight_toRightOf="@id/constraint"
+            app:layout_constraintTop_toTopOf="@id/constraint"
+            app:layout_constraintVertical_weight="1">
+
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome01"
+                android:textColor="@color/syswhite"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome02"
+                android:textColor="@color/syswhite"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlayout2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/linearlayout3"
+            app:layout_constraintLeft_toLeftOf="@id/constraint"
+            app:layout_constraintRight_toRightOf="@id/constraint"
+            app:layout_constraintTop_toBottomOf="@id/linearlayout1"
+            app:layout_constraintVertical_weight="1">
+
+            <TextView
+                android:id="@+id/txt_wordEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_word_email"
+                android:textColor="@color/syswhite"
+                android:textSize="18sp"
+                />
+
+<!--            android:theme="@style/EditTextGreyStyle"-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editlayout_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Design.TextInputLayout"
+
+                app:errorEnabled="true"
+                app:hintEnabled="false"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/syswhite"
+                    android:hint="@string/hint_email"
+                    android:textColorHint="@color/G_80"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/txt_wordpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_word_password"
+                android:textColor="@color/syswhite"
+                android:textSize="18sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editlayout_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:backgroundTint="@color/G_80"
+                app:endIconMode="password_toggle"
+
+                style="@style/EditTextGreyStyle"
+
+                app:errorEnabled="true"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/syswhite"
+                    android:hint="@string/hint_password"
+                    android:textColorHint="@color/G_80"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:textSize="15sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlayout3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="4"
+            app:layout_constraintBottom_toTopOf="@+id/linearlayout4"
+            app:layout_constraintLeft_toLeftOf="@+id/constraint"
+            app:layout_constraintRight_toRightOf="@+id/constraint"
+            app:layout_constraintTop_toBottomOf="@id/linearlayout2"
+            app:layout_constraintVertical_weight="1">
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.6"
+                android:backgroundTint="@color/O_50"
+                android:text="@string/btn_login" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#00ff0000"
+                android:text="@string/next_forget_password"
+                android:textColor="@color/G_60" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlayout4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center|bottom"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintBottom_toBottomOf="@+id/constraint"
+            app:layout_constraintLeft_toLeftOf="@+id/constraint"
+            app:layout_constraintRight_toRightOf="@+id/constraint"
+            app:layout_constraintTop_toBottomOf="@id/linearlayout3"
+            app:layout_constraintVertical_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/ask_registration"
+                android:textColor="@color/syswhite" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_registration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00ff0000"
+                android:text="@string/word_registration"
+                android:textColor="@color/O_60" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
