@@ -33,8 +33,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="3/4"
-                android:textColor="@color/syswhite"
-                android:textSize="28sp"
+                android:textColor="@color/G_60"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txt_nickname"
                 android:textColor="@color/syswhite"
-                android:textSize="28sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
@@ -63,28 +63,29 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txt_word_nickname"
                 android:textColor="@color/syswhite"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <!--            android:theme="@style/EditTextGreyStyle"-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/fca03_editlayout_email"
+                android:id="@+id/fca03_editlayout_nickname"
                 style="@style/Widget.Design.TextInputLayout"
+                android:theme="@style/EditTextGreyStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 app:errorEnabled="true"
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fca03_editnickname"
+                    style="@style/EditTextGreyStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_nickname"
                     android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
+                    android:inputType="text"
                     android:textColor="@color/syswhite"
                     android:textColorHint="@color/G_80"
-                    android:textSize="15sp" />
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -109,7 +110,10 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/O_50"
-                android:text="@string/btn_nextpage" />
+                android:text="@string/btn_nextpage"
+                android:textColor="@color/syswhite"
+                android:enabled="false"
+                android:textSize="16sp"/>
         </LinearLayout>
 
 

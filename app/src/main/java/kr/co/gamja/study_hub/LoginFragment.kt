@@ -1,15 +1,13 @@
 package kr.co.gamja.study_hub
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.fragment.findNavController
+import kr.co.gamja.study_hub.custom.FunctionLogin
 import kr.co.gamja.study_hub.data.Auth
 import kr.co.gamja.study_hub.data.LoginResponse
 
@@ -24,6 +22,7 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,8 +34,14 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // edit text 이메일 error
-        textWatcher()
+        val functionLogin: FunctionLogin = FunctionLogin(requireContext())
+
+        // editText- 이메일 and 패스워드처리
+        val login_email = binding.editlayoutEmail
+        val login_password = binding.editlayoutPassword
+        val flag_btn: Boolean = functionLogin.loginTextWatcher(login_email, login_password)
+
+
         binding.btnRegistration.setOnClickListener {
             findNavController().navigate(R.id.action_login_to_createAccount, null)
         }
@@ -45,36 +50,6 @@ class LoginFragment : Fragment() {
     // 처음 로그인 버튼 누를 시
     // TODO("자동로그인 구현 ")
 
-    fun textWatcher() {
-        // edit email 부분
-        binding.editlayoutEmail.editText?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                var id = binding.editId.text.toString()
-                if (!(id.contains(INU_EMAIL)) or (id.contains(" "))) {
-                    binding.editlayoutEmail.error = getString(R.string.txterror_email)
-                } else {
-                    binding.editlayoutEmail.error = null
-                }
-            }
-        })
-
-        // edit password부분
-        binding.editlayoutPassword.editText?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                var password = binding.editPassword.text.toString()
-                if (!(password.length < 10) or !(password.matches("/^(?=.*[a-z])(?=.*[0-9])[0-9A-Za-z$&+,:;=?@#|'<>.^*()%!-]{8,16}$/".toRegex()))) { // todo("확인필요")
-                    binding.editlayoutPassword.error = getString(R.string.txterror_password)
-                } else {
-                    binding.editlayoutPassword.error = null
-                }
-            }
-        })
-    }
 
     fun firstLogin() {
         val id = binding.editId.text.toString().trim()

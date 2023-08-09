@@ -34,17 +34,43 @@
                 android:layout_height="wrap_content"
                 android:text="@string/welcome01"
                 android:textColor="@color/syswhite"
-                android:textSize="28sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/txt2"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/welcome02"
-                android:textColor="@color/syswhite"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/welcome02"
+                    android:textColor="@color/syswhite"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/backgroundword_orange"
+                    android:text="@string/welcome03"
+                    android:textColor="@color/syswhite"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/welcome04"
+                    android:textColor="@color/syswhite"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -56,38 +82,36 @@
             app:layout_constraintLeft_toLeftOf="@id/constraint"
             app:layout_constraintRight_toRightOf="@id/constraint"
             app:layout_constraintTop_toBottomOf="@id/linearlayout1"
-            app:layout_constraintVertical_weight="1">
+            app:layout_constraintVertical_weight="1.1">
 
+            <!--            android:theme="@style/EditTextGreyStyle"-->
             <TextView
                 android:id="@+id/txt_wordEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_word_email"
                 android:textColor="@color/syswhite"
-                android:textSize="18sp"
-                />
+                android:textSize="14sp" />
 
-<!--            android:theme="@style/EditTextGreyStyle"-->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editlayout_email"
+                style="@style/EditTextGreyStyle"
+                android:theme="@style/EditTextGreyStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.Design.TextInputLayout"
-
                 app:errorEnabled="true"
-                app:hintEnabled="false"
-                >
+                app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/syswhite"
                     android:hint="@string/hint_email"
-                    android:textColorHint="@color/G_80"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
-                    android:textSize="15sp" />
+                    android:textColor="@color/syswhite"
+                    android:textColorHint="@color/G_80"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -96,31 +120,31 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txt_word_password"
                 android:textColor="@color/syswhite"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editlayout_password"
+                style="@style/EditTextGreyStyle"
+                android:theme="@style/EditTextGreyStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:backgroundTint="@color/G_80"
+                app:endIconDrawable="@drawable/toggle_endicon"
                 app:endIconMode="password_toggle"
-
-                style="@style/EditTextGreyStyle"
-
                 app:errorEnabled="true"
-                app:hintEnabled="false">
+                app:hintEnabled="false"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/syswhite"
                     android:hint="@string/hint_password"
-                    android:textColorHint="@color/G_80"
                     android:imeOptions="actionNext"
                     android:inputType="textPassword"
-                    android:textSize="15sp"/>
+                    android:textColor="@color/syswhite"
+                    android:textColorHint="@color/G_80"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -143,7 +167,10 @@
                 android:layout_height="0dp"
                 android:layout_weight="1.6"
                 android:backgroundTint="@color/O_50"
-                android:text="@string/btn_login" />
+                android:text="@string/btn_login"
+                android:textSize="14sp"
+                android:textColor="@color/syswhite"
+                android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
@@ -151,7 +178,8 @@
                 android:layout_weight="1"
                 android:background="#00ff0000"
                 android:text="@string/next_forget_password"
-                android:textColor="@color/G_60" />
+                android:textColor="@color/G_60"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -172,7 +200,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/ask_registration"
-                android:textColor="@color/syswhite" />
+                android:textColor="@color/syswhite"
+                android:textSize="12sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_registration"
@@ -181,7 +210,8 @@
                 android:layout_weight="1"
                 android:background="#00ff0000"
                 android:text="@string/word_registration"
-                android:textColor="@color/O_60" />
+                android:textColor="@color/O_60"
+                android:textSize="12sp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,9 +19,14 @@
     <color name="O_60">#EE4C29</color>
 
     <!--    grey-->
+    <color name="G_40">#BCBCBC</color>
     <color name="G_60">#8F8F8F</color>
     <color name="G_80">#636363</color>
-
-<!--    red-->
+<!--    그린-->
+    <color name="G_10">#28D22F</color>
+    <!--    red-->
     <color name="R_50">#FF1B36</color>
+
+<!--    갈색-->
+    <color name="O_Deactivation">#6F2B1C</color>
 </resources>

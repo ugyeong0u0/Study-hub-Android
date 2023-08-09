@@ -7,9 +7,10 @@
 
     <fragment
         android:id="@+id/login"
-        android:name="kr.co.gamja.study_hub.LoginFragment"
         android:label=" "
-        tools:layout="@layout/fragment_login" >
+        android:name="kr.co.gamja.study_hub.LoginFragment"
+        tools:layout="@layout/fragment_login"
+        >
         <action
             android:id="@+id/action_login_to_createAccount"
             app:destination="@id/CreateAccountFragment01" />
@@ -26,7 +27,7 @@
     <fragment
         android:id="@+id/createAccountFragment02"
         android:name="kr.co.gamja.study_hub.CreateAccountFragment02"
-        android:label="fragment_create_account02"
+        android:label="@string/word_registration"
         tools:layout="@layout/fragment_create_account02" >
         <action
             android:id="@+id/action_createAccountFragment02_to_createAccountFragment03"
@@ -35,7 +36,7 @@
     <fragment
         android:id="@+id/createAccountFragment03"
         android:name="kr.co.gamja.study_hub.CreateAccountFragment03"
-        android:label="fragment_create_account03"
+        android:label="@string/word_registration"
         tools:layout="@layout/fragment_create_account03" >
         <action
             android:id="@+id/action_createAccountFragment03_to_createAccountFragment04"
@@ -44,7 +45,7 @@
     <fragment
         android:id="@+id/createAccountFragment04"
         android:name="kr.co.gamja.study_hub.CreateAccountFragment04"
-        android:label="fragment_create_account04"
+        android:label="@string/word_registration"
         tools:layout="@layout/fragment_create_account04" >
         <action
             android:id="@+id/action_createAccountFragment04_to_createAccountFragmentEnd05"
@@ -53,7 +54,7 @@
     <fragment
         android:id="@+id/createAccountFragmentEnd05"
         android:name="kr.co.gamja.study_hub.CreateAccountFragmentEnd05"
-        android:label="fragment_create_account_end05"
+        android:label="@string/word_registration"
         tools:layout="@layout/fragment_create_account_end05" >
         <action
             android:id="@+id/action_createAccountFragmentEnd05_to_login"

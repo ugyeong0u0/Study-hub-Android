@@ -20,44 +20,76 @@
             android:id="@+id/fca05_linearlayout1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
             android:gravity="center"
-            app:layout_constraintTop_toTopOf="@+id/fca05_subconstraint"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/fca05_linearlayout2"
             app:layout_constraintLeft_toLeftOf="@+id/fca05_subconstraint"
             app:layout_constraintRight_toRightOf="@+id/fca05_subconstraint"
-            app:layout_constraintBottom_toTopOf="@+id/fca05_linearlayout2"
+            app:layout_constraintTop_toTopOf="@+id/fca05_subconstraint"
             app:layout_constraintVertical_weight="3">
 
             <ImageView
                 android:id="@+id/img_registration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher_background"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/txt1_joincomplete"
-                android:textColor="@color/syswhite"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/txt2_joincomplete"
-                android:textColor="@color/G_60"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"/>
+                android:src="@drawable/congratulation" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:text="@string/txt1_joincomplete1"
+                    android:textColor="@color/syswhite"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:text="@string/txt1_joincomplete2"
+                    android:textColor="@color/syswhite"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/backgroundword_orange"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:text="@string/txt1_joincomplete3"
+                    android:textColor="@color/syswhite"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@string/txt2_joincomplete"
+                android:textColor="@color/G_40"
+                android:textSize="14sp" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/fca05_linearlayout2"
             android:layout_width="match_parent"
@@ -65,19 +97,21 @@
             android:gravity="center|bottom"
             android:orientation="vertical"
             android:weightSum="3"
-            app:layout_constraintTop_toBottomOf="@+id/fca05_linearlayout1"
+            app:layout_constraintBottom_toBottomOf="@+id/fca05_subconstraint"
             app:layout_constraintLeft_toLeftOf="@+id/fca05_subconstraint"
             app:layout_constraintRight_toRightOf="@+id/fca05_subconstraint"
-            app:layout_constraintBottom_toBottomOf="@+id/fca05_subconstraint"
+            app:layout_constraintTop_toBottomOf="@+id/fca05_linearlayout1"
             app:layout_constraintVertical_weight="1">
 
-        <Button
-            android:id="@+id/fca05_btn_start"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/O_50"
-            android:text="@string/btn_start" />
+            <Button
+                android:id="@+id/fca05_btn_start"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/O_50"
+                android:textSize="16sp"
+                android:textColor="@color/syswhite"
+                android:text="@string/btn_start" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
