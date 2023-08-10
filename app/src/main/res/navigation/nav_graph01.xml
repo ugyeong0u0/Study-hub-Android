@@ -49,15 +49,25 @@
         tools:layout="@layout/fragment_create_account04" >
         <action
             android:id="@+id/action_createAccountFragment04_to_createAccountFragmentEnd05"
-            app:destination="@id/createAccountFragmentEnd05" />
+            app:destination="@id/createAccountFragment05" />
     </fragment>
     <fragment
-        android:id="@+id/createAccountFragmentEnd05"
-        android:name="kr.co.gamja.study_hub.CreateAccountFragmentEnd05"
+        android:id="@+id/createAccountFragment05"
+        android:name="kr.co.gamja.study_hub.CreateAccountFragment05"
         android:label="@string/word_registration"
-        tools:layout="@layout/fragment_create_account_end05" >
+        tools:layout="@layout/fragment_create_account_05" >
+
         <action
-            android:id="@+id/action_createAccountFragmentEnd05_to_login"
+            android:id="@+id/action_createAccountFragment05_to_createAccountFragment06"
+            app:destination="@id/createAccountFragment06" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFragment06"
+        android:name="kr.co.gamja.study_hub.CreateAccountFragment06"
+        android:label="@string/label_interest"
+        tools:layout="@layout/fragment_create_account06" >
+        <action
+            android:id="@+id/action_createAccountFragment06_to_login"
             app:destination="@id/login" />
     </fragment>
 </navigation>

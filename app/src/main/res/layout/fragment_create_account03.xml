@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="w, 1:2"
+        app:layout_constraintDimensionRatio="w, 1.01:2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -69,7 +69,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/fca03_editlayout_nickname"
                 style="@style/Widget.Design.TextInputLayout"
-                android:theme="@style/EditTextGreyStyle"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"

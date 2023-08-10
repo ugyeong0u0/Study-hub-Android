@@ -53,6 +53,40 @@
     <string name="txt1_joincomplete3">드립니다!</string>
     <string name="txt2_joincomplete">지금 바로 스터디 팀원을 모집하여 \n함께 목표를 달성해 보세요!</string>
     <string name="btn_start">시작하기</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <string name="txt1_interest">잠깐! 관심사를 알려주세요</string>
+    <string name="label_interest">관심사 설정</string>
+    <string name="txt2_interest">관심사를 설정하면, 해당 스터디가 개설될 때 알림을 받을 수 있어요!</string>
+    <string name="btn_complete">완료하기</string>
+    <string-array name="array_interest">
+        <item>컴퓨터 활용 능력</item>
+        <item>무역 영어</item>
+        <item>GTQ</item>
+        <item>한국사 능력 검정</item>
+        <item>TESAT</item>
+        <item>사회복지사</item>
+        <item>오픽</item>
+        <item>토익</item>
+        <item>졸업작품</item>
+        <item>전산세무회계</item>
+        <item>사회조사분석사</item>
+        <item>토플</item>
+        <item>경영지도사</item>
+        <item>토익</item>
+        <item>졸업작품</item>
+        <item>물류관리사</item>
+        <item>무역 영어</item>
+        <item>사회복지사</item>
+        <item>토익</item>
+        <item>토익</item>
+        <item>토익</item>
+        <item>토익</item>
+        <item>토익</item>
+        <item>토익</item>
+        <item>무역영어</item>
+        <item>토익</item>
+
+    </string-array>
+    
+
 </resources>

@@ -6,17 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import kr.co.gamja.study_hub.databinding.FragmentCreateAccountEnd05Binding
+import kr.co.gamja.study_hub.databinding.FragmentCreateAccount05Binding
 
 
-class CreateAccountFragmentEnd05 : Fragment() {
-    private var _binding : FragmentCreateAccountEnd05Binding?=null
+class CreateAccountFragment05 : Fragment() {
+    private var _binding : FragmentCreateAccount05Binding?=null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding= FragmentCreateAccountEnd05Binding.inflate(inflater,container,false)
+        _binding= FragmentCreateAccount05Binding.inflate(inflater,container,false)
         val view = binding.root
         return view
     }
@@ -24,7 +24,7 @@ class CreateAccountFragmentEnd05 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fca05BtnStart.setOnClickListener{
-            findNavController().navigate(R.id.action_createAccountFragmentEnd05_to_login)
+            findNavController().navigate(R.id.action_createAccountFragment05_to_createAccountFragment06)
         }
     }
 
