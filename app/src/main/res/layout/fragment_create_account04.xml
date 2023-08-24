@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CreateAccountFragment04">
+    tools:context=".fragment_login.CreateAccountFragment04">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fca04_subconstraint"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="w, 1.01:2"
+        app:layout_constraintDimensionRatio="w, 1.03:2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -64,16 +64,7 @@
                 android:textColor="@color/syswhite"
                 android:textSize="14sp" />
 
-            <!--            android:theme="@style/EditTextGreyStyle"-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/fca04_editlayout_major"
-                style="@style/Widget.Design.TextInputLayout"
-                android:theme="@style/EditTextGreyStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:hintEnabled="false"
-                app:endIconMode="custom"
-                app:endIconDrawable="@drawable/baseline_search_24">
+
 
                 <AutoCompleteTextView
                     android:id="@+id/fca04_editmajor"
@@ -86,7 +77,7 @@
                     android:textColor="@color/syswhite"
                     android:textColorHint="@color/G_80"
                     android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+
 
 
         </LinearLayout>

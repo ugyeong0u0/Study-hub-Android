@@ -15,12 +15,24 @@
     <color name="error">#FF1B36</color>
     <color name="success">#28D22F</color>
     <!--    orange-->
+    <color name="O_10">#FFF1EE</color>
     <color name="O_20">#FFD7CC</color>
+    <color name="O_30">#FFB5A3</color>
     <color name="O_50">#FF5530</color>
     <color name="O_60">#EE4C29</color>
 
     <!--    grey-->
+    <color name="BG_20">#F8F9F9</color>
+    <color name="BG_30">#F3F5F6</color>
+    <color name="BG_40">#E9EBED</color>
+    <color name="BG_50">#D8DCDE</color>
+    <color name="BG_60">#C2C8CC</color>
+    <color name="BG_70">#A1AAB0</color>
+    <color name="BG_80">#68737D</color>
+    <color name="BG_90">#49545C</color>
+
     <color name="G_40">#BCBCBC</color>
+    <color name="G_50">#A6A6A6</color>
     <color name="G_60">#8F8F8F</color>
     <color name="G_80">#636363</color>
 <!--    그린-->

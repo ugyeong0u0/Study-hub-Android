@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment">
+    tools:context=".fragment_login.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="w, 1.01:2"
+        app:layout_constraintDimensionRatio="w, 1.03:2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -96,7 +96,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editlayout_email"
                 style="@style/EditTextGreyStyle"
-                android:theme="@style/EditTextGreyStyle"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
@@ -125,7 +125,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editlayout_password"
                 style="@style/EditTextGreyStyle"
-                android:theme="@style/EditTextGreyStyle"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/G_80"
@@ -195,11 +195,13 @@
             app:layout_constraintTop_toBottomOf="@id/linearlayout3"
             app:layout_constraintVertical_weight="1">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_tour"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/ask_registration"
+                android:background="#00ff0000"
+                android:text="@string/btn_tour"
                 android:textColor="@color/syswhite"
                 android:textSize="12sp" />
 

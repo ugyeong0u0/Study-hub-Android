@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/syswhite"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingTop="14dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="14dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item01_icon_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/resized_icon_profile_50" />
+
+        <TextView
+            android:id="@+id/item01_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@+id/item01_icon_profile"
+            android:textColor="@color/sysblack1"
+            android:textSize="16sp"
+            tools:text="제목"
+            android:layout_marginTop="6dp"
+
+            />
+
+        <TextView
+            android:id="@+id/item02_txt_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/item01_people"
+            android:textColor="@color/BG_90"
+            android:textSize="14sp"
+            app:drawableLeftCompat="@drawable/resized_icon_person_gray"
+            android:drawablePadding="4dp"
+            android:layout_toEndOf="@+id/item01_icon_profile"
+            android:layout_below="@+id/item01_head" />
+        <TextView
+            android:id="@+id/item01_txt_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_marginLeft="4dp"
+            android:text="@string/item02_people"
+            android:textColor="@color/O_50"
+            android:textSize="14sp"
+            android:layout_below="@+id/item01_head"
+            android:layout_toEndOf="@+id/item02_txt_people" />
+
+        <Button
+            android:id="@+id/item02_bookmark"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/btn_item01_bookmark" />
+    </RelativeLayout>
+</LinearLayout>

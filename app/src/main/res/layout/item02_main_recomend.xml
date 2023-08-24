@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/background_bg_white_corner_6"
+    android:gravity="center"
+    android:paddingTop="20dp"
+    android:paddingBottom="18dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    >
+
+    <TextView
+        android:id="@+id/item03_interesting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/BG_70"
+        android:textSize="12sp"
+        tools:text="관심사 이름" />
+    <TextView
+        android:id="@+id/item03_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:textColor="@color/sysblack1"
+        android:textSize="16sp"
+        tools:text="제목(최대 세줄)" />
+    <TextView
+        android:id="@+id/item03_txt_people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/item01_people"
+        android:textColor="@color/BG_90"
+        android:textSize="14sp"
+        app:drawableLeftCompat="@drawable/resized_icon_person_gray"
+        android:layout_marginTop="16dp"/>
+    <TextView
+        android:id="@+id/item01_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/BG_80"
+        android:textSize="12sp"
+        tools:text="작성자 학과"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background_bg_30_corner99"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"/>
+
+
+</LinearLayout>

@@ -10,9 +10,11 @@
     <string name="txt_word_password">비밀번호</string>
     <string name="hint_email">이메일 주소를 입력해주세요(@inu.ac.kr)</string>
     <string name="hint_password">비밀번호를 입력해주세요</string>
+    <string name="hint_password02">비밀번호를 한 번 더 입력해주세요</string>
+    <string name="btn_ok">확인</string>
     <string name="btn_login">로그인하기</string>
     <string name="next_forget_password">비밀번호가 기억나지 않으시나요?</string>
-    <string name="ask_registration">회원이 아니신가요?</string>
+    <string name="btn_tour">둘러보기</string>
     <string name="word_registration">회원가입</string>
     <string name="txterror_email">잘못된 주소입니다. 다시 입력해주세요</string>
     <string name="txterror_password">잘못된 비밀번호입니다.(10자리 이상, 특수문자 포함 필수)</string>
@@ -32,11 +34,15 @@
     <string name="txt1_password">비밀번호를 설정해주세요</string>
     <string name="txt2_password">10자리 이상, 특수문자 포함(\!,\@,\#,\$,\%,\^,\&amp;,\*,\?,\~,\_) 필수예요</string>
     <string name="txterror_rs_password">10자리이하, 특수문자 미포함 시 사용이 불가해요</string>
-    <string name="txt_nickname">닉네임을 설정해주세요</string>
+    <string name="txt_register_page3_header">스터디 참여에 필요한 정보를 알려주세요</string>
+    <string name="txt_register_page3_sub">성별은 추후에 수정이 불가해요</string>
     <string name="txt_word_nickname">닉네임</string>
     <string name="hint_nickname">닉네임을 입력해주세요</string>
     <string name="txtok_nickname">사용 가능한 닉네임이예요</string>
     <string name="texterror_nickname">이미 존재하는 닉네임이예요. 다시 설정해주세요</string>
+    <string name="btn_female">여자</string>
+    <string name="btn_male">남자</string>
+
 
     <string name="txt_major">학과를 알려주세요</string>
     <string name="txt_word_major">학과</string>
@@ -53,11 +59,11 @@
     <string name="txt1_joincomplete3">드립니다!</string>
     <string name="txt2_joincomplete">지금 바로 스터디 팀원을 모집하여 \n함께 목표를 달성해 보세요!</string>
     <string name="btn_start">시작하기</string>
-    
+
     <string name="txt1_interest">잠깐! 관심사를 알려주세요</string>
     <string name="label_interest">관심사 설정</string>
     <string name="txt2_interest">관심사를 설정하면, 해당 스터디가 개설될 때 알림을 받을 수 있어요!</string>
-    <string name="btn_complete">완료하기</string>
+    <string name="btn_complete">완료</string>
     <string-array name="array_interest">
         <item>컴퓨터 활용 능력</item>
         <item>무역 영어</item>
@@ -87,6 +93,92 @@
         <item>토익</item>
 
     </string-array>
-    
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--    메인-->
+    <string name="bottomnav_home">홈</string>
+    <string name="bottomnav_study">스터디</string>
+    <string name="bottomnav_mypage">마이페이지</string>
+    <string name="btn_goDetail">자세히 보기</string>
+    <string name="btn_searchBar">관심있는 스터디를 검색해보세요</string>
+    <string name="txt_banner1">NEW! 모집 중인 스터디예요</string>
+    <string name="txt_banner2">마감이 임박한 스터디예요</string>
+    <string name="txt_banner3">이 스터디는 어떠세요?</string>
+    <string name="btn_txt">전체 > </string>
+
+    <!--    리사이클러뷰01 아이템01-->
+    <string name="item01_title">관심사</string>
+    <string name="item01_people">%d/10명</string>
+    <string name="item01_fee">%n원</string>
+    <string name="item01_dueDate">마감 %d일 전</string>
+    <string name="btn_filter">필터 </string>
+    <string name="txt_recentsearch">최근 검색어</string>
+    <string name="btn_delete">삭제</string>
+    <string name="txt_interest">내 관심사</string>
+    <string name="txt_search_filter">검색 필터</string>
+    <!--    리사이클러뷰01 아이템02-->
+    <string name="item02_people">%d자리 남았어요!</string>
+    <!--마이페이지-->
+    <string name="btn_pastText">작성한 글</string>
+    <string name="btn_pastStudy">참여한 스터디</string>
+    <string name="btn_bookmark">북마크</string>
+    <string name="txt_head_interesting">관심사 %d</string>
+    <string name="btn_modify">수정</string>
+    <string name="txt_head_interestedmajor">관심 학과 %d</string>
+
+    <string name="btn_tmpSave">임시저장</string>
+    <string name="btn_setAlarm">알림 설정</string>
+    <string name="btn_waitPartner">대기 참여자</string>
+    <string name="btn_hiddenPartner">숨긴 사용자</string>
+    <string name="btn_notice">공지사항</string>
+    <string name="btn_usingGuide">이용방법</string>
+    <string name="btn_asking">문의하기</string>
+    <string name="btn_terms">이용약관</string>
+
+    
+    <!--    이용방법 페이지-->
+    <string name="txt_toolBar">이용방법</string>
+    <string name="txt_banner01">안녕</string>
+    <string name="txt_banner02">하세요!</string>
+    <string name="txt_banner03">스터디 허브에 오신 걸 환영해요</string>
+    <string name="txt_subBanner01">스터디 허브란?</string>
+    <string name="txt_subBanner02">인천대학교 학생들이 같은 목표를 가진 스터디 팀원을 쉽게 \n구할 수 있도록 돕는 스터디 매칭 어플이예요.
+    </string>
+    <string name="txt_ex01">컴퓨터 활용 능력</string>
+    <string name="txt_ex01_exp01">카테고리를 자유롭게 추가하고 해당 게시글이\n 올라오면 알림을 받을 수 있어요</string>
+    <string name="txt_ex02">컴퓨터공학부</string>
+    <string name="txt_ex01_exp02">관심 학과 게시글 알림도 가능해요!</string>
+    <string name="txt_guide01_head01">그럼 스터디는 어떻게</string>
+    <string name="txt_guide01_head02">참여</string>
+    <string name="txt_guide01_head03">하나요?</string>
+    <string name="txt_guide01_step">STEP%d</string>
+    <string name="txt_guide01_sub01">검색 필터를 사용해 나에게 필요한 스터디 게시글을
+    찾아주세요</string>
+    <string name="txt_guide01_sub02">참여하고 싶은 스터디의 하단에 위피한 참여하기 버튼을
+    눌러 주세요</string>
+    <string name="txt_guide01_sub03">스터디 팀장이 팀원에 대해 알 수 있도록 자기소개나 스터디에 대한 의지를 간단하게 적어주세요</string>
+    <string name="txt_guide01_sub04">완료를 누른 후, 팀장의 승인을 기다리면 끝!</string>
+    <string name="txt_guide02_head">승인된 스터디의 카카오톡 채팅방은\n \'마이페이지 - 참여한
+    스터디\'에서 이동할 수 있어요</string>
+    <string name="txt_guide03_head01">혹시 나에게 딱 맞는 스터디가 없다면?</string>
+    <string name="txt_guide03_head02">함께 할 팀원을 먼저</string>
+    <string name="txt_guide03_head03">구해</string>
+    <string name="txt_guide03_head04">보세요</string>
+    <string name="txt_peopleNumber">팀원수</string>
+    <string name="txt_fee">벌금</string>
+    <string name="txt_gender">성별</string>
+    <string name="txt_guide_03_sub01">대면여부, 기간 등\n
+    세세하게 스터디 계획을 설정하여\n
+    나에게 맞는 스터디를 만들 수 있어요</string>
+    <string name="txt_recruit_guide01">\'스터디\' 탭에서 플러스 버튼을 눌러 글을 작성하세요</string>
+    <string name="txt_recruit_guide02">항목을 모두 작성하셔야 해요</string>
+    <string name="txt_recruit_guide03">만약 스터디와 맞는 카테고리가 없다면 글을 작성할 때\n 새로 추가해 주세요</string>
+    <string name="txt_recruit_guide04">마이페이지의 \'대기 참여자\'나 \'작성한 글-참여자\'에서\n
+    신청한 참여자의 수락 여부를 선택해 주세요</string>
+    <string name="txt_recruit_guide05">수락한 팀원과 채팅방에서 함께 스터디하면 끝!</string>
+    <string name="txt_end_msg">지금 바로 글을 작성해\n 열정적인 팀원들을 만나 보세요!</string>
+    <string name="btn_txt_writing">작성하기</string>
+    <string name="txt_plus">+</string>
+    
 </resources>

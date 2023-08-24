@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CreateAccountFragment06">
+    tools:context=".fragment_login.CreateAccountFragment06">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fca06_subconstraint"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="w, 1.01:2"
+        app:layout_constraintDimensionRatio="w, 1.03:2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -83,11 +83,10 @@
                 android:id="@+id/fca06_btn_next"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:backgroundTint="@color/O_50"
                 android:text="@string/btn_complete"
                 android:textColor="@color/syswhite"
-                android:enabled="false"
                 android:textSize="16sp"/>
         </LinearLayout>
 

@@ -11,24 +11,27 @@ import android.util.Log
 loginTextWatcher: 이메일, 비밀번호 editText 확인 코드
 authTextWatcher : 회원가입페이지 editText 확인 코드*/
 
-const val EMAIL ="^[a-zA-Z0-9+-\\_.]+(@inu\\.ac\\.kr)$"
+const val EMAIL = "^[a-zA-Z0-9+-\\_.]+(@inu\\.ac\\.kr)$"
+
 //^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^+\-=])(?=\S+$).*$
 // ^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9!@#$%^&*]).{8,15}$
 // 세개 다 하나 들어가는 패스워드로 함
-const val PASSWORD="""^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9!@#$%^&*]).{8,15}$"""
-class FunctionLogin(val context: Context) {
+const val PASSWORD = """^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9!@#$%^&*]).{8,15}$"""
+const val existEmail = "a@inu.ac.kr"
 
-    var existEmail: String = "a@inu.ac.kr"
+class FunctionLogin(val context: Context) {
+    // 입력방식 확인
+    var flag_email: Boolean = false // 로그인&비밀번호
+    var flag_password: Boolean = false
+    var flag_auth = false // 인증코드
+    var flag_nickname = false // 닉네임
 
     //loginTextWatcher: 이메일, 비밀번호 editText 확인 코드
     fun loginTextWatcher(
         emailLayout: TextInputLayout?,
         passLayout: TextInputLayout?,
-        flag: Int = 0
+        flag: Int
     ): Boolean {
-        var flag_email: Boolean = false // 로그인&비밀번호 통과여부
-        var flag_password: Boolean = false
-
         // edit email 부분
         if (emailLayout != null) {
             emailLayout.editText?.addTextChangedListener(object : TextWatcher {
@@ -37,25 +40,24 @@ class FunctionLogin(val context: Context) {
                     start: Int,
                     count: Int,
                     after: Int
-                ) {
-                }
+                ) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     var id = emailLayout.editText?.text.toString()
                     if (!(id.matches(EMAIL.toRegex()))) {
                         emailLayout.error = context.getString(R.string.txterror_email)
-                    }else if (flag != 0 && id == existEmail) {
+                    } else if (flag == 1 && id == existEmail) {
                         emailLayout.error = context.getString(R.string.txterror2_email)
                     } else {
                         emailLayout.error = null
                         flag_email = true
                     }
+                    Log.d("이메일함수안1 ", "$flag_email")
                 }
             })
         } else {
             flag_email = true
         }
-        flag_email = true
         Log.d("이메일만", "$flag_email")
 
         // page 회원가입 : 비번
@@ -84,7 +86,6 @@ class FunctionLogin(val context: Context) {
         } else {
             flag_password = true
         }
-        flag_password = true
         Log.d("이메일", "$flag_email+$flag_password")
         if ((flag_email == true) and (flag_password == true)) {
             return true
@@ -95,7 +96,6 @@ class FunctionLogin(val context: Context) {
 
     //authTextWatcher : 회원가입페이지 editText 확인 코드
     fun authTextWatcher(fcaAuthLayout: TextInputLayout): Boolean {
-        var flag_auth = false
         fcaAuthLayout.editText?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -111,12 +111,11 @@ class FunctionLogin(val context: Context) {
             }
 
         })
-        flag_auth=true
         return flag_auth
     }
+
     // page - 회원가입 : 닉네임
     fun nicknameWatcher(fca03NicknameLayout: TextInputLayout): Boolean {
-        var flag_nickname = false
 
         fca03NicknameLayout.editText?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -134,7 +133,6 @@ class FunctionLogin(val context: Context) {
             }
 
         })
-        flag_nickname=true
         return flag_nickname
     }
 

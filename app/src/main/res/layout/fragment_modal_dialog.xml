@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/syswhite"
+    android:orientation="vertical"
+    style="@style/ModalStyle"
+    tools:context=".fragment_main.ModalDialogFragment">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_bar_gray"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="160dp"/>
+
+    <RelativeLayout
+        android:id="@+id/fmd_item01_relative01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        >
+
+        <TextView
+            android:id="@+id/fmd_item01_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txt_search_filter"
+            android:textColor="@color/sysblack1"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/fmd_item01_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/fmd_item01_head"
+            android:layout_alignParentEnd="true"
+            android:background="#00000000"
+            android:text="@string/btn_complete"
+            android:textAlignment="textEnd"
+            android:textColor="@color/O_50"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/fm02_chipGroup03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="50dp" />
+
+</LinearLayout>

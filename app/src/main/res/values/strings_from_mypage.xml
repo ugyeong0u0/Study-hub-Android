@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btn_latestOrder">최신순</string>
+    <string name="btn_popularOrder">인기순</string>
+    <string name="txt_list_number">%d개</string>
+</resources>

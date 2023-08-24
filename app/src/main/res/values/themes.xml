@@ -12,22 +12,26 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">#000000</item>
-<!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
+        <!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
         <!-- Customize your theme here. -->
-
     </style>
 
-<!--    Underline error color-->
+<!--    modalsheet-->
+    <style name="ModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="background">@drawable/modal_shape</item>
+    </style>
+    <!--    Underline error color-->
     <style name="error_appearance" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/R_50</item>
     </style>
 
-    <style name="EditTextGreyStyle" parent="Widget.Design.TextInputLayout"> // important : parent 를 이것으로.
+    <style name="EditTextGreyStyle" parent="Widget.Design.TextInputLayout">// important : parent 를
+        이것으로.
 
         <item name="colorControlNormal">@color/G_60</item>
         <item name="colorControlActivated">@color/G_60</item>
         <item name="android:textCursorDrawable">@color/G_60</item>
-<!--        //TODO 연두-->
+        <!--        //TODO 연두-->
         <item name="errorTextColor">@color/R_50</item>
     </style>
 
