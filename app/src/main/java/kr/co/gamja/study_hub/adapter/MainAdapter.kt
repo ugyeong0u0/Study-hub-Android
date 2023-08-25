@@ -8,7 +8,7 @@ import kr.co.gamja.study_hub.databinding.Item01MainRecyclerOngoingBinding
 /*
  fragment_main01 리사이클러뷰 어댑터
 */
-class Main01RecyclerAdapter:RecyclerView.Adapter<Main01RecyclerAdapter.Main01Holder>() {
+class MainAdapter:RecyclerView.Adapter<MainAdapter.Main01Holder>() {
     // 임시 아이템
     val array= arrayOf("ddd")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Main01Holder{

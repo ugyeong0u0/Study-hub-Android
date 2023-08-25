@@ -38,20 +38,20 @@
                 android:hint="@string/hint_major"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:paddingLeft="14dp"
+                android:paddingTop="13dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="13dp"
                 android:textColor="@color/sysblack1"
                 android:textColorHint="@color/BG_70"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
                 android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:paddingBottom="20dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/fm02_btn_fileter"
@@ -59,18 +59,25 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/backgroundword_stroke_gray"
                     android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
-                    android:text="@string/btn_filter"
-                    android:textSize="14sp"
                     android:paddingStart="12dp"
-                    android:paddingEnd="6dp"
                     android:paddingTop="5dp"
+                    android:paddingEnd="6dp"
                     android:paddingBottom="6dp"
-                    android:textColor="@color/BG_70" />
+                    android:text="@string/btn_filter"
+                    android:textColor="@color/BG_70"
+                    android:textSize="14sp" />
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/fm02_chipGroup01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/fm02_chipGroup01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </HorizontalScrollView>
+
             </LinearLayout>
 
             <RelativeLayout

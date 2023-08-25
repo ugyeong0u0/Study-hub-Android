@@ -3,4 +3,23 @@
     <string name="btn_latestOrder">최신순</string>
     <string name="btn_popularOrder">인기순</string>
     <string name="txt_list_number">%d개</string>
+    <string name="txt_no_Text01">관련 스터디가 없어요</string>
+    <string name="txt_no_Text02">지금 스터디를 만들어\n팀원을 구해보세요!</string>
+    <string name="txt_fs_modal_category">카테고리</string>
+    <string name="txt_fs_modal_interesting">내 관심사</string>
+
+    <!--    리사이클러뷰 아이템-->
+    <string name="txt_left_number">%d자리 남았어요</string>
+    <string name="txt_people_number">n\/50명</string>
+
+    <!--    스터디_세부내용-->
+    <string name="fsd_txt_introduce">세부내용</string>
+    <string name="fsd_txt_period">기간</string>
+    <string name="fsd_txt_meet">대면여부</string>
+    <string name="fsd_txt_major1">관련학과</string>
+    <string name="fsd_head_writer">작성자</string>
+    <string name="fsd_head_recommend">이 글과 비슷한 스터디예요</string>
+    <string name="fsd_btn_next">참여하기</string>
+    <string name="fsd_txt_sub_fee">지각비 %d원</string>
+
 </resources>

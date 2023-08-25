@@ -31,6 +31,8 @@
             android:layout_toEndOf="@+id/item01_icon_profile"
             android:textColor="@color/sysblack1"
             android:textSize="16sp"
+            android:ellipsize="end"
+            android:maxLines="1"
             tools:text="제목"
             android:layout_marginTop="6dp"
 

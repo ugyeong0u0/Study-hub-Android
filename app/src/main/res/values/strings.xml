@@ -136,7 +136,7 @@
     <string name="btn_asking">문의하기</string>
     <string name="btn_terms">이용약관</string>
 
-    
+
     <!--    이용방법 페이지-->
     <string name="txt_toolBar">이용방법</string>
     <string name="txt_banner01">안녕</string>
@@ -180,5 +180,5 @@
     <string name="txt_end_msg">지금 바로 글을 작성해\n 열정적인 팀원들을 만나 보세요!</string>
     <string name="btn_txt_writing">작성하기</string>
     <string name="txt_plus">+</string>
-    
+
 </resources>

@@ -35,7 +35,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/fmd_item01_bookmark"
+            android:id="@+id/fmd_modal_item01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/fmd_item01_head"
@@ -48,7 +48,7 @@
     </RelativeLayout>
 
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/fm02_chipGroup03"
+        android:id="@+id/fm02_chipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

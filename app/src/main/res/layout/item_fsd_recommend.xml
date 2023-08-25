@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/syswhite"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="20dp"
+        android:background="@drawable/background_stroke_40_corner_6">
+
+        <TextView
+            android:id="@+id/fsd_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_o_10_corner_4_62"
+            android:padding="8dp"
+            android:textColor="@color/O_50"
+            android:textSize="12sp"
+            tools:text="컴퓨터 활용 능력 1급" />
+
+        <TextView
+            android:id="@+id/fsd_item_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/sysblack1"
+            android:textSize="16sp"
+            tools:text="컴퓨터 활용 능력 1급"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/fsd_item_subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/BG_80"
+            android:textSize="14sp"
+            android:text="@string/txt_left_number"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:id="@+id/fsd_item_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/resized_icon_profile_60" />
+
+            <TextView
+                android:id="@+id/fsd_item_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_toEndOf="@+id/fsd_item_profile"
+                android:background="@drawable/background_bg_30_corner99"
+                android:paddingLeft="10dp"
+                android:paddingTop="8dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp"
+                tools:text="컴퓨터 공학부" />
+
+            <TextView
+                android:id="@+id/fsd_item_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fsd_item_major"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/fsd_item_profile"
+                android:paddingStart="10dp"
+                android:textColor="@color/BG_70"
+                android:textSize="16sp"
+                tools:text="닉네임" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

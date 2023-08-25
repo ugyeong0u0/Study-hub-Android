@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/syswhite"
     tools:context=".fragment_main.StudyFragment01">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,10 +35,16 @@
                 android:layout_marginEnd="16dp"
                 android:background="@color/BG_30" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/fs01_chipGroup01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/fs01_chipGroup01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </HorizontalScrollView>
 
         </LinearLayout>
 
@@ -54,8 +59,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            >
+            android:paddingBottom="16dp">
 
             <LinearLayout
                 android:id="@+id/fm01_linear02"
@@ -90,34 +94,77 @@
                     android:textColor="@color/sysblack1"
                     android:textSize="14sp" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/fs01_txt_list_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
                 android:text="@string/txt_list_number"
                 android:textColor="@color/BG_80"
-                android:textSize="14sp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerInParent="true" />
+                android:textSize="14sp" />
         </RelativeLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/BG_30" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <ImageView
+        <RelativeLayout
+            android:id="@+id/fs01_relative"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/img_non_study"/>
+            android:layout_height="match_parent">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
 
-    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/fs01_img_noList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/resized_img_non_study" />
 
+                <TextView
+                    android:id="@+id/fs01_txt_noText01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/txt_no_Text01"
+                    android:textColor="@color/BG_80"
+                    android:textSize="14sp" />
 
+                <TextView
+                    android:id="@+id/fs01_txt_noText02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_no_Text02"
+                    android:textColor="@color/O_40"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fs01_recycler01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_fs01_recycler"/>
+
+        </RelativeLayout>
     </LinearLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fs01_btn_flaot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/O_50"
+        android:src="@drawable/icon_plus"
+        app:layout_anchor="@+id/fs01_recycler01"
+        app:layout_anchorGravity="bottom|end"
+        app:tint="@color/syswhite" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

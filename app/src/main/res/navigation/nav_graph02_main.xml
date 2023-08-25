@@ -42,6 +42,12 @@
         <argument
             android:name="showBottomNav"
             android:defaultValue="true" />
+        <action
+            android:id="@+id/action_StudyFragment01_to_studyModalFragment"
+            app:destination="@id/studyModalFragment" />
+        <action
+            android:id="@+id/action_StudyFragment01_to_studyDetailFragment"
+            app:destination="@id/studyDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/MypageFragment01"
@@ -80,4 +86,14 @@
         android:name="kr.co.gamja.study_hub.MainBookmarkFragment"
         android:label="fragment_main_bookmark"
         tools:layout="@layout/fragment_main_bookmark" />
+    <fragment
+        android:id="@+id/studyModalFragment"
+        android:name="kr.co.gamja.study_hub.StudyModalFragment"
+        android:label="fragment_study_modal"
+        tools:layout="@layout/fragment_study_modal" />
+    <fragment
+        android:id="@+id/studyDetailFragment"
+        android:name="kr.co.gamja.study_hub.StudyDetailFragment"
+        android:label="fragment_study_detail"
+        tools:layout="@layout/fragment_study_detail" />
 </navigation>

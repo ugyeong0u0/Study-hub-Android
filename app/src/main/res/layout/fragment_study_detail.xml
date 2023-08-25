@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StudyDetailFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="32dp">
+
+        <TextView
+            android:id="@+id/fsd_txt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/G_70"
+            android:textSize="12sp"
+            tools:text="2023.8.14 작성"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+           />
+
+        <TextView
+            android:id="@+id/fsd_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_o_deactivation_corner_4"
+            android:padding="8dp"
+            android:textColor="@color/O_30"
+            android:textSize="14sp"
+            tools:text="컴퓨터 활용 능력"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
+
+        <TextView
+            android:id="@+id/fsd_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/syswhite"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="컴활2급 스터디원 구해요!"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="32dp"
+            android:ellipsize="end"
+            android:maxLines="2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/background_fill_1a1a1a_stroke_262626"
+            android:orientation="horizontal"
+            android:paddingLeft="24dp"
+            android:paddingTop="16dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fsd_teamNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_peopleNumber"
+                    android:textColor="@color/BG_60"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/fs01_item01_peopleNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/txt_people_number"
+                    android:textColor="@color/syswhite"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:drawableTopCompat="@drawable/resized_icon_person_24" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fsd_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_fee"
+                    android:textColor="@color/BG_60"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/fs01_item01_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/item01_fee"
+                    android:textColor="@color/syswhite"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:drawableTopCompat="@drawable/resized_icon_coin_gray_24" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/fsd_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_gender"
+                    android:textColor="@color/BG_60"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="10dp"/>
+                <TextView
+                    android:id="@+id/fs01_item01_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/txt_gender"
+                    android:textColor="@color/syswhite"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:drawableTopCompat="@drawable/resized_icon_gender_gray_24" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/syswhite"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="20dp">
+
+
+            <TextView
+                android:id="@+id/fsd_txt_introduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fsd_txt_introduce"
+                android:textColor="@color/BG_90"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/fsd_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp"
+                tools:text="스터디에 대한 내용"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="40dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/BG_40" />
+
+            <TextView
+                android:id="@+id/fsd_txt_period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="14dp"
+                android:textColor="@color/BG_90"
+                android:textSize="14sp"
+                android:text="@string/fsd_txt_period" />
+            <TextView
+                android:id="@+id/fsd_txt_sub_period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp"
+                tools:text="2023.8.10 ~ 2023.8.23"
+                android:layout_marginBottom="32dp"
+                android:drawablePadding="8dp"
+                app:drawableLeftCompat="@drawable/resized_icon_calender_m_bg_60_24" />
+
+            <TextView
+                android:id="@+id/fsd_txt_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/BG_90"
+                android:textSize="14sp"
+                android:text="@string/txt_fee"
+                android:layout_marginBottom="14dp"/>
+            <TextView
+                android:id="@+id/fsd_txt_sub_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp"
+                android:text="@string/fsd_txt_sub_fee"
+                android:layout_marginBottom="32dp"
+                android:drawablePadding="8dp"
+                app:drawableLeftCompat="@drawable/resized_icon_coin_gray_24" />
+            <TextView
+                android:id="@+id/fsd_txt_meet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:textColor="@color/BG_90"
+                android:textSize="14sp"
+                android:text="@string/fsd_txt_meet" />
+            <TextView
+                android:id="@+id/fsd_txt_sub_meet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp"
+                tools:text="혼합"
+                android:layout_marginBottom="32dp"
+                android:drawablePadding="8dp"
+                app:drawableLeftCompat="@drawable/resized_icon_mix_m_bg60_24" />
+
+            <TextView
+                android:id="@+id/fsd_txt_major1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="14dp"
+                android:textColor="@color/BG_90"
+                android:textSize="14sp"
+                android:text="@string/fsd_txt_major1" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/fsd_chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/BG_30" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="40dp"
+                android:paddingBottom="40dp">
+
+                <TextView
+                    android:id="@+id/fsd_head_writer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/sysblack1"
+                    android:textSize="18sp"
+                    android:text="@string/fsd_head_writer"
+                    android:layout_marginBottom="24dp"/>
+
+                <ImageView
+                    android:id="@+id/fsd_icon_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fsd_head_writer"
+                    android:src="@drawable/resized_icon_profile_60" />
+
+                <TextView
+                    android:id="@+id/fsd_txt_major2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BG_80"
+                    android:textSize="14sp"
+                    tools:text="컴퓨터 공학부"
+                    android:background="@drawable/background_bg_30_corner99"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_below="@+id/fsd_head_writer"
+                    android:layout_toEndOf="@+id/fsd_icon_profile"
+                    />
+
+                <TextView
+                    android:id="@+id/fsd_txt_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/sysblack1"
+                    android:textSize="16sp"
+                    tools:text="닉네임"
+                    android:paddingStart="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@+id/fsd_txt_major2"
+                    android:layout_toEndOf="@+id/fsd_icon_profile"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/BG_30" />
+            <TextView
+                android:id="@+id/fsd_head_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/sysblack1"
+                android:textSize="18sp"
+                android:text="@string/fsd_head_recommend"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="32dp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                tools:listitem="@layout/item_fsd_recommend"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_bg_20_corner_6"
+                android:orientation="horizontal"
+                android:paddingTop="16dp"
+                android:gravity="center"
+                >
+
+                <Button
+                    android:id="@+id/fsd_bookmark"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/btn_item01_bookmark"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:layout_marginEnd="8dp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/fsd_btn_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_background_o_50_corner_6"
+                    android:text="@string/fsd_btn_next"
+                    android:textColor="@color/syswhite"
+                    android:textSize="16sp"
+                    android:paddingTop="23dp"
+                    android:paddingBottom="23dp"
+                    android:paddingLeft="113dp"
+                    android:paddingRight="113dp"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>
