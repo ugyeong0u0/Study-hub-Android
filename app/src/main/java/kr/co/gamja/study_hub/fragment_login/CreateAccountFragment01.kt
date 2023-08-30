@@ -1,7 +1,5 @@
 package kr.co.gamja.study_hub.fragment_login
 
-
-import android.hardware.camera2.CameraExtensionSession.StillCaptureLatency
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,36 +7,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import android.widget.Toast.makeText
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.RetrofitManager
-import kr.co.gamja.study_hub.StudyHubApi
-import kr.co.gamja.study_hub.custom.FunctionLogin
-import kr.co.gamja.study_hub.data.ApiRequest
-import kr.co.gamja.study_hub.data.ApiResponse
-import kr.co.gamja.study_hub.data.EmailValidRequest
-import kr.co.gamja.study_hub.data.EmailValidResponse
+import kr.co.gamja.study_hub.User
 import kr.co.gamja.study_hub.databinding.FragmentCreateAccount01Binding
-import kr.co.gamja.study_hub.model.UserViewModel
+import kr.co.gamja.study_hub.model.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.create
 
-
+// 회원가입- 이메일 인증
 class CreateAccountFragment01 : Fragment() {
     private var _binding: FragmentCreateAccount01Binding? = null
     private val binding get() = _binding!!
-    private val sharedViewModel : UserViewModel by activityViewModels()
-
+    private val viewModel :RegisterViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,87 +40,44 @@ class CreateAccountFragment01 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // editText
-        val functionLogin: FunctionLogin = FunctionLogin(requireContext())
-
         binding.fcaTxtPagenumber.text = getString(R.string.txt_pagenumber, 1)
-        binding.fcaBtnNext.setOnClickListener {
-            findNavController().navigate(R.id.action_createAccountFragment01_to_createAccountFragment02)
+
+
+        // 이메일 인증 버튼 누름
+        binding.btnAuth.setOnClickListener{
+            val txt_email = binding.fcaEditId.text.toString()
+            Log.d("회원가입 btnAuth눌렀을때",txt_email)
+            viewModel.emailSend(txt_email)
+            Log.d("회원가입 viewmodel 후 ","")
+            binding.btnAuth.isVisible = false
+            binding.btnResend.isVisible = true
+            binding.fcaTxtWordauthcode.isVisible = true
+            binding.fcaEditauthcode.isVisible = true
         }
-
-        // 이메일 확인
-        val fcaLayout_email = binding.fcaEditlayoutEmail
-        val caf01_flag_email: Boolean = functionLogin.loginTextWatcher(fcaLayout_email, null, 1)
-
+        // 인증번호 재전송
+        binding.btnResend.setOnClickListener{
+            val txt_email = binding.fcaEditId.text.toString()
+            viewModel.emailSend(txt_email)
+        }
         // 인증코드확인
-        val fcaLayout_authcode = binding.fcaEditlayoutAuthcode
-        val caf01_flag_authcode: Boolean = functionLogin.authTextWatcher(fcaLayout_authcode)
-        val fca_email = fcaLayout_email.editText.toString()
-        val fca_authcode = fcaLayout_email.editText.toString()
-
-        // ...1
-        Log.d("이메일불", "$caf01_flag_email")
-        if (caf01_flag_email == true) {
-            binding.btnAuth.isVisible = true
-            binding.btnAuth.setOnClickListener {
-
-                CoroutineScope(Dispatchers.IO).launch {
-                    clickSendingAuth(fca_email) // 이메일 인증 코드 전송
-                }
-                binding.btnAuth.isVisible = false
-                binding.btnResend.isVisible = true
-                binding.fcaTxtWordauthcode.isVisible = true
-                binding.fcaEditauthcode.isVisible = true
-                binding.btnResend.setOnClickListener {
-                    clickSendingAuth(fca_email)
-                }
+        binding.fcaBtnNext.setOnClickListener{
+            val txt_email = binding.fcaEditId.text.toString()
+            val authNumber=binding.fcaEditauthcode.text.toString()
+            viewModel.emailAuthcheck(authNumber,txt_email)
+            if(viewModel.emailValidation.value==true){
+                User.email=txt_email
+                findNavController().navigate(R.id.action_createAccountFragment01_to_createAccountFragment02)
             }
-            // if(인증코드 양식 확인)
-            if (caf01_flag_authcode == true) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    val emailValidData = EmailValidRequest(fca_authcode, fca_email)
-
-                    RetrofitManager.api.emailValid(emailValidData)
-                        .enqueue(object : Callback<EmailValidResponse> {
-                            override fun onResponse(
-                                call: Call<EmailValidResponse>,
-                                response: Response<EmailValidResponse>
-                            ) {
-                                Log.d("RetrofitManager", "success : ${response.body() as EmailValidResponse}")
-                            }
-
-                            override fun onFailure(call: Call<EmailValidResponse>, t: Throwable) {
-                                Log.d("RetrofitManager", "fail : ${t}")
-                            }
-                        })
-                }
-                binding.fcaBtnNext.isEnabled = true
+            else{
+                Toast.makeText(requireContext(),"인증코드 틀림",Toast.LENGTH_LONG).show()
             }
         }
+
     }
-
-    // 인증 버튼 눌렀을 때 이메일 인증 코드 전송
-    fun clickSendingAuth(fca_email: String) {
-        val emailData = ApiRequest(fca_email)
-            RetrofitManager.api.email(emailData).enqueue(object : Callback<ApiResponse> {
-            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                Log.d("RetrofitManager", "success : ${response.body()}")
-            }
-
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                Log.d("RetrofitManager", "fail : ${t}")
-            }
-
-        })
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-}
-interface ResultAuthCode{
-    fun onSuccess(bool:Boolean)
 }

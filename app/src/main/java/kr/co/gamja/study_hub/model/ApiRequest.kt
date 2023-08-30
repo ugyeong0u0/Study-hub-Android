@@ -1,4 +1,4 @@
-package kr.co.gamja.study_hub.data
+package kr.co.gamja.study_hub.model
 
 // 이메일 인증 코드 "전송"요청
 data class ApiRequest(
@@ -17,10 +17,11 @@ data class LoginRequest(
 // 회원가입
 data class SignupRequest(
     val email:String,
+    val password: String,
     val gender:String,
     val grade:String,
-    val nickname:String,
-    val password: String
+    val nickname:String
+
 )
 
 

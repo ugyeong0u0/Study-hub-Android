@@ -116,7 +116,7 @@
                 android:paddingTop="24dp">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/fca02_btn_female"
+                    android:id="@+id/fca03_btn_female"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -128,7 +128,7 @@
                     android:layout_marginEnd="9dp"/>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/fca02_btn_male"
+                    android:id="@+id/fca03_btn_male"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_gender_o_deactivation_stroke_o_50"

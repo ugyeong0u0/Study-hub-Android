@@ -105,7 +105,6 @@
                     android:text="@string/txt_word_auth"
                     android:textColor="@color/syswhite"
                     android:textSize="16sp"
-                    android:visibility="invisible"
                     android:layout_marginRight="3dp"
                     app:layout_constraintWidth_percent="0.2"
                     app:layout_constraintHeight_percent="0.5"
@@ -192,8 +191,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/O_50"
                 android:text="@string/btn_nextpage"
-                android:textColor="@color/syswhite"
-                android:enabled="false"/>
+                android:textColor="@color/syswhite" />
         </LinearLayout>
 
 

@@ -1,4 +1,4 @@
-package kr.co.gamja.study_hub.data
+package kr.co.gamja.study_hub.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -29,7 +29,7 @@ data class LoginResponse(
 
 // 회원가입
 data class SignupResponse(
-    @SerializedName("body") //안써도 써야하나?
+    @SerializedName("body")
     val body: String?,
     @SerializedName("statusCode")
     val statusCode: String,

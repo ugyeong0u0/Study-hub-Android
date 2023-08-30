@@ -2,12 +2,11 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-
 }
 
 android {
     namespace 'kr.co.gamja.study_hub'
-    compileSdk 34
+    compileSdk 33
 
     defaultConfig {
         applicationId "kr.co.gamja.study_hub"
@@ -50,13 +49,15 @@ dependencies {
     //레트로핏 & convertgson
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+
     //glide
     implementation 'com.github.bumptech.glide:glide:4.15.1'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
     // 네비게이션
-    implementation "androidx.navigation:navigation-fragment-ktx:2.7.0"
-    implementation  "androidx.navigation:navigation-ui-ktx:2.7.0"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
+    implementation  "androidx.navigation:navigation-ui-ktx:2.5.3"
     // preferece
     implementation "androidx.preference:preference-ktx:1.2.1"
     // splash

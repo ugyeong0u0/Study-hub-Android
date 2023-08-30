@@ -40,7 +40,6 @@ class CreateAccountFragment04 : Fragment() {
 
     // 학과 선택박스(AutoCompleteTextView)
     fun selectMajor() {
-//        val txt_selectedMajor = binding.fcaEditlayoutMajor.editText?.text.toString()
         val editTxt_major = binding.fca04Editmajor
         var array_major: Array<String> = resources.getStringArray(R.array.array_majors)
         var adapter_array =
@@ -49,8 +48,9 @@ class CreateAccountFragment04 : Fragment() {
 
         binding.fca04Editmajor.setOnItemClickListener { parent, view, position, id ->
             var txt_selected = binding.fca04Editmajor.text.toString()
+
             when (position) {
-                1 -> {Toast.makeText(requireContext(), "첫번째 아이템 선택했습니다.", Toast.LENGTH_SHORT).show()
+                1 -> {Toast.makeText(requireContext(), "$txt_selected", Toast.LENGTH_SHORT).show()
                         binding.fcaBtnNext.isEnabled=true
                 }
             }
