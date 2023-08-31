@@ -14,8 +14,6 @@ import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.RetrofitManager
 import kr.co.gamja.study_hub.StudyHubApi
-import kr.co.gamja.study_hub.custom.FunctionLogin
-
 import kr.co.gamja.study_hub.databinding.FragmentLoginBinding
 import kr.co.gamja.study_hub.model.LoginRequest
 import kr.co.gamja.study_hub.model.LoginResponse
@@ -42,7 +40,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val functionLogin = FunctionLogin(requireContext())
 
         // editText- 이메일 and 패스워드처리
         val login_email = binding.editlayoutEmail

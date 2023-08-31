@@ -121,7 +121,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/btn_gender_o_deactivation_stroke_o_50"
-                    android:enabled="false"
                     android:text="@string/btn_female"
                     android:textColor="@color/O_20"
                     android:textSize="16sp"
@@ -133,7 +132,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_gender_o_deactivation_stroke_o_50"
                     android:text="@string/btn_male"
-                    android:enabled="false"
                     android:textSize="16sp"
                     android:textColor="@color/O_20"
                     android:layout_weight="1"
@@ -162,10 +160,10 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/O_50"
-                android:enabled="false"
                 android:text="@string/btn_nextpage"
                 android:textColor="@color/syswhite"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:enabled="false"/>
         </LinearLayout>
 
 

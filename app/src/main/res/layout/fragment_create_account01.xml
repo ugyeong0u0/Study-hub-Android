@@ -161,7 +161,7 @@
 
                     android:imeOptions="actionNext"
                     android:inputType="number"
-                    android:maxLength="4"
+                    android:maxLength="8"
                     android:textColor="@color/syswhite"
                     android:textColorHint="@color/G_80"
                     android:textSize="16sp"

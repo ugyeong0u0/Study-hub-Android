@@ -127,9 +127,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_ok_stroke_o_50"
                 android:text="@string/btn_ok"
-                android:enabled="false"
                 android:textSize="16sp"
                 android:textColor="@color/O_50"
+
                 />
 
         </LinearLayout>
@@ -147,16 +147,16 @@
             app:layout_constraintBottom_toBottomOf="@id/fca02_subconstraint"
             app:layout_constraintVertical_weight="1">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/fca02_btn_next"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/O_50"
                 android:text="@string/btn_nextpage"
-                android:enabled="false"
                 android:textSize="16sp"
                 android:textColor="@color/syswhite"
+                android:enabled="false"
                 />
         </LinearLayout>
 

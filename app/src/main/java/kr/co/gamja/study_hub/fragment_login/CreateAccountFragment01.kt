@@ -63,14 +63,18 @@ class CreateAccountFragment01 : Fragment() {
         binding.fcaBtnNext.setOnClickListener{
             val txt_email = binding.fcaEditId.text.toString()
             val authNumber=binding.fcaEditauthcode.text.toString()
-            viewModel.emailAuthcheck(authNumber,txt_email)
-            if(viewModel.emailValidation.value==true){
-                User.email=txt_email
-                findNavController().navigate(R.id.action_createAccountFragment01_to_createAccountFragment02)
-            }
-            else{
-                Toast.makeText(requireContext(),"인증코드 틀림",Toast.LENGTH_LONG).show()
-            }
+            viewModel.emailAuthcheck(authNumber,txt_email, object : EmailValidCallback {
+                override fun onEmailValidResult(isValid: Boolean) {
+                    Log.d("회원가입 - 이메일인증 콜백오버라이드", isValid.toString())
+                    if(isValid==true){
+                        User.email=txt_email
+                        findNavController().navigate(R.id.action_createAccountFragment01_to_createAccountFragment02)
+                    }
+                    else{
+                        Toast.makeText(requireContext(),"인증코드 틀림",Toast.LENGTH_LONG).show()
+                    }
+                }
+            })
         }
 
     }

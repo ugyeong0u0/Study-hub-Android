@@ -1,19 +1,25 @@
 package kr.co.gamja.study_hub.fragment_login
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.User
 import kr.co.gamja.study_hub.databinding.FragmentCreateAccount04Binding
+import kr.co.gamja.study_hub.model.RegisterCallback
+import kr.co.gamja.study_hub.model.RegisterViewModel
 
 class CreateAccountFragment04 : Fragment() {
     private var _binding: FragmentCreateAccount04Binding? = null
     private val binding get() = _binding!!
+    private val viewModel : RegisterViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +32,29 @@ class CreateAccountFragment04 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fcaBtnNext.setOnClickListener {
-            findNavController().navigate(R.id.action_createAccountFragment04_to_createAccountFragmentEnd05)
+            // 회원가입 api보냄
+            Log.d("회원가입 버튼 누름","")
+            viewModel.requestSignup(User, object:RegisterCallback{
+                override fun onSucess(isValid: Boolean) {
+                    if (isValid==true){
+                        Log.d("회원가입 최종 성공","")
+                        findNavController().navigate(R.id.action_createAccountFragment04_to_createAccountFragmentEnd05)
+                    }
+                    else{
+                        Log.e("회원가입 fail로 넘어감?","")
+                    }
+                }
+                override fun onFail(eIsValid: Boolean, eStatus: String, eMessage: String) {
+                    if(eIsValid==true) {
+                        Toast.makeText(requireContext(), eStatus, Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), eMessage, Toast.LENGTH_LONG).show()
+                        Log.e("회원가입 중복 혹은 삭제", "")
+                    }
+                    else{
+                        Log.e("회원가입 fail로 넘어감?","")
+                    }
+                }
+            })
         }
         binding.fca04TxtPagenumber.text=getString(R.string.txt_pagenumber,4)
         // 학과 선택박스(AutoCompleteTextView)
@@ -48,12 +76,14 @@ class CreateAccountFragment04 : Fragment() {
 
         binding.fca04Editmajor.setOnItemClickListener { parent, view, position, id ->
             var txt_selected = binding.fca04Editmajor.text.toString()
-
-            when (position) {
-                1 -> {Toast.makeText(requireContext(), "$txt_selected", Toast.LENGTH_SHORT).show()
-                        binding.fcaBtnNext.isEnabled=true
-                }
-            }
+            User.grade="COMPUTER"
+            Log.d("회원가입 - User.grade",User.grade.toString())
+            binding.fcaBtnNext.isEnabled=true
+//            when (position) {
+//                1 -> {Toast.makeText(requireContext(), "$txt_selected", Toast.LENGTH_SHORT).show()
+//
+//                }
+//            }
         }
         // 드랍다운 배경셋팅
         binding.fca04Editmajor.let {
