@@ -1,27 +1,22 @@
 package kr.co.gamja.study_hub.fragment_login
 
-import android.content.Context
-import android.content.SharedPreferences
+
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.RetrofitManager
-import kr.co.gamja.study_hub.StudyHubApi
 import kr.co.gamja.study_hub.databinding.FragmentLoginBinding
-import kr.co.gamja.study_hub.model.LoginRequest
-import kr.co.gamja.study_hub.model.LoginResponse
+import kr.co.gamja.study_hub.model.LoginCallback
 import kr.co.gamja.study_hub.model.LoginViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.create
+import kr.co.gamja.study_hub.model.datastore.App
 
 
 class LoginFragment : Fragment() {
@@ -41,23 +36,37 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // editText- 이메일 and 패스워드처리
-        val login_email = binding.editlayoutEmail
-        val login_password = binding.editlayoutPassword
-
-        var login_email_txt = login_email.editText.toString()
-        var login_password_txt = login_password.editText.toString()
-
-
-        var loginData = LoginRequest(login_email_txt, login_password_txt)
-
-
-        // main페이지로 연결
+        // 로그인하기
         binding.btnLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_login_to_nav_graph02_main)
+
+            val emailTxt = binding.editId.text.toString()
+            val passwordTxt = binding.editPassword.text.toString()
+
+            viewModel.goLogin(emailTxt, passwordTxt, object : LoginCallback {
+                override fun onSuccess(
+                    isBoolean: Boolean,
+                    accessToken: String,
+                    refreshToken: String
+                ) {
+                    if (isBoolean) {
+                        Log.d(
+                            "로그인 토큰(accessToken // refreshToken) 저장",
+                            accessToken + "//" + refreshToken
+                        )
+                        findNavController().navigate(R.id.action_login_to_nav_graph02_main)
+
+                        CoroutineScope(Dispatchers.Main).launch {
+                            App.getInstance().getDataStore().setAccessToken(accessToken)
+                        }
+                        CoroutineScope(Dispatchers.Main).launch {
+                            App.getInstance().getDataStore().setRefreshToken(refreshToken)
+                        }
+                    }
+                }
+            })
         }
 
-        // 메인페이지로 이동
+        // 둘러보기 버튼 누름
         binding.btnTour.setOnClickListener {
             findNavController().navigate(R.id.action_login_to_nav_graph02_main)
         }

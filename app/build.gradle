@@ -58,8 +58,8 @@ dependencies {
     // 네비게이션
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
     implementation  "androidx.navigation:navigation-ui-ktx:2.5.3"
-    // preferece
-    implementation "androidx.preference:preference-ktx:1.2.1"
+    // preference data-store
+    implementation 'androidx.datastore:datastore-preferences:1.0.0'
     // splash
     implementation 'androidx.core:core-splashscreen:1.0.1'
     // 코루틴

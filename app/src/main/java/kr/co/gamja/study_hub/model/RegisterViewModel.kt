@@ -1,10 +1,8 @@
 package kr.co.gamja.study_hub.model
 
 
-import android.os.Message
+
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import kr.co.gamja.study_hub.RetrofitManager
@@ -44,7 +42,7 @@ class RegisterViewModel : ViewModel() {
                 response: Response<EmailValidResponse>
             ) {
                 if(response.isSuccessful){
-                    var result=response.body() as EmailValidResponse
+                    val result=response.body() as EmailValidResponse
                     Log.d("회원가입-이메일 인증 성공", response.code().toString())
                     Log.d("회원가입 result.validResult",result.validResult.toString())
                     params.onEmailValidResult(result.validResult)
