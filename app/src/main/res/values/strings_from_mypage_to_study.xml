@@ -21,5 +21,8 @@
     <string name="fsd_head_recommend">이 글과 비슷한 스터디예요</string>
     <string name="fsd_btn_next">참여하기</string>
     <string name="fsd_txt_sub_fee">지각비 %d원</string>
+    <string name="txt_study">스터디</string>
 
+<!--    마이페이지-->
+    <string name="txt_mypage">마이페이지</string>
 </resources>

@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentMain02Binding
@@ -24,9 +26,33 @@ class MainFragment02 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fm02BtnFileter.setOnClickListener{
+        // 툴바 설정
+        val toolbar = binding.searchMainToolbar
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
+
+        binding.iconBack.setOnClickListener {
+           val navcontroller = findNavController()
+            navcontroller.navigateUp() // 뒤로 가기
+        }
+
+        binding.iconBookmark.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_global_mainBookmarkFragment,
+                null
+            )
+        }
+        binding.iconAlarm.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_global_mainAlarmFragment,
+                null
+            )
+        }
+        binding.fm02BtnFilter.setOnClickListener{
             findNavController().navigate(R.id.action_mainFragment02_to_dialogFragment,null)
         }
+
+
 
     }
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -39,6 +40,16 @@ class CreateAccountFragment01 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 툴바 설정
+        val toolbar = binding.createEmailToolbar
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
+
+        binding.iconBack.setOnClickListener {
+            val navcontroller = findNavController()
+            navcontroller.navigateUp() // 뒤로 가기
+        }
 
         binding.fcaTxtPagenumber.text = getString(R.string.txt_pagenumber, 1)
 

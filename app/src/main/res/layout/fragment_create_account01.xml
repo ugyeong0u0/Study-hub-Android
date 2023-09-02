@@ -6,6 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".fragment_login.CreateAccountFragment01">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/createEmail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/sysblack2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fca_subconstraint"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+            <ImageButton
+                android:id="@+id/icon_back"
+                android:layout_width="@dimen/resized_item"
+                android:layout_height="@dimen/resized_item"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/icon_arrow_left_l_white" />
+
+            <TextView
+                android:id="@+id/word_registration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/word_registration"
+                android:textColor="@color/syswhite"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_toEndOf="@id/icon_back"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fca_subconstraint"
@@ -15,7 +49,7 @@
         app:layout_constraintDimensionRatio="w, 1.03:2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/createEmail_toolbar">
 
         <LinearLayout
             android:id="@+id/fca_linearlayout1"

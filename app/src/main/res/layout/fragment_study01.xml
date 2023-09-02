@@ -6,10 +6,51 @@
     android:layout_height="match_parent"
     android:background="@color/syswhite"
     tools:context=".fragment_main.StudyFragment01">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/studyMain_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <TextView
+                    android:id="@+id/icon_txt_study"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_study"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_alignParentStart="true"
+                     />
+
+                <ImageButton
+                    android:id="@+id/icon_bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/icon_alarm"
+                    android:background="@drawable/baseline_bookmark_border_24_ffffff" />
+
+                <ImageButton
+                    android:id="@+id/icon_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/resized_icon_bell_orange" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
             android:id="@+id/fm01_linear01"
@@ -149,8 +190,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fs01_recycler01"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/item_fs01_recycler"/>
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_fs01_recycler" />
 
         </RelativeLayout>
     </LinearLayout>

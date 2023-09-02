@@ -15,6 +15,54 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:id="@+id/icon_h"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/icon_h"
+                    android:layout_alignParentStart="true"/>
+
+                <ImageButton
+                    android:id="@+id/icon_studyHub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/resized_txt_logo_strudyhub"
+                    android:layout_toEndOf="@+id/icon_h"
+                    android:layout_centerVertical="true"
+                    />
+
+                <ImageButton
+                    android:id="@+id/icon_bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/baseline_bookmark_border_24_ffffff"
+                    android:layout_toStartOf="@+id/icon_alarm"
+                    android:layout_marginEnd="16dp"/>
+
+                <ImageButton
+                    android:id="@+id/icon_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/resized_icon_bell_orange"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -22,7 +70,7 @@
             <ImageView
                 android:id="@+id/fm01_imgbanner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:src="@drawable/resized_main_banner" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -96,7 +144,7 @@
                 android:id="@+id/fm01_recycler01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item01_main_recycler_ongoing"/>
+                tools:listitem="@layout/item01_main_recycler_ongoing" />
 
 
             <TextView

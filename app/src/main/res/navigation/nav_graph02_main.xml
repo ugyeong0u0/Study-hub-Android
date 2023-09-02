@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_mainFragment01_to_mainFragment03"
             app:destination="@id/mainFragment03" />
+        <action
+            android:id="@+id/action_mainFragment01_self"
+            app:destination="@id/mainFragment01" />
 
     </fragment>
     <fragment
@@ -32,6 +35,7 @@
         <action
             android:id="@+id/action_mainFragment02_to_dialogFragment"
             app:destination="@id/modalDialogFragment" />
+
     </fragment>
 
     <fragment
@@ -96,4 +100,10 @@
         android:name="kr.co.gamja.study_hub.StudyDetailFragment"
         android:label="fragment_study_detail"
         tools:layout="@layout/fragment_study_detail" />
+    <action
+        android:id="@+id/action_global_mainAlarmFragment"
+        app:destination="@id/mainAlarmFragment" />
+    <action
+        android:id="@+id/action_global_mainBookmarkFragment"
+        app:destination="@id/mainBookmarkFragment" />
 </navigation>

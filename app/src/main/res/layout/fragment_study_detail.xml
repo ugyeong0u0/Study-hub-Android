@@ -9,8 +9,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="32dp">
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/searchMain_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
+            <ImageButton
+                android:id="@+id/icon_back"
+                android:layout_width="@dimen/resized_item"
+                android:layout_height="@dimen/resized_item"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/icon_arrow_left_l_white" />
+
+        </androidx.appcompat.widget.Toolbar>
 
         <TextView
             android:id="@+id/fsd_txt_date"
@@ -21,6 +34,7 @@
             tools:text="2023.8.14 작성"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:paddingTop="32dp"
            />
 
         <TextView
