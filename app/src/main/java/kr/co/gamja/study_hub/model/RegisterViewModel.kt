@@ -1,36 +1,30 @@
 package kr.co.gamja.study_hub.model
 
-
-
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.model.dto.*
 import kr.co.gamja.study_hub.model.retrofit.RetrofitManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-
 class RegisterViewModel : ViewModel() {
 
-    // 이메일 인증번호 보내기
-   fun emailSend(txt_email:String) {
-        val emailReq = EmailRequest(txt_email)
-        Log.d("회원가입  val emailReq =ApiRequest(txt_email)","$emailReq")
+    private val tag = this.javaClass.simpleName
 
-        RetrofitManager.api.email(emailReq).enqueue(object : Callback<Unit> {
-            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                if(response.isSuccessful) {
-                    Log.d("회원가입 인증번호 보내기 성공", response.code().toString())
-                }
-            }
-            override fun onFailure(call: Call<Unit>, t: Throwable) {
-                val m= t.message.toString()
-                Log.e("회원가입 인증번호 보내기 실패", m)
-            }
-        })
+    // 이메일 인증번호 보내기
+    fun emailSend(txt_email: String) {
+        val emailReq = EmailRequest(txt_email)
+        Log.d("회원가입  val emailReq =ApiRequest(txt_email)", "$emailReq")
+
+        viewModelScope.launch {
+            val response = RetrofitManager.api.email2(emailReq)
+            if (response.isSuccessful) Log.d(tag, "회원가입 인증번호 보내기 성공")
+            else Log.e(tag, "회원가입 인증번호 보내기 실패")
+        }
     }
 
     // 이메일 인증번호 인증
