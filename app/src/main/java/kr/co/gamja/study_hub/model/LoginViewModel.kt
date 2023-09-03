@@ -1,10 +1,10 @@
 package kr.co.gamja.study_hub.model
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kr.co.gamja.study_hub.RetrofitManager
+import kr.co.gamja.study_hub.model.dto.LoginRequest
+import kr.co.gamja.study_hub.model.dto.LoginResponse
+import kr.co.gamja.study_hub.model.retrofit.RetrofitManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

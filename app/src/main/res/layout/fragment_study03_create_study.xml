@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/syswhite"
+    tools:context=".fragment_study.Study03CreateStudyFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/createStudy_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
+
+                <TextView
+                    android:id="@+id/txt_createStudy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/icon_back"
+                    android:gravity="center"
+                    android:text="@string/txt_createStudy"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/syswhite"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="32dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/txt_chatLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:text="@string/txt_chatLink"
+                android:textColor="@color/sysblack1"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txt_chatLink_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:text="@string/txt_chatLink_sub"
+                android:textColor="@color/BG_70"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/edit_chatLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_stroke_bg50"
+                android:gravity="top|start"
+                android:hint="@string/txt_chatLink"
+                android:maxLines="1"
+                android:imeOptions="actionNext"
+                android:paddingLeft="14dp"
+                android:paddingTop="20dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="20dp"
+                android:textColor="@color/BG_70"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/BG_30" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/syswhite"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="32dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/txt_studyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:text="@string/txt_studyTitle"
+                android:textColor="@color/sysblack1"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edit_txt_aboutTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_stroke_bg50"
+                android:gravity="top|start"
+                android:hint="@string/txt_aboutTitle"
+                android:maxLines="1"
+                android:imeOptions="actionNext"
+                android:paddingLeft="14dp"
+                android:paddingTop="20dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="20dp"
+                android:textColor="@color/BG_70"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txt_studyintro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:text="@string/txt_studyintro"
+                android:textColor="@color/sysblack1"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/txt_aboutStudy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_stroke_bg50"
+                android:gravity="top|start"
+                android:hint="@string/txt_aboutStudy"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:imeOptions="actionNext"
+                android:paddingLeft="14dp"
+                android:paddingTop="20dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="20dp"
+                android:textColor="@color/BG_70"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/BG_30" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/syswhite"
+            android:paddingLeft="20dp"
+            android:paddingTop="32dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/txt_selectMajor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:text="@string/txt_selectMajor"
+                android:textColor="@color/sysblack1"
+                android:textSize="16sp"
+                android:layout_alignParentStart="true"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/resized_icon_arrow_right_black"
+                />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/BG_30" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/syswhite"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="32dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/txt_studyTeam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:text="@string/txt_studyTeam"
+                android:textColor="@color/sysblack1"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txt_joinNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:text="@string/txt_joinNumber"
+                android:textColor="@color/sysblack1"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txt_joinNumber_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
+                android:text="@string/txt_joinNumber_sub"
+                android:textColor="@color/BG_70"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/edit_txt_aboutPNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_stroke_bg50"
+                android:gravity="top|start"
+                android:hint="@string/txt_aboutPNumber"
+                android:inputType="number"
+                android:imeOptions="actionNext"
+                android:paddingLeft="14dp"
+                android:paddingTop="20dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="20dp"
+                android:textColor="@color/BG_70"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txt_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:text="@string/txt_gender"
+                android:textColor="@color/sysblack1"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txt_gender_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
+                android:text="@string/txt_gender_sub"
+                android:textColor="@color/BG_70"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_studyMethod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="14dp"
+            android:text="@string/txt_studyMethod"
+            android:textColor="@color/sysblack1"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/BG_30" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/syswhite"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="32dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/txt_meetMethod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:text="@string/txt_meetMethod"
+                android:textColor="@color/sysblack1"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txt_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:text="@string/txt_fee"
+                android:textColor="@color/sysblack1"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/BG_30" />
+
+        <TextView
+            android:id="@+id/fsd_txt_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="14dp"
+            android:text="@string/fsd_txt_period"
+            android:textColor="@color/sysblack1"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/BG_30" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/syswhite"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="32dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/txt_startDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:text="@string/txt_startDay"
+                android:textColor="@color/sysblack1"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_startDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/edit_stroke_bg50"
+                android:drawableEnd="@drawable/resized_icon_arrow_right_gray"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="@string/txt_startDay"
+                android:textAlignment="textStart"
+                android:textColor="@color/BG_70"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_endDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:text="@string/txt_endDay"
+                android:textColor="@color/sysblack1"
+                android:textSize="16sp" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_txt_endDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/edit_stroke_bg50"
+                android:drawableEnd="@drawable/resized_icon_arrow_right_gray"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="@string/txt_endDay"
+                android:textAlignment="textStart"
+                android:textColor="@color/BG_70"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

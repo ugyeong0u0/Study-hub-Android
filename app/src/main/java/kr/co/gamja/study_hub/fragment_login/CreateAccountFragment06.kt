@@ -16,6 +16,7 @@ import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentCreateAccount06Binding
 
 
+/*
 class CreateAccountFragment06 : Fragment() {
     private var _binding: FragmentCreateAccount06Binding? = null
     private val binding get() = _binding!!
@@ -94,4 +95,4 @@ class CreateAccountFragment06 : Fragment() {
         _binding = null
     }
 
-}
+}*/

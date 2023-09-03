@@ -16,7 +16,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_graph01"
+        app:navGraph="@navigation/nav01_login_n_create"
         app:layout_constraintVertical_weight="9"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

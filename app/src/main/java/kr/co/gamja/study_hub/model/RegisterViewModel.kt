@@ -5,8 +5,8 @@ package kr.co.gamja.study_hub.model
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import kr.co.gamja.study_hub.RetrofitManager
-import kr.co.gamja.study_hub.User
+import kr.co.gamja.study_hub.model.dto.*
+import kr.co.gamja.study_hub.model.retrofit.RetrofitManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,7 +17,7 @@ class RegisterViewModel : ViewModel() {
 
     // 이메일 인증번호 보내기
    fun emailSend(txt_email:String) {
-        val emailReq =EmailRequest(txt_email)
+        val emailReq = EmailRequest(txt_email)
         Log.d("회원가입  val emailReq =ApiRequest(txt_email)","$emailReq")
 
         RetrofitManager.api.email(emailReq).enqueue(object : Callback<Unit> {
@@ -35,7 +35,7 @@ class RegisterViewModel : ViewModel() {
 
     // 이메일 인증번호 인증
    fun emailAuthcheck(authNumber:String, txt_email:String, params:EmailValidCallback) {
-        val authNumberReq=EmailValidRequest(authNumber,txt_email)
+        val authNumberReq= EmailValidRequest(authNumber,txt_email)
         RetrofitManager.api.emailValid(authNumberReq).enqueue(object:Callback<EmailValidResponse>{
             override fun onResponse(
                 call: Call<EmailValidResponse>,
@@ -57,8 +57,8 @@ class RegisterViewModel : ViewModel() {
 
     }
 
-    fun requestSignup(user:User, params: RegisterCallback){
-        val signupReq=SignupRequest(
+    fun requestSignup(user: User, params: RegisterCallback){
+        val signupReq= SignupRequest(
             User.email.toString(), User.gender.toString(),
             User.grade.toString(), User.nickname.toString(), User.password.toString()
         )
@@ -73,7 +73,7 @@ class RegisterViewModel : ViewModel() {
                     Log.d("회원가입 레트로핏 error code", response.code().toString())
                     val errorResponse: RegisterErrorResponse?= response.errorBody()?.let {
                         val gson=Gson()
-                        gson.fromJson(it.charStream(),RegisterErrorResponse::class.java)
+                        gson.fromJson(it.charStream(), RegisterErrorResponse::class.java)
                     }
                     if (errorResponse!=null){
                         val message=errorResponse.message.toString()

@@ -23,6 +23,43 @@
     <string name="fsd_txt_sub_fee">지각비 %d원</string>
     <string name="txt_study">스터디</string>
 
-<!--    마이페이지-->
+    <!--    스터디 만들기-->
+
+    <string name="txt_createStudy">스터디 만들기</string>
+    <string name="txt_chatLink">채팅방 링크</string>
+    <string name="txt_chatLink_sub">참여 코드가 없는 카카오톡 오픈 채팅방 링크</string>
+    <string name="txt_Edit_chatLink">채팅방 링크를 첨부해 주세요</string>
+    <string name="txt_studyTitle">스터디 제목</string>
+    <string name="txt_aboutTitle">제목을 적어주세요</string>
+    <string name="txt_studyintro">스터디 소개</string>
+    <string name="txt_aboutStudy">스터디에 대해 알려주세요</string>
+    <string name="txt_selectMajor">관련학과 선택</string>
+    <string name="txt_studyTeam">스터디 팀원</string>
+    <string name="txt_joinNumber">인원</string>
+    <string name="txt_joinNumber_sub">최대 50명 참여 가능</string>
+    <string name="txt_aboutPNumber">인원을 알려주세요</string>
+    <string name="txt_gender_sub">참여자의 성별 선택</string>
+    <string name="txt_gender_all">남녀무관</string>
+    <string name="txt_gender_male">남자만</string>
+    <string name="txt_gender_female">여자만</string>
+    <string name="txt_studyMethod">스터디 방식</string>
+    <string name="txt_meetMethod">대면여부</string>
+    <string name="txt_meet_sub">대면이나 혼합일 경우, 관련계획을 소개해 적어주세요</string>
+    <string name="txt_faceToFace">대면</string>
+    <string name="txt_online">비대면</string>
+    <string name="txt_mix">혼합</string>
+    <string name="txt_yes">있어요</string>
+    <string name="txt_no">없어요</string>
+<!--    기간-->
+    <string name="txt_startDay">시작하는 날</string>
+    <string name="txt_endDay">종료하는 날</string>
+    <string name="txt_choice">선택하기</string>
+    <string name="btn_txt_complete">완료하기</string>
+
+
+    <string name="txt_pNum_sub">최대 50명 참여 가능</string>
+    <string name="txt_about_pNum">인원을 알려주세요</string>
+
+    <!--    마이페이지-->
     <string name="txt_mypage">마이페이지</string>
 </resources>

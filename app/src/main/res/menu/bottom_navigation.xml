@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/mainFragment01"
+        android:id="@+id/home01Fragment"
         android:icon="@drawable/icon_home_gray"
         android:title="@string/bottomnav_home"
         android:iconTint="@color/G_60"
         android:enabled="true"/>
     <item
-        android:id="@+id/StudyFragment01"
+        android:id="@+id/study01Fragment"
         android:icon="@drawable/icon_book_gray"
         android:title="@string/bottomnav_study"
         android:iconTint="@color/G_60"
         android:enabled="true"/>
     <item
-        android:id="@+id/MypageFragment01"
+        android:id="@+id/Mypage01Fragment"
         android:icon="@drawable/icon_person_gray"
         android:title="@string/bottomnav_mypage"
         android:iconTint="@color/G_60"
