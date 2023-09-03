@@ -7,7 +7,7 @@
     android:background="@color/syswhite"
     android:fillViewport="true"
     android:scrollbars="vertical"
-    tools:context=".fragment_main.Home01Fragment">
+    tools:context=".fragment_home.Home01Fragment">
 
     <LinearLayout
         android:id="@+id/fm01_linear01"
@@ -70,7 +70,7 @@
             <ImageView
                 android:id="@+id/fm01_imgbanner"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:src="@drawable/resized_main_banner" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -144,7 +144,7 @@
                 android:id="@+id/fm01_recycler01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item01_main_recycler_ongoing" />
+                tools:listitem="@layout/home_item_on_recruiting" />
 
 
             <TextView
@@ -156,104 +156,11 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:id="@+id/fm01_linear04"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fm01_recycler02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include
-                    android:id="@+id/fm01_item01_01"
-                    layout="@layout/item01_main_recycler_ongoing"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <include
-                    android:id="@+id/fm01_item01_02"
-                    layout="@layout/item01_main_recycler_ongoing"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1" />
-
-                <include
-                    android:id="@+id/fm01_item01_03"
-                    layout="@layout/item01_main_recycler_ongoing"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fm01_linear03"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#D8DCDE"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="40dp"
-                android:orientation="vertical">
-
-
-                <TextView
-                    android:id="@+id/fm01_txt_banner03"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_banner3"
-                    android:textColor="@color/sysblack1"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <HorizontalScrollView
-                    android:id="@+id/fm01_chipScroll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="20dp"
-                    android:scrollbars="none">
-
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/fm01_chipGroup01"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:chipSpacing="8dp"
-                        app:singleSelection="true" />
-                </HorizontalScrollView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <include
-                        android:id="@+id/fm01_item02_01"
-                        layout="@layout/item02_main_recomend"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="17dp"
-                        android:layout_weight="1" />
-
-                    <include
-                        android:id="@+id/fm01_item02_02"
-                        layout="@layout/item02_main_recomend"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-            </LinearLayout>
+                tools:listitem="@layout/home_item_close_deadline" />
 
         </LinearLayout>
 

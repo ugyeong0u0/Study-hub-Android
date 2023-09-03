@@ -52,48 +52,6 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <LinearLayout
-            android:id="@+id/fm01_linear01"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:gravity="center|left"
-            android:orientation="horizontal"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/fs01_btn_adjust"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@drawable/btn_background_stroke_bg_50"
-                android:drawableTop="@drawable/resized_icon_adjustment_24" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/BG_30" />
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none">
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/fs01_chipGroup01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </HorizontalScrollView>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:background="@color/BG_30" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -191,7 +149,7 @@
                 android:id="@+id/fs01_recycler01"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/item_fs01_recycler" />
+                tools:listitem="@layout/study_item_on_recruiting" />
 
         </RelativeLayout>
     </LinearLayout>

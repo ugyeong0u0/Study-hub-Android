@@ -1,4 +1,4 @@
-package kr.co.gamja.study_hub.fragment_main
+package kr.co.gamja.study_hub.fragment_home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

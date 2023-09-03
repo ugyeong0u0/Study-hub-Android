@@ -79,19 +79,7 @@
             android:name="showBottomNav"
             android:defaultValue="false"/>
         <action
-            android:id="@+id/action_createAccountFragment05_to_createAccountFragment06"
-            app:destination="@id/createAccountFragment06" />
-    </fragment>
-    <fragment
-        android:id="@+id/createAccountFragment06"
-        android:name="kr.co.gamja.study_hub.fragment_login.CreateAccountFragment06"
-        android:label="@string/label_interest"
-        tools:layout="@layout/fragment_create_account06" >
-        <argument
-            android:name="showBottomNav"
-            android:defaultValue="false"/>
-        <action
-            android:id="@+id/action_createAccountFragment06_to_login"
+            android:id="@+id/action_create05EndFragment_to_login"
             app:destination="@id/login" />
     </fragment>
 

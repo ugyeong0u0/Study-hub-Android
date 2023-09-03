@@ -28,9 +28,6 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         navController = navHostFragment.navController
 
-//        setSupportActionBar(binding.toolbar)
-//        setupActionBarWithNavController(navController)
-
         binding.bottomNav.setupWithNavController(navController)
         navController.addOnDestinationChangedListener{
             _,_,arguments ->
@@ -38,17 +35,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-   /* // 메뉴 활성화
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_navigation,menu)
-        return true
-    }
-    // 메뉴 아이템 클릭
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return item.onNavDestinationSelected(navController) ||super.onOptionsItemSelected(item)
-    }*/
-    /*// 앱바 <-(뒤로가기) 처리
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }*/
 }

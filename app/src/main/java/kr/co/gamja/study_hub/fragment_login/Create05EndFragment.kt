@@ -25,7 +25,7 @@ class Create05EndFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fca05BtnStart.setOnClickListener{
-            findNavController().navigate(R.id.action_createAccountFragment05_to_createAccountFragment06)
+            findNavController().navigate(R.id.action_create05EndFragment_to_login)
         }
     }
 
