@@ -107,7 +107,7 @@
                 <!--                        android:theme="@style/EditTextGreyStyle"-->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/fca_editlayout_email"
-                    style="@style/Widget.Design.TextInputLayout"
+                    style="@style/LoginEditTextErrorStyle"
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/fca_editlayout_authcode"
-                style="@style/EditTextGreyStyle"
+                style="@style/LoginEditTextErrorStyle"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

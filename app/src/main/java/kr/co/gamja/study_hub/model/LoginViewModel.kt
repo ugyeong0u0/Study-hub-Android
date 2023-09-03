@@ -1,6 +1,8 @@
 package kr.co.gamja.study_hub.model
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kr.co.gamja.study_hub.model.dto.LoginRequest
 import kr.co.gamja.study_hub.model.dto.LoginResponse
@@ -10,6 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LoginViewModel :ViewModel(){
+
     fun goLogin(emailTxt:String,passwordTxt:String,params: LoginCallback){
         var loginReq = LoginRequest(emailTxt, passwordTxt)
         Log.d("로그인-request데이터", loginReq.toString())
