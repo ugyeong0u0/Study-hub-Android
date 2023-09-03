@@ -1,6 +1,8 @@
 package kr.co.gamja.study_hub.model
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
@@ -12,12 +14,18 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RegisterViewModel : ViewModel() {
+    private val _email = MutableLiveData("")
+    val email: LiveData<String> = _email
 
     private val tag = this.javaClass.simpleName
 
+    fun updateEmail(newEmail: String) {
+        _email.value = newEmail
+    }
+
     // 이메일 인증번호 보내기
-    fun emailSend(txt_email: String) {
-        val emailReq = EmailRequest(txt_email)
+    fun emailSend() {
+        val emailReq = EmailRequest(email.value!!)
         Log.d("회원가입  val emailReq =ApiRequest(txt_email)", "$emailReq")
 
         viewModelScope.launch {

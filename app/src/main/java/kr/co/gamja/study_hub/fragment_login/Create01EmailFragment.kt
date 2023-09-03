@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
@@ -45,13 +46,13 @@ class Create01EmailFragment : Fragment() {
 
         binding.fcaTxtPagenumber.text = getString(R.string.txt_pagenumber, 1)
 
+        setupEmailEditText()
 
         // 이메일 인증 버튼 누름
-        binding.btnAuth.setOnClickListener{
-            val txt_email = binding.fcaEditId.text.toString()
-            Log.d("회원가입 btnAuth눌렀을때",txt_email)
-            viewModel.emailSend(txt_email)
-            Log.d("회원가입 viewmodel 후 ","")
+        binding.btnAuth.setOnClickListener {
+            Log.d("회원가입 btnAuth눌렀을때", "")
+            viewModel.emailSend()
+
             binding.btnAuth.isVisible = false
             binding.btnResend.isVisible = true
             binding.fcaTxtWordauthcode.isVisible = true
@@ -59,9 +60,9 @@ class Create01EmailFragment : Fragment() {
         }
         // 인증번호 재전송
         binding.btnResend.setOnClickListener{
-            val txt_email = binding.fcaEditId.text.toString()
-            viewModel.emailSend(txt_email)
+            viewModel.emailSend()
         }
+
         // 인증코드확인
         binding.fcaBtnNext.setOnClickListener{
             val txt_email = binding.fcaEditId.text.toString()
@@ -80,6 +81,20 @@ class Create01EmailFragment : Fragment() {
             })
         }
 
+    }
+
+    private fun setupEmailEditText() {
+        binding.fcaEditId.doOnTextChanged { text, _, _, _ ->
+            if(text.toString() != viewModel.email.value) {
+                viewModel.updateEmail(text.toString())
+            }
+        }
+
+        viewModel.email.observe(viewLifecycleOwner) {
+            if(it != binding.fcaEditId.text.toString()) {
+                binding.fcaEditId.setText(it)
+            }
+        }
     }
 
     override fun onDestroyView() {
