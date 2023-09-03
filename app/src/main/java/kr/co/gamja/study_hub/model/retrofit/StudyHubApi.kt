@@ -3,6 +3,7 @@ package kr.co.gamja.study_hub.model.retrofit
 import kr.co.gamja.study_hub.model.*
 import kr.co.gamja.study_hub.model.dto.*
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -13,6 +14,11 @@ interface StudyHubApi {
     @Headers("Accept: application/json","Content-type: application/json")
     @POST("/api/email")
     fun email(@Body email: EmailRequest): Call<Unit>
+
+    //이메일 인증코드 전송
+    @Headers("Accept: application/json","Content-type: application/json")
+    @POST("/api/email")
+    suspend fun email2(@Body email: EmailRequest): Response<Unit>
 
     // 이메일 인증코드 검증
     @Headers("Accept: application/json","Content-type: application/json")

@@ -1,51 +1,38 @@
 package kr.co.gamja.study_hub.model
 
-
-
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.model.dto.*
 import kr.co.gamja.study_hub.model.retrofit.RetrofitManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-const val EMAIL ="^[a-zA-Z0-9+-\\_.]+(@inu\\.ac\\.kr)$"
-//^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^+\-=])(?=\S+$).*$
-// ^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9!@#$%^&*]).{8,15}$
-// 세개 다 하나 들어가는 패스워드로 함
-const val PASSWORD="""^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9!@#$%^&*]).{8,15}$"""
+
 class RegisterViewModel : ViewModel() {
+    private val _email = MutableLiveData("")
+    val email: LiveData<String> = _email
 
-    // 에딧텍스트
-    private val inputEmailLiveData= MutableLiveData<String>()
+    private val tag = this.javaClass.simpleName
 
-    fun getInputEmailLiveData(): LiveData<String> {
-        return inputEmailLiveData
+    fun updateEmail(newEmail: String) {
+        _email.value = newEmail
     }
-    fun setInputEmailLiveData(userInput:String){
-        inputEmailLiveData.value=userInput
-    }
-
 
     // 이메일 인증번호 보내기
-   fun emailSend(txt_email:String) {
-        val emailReq = EmailRequest(txt_email)
-        Log.d("회원가입  val emailReq =ApiRequest(txt_email)","$emailReq")
+    fun emailSend() {
+        val emailReq = EmailRequest(email.value!!)
+        Log.d("회원가입  val emailReq =ApiRequest(txt_email)", "$emailReq")
 
-        RetrofitManager.api.email(emailReq).enqueue(object : Callback<Unit> {
-            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                if(response.isSuccessful) {
-                    Log.d("회원가입 인증번호 보내기 성공", response.code().toString())
-                }
-            }
-            override fun onFailure(call: Call<Unit>, t: Throwable) {
-                val m= t.message.toString()
-                Log.e("회원가입 인증번호 보내기 실패", m)
-            }
-        })
+        viewModelScope.launch {
+            val response = RetrofitManager.api.email2(emailReq)
+            if (response.isSuccessful) Log.d(tag, "회원가입 인증번호 보내기 성공")
+            else Log.e(tag, "회원가입 인증번호 보내기 실패")
+        }
     }
 
     // 이메일 인증번호 인증
