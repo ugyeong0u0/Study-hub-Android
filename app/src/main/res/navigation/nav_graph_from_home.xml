@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_from_home"
+    app:startDestination="@id/mainHomeFragment">
+
+    <fragment
+        android:id="@+id/mainHomeFragment"
+        android:name="kr.co.gamja.study_hub.feature.home.MainHomeFragment"
+        android:label="fragment_main01"
+        tools:layout="@layout/fragment_main_home">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="true" />
+        <action
+            android:id="@+id/action_mainFragment01_to_mainFragment02"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_mainFragment01_to_mainFragment03"
+            app:destination="@id/manualFragment" />
+        <action
+            android:id="@+id/action_mainFragment01_self"
+            app:destination="@id/mainHomeFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="kr.co.gamja.study_hub.feature.home.SearchFragment"
+        android:label="fragment_main02"
+        tools:layout="@layout/fragment_search">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/studyMainFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.StudyMainFragment"
+        android:label="fragment_study01"
+        tools:layout="@layout/fragment_study_main">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="true" />
+        <action
+            android:id="@+id/action_StudyFragment01_to_studyDetailFragment"
+            app:destination="@id/studyContentFragment" />
+        <action
+            android:id="@+id/action_StudyFragment01_to_createStudyFragment"
+            app:destination="@id/createStudyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mypageMainFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.MypageMainFragment"
+        android:label="fragment_mypage01"
+        tools:layout="@layout/fragment_mypage_main">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/manualFragment"
+        android:name="kr.co.gamja.study_hub.feature.home.ManualFragment"
+        android:label="fragment_main03"
+        tools:layout="@layout/fragment_manual">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/alarmFragment"
+        android:name="kr.co.gamja.study_hub.feature.toolbar.AlarmFragment"
+        android:label="fragment_main_alarm"
+        tools:layout="@layout/fragment_alarm" />
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="kr.co.gamja.study_hub.feature.toolbar.BookmarkFragment"
+        android:label="fragment_main_bookmark"
+        tools:layout="@layout/fragment_bookmark" />
+    <fragment
+        android:id="@+id/studyContentFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.ContentFragment"
+        android:label="fragment_study_detail"
+        tools:layout="@layout/fragment_content" />
+    <action
+        android:id="@+id/action_global_mainAlarmFragment"
+        app:destination="@id/alarmFragment" />
+    <action
+        android:id="@+id/action_global_mainBookmarkFragment"
+        app:destination="@id/bookmarkFragment" />
+    <fragment
+        android:id="@+id/createStudyFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.CreateStudyFragment"
+        android:label="fragment_create_study"
+        tools:layout="@layout/fragment_create_study" />
+</navigation>

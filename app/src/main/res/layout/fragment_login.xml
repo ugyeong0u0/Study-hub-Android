@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginHorizontal="@dimen/side_margin"
     android:orientation="vertical"
-    tools:context=".fragment_login.LoginFragment">
+    tools:context=".feature.login.LoginFragment">
 
 
     <ImageView
