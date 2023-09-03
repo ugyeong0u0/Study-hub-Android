@@ -125,7 +125,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fca03_editnickname"
-                    style="@style/EditTextGreyStyle"
+                    style="@style/LoginEditTextErrorStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_nickname"

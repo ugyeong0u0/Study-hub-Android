@@ -3,6 +3,8 @@ package kr.co.gamja.study_hub.model
 
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import kr.co.gamja.study_hub.model.dto.*
@@ -10,10 +12,23 @@ import kr.co.gamja.study_hub.model.retrofit.RetrofitManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
-
-
+const val EMAIL ="^[a-zA-Z0-9+-\\_.]+(@inu\\.ac\\.kr)$"
+//^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^+\-=])(?=\S+$).*$
+// ^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9!@#$%^&*]).{8,15}$
+// 세개 다 하나 들어가는 패스워드로 함
+const val PASSWORD="""^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9!@#$%^&*]).{8,15}$"""
 class RegisterViewModel : ViewModel() {
+
+    // 에딧텍스트
+    private val inputEmailLiveData= MutableLiveData<String>()
+
+    fun getInputEmailLiveData(): LiveData<String> {
+        return inputEmailLiveData
+    }
+    fun setInputEmailLiveData(userInput:String){
+        inputEmailLiveData.value=userInput
+    }
+
 
     // 이메일 인증번호 보내기
    fun emailSend(txt_email:String) {
