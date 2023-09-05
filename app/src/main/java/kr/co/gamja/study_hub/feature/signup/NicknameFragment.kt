@@ -35,10 +35,10 @@ class NicknameFragment : Fragment() {
             val navcontroller = findNavController()
             navcontroller.navigateUp() // 뒤로 가기
         }
-        binding.fca03TxtPagenumber.text=getString(R.string.txt_pagenumber,3)
+        binding.txtPageNumber.text=getString(R.string.txt_pagenumber,3)
 
         binding.fca03BtnFemale.setOnClickListener{
-            var txt_nickname=binding.fca03Editnickname.text.toString()
+            var txt_nickname=binding.editNickName.text.toString()
             User.nickname=txt_nickname
             Log.d("회원가입 - User.nickname성별클릭", User.nickname.toString())
             User.gender="FEMALE"
@@ -52,7 +52,7 @@ class NicknameFragment : Fragment() {
             }
         }
         binding.fca03BtnMale.setOnClickListener{
-            var txt_nickname=binding.fca03Editnickname.text.toString()
+            var txt_nickname=binding.editNickName.text.toString()
             User.nickname=txt_nickname
             Log.d("회원가입 - User.nickname 성별클릭", User.nickname.toString())
             User.gender="MALE"

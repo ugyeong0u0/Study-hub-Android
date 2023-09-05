@@ -39,44 +39,52 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/layout_relative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="@dimen/side_margin">
+        android:layout_marginHorizontal="@dimen/side_margin"
+        android:orientation="vertical">
+
         <TextView
-            android:id="@+id/fca_txt_pagenumber"
+            android:id="@+id/txt_pageNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_margin"
             android:textColor="@color/G_60"
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="1/4" />
 
         <TextView
-            android:id="@+id/fca_txt_head"
+            android:id="@+id/txt_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/txt_pageNumber"
+            android:layout_marginBottom="@dimen/bottom_margin"
             android:text="@string/txt_email"
             android:textColor="@color/syswhite"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/fca_txt_wordEmail"
+            android:id="@+id/txt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/txt_head"
             android:text="@string/txt_word_email"
             android:textColor="@color/syswhite"
             android:textSize="14sp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_email">
             <!--                        android:theme="@style/EditTextGreyStyle"-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/fca_editlayout_email"
-                style="@style/LoginEditTextErrorStyle"
+                android:id="@+id/editLayout_email"
+                style="@style/LoginEditTextStyle"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +96,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fca_editId"
+                    android:id="@+id/edit_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_univaddress"
@@ -104,7 +112,7 @@
                 android:id="@+id/btn_auth"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginRight="3dp"
+                android:layout_marginEnd="3dp"
                 android:background="@drawable/btn_next_orange"
                 android:text="@string/txt_word_auth"
                 android:textColor="@color/syswhite"
@@ -119,7 +127,7 @@
                 android:id="@+id/btn_resend"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginRight="3dp"
+                android:layout_marginEnd="3dp"
                 android:background="@drawable/btn_next_orange"
                 android:text="@string/btn_resendauth"
                 android:textColor="@color/syswhite"
@@ -134,9 +142,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/fca_txt_wordauthcode"
+            android:id="@+id/txt_authCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/layout_email"
             android:text="@string/txt_authcode"
             android:textColor="@color/syswhite"
             android:textSize="14sp"
@@ -144,16 +153,17 @@
             tools:visibility="visible" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fca_editlayout_authcode"
-            style="@style/LoginEditTextErrorStyle"
+            android:id="@+id/editLayout_authCode"
+            style="@style/LoginEditTextStyle"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/txt_authCode"
             app:errorEnabled="true"
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fca_editauthcode"
+                android:id="@+id/edit_authCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_authcode"
@@ -169,11 +179,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/fca_btn_next"
+            android:id="@+id/btn_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:backgroundTint="@color/O_50"
+            android:paddingTop="23dp"
+            android:paddingBottom="23dp"
             android:text="@string/btn_nextpage"
             android:textColor="@color/syswhite" />
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

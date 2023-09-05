@@ -13,17 +13,12 @@ interface StudyHubApi {
     //이메일 인증코드 전송
     @Headers("Accept: application/json","Content-type: application/json")
     @POST("/api/email")
-    fun email(@Body email: EmailRequest): Call<Unit>
-
-    //이메일 인증코드 전송
-    @Headers("Accept: application/json","Content-type: application/json")
-    @POST("/api/email")
-    suspend fun email2(@Body email: EmailRequest): Response<Unit>
+    suspend fun email(@Body email: EmailRequest): Response<Unit>
 
     // 이메일 인증코드 검증
     @Headers("Accept: application/json","Content-type: application/json")
     @POST("/api/email/valid")
-    fun emailValid(@Body emailValidRequest: EmailValidRequest): Call<EmailValidResponse>
+    suspend fun emailValid(@Body emailValidRequest: EmailValidRequest): Response<EmailValidResponse>
 
     // 로그인
     @POST("/api/users/login")

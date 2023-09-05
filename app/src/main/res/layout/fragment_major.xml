@@ -39,7 +39,7 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/side_margin"
@@ -47,36 +47,41 @@
 
 
         <TextView
-            android:id="@+id/fca04_txt_pagenumber"
+            android:id="@+id/txt_page_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/G_60"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="4/4" />
+            tools:text="4/4"
+            android:layout_marginTop="@dimen/bottom_margin"/>
 
         <TextView
-            android:id="@+id/fca04_txt_head"
+            android:id="@+id/txt_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_page_number"
+            android:layout_marginBottom="@dimen/bottom_margin"
             android:text="@string/txt_major"
             android:textColor="@color/syswhite"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/fca04_txt_wordmajor"
+            android:id="@+id/txt_word_major"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_head"
             android:text="@string/txt_word_major"
             android:textColor="@color/syswhite"
             android:textSize="14sp" />
 
 
         <AutoCompleteTextView
-            android:id="@+id/fca04_editmajor"
+            android:id="@+id/autoMajor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_word_major"
             android:completionThreshold="1"
             android:hint="@string/hint_major"
             android:imeOptions="actionNext"
@@ -86,13 +91,14 @@
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/fca_btn_next"
+            android:id="@+id/btn_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:backgroundTint="@color/O_50"
             android:text="@string/btn_nextpage"
             android:textColor="@color/syswhite"
             android:textSize="16sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

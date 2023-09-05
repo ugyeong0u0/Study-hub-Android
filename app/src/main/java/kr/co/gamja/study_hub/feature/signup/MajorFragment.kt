@@ -40,7 +40,7 @@ class MajorFragment : Fragment() {
             navcontroller.navigateUp() // 뒤로 가기
         }
 
-        binding.fcaBtnNext.setOnClickListener {
+        binding.btnNext.setOnClickListener {
             // 회원가입 api보냄
             Log.d("회원가입 버튼 누름", "")
             viewModel.requestSignup(User, object : RegisterCallback {
@@ -64,7 +64,7 @@ class MajorFragment : Fragment() {
                 }
             })
         }
-        binding.fca04TxtPagenumber.text = getString(R.string.txt_pagenumber, 4)
+        binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 4)
         // 학과 선택박스(AutoCompleteTextView)
         selectMajor()
     }
@@ -76,17 +76,17 @@ class MajorFragment : Fragment() {
 
     // 학과 선택박스(AutoCompleteTextView)
     fun selectMajor() {
-        val editTxt_major = binding.fca04Editmajor
+        val editTxt_major = binding.autoMajor
         var array_major: Array<String> = resources.getStringArray(R.array.array_majors)
         var adapter_array =
             ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, array_major)
         editTxt_major.setAdapter(adapter_array)
 
-        binding.fca04Editmajor.setOnItemClickListener { parent, view, position, id ->
-            var txt_selected = binding.fca04Editmajor.text.toString()
+        binding.autoMajor.setOnItemClickListener { parent, view, position, id ->
+            var txt_selected = binding.autoMajor.text.toString()
             User.grade = "COMPUTER"
             Log.d("회원가입 - User.grade", User.grade.toString())
-            binding.fcaBtnNext.isEnabled = true
+            binding.autoMajor.isEnabled = true
 //            when (position) {
 //                1 -> {Toast.makeText(requireContext(), "$txt_selected", Toast.LENGTH_SHORT).show()
 //
@@ -94,7 +94,7 @@ class MajorFragment : Fragment() {
 //            }
         }
         // 드랍다운 배경셋팅
-        binding.fca04Editmajor.let {
+        binding.autoMajor.let {
             it.setDropDownBackgroundResource(R.drawable.back_select_major)
             it.dropDownVerticalOffset = 300 // TODO("사이즈 물어봐야 함")
         }

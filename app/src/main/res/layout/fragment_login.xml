@@ -11,14 +11,13 @@
 
     <ImageView
         android:id="@+id/title"
-        android:layout_width="181dp"
-        android:layout_height="42dp"
-        android:src="@drawable/img_login"
-        android:layout_marginTop="?attr/actionBarSize"/>
+        android:layout_width="match_parent"
+        android:layout_height="161dp"
+        android:src="@drawable/img_login_e"
+        android:layout_marginBottom="@dimen/bottom_margin"/>
 
-    <!--            android:theme="@style/EditTextGreyStyle"-->
     <TextView
-        android:id="@+id/txt_wordEmail"
+        android:id="@+id/txt_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
@@ -27,17 +26,18 @@
         android:textSize="14sp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editlayout_email"
-        style="@style/LoginEditTextErrorStyle"
-
+        android:id="@+id/editLayout_email"
+        style="@style/LoginEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_wordEmail"
+        android:layout_below="@+id/txt_email"
         app:errorEnabled="true"
-        app:hintEnabled="false">
+        app:hintEnabled="false"
+        android:layout_marginBottom="@dimen/bottom_margin">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editId"
+            android:id="@+id/edit_email"
+            style="@style/LoginEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_email"
@@ -49,21 +49,21 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/txt_wordpassword"
+        android:id="@+id/txt_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editlayout_email"
+        android:layout_below="@+id/editLayout_email"
         android:text="@string/txt_word_password"
         android:textColor="@color/syswhite"
         android:textSize="14sp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editlayout_password"
-        style="@style/LoginEditTextErrorStyle"
+        android:id="@+id/editLayout_password"
+        style="@style/LoginEditTextStyle"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_wordpassword"
+        android:layout_below="@+id/txt_password"
         android:backgroundTint="@color/G_80"
         app:endIconDrawable="@drawable/toggle_endicon"
         app:endIconMode="password_toggle"
@@ -71,7 +71,8 @@
         app:hintEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editPassword"
+            android:id="@+id/edit_password"
+            style="@style/LoginEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_password"
@@ -86,12 +87,15 @@
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editlayout_password"
+        android:layout_below="@+id/editLayout_password"
         android:backgroundTint="@color/O_50"
         android:text="@string/btn_login"
         android:textColor="@color/syswhite"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:paddingTop="23dp"
+        android:paddingBottom="23dp"
+        />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_forgetPassword"
@@ -104,7 +108,6 @@
         android:textSize="12sp" />
 
     <LinearLayout
-        android:id="@+id/linearlayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 

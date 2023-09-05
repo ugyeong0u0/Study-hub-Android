@@ -32,13 +32,15 @@
     <color name="BG_80">#68737D</color>
     <color name="BG_90">#49545C</color>
 
+    <color name="G_10">#E9E9E9</color>
     <color name="G_40">#BCBCBC</color>
     <color name="G_50">#A6A6A6</color>
     <color name="G_60">#8F8F8F</color>
     <color name="G_70">#797979</color>
     <color name="G_80">#636363</color>
+    <color name="G_100">#363636</color>
 <!--    그린-->
-    <color name="G_10">#28D22F</color>
+    <color name="GN_10">#28D22F</color>
     <!--    red-->
     <color name="R_50">#FF1B36</color>
 

@@ -38,13 +38,13 @@ class PasswordFragment : Fragment() {
             navcontroller.navigateUp() // 뒤로 가기
         }
 
-        binding.fca02TxtPagenumber.text=getString(R.string.txt_pagenumber,2)
+        binding.txtPageNumber.text=getString(R.string.txt_pagenumber,2)
 
 
         binding.fca02BtnOk.setOnClickListener{
             // 비번확인
-            val txt_pass01=binding.fca02EditPassword.text.toString()
-            val txt_pass02=binding.fca02EditPassword02.text.toString()
+            val txt_pass01=binding.editPassword.text.toString()
+            val txt_pass02=binding.editRePassword.text.toString()
             Log.d("회원가입 - 비번1",txt_pass01)
             Log.d("회원가입 - 비번2",txt_pass02)
 

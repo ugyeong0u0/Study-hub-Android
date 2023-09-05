@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="side_margin">20dp</dimen>
+    <dimen name="bottom_margin">40dp</dimen>
     <dimen name="chip_interval">4dp</dimen>
     <dimen name="resized_item">24dp</dimen>
     <dimen name="btn_round">6dp</dimen>
+
 </resources>

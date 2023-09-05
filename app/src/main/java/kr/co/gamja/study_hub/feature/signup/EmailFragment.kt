@@ -1,5 +1,6 @@
 package kr.co.gamja.study_hub.feature.signup
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,12 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentEmailBinding
+import kr.co.gamja.study_hub.global.CustomSnackBar
 
 // 회원가입- 이메일 인증
 class EmailFragment : Fragment() {
@@ -42,9 +47,10 @@ class EmailFragment : Fragment() {
             navcontroller.navigateUp() // 뒤로 가기
         }
 
-        binding.fcaTxtPagenumber.text = getString(R.string.txt_pagenumber, 1)
+        binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 1)
 
         setupEmailEditText()
+        setupEmailAuthText()
 
         // 이메일 인증 버튼 누름
         binding.btnAuth.setOnClickListener {
@@ -53,19 +59,19 @@ class EmailFragment : Fragment() {
 
             binding.btnAuth.isVisible = false
             binding.btnResend.isVisible = true
-            binding.fcaTxtWordauthcode.isVisible = true
-            binding.fcaEditauthcode.isVisible = true
+            binding.txtAuthCode.isVisible = true
+            binding.editAuthCode.isVisible = true
         }
         // 인증번호 재전송
         binding.btnResend.setOnClickListener{
             viewModel.emailSend()
+            CustomSnackBar.make(binding.layoutRelative,getString(R.string.txt_resendAlarm), binding.btnNext).show()
         }
 
         // 인증코드확인
-        binding.fcaBtnNext.setOnClickListener{
-            val txt_email = binding.fcaEditId.text.toString()
-            val authNumber=binding.fcaEditauthcode.text.toString()
-            viewModel.emailAuthcheck(authNumber,txt_email, object : EmailValidCallback {
+        binding.btnNext.setOnClickListener{
+            val txt_email = binding.editEmail.text.toString()
+            viewModel.emailAuthcheck( object : EmailValidCallback {
                 override fun onEmailValidResult(isValid: Boolean) {
                     Log.d("회원가입 - 이메일인증 콜백오버라이드", isValid.toString())
                     if(isValid==true){
@@ -82,17 +88,28 @@ class EmailFragment : Fragment() {
     }
 
     private fun setupEmailEditText() {
-        binding.fcaEditId.doOnTextChanged { text, _, _, _ ->
+        binding.editEmail.doOnTextChanged { text, _, _, _ ->
             if(text.toString() != viewModel.email.value) {
                 viewModel.updateEmail(text.toString())
             }
         }
 
         viewModel.email.observe(viewLifecycleOwner) {
-            if(it != binding.fcaEditId.text.toString()) {
-                binding.fcaEditId.setText(it)
+            if(it != binding.editEmail.text.toString()) {
+                binding.editEmail.setText(it)
             }
         }
+    }
+    private fun setupEmailAuthText(){
+        binding.editAuthCode.doOnTextChanged { text, _, _, _ ->
+            if(text.toString()!=viewModel.authNumber.value){
+                viewModel.updateAuthNumber(text.toString())
+            }
+        }
+        viewModel.authNumber.observe(viewLifecycleOwner, Observer { it->
+            if(it!=binding.editAuthCode.text.toString())
+                binding.editAuthCode.setText(it)
+        })
     }
 
     override fun onDestroyView() {

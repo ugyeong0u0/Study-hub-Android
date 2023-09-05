@@ -7,9 +7,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object RetrofitManager {
-    init {
-        Log.d("회원가입 레트로핏 매니저 호출","")
-    }
 
     private const val BASE_URL = "https://study-hub.site"
     val gson =GsonBuilder().setLenient().create()
