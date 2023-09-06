@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="161dp"
         android:src="@drawable/img_login_e"
-        android:layout_marginBottom="@dimen/bottom_margin"/>
+        android:layout_marginBottom="@dimen/login_top_margin"/>
 
     <TextView
         android:id="@+id/txt_email"
@@ -33,7 +33,7 @@
         android:layout_below="@+id/txt_email"
         app:errorEnabled="true"
         app:hintEnabled="false"
-        android:layout_marginBottom="@dimen/bottom_margin">
+        android:layout_marginBottom="@dimen/login_top_margin">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_email"

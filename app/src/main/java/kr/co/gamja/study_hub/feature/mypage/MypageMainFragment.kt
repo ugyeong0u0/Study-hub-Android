@@ -37,6 +37,14 @@ class MypageMainFragment : Fragment() {
                 null
             )
         }
+        // 회원 조회 누를시
+        binding.layoutUserInfo.setOnClickListener{
+            // TODO("리프레쉬토큰 데이터스토어에서 조회")
+            findNavController().navigate(
+                R.id.action_mypageMainFragment_to_myInfoFragment,
+                null
+            )
+        }
 
     }
 

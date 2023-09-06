@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    홈 툴바~첫 뷰 사이간격 및 화면 옆 너비-->
+    <dimen name="top_margin">24dp</dimen>
     <dimen name="side_margin">20dp</dimen>
-    <dimen name="bottom_margin">40dp</dimen>
-    <dimen name="chip_interval">4dp</dimen>
+<!--    로그인 회원가입 툴바~ 첫뷰 사이간격-->
+    <dimen name="login_top_margin">40dp</dimen>
+<!--다이어로그간격-->
+    <dimen name="dialog_side_margin">14dp</dimen>
+    <dimen name="dialog_top_margin">18dp</dimen>
+    <dimen name="dialog_bottom_margin">14dp</dimen>
+
+    <dimen name="toolbar_margin">20dp</dimen>
     <dimen name="resized_item">24dp</dimen>
     <dimen name="btn_round">6dp</dimen>
 

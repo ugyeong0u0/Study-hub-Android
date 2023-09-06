@@ -38,13 +38,15 @@ class DataStoreModule(private val context: Context) {
         }
     // 저장
     suspend fun setAccessToken(accessToken:String){
+        val withoutBearerAccessToken=accessToken.removePrefix("Bearer ")
         context.datastore.edit {
-            it[accessTokenKey]=accessToken
+            it[accessTokenKey]=withoutBearerAccessToken
         }
     }
     suspend fun setRefreshToken(refreshToken:String){
+        val withoutBearerRefreshToken=refreshToken.removePrefix("Bearer ")
         context.datastore.edit {
-            it[refeshTokenKey]=refreshToken
+            it[refeshTokenKey]=withoutBearerRefreshToken
         }
     }
 }

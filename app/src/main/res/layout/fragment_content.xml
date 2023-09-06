@@ -16,12 +16,25 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/sysblack2">
-            <ImageButton
-                android:id="@+id/icon_back"
-                android:layout_width="@dimen/resized_item"
-                android:layout_height="@dimen/resized_item"
-                android:layout_alignParentStart="true"
-                android:background="@drawable/icon_arrow_left_l_white" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/toolbar_margin"
+                android:layout_marginEnd="@dimen/toolbar_margin">
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
+                <ImageButton
+                    android:id="@+id/icon_threeDot"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/icon_vertical_threedot_white" />
+            </RelativeLayout>
+
 
         </androidx.appcompat.widget.Toolbar>
 

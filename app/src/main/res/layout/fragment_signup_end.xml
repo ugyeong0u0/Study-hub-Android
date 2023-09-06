@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/side_margin"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/bottom_margin">
+        android:layout_marginTop="@dimen/login_top_margin">
 
         <ImageView
             android:id="@+id/img_registration"

@@ -24,7 +24,6 @@
     <string name="txt_study">스터디</string>
 
     <!--    스터디 만들기-->
-
     <string name="txt_createStudy">스터디 만들기</string>
     <string name="txt_chatLink">채팅방 링크</string>
     <string name="txt_chatLink_sub">참여 코드가 없는 카카오톡 오픈 채팅방 링크</string>
@@ -50,11 +49,14 @@
     <string name="txt_mix">혼합</string>
     <string name="txt_yes">있어요</string>
     <string name="txt_no">없어요</string>
-<!--    기간-->
     <string name="txt_startDay">시작하는 날</string>
     <string name="txt_endDay">종료하는 날</string>
     <string name="txt_choice">선택하기</string>
     <string name="btn_txt_complete">완료하기</string>
+    <string name="btn_verb_delete">삭제하기</string>
+    <string name="btn_verb_modify">수정하기</string>
+    <string name="btn_close">닫기</string>
+
 
 
     <string name="txt_pNum_sub">최대 50명 참여 가능</string>
@@ -62,4 +64,13 @@
 
     <!--    마이페이지-->
     <string name="txt_mypage">마이페이지</string>
+    <string name="txt_notLogin_major">나의 스터디 팀원을 만나보세요</string>
+    <string name="txt_notLogin_name">로그인/회원가입</string>
+    <string name="txt_myInfo">내 정보</string>
+    <string name="btn_logout">로그아웃</string>
+    <string name="btn_leave">탈퇴하기</string>
+    <string name="btn_no">아니요</string>
+    <string name="btn_yes">네</string>
+    <string name="q_logout">로그아웃 하시겠어요?</string>
+
 </resources>

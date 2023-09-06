@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.feature.signup
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -56,6 +57,11 @@ class EmailFragment : Fragment() {
         binding.btnAuth.setOnClickListener {
             Log.d("회원가입 btnAuth눌렀을때", "")
             viewModel.emailSend()
+
+            binding.editLayoutEmail.error=getString(R.string.txt_sendedemail)
+            val errorColor = ContextCompat.getColor(requireContext(), R.color.G_40)
+            val stateList = ColorStateList.valueOf(errorColor)
+            binding.editLayoutEmail.setErrorTextColor(stateList)
 
             binding.btnAuth.isVisible = false
             binding.btnResend.isVisible = true

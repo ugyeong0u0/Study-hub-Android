@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
-import kr.co.gamja.study_hub.databinding.CustomSnackbarBinding
+import kr.co.gamja.study_hub.databinding.SnackbarBinding
 
 class CustomSnackBar(view: View, private val message: String, private val anchorview: View) {
     companion object {
@@ -16,8 +16,8 @@ class CustomSnackBar(view: View, private val message: String, private val anchor
     private val snackbar = Snackbar.make(view, "", Snackbar.LENGTH_SHORT)
     private val snackbarLayout = snackbar.view as Snackbar.SnackbarLayout
 
-    private val snackbarBinding: CustomSnackbarBinding =
-        CustomSnackbarBinding.inflate(LayoutInflater.from(context))
+    private val snackbarBinding: SnackbarBinding=
+        SnackbarBinding.inflate(LayoutInflater.from(context))
 
     init {
         initView()

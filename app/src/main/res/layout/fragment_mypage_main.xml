@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
@@ -30,11 +29,11 @@
                     android:id="@+id/icon_txt_mypage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
                     android:text="@string/txt_mypage"
                     android:textColor="@color/syswhite"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_alignParentStart="true"/>
+                    android:textStyle="bold" />
 
                 <ImageButton
                     android:id="@+id/icon_alarm"
@@ -45,317 +44,200 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <LinearLayout
+
+        <RelativeLayout
+            android:id="@+id/layout_userInfo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginTop="@dimen/top_margin"
+            android:layout_marginBottom="@dimen/toolbar_margin"
+            android:clickable="true"
+            android:focusable="true">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/icon_profile"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true">
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/resized_icon_profile_60"
+                android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/fmp01_icon_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:src="@drawable/resized_icon_profile_60" />
-
-                <TextView
-                    android:id="@+id/fmp01_txt_major"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_toEndOf="@+id/fmp01_icon_profile"
-                    android:textColor="@color/BG_80"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:text="컴퓨터 공학부"
-
-                    />
-
-                <TextView
-                    android:id="@+id/fmp01_txt_nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/fmp01_txt_major"
-                    android:layout_marginStart="14dp"
-                    android:layout_toEndOf="@+id/fmp01_icon_profile"
-                    android:textColor="@color/sysblack1"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="닉네임님 " />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/resized_icon_arrow_right_black" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/txt_major"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginStart="14dp"
+                android:layout_marginBottom="16dp"
+                android:layout_toEndOf="@+id/icon_profile"
+                android:text="@string/txt_notLogin_major"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/fmp01_pasttext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_background_mypage_bg_20"
-                    android:drawableTop="@drawable/resized_icon_pencill_gray"
-                    android:paddingLeft="21dp"
-                    android:paddingTop="20dp"
-                    android:paddingRight="21dp"
-                    android:paddingBottom="20dp"
-                    android:text="@string/btn_pastText"
-                    android:textColor="@color/BG_90"
-                    android:textSize="12sp" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/fmp01_paststudy"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_background_mypage_bg_20"
-                    android:drawableTop="@drawable/resized_icon_document_gray"
-                    android:paddingLeft="14dp"
-                    android:paddingTop="20dp"
-                    android:paddingRight="14dp"
-                    android:paddingBottom="20dp"
-                    android:text="@string/btn_pastText"
-                    android:textColor="@color/BG_90"
-                    android:textSize="12sp" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/fmp01_bookmark"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_background_mypage_bg_20"
-                    android:drawableTop="@drawable/baseline_bookmark_border_24_bg_80"
-                    android:paddingLeft="21dp"
-                    android:paddingTop="20dp"
-                    android:paddingRight="21dp"
-                    android:paddingBottom="20dp"
-                    android:text="@string/btn_pastText"
-                    android:textColor="@color/BG_90"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/fmp01_relative01"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/txt_nickName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/box_inwhite_strokegray"
-                android:paddingLeft="20dp"
+                android:layout_below="@+id/txt_major"
+                android:layout_marginStart="14dp"
+                android:layout_toEndOf="@+id/icon_profile"
+                android:text="@string/txt_notLogin_name"
+                android:textColor="@color/sysblack1"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/resized_icon_arrow_right_black" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_userAction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginBottom="@dimen/toolbar_margin"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_userContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_background_mypage_bg_20"
+                android:drawableTop="@drawable/resized_icon_pencill_gray"
+                android:paddingLeft="21dp"
                 android:paddingTop="20dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="20dp">
+                android:paddingRight="21dp"
+                android:paddingBottom="20dp"
+                android:text="@string/btn_pastText"
+                android:textColor="@color/BG_90"
+                android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/fmp01_txt_interesting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:paddingBottom="10dp"
-                    android:text="@string/txt_head_interesting"
-                    android:textColor="@color/sysblack1"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/fmp01_btn_modify01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/fmp01_txt_interesting"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="8dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/btn_modify"
-                    android:textColor="@color/BG_70"
-                    android:textSize="14sp" />
-
-                <View
-                    android:id="@+id/fmp01_view01"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/fmp01_txt_interesting"
-                    android:background="@color/BG_30"
-                    android:paddingBottom="8dp" />
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/fmp01_chipGroup01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/fmp01_view01"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/fmp01_relative02"
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_userStudy"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/box_inwhite_strokegray"
-                android:paddingLeft="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_background_mypage_bg_20"
+                android:drawableTop="@drawable/resized_icon_document_gray"
+                android:paddingLeft="14dp"
                 android:paddingTop="20dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="20dp">
-
-                <TextView
-                    android:id="@+id/fmp01_txt_interestedmajor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:paddingBottom="10dp"
-                    android:text="@string/txt_head_interestedmajor"
-                    android:textColor="@color/sysblack1"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/fmp01_btn_modify02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/fmp01_txt_interestedmajor"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="8dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/btn_modify"
-                    android:textColor="@color/BG_70"
-                    android:textSize="14sp" />
-
-                <View
-                    android:id="@+id/fmp01_view02"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/fmp01_txt_interestedmajor"
-                    android:background="@color/BG_30"
-                    android:paddingBottom="8dp" />
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/fmp01_chipGroup02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/fmp01_view02"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
-            </RelativeLayout>
-
-            <Button
-                android:id="@+id/fmp01_btn_tmpSave"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_tmpSave"
-                android:textAlignment="viewStart"
+                android:paddingRight="14dp"
+                android:paddingBottom="20dp"
+                android:text="@string/btn_pastText"
                 android:textColor="@color/BG_90"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
 
-            <Button
-                android:id="@+id/fmp01_btn_setAlarm"
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_userBookmark"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_setAlarm"
-                android:textAlignment="viewStart"
+                android:layout_weight="1"
+                android:background="@drawable/btn_background_mypage_bg_20"
+                android:drawableTop="@drawable/baseline_bookmark_border_24_bg_80"
+                android:paddingLeft="21dp"
+                android:paddingTop="20dp"
+                android:paddingRight="21dp"
+                android:paddingBottom="20dp"
+                android:text="@string/btn_pastText"
                 android:textColor="@color/BG_90"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/fmp01_btn_waitPartner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_waitPartner"
-                android:textAlignment="viewStart"
-                android:textColor="@color/BG_90"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/fmp01_btn_hiddenPartner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_hiddenPartner"
-                android:textAlignment="viewStart"
-                android:textColor="@color/BG_90"
-                android:textSize="16sp" />
-
-            <View
-                android:id="@+id/fmp01_view03"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/BG_30"
-
-                />
-
-            <Button
-                android:id="@+id/fmp01_btn_notice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_notice"
-                android:textAlignment="viewStart"
-                android:textColor="@color/BG_90"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/fmp01_btn_usingGuide"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_usingGuide"
-                android:textAlignment="viewStart"
-                android:textColor="@color/BG_90"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/fmp01_btn_asking"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_asking"
-                android:textAlignment="viewStart"
-                android:textColor="@color/BG_90"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/fmp01_btn_terms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_terms"
-                android:textAlignment="viewStart"
-                android:textColor="@color/BG_90"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
         </LinearLayout>
+
+        <View
+            android:id="@+id/line_belowUserAction"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/BG_30"
+            android:paddingBottom="8dp"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_waitPartner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginTop="24dp"
+            android:background="#00000000"
+            android:text="@string/btn_waitPartner"
+            android:textAlignment="viewStart"
+            android:textColor="@color/BG_90"
+            android:textSize="16sp"
+            android:visibility="gone"/>
+
+        <View
+            android:id="@+id/line_belowWaitPartner"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/BG_30"
+            android:paddingBottom="8dp" />
+
+        <Button
+            android:id="@+id/btn_notice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginTop="24dp"
+            android:background="#00000000"
+            android:text="@string/btn_notice"
+            android:textAlignment="viewStart"
+            android:textColor="@color/BG_90"
+            android:textSize="16sp" />
+        <Button
+            android:id="@+id/btn_asking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginTop="24dp"
+            android:background="#00000000"
+            android:text="@string/btn_asking"
+            android:textAlignment="viewStart"
+            android:textColor="@color/BG_90"
+            android:textSize="16sp" />
+        <Button
+            android:id="@+id/btn_usingGuide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginTop="24dp"
+            android:background="#00000000"
+            android:text="@string/btn_usingGuide"
+            android:textAlignment="viewStart"
+            android:textColor="@color/BG_90"
+            android:textSize="16sp" />
+
+
+
+        <Button
+            android:id="@+id/btn_terms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginTop="24dp"
+            android:background="#00000000"
+            android:text="@string/btn_terms"
+            android:textAlignment="viewStart"
+            android:textColor="@color/BG_90"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_uerTerms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginTop="24dp"
+            android:background="#00000000"
+            android:text="@string/btn_uerTerms"
+            android:textAlignment="viewStart"
+            android:textColor="@color/BG_90"
+            android:textSize="16sp" />
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+</ScrollView>

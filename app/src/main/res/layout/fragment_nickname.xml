@@ -52,7 +52,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="3/4"
-            android:layout_marginTop="@dimen/bottom_margin"/>
+            android:layout_marginTop="@dimen/login_top_margin"/>
 
         <TextView
             android:id="@+id/txt_head"
@@ -71,7 +71,7 @@
             android:text="@string/txt_register_page3_sub"
             android:textColor="@color/G_40"
             android:textSize="12sp"
-            android:layout_marginBottom="@dimen/bottom_margin"
+            android:layout_marginBottom="@dimen/login_top_margin"
             android:layout_below="@id/txt_head"/>
 
         <TextView
@@ -96,7 +96,7 @@
             app:errorEnabled="true"
             app:hintEnabled="false"
             android:layout_below="@id/txt_nickName"
-            android:layout_marginBottom="@dimen/bottom_margin">
+            android:layout_marginBottom="@dimen/login_top_margin">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_nickName"

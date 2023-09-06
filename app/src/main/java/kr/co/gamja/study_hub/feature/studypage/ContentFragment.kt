@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentContentBinding
 
 
@@ -33,7 +34,13 @@ class ContentFragment : Fragment() {
             val navcontroller = findNavController()
             navcontroller.navigateUp() // 뒤로 가기
         }
-
+    // TODO("작성자인지 확인하는 API")
+        binding.iconThreeDot.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_studyContentFragment_to_bottomSheetFragment,
+                null
+            )
+        }
     }
 
     override fun onDestroyView() {
