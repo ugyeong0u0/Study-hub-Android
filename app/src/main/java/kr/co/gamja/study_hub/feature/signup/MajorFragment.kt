@@ -45,7 +45,7 @@ class MajorFragment : Fragment() {
             Log.d("회원가입 버튼 누름", "")
             viewModel.requestSignup(User, object : RegisterCallback {
                 override fun onSucess(isValid: Boolean) {
-                    if (isValid == true) {
+                    if (isValid) {
                         Log.d("회원가입 최종 성공", "")
                         findNavController().navigate(R.id.action_createAccountFragment04_to_createAccountFragmentEnd05)
                     } else {
@@ -54,7 +54,7 @@ class MajorFragment : Fragment() {
                 }
 
                 override fun onFail(eIsValid: Boolean, eStatus: String, eMessage: String) {
-                    if (eIsValid == true) {
+                    if (eIsValid) {
                         Toast.makeText(requireContext(), eStatus, Toast.LENGTH_LONG).show()
                         Toast.makeText(requireContext(), eMessage, Toast.LENGTH_LONG).show()
                         Log.e("회원가입 중복 혹은 삭제", "")

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/syswhite"
-    android:orientation="vertical"
     tools:context=".feature.home.SearchFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/searchMain_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/sysblack2">
+        android:background="@color/sysblack2"
+        android:layout_alignParentTop="true">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -44,20 +44,14 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
             <AutoCompleteTextView
-                android:id="@+id/fm02_editmajor"
+                android:id="@+id/edit_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_background_search"
                 android:completionThreshold="1"
                 android:drawableEnd="@drawable/baseline_search_24_black"
-                android:hint="@string/hint_major"
+                android:hint="@string/btn_searchBar"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:paddingLeft="14dp"
@@ -66,61 +60,69 @@
                 android:paddingBottom="13dp"
                 android:textColor="@color/sysblack1"
                 android:textColorHint="@color/BG_70"
-                android:textSize="16sp" />
-
-            <RelativeLayout
-                android:id="@+id/fm02_item01_relative01"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp">
+                android:textSize="16sp"
+                android:layout_marginHorizontal="@dimen/side_margin"
+                android:layout_below="@id/searchMain_toolbar"/>
 
                 <TextView
-                    android:id="@+id/fm02_item01_head"
+                    android:id="@+id/txt_recentSearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/txt_recentsearch"
                     android:textColor="@color/sysblack1"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:layout_marginStart="@dimen/side_margin"
+                    android:layout_below="@id/edit_search"
+                    android:layout_marginBottom="20dp"/>
 
                 <Button
-                    android:id="@+id/fm02_item01_bookmark"
+                    android:id="@+id/btn_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/fm02_item01_head"
+                    android:layout_alignBaseline="@+id/txt_recentSearch"
                     android:layout_alignParentEnd="true"
                     android:background="#00000000"
                     android:text="@string/btn_delete"
                     android:textAlignment="textEnd"
                     android:textColor="@color/G_80"
-                    android:textSize="12sp" />
-            </RelativeLayout>
+                    android:textSize="12sp"
+                    android:layout_marginEnd="@dimen/side_margin"/>
+
 
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/fm02_chipGroup02"
+                android:id="@+id/chipGroup_recent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginHorizontal="@dimen/side_margin"
+                android:layout_below="@id/txt_recentSearch"
+                android:layout_marginBottom="24dp"/>
 
             <View
+                android:id="@+id/line_from_chip_to_recommend"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="@color/BG_30" />
+                android:background="@color/BG_30"
+                android:layout_below="@id/chipGroup_recent"/>
 
             <TextView
-                android:id="@+id/fm02_item01_head02"
+                android:id="@+id/txt_recommend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:text="@string/txt_recomsearch"
                 android:textColor="@color/sysblack1"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_below="@+id/line_from_chip_to_recommend"
+                android:layout_marginHorizontal="@dimen/side_margin"/>
 
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/fm02_chipGroup03"
+                android:id="@+id/chipGroup_recommend"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/side_margin"
+                android:layout_below="@+id/txt_recommend"/>
 
-</LinearLayout>
+
+</RelativeLayout>

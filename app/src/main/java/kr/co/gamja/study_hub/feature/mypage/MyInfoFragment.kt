@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +33,15 @@ class MyInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // 툴바 설정
+        val toolbar = binding.myPageMainToolbar
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
+
+        binding.iconBack.setOnClickListener {
+            val navcontroller = findNavController()
+            navcontroller.navigateUp() // 뒤로 가기
+        }
         // 로그아웃 누를 시 Dialog
         isLogin()
         binding.btnLogout.setOnClickListener {
@@ -43,7 +53,7 @@ class MyInfoFragment : Fragment() {
             dialog.setOnClickListener(object : OnDialogClickListener {
                 override fun onclickResult() { // 로그아웃 "네" 누르면
                     findNavController().navigate(
-                        R.id.action_myInfoFragment_to_loginFragment2,
+                        R.id.action_myInfoFragment_to_loginFragment,
                         null
                     )
                 }

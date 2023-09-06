@@ -21,11 +21,13 @@ interface StudyHubApi {
     suspend fun emailValid(@Body emailValidRequest: EmailValidRequest): Response<EmailValidResponse>
 
     // 로그인
+    @Headers("Accept: application/json","Content-type: application/json")
     @POST("/api/users/login")
-    fun login(@Body loginRequest: LoginRequest): Call<LoginResponse>
+    suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 
     // 회원가입
+    @Headers("Accept: application/json","Content-type: application/json")
     @POST("/api/users/signup")
-    fun signup(@Body signupRequest: SignupRequest): Call<SignupResponse>
+    suspend fun signup(@Body signupRequest: SignupRequest): Response<Unit>
 
 }

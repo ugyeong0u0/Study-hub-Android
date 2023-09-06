@@ -27,19 +27,25 @@ class RegisterViewModel : ViewModel() {
     fun updateEmail(newEmail: String) {
         _email.value = newEmail
     }
-    fun updateAuthNumber(newAuthNumber:String){
-        _authNumber.value=newAuthNumber
+
+    fun updateAuthNumber(newAuthNumber: String) {
+        _authNumber.value = newAuthNumber
     }
 
     // 이메일 인증번호 보내기
     fun emailSend() {
         val emailReq = EmailRequest(_email.value.toString())
-        Log.d("회원가입  val emailReq =ApiRequest(txt_email)", "$emailReq")
+        Log.d(tag, "회원가입 $emailReq")
 
         viewModelScope.launch {
-            val response = RetrofitManager.api.email(emailReq)
-            if (response.isSuccessful) Log.d(tag, "회원가입 인증번호 보내기 성공")
-            else Log.e(tag, "회원가입 인증번호 보내기 실패")
+            try {
+                val response = RetrofitManager.api.email(emailReq)
+                if (response.isSuccessful) Log.d(tag, "회원가입 인증번호 보내기 성공")
+                else Log.e(tag, "회원가입 인증번호 보내기 실패")
+            }catch (e:Exception){
+                Log.e(tag, "회원가입 Exception: ${e.message}")
+            }
+
         }
     }
 
@@ -48,59 +54,38 @@ class RegisterViewModel : ViewModel() {
         val authNumberReq =
             EmailValidRequest(_authNumber.value.toString(), _email.value.toString()!!)
         viewModelScope.launch {
-            val response = RetrofitManager.api.emailValid(authNumberReq)
-            if (response.isSuccessful) {
-                val result = response.body() as EmailValidResponse
-                Log.d("회원가입-이메일 인증 성공", response.code().toString())
-                Log.d("회원가입 result.validResult", result.validResult.toString())
-                params.onEmailValidResult(result.validResult)
-            } else {
-                Log.e(tag,"회원가입-이메일 인증코드 에러")
-                params.onEmailValidResult(false)
+            try {
+                val response = RetrofitManager.api.emailValid(authNumberReq)
+                if (response.isSuccessful) {
+                    val result = response.body() as EmailValidResponse
+                    Log.d(tag, "회원가입-이메일 인증 성공"+response.code().toString())
+                    Log.d(tag, "회원가입 result.validResult"+result.validResult.toString())
+                    params.onEmailValidResult(result.validResult)
+                } else {
+                    Log.e(tag, "회원가입-이메일 인증코드 에러")
+                    params.onEmailValidResult(false)
+                }
+            }catch(e:Exception){
+                Log.e(tag,"회원가입 Exception: ${e.message}")
             }
+
         }
     }
 
-    /*fun emailAuthcheck(authNumber:String, txt_email:String, params:EmailValidCallback) {
-         val authNumberReq= EmailValidRequest(authNumber,txt_email)
-         RetrofitManager.api.emailValid(authNumberReq).enqueue(object:Callback<EmailValidResponse>{
-             override fun onResponse(
-                 call: Call<EmailValidResponse>,
-                 response: Response<EmailValidResponse>
-             ) {
-                 if(response.isSuccessful){
-                     val result=response.body() as EmailValidResponse
-                     Log.d("회원가입-이메일 인증 성공", response.code().toString())
-                     Log.d("회원가입 result.validResult",result.validResult.toString())
-                     params.onEmailValidResult(result.validResult)
-                 }
-             }
-             override fun onFailure(call: Call<EmailValidResponse>, t: Throwable) {
-                 val m= t.message.toString()
-                 Log.e("회원가입-이메일 인증코드 에러",m)
-                 params.onEmailValidResult(false)
-             }
-         })
-
-     }*/
-
     fun requestSignup(user: User, params: RegisterCallback) {
         val signupReq = SignupRequest(
-            User.email.toString(), User.gender.toString(),
-            User.grade.toString(), User.nickname.toString(), User.password.toString()
-        )
-        Log.d("회원가입 요청시 데이터확인", signupReq.toString())
-        RetrofitManager.api.signup(signupReq).enqueue(object : Callback<SignupResponse> {
-            override fun onResponse(
-                call: Call<SignupResponse>,
-                response: Response<SignupResponse>
-            ) {
+            "koung0706@inu.ac.kr", User.gender!!,
+            User.grade!!, User.nickname!!, User.password!!)
+        Log.d(tag,"회원가입 요청시 데이터확인"+ signupReq.toString())
+
+        viewModelScope.launch {
+            try {
+                val response = RetrofitManager.api.signup(signupReq)
                 if (response.isSuccessful) {
-                    Log.d("회원가입 레트로핏 성공", response.code().toString())
+                    Log.d(tag,"회원가입 성공"+ response.code().toString())
                     params.onSucess(true)
                 } else {
-                    Log.d("회원가입 레트로핏 error로 넘어감 ", "")
-                    Log.d("회원가입 레트로핏 error code", response.code().toString())
+                    Log.d(tag,"회원가입 error code"+ response.code().toString())
                     val errorResponse: RegisterErrorResponse? = response.errorBody()?.let {
                         val gson = Gson()
                         gson.fromJson(it.charStream(), RegisterErrorResponse::class.java)
@@ -111,15 +96,11 @@ class RegisterViewModel : ViewModel() {
                         params.onFail(true, status, message)
                     }
                 }
+            }catch (e:Exception){
+                Log.e(tag,"회원가입 Exception: ${e.message}")
             }
 
-            override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
-                val m = t.message.toString()
-                Log.e("회원가입 onfailure 에러", m)
-            }
-
-        })
-
+        }
     }
 }
 
