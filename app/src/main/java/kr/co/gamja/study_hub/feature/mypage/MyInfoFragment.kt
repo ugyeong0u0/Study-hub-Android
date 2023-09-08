@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,16 +20,15 @@ import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 class MyInfoFragment : Fragment() {
-    private var _binding: FragmentMyInfoBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentMyInfoBinding
     private val tag = this.javaClass.simpleName
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMyInfoBinding.inflate(layoutInflater, container, false)
-        val view = binding.root
-        return view
+        binding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_my_info, container, false)
+        return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,9 +68,5 @@ class MyInfoFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 }

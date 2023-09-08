@@ -4,14 +4,17 @@ package kr.co.gamja.study_hub.feature.login
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -19,29 +22,46 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.databinding.FragmentLoginBinding
 import kr.co.gamja.study_hub.data.datastore.App
+import kr.co.gamja.study_hub.databinding.FragmentLoginBinding
 
 
 class LoginFragment : Fragment() {
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         setUpLoginEmail()
         setUpLoginPassword()
+
+        binding.viewPassword.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                // 비밀번호가 안보이고 있는데 보이게
+                if (binding.viewPassword.getTag().toString() == "0") {
+                    binding.viewPassword.setTag("1")
+                    binding.editPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    binding.viewPassword.setImageResource(R.drawable.img_toggle_eye)
+                } else { // 비밀번호가 보일때 안보이게
+                    binding.viewPassword.setTag("0")
+                    binding.editPassword.inputType =
+                        InputType.TYPE_TEXT_VARIATION_PASSWORD or InputType.TYPE_CLASS_TEXT
+                    binding.viewPassword.setImageResource(R.drawable.img_toggle_closedeye)
+                }
+                binding.editPassword.setSelection(binding.editPassword.text.toString().length)
+            }
+        })
 
         // 로그인하기
         binding.btnLogin.setOnClickListener {
@@ -94,38 +114,27 @@ class LoginFragment : Fragment() {
             if (it != binding.editEmail.text.toString())
                 binding.editEmail.setText(it)
         })
+        // 이메일 에딧텍스트
         viewModel.validEmail.observe(viewLifecycleOwner, Observer { it ->
-            if (it == true) {
-                binding.editLayoutEmail.error = "정답"
-                val errorColor = ContextCompat.getColor(requireContext(), R.color.GN_10)
-                val stateList = ColorStateList.valueOf(errorColor)
-                binding.editLayoutEmail.setErrorTextColor(stateList)
-
-                binding.editLayoutEmail.boxStrokeErrorColor = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.G_10
-                    )
-                )
-            } else {
-                binding.editLayoutEmail.error = "오류"
+            if (!it) {
                 val errorColor = ContextCompat.getColor(requireContext(), R.color.R_50)
                 val stateList = ColorStateList.valueOf(errorColor)
-                binding.editLayoutEmail.setErrorTextColor(stateList)
-
-                binding.editLayoutEmail.boxStrokeErrorColor = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.R_50
-                    )
-                )
-
+                binding.errorEmail.apply {
+                    text = getString(R.string.txterror_email)
+                    setTextColor(errorColor)
+                }
+                binding.editEmail.backgroundTintList = stateList
+            } else {
+                binding.errorEmail.isVisible = false
+                val Color = ContextCompat.getColor(requireContext(), R.color.G_80)
+                val stateList = ColorStateList.valueOf(Color)
+                binding.editEmail.backgroundTintList = stateList
             }
         })
     }
 
     fun setUpLoginPassword() {
-        binding.editPassword.addTextChangedListener(object: TextWatcher{
+        binding.editPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -139,39 +148,22 @@ class LoginFragment : Fragment() {
             }
         })
 
-
+        // 패스워드 에딧텍스트
         viewModel.validPassword.observe(viewLifecycleOwner, Observer {
-            if (it == true) {
-                binding.editLayoutPassword.error = "정답"
-                val errorColor = ContextCompat.getColor(requireContext(), R.color.GN_10)
-                val stateList = ColorStateList.valueOf(errorColor)
-                binding.editLayoutPassword.setErrorTextColor(stateList)
-
-                binding.editLayoutPassword.boxStrokeErrorColor = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.G_10
-                    )
-                )
-            }
-            else {
-                binding.editLayoutPassword.error = "오류"
+            if (!it) {
                 val errorColor = ContextCompat.getColor(requireContext(), R.color.R_50)
                 val stateList = ColorStateList.valueOf(errorColor)
-                binding.editLayoutPassword.setErrorTextColor(stateList)
-
-                binding.editLayoutPassword.boxStrokeErrorColor = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.R_50
-                    )
-                )
+                binding.errorPassword.apply {
+                    text = getString(R.string.txterror_password)
+                    setTextColor(errorColor)
+                }
+                binding.editPassword.backgroundTintList = stateList
+            } else {
+                binding.errorPassword.isVisible = false
+                val Color = ContextCompat.getColor(requireContext(), R.color.G_80)
+                val stateList = ColorStateList.valueOf(Color)
+                binding.editPassword.backgroundTintList = stateList
             }
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

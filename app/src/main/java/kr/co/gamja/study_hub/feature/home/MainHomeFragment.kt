@@ -4,22 +4,21 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentMainHomeBinding
 
 
 class MainHomeFragment : Fragment() {
-    private var _binding: FragmentMainHomeBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentMainHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding =FragmentMainHomeBinding.inflate(layoutInflater, container, false)
-        val view = binding.root
-        return view
+        binding =DataBindingUtil.inflate(layoutInflater,R.layout.fragment_main_home, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,19 +54,15 @@ class MainHomeFragment : Fragment() {
         }
 
         // 검색창으로 넘어감
-        binding.fm01BtnSearch.setOnClickListener {
+        binding.btnSearch.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment01_to_mainFragment02, null)
         }
         // 설명으로 넘어감
-        binding.goGuide.setOnClickListener {
+        binding.btnGoGuide.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment01_to_mainFragment03, null)
         }
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 }

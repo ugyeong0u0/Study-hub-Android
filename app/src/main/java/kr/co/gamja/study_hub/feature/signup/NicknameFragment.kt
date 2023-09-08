@@ -7,21 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentNicknameBinding
 
 
 class NicknameFragment : Fragment() {
-    private var _binding:FragmentNicknameBinding?=null
-    private val binding get() = _binding!!
+    private lateinit var binding:FragmentNicknameBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding= FragmentNicknameBinding.inflate(inflater,container,false)
-        val view=binding.root
-        return view
+        binding= DataBindingUtil.inflate(inflater,R.layout.fragment_nickname,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,8 +73,4 @@ class NicknameFragment : Fragment() {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding=null
-    }
 }

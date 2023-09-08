@@ -1,128 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/syswhite"
-    tools:context=".feature.home.SearchFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/searchMain_toolbar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/sysblack2"
-        android:layout_alignParentTop="true">
+        android:layout_height="match_parent"
+        android:background="@color/syswhite">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/searchMain_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            android:background="@color/sysblack2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
+
+                <ImageButton
+                    android:id="@+id/icon_bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/icon_alarm"
+                    android:background="@drawable/baseline_bookmark_border_24_ffffff" />
+
+                <ImageButton
+                    android:id="@+id/icon_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/resized_icon_bell_orange" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <AutoCompleteTextView
+            android:id="@+id/edit_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchMain_toolbar"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:background="@drawable/btn_background_search"
+            android:completionThreshold="1"
+            android:drawableEnd="@drawable/baseline_search_24_black"
+            android:hint="@string/btn_searchBar"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:paddingLeft="14dp"
+            android:paddingTop="13dp"
+            android:paddingRight="14dp"
+            android:paddingBottom="13dp"
+            android:textColor="@color/sysblack1"
+            android:textColorHint="@color/BG_70"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txt_recentSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
+            android:layout_below="@id/edit_search"
+            android:layout_marginStart="@dimen/side_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/txt_recentsearch"
+            android:textColor="@color/sysblack1"
+            android:textSize="14sp" />
 
-            <ImageButton
-                android:id="@+id/icon_back"
-                android:layout_width="@dimen/resized_item"
-                android:layout_height="@dimen/resized_item"
-                android:layout_alignParentStart="true"
-                android:background="@drawable/icon_arrow_left_l_white" />
-
-            <ImageButton
-                android:id="@+id/icon_bookmark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_toStartOf="@+id/icon_alarm"
-                android:background="@drawable/baseline_bookmark_border_24_ffffff" />
-
-            <ImageButton
-                android:id="@+id/icon_alarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/resized_icon_bell_orange" />
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
-
-            <AutoCompleteTextView
-                android:id="@+id/edit_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_background_search"
-                android:completionThreshold="1"
-                android:drawableEnd="@drawable/baseline_search_24_black"
-                android:hint="@string/btn_searchBar"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:paddingLeft="14dp"
-                android:paddingTop="13dp"
-                android:paddingRight="14dp"
-                android:paddingBottom="13dp"
-                android:textColor="@color/sysblack1"
-                android:textColorHint="@color/BG_70"
-                android:textSize="16sp"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:layout_below="@id/searchMain_toolbar"/>
-
-                <TextView
-                    android:id="@+id/txt_recentSearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/txt_recentsearch"
-                    android:textColor="@color/sysblack1"
-                    android:textSize="14sp"
-                    android:layout_marginStart="@dimen/side_margin"
-                    android:layout_below="@id/edit_search"
-                    android:layout_marginBottom="20dp"/>
-
-                <Button
-                    android:id="@+id/btn_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/txt_recentSearch"
-                    android:layout_alignParentEnd="true"
-                    android:background="#00000000"
-                    android:text="@string/btn_delete"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/G_80"
-                    android:textSize="12sp"
-                    android:layout_marginEnd="@dimen/side_margin"/>
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/txt_recentSearch"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/side_margin"
+            android:background="#00000000"
+            android:text="@string/btn_delete"
+            android:textAlignment="textEnd"
+            android:textColor="@color/G_80"
+            android:textSize="12sp" />
 
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup_recent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:layout_below="@id/txt_recentSearch"
-                android:layout_marginBottom="24dp"/>
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup_recent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_recentSearch"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginBottom="24dp" />
 
-            <View
-                android:id="@+id/line_from_chip_to_recommend"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@color/BG_30"
-                android:layout_below="@id/chipGroup_recent"/>
+        <View
+            android:id="@+id/line_from_chip_to_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@id/chipGroup_recent"
+            android:background="@color/BG_30" />
 
-            <TextView
-                android:id="@+id/txt_recommend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:text="@string/txt_recomsearch"
-                android:textColor="@color/sysblack1"
-                android:textSize="14sp"
-                android:layout_below="@+id/line_from_chip_to_recommend"
-                android:layout_marginHorizontal="@dimen/side_margin"/>
+        <TextView
+            android:id="@+id/txt_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line_from_chip_to_recommend"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/txt_recomsearch"
+            android:textColor="@color/sysblack1"
+            android:textSize="14sp" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup_recommend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:layout_below="@+id/txt_recommend"/>
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_recommend"
+            android:layout_marginHorizontal="@dimen/side_margin" />
 
-
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

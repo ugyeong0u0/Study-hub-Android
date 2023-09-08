@@ -1,75 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".feature.home.ManualFragment"
-    android:background="@color/syswhite">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/resized_rectangle_158"
-            android:gravity="center">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/fm03_txt_banner01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/backgroundword_orange"
-                    android:text="@string/txt_banner01"
-                    android:textColor="@color/syswhite"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_banner02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_banner02"
-                    android:textColor="@color/syswhite"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/fm03_txt_banner03"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_banner03"
-                android:textColor="@color/syswhite"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/fm03_txt_subBanner01"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/txt_subBanner01"
-                android:textColor="@color/syswhite"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/fm03_txt_subBanner02"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_subBanner02"
-                android:textColor="@color/G_60"
-                android:textSize="14sp" />
-        </LinearLayout>
+        android:layout_height="match_parent"
+        android:background="@color/syswhite">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,250 +16,155 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/resized_rectangle_158"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/fm03_txt_banner01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/backgroundword_orange"
+                        android:text="@string/txt_banner01"
+                        android:textColor="@color/syswhite"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_banner02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_banner02"
+                        android:textColor="@color/syswhite"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/txt_plus"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/fm03_txt_banner03"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/background_o_10_stroke_o_50"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/txt_plus"
-                    android:textColor="@color/O_50"
-                    android:textSize="14sp" />
+                    android:text="@string/txt_banner03"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/fm03_txt_ex01"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/fm03_txt_subBanner01"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/backgroundword_o_10"
-                    android:paddingLeft="12dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="12dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/txt_ex01"
-                    android:textColor="@color/O_50"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/fm03_txt_ex01_exp01"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_background_mypage_bg_20"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:paddingTop="24dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="24dp"
-                android:text="@string/txt_ex01_exp01"
-                android:textColor="@color/BG_90"
-                android:textSize="14sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/img_alarm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/resized_icon_bell_orange" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_ex02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_bg_30"
-                    android:paddingLeft="12dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="12dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/txt_ex02"
-                    android:textColor="@color/BG_80"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/fm03_txt_ex01_exp02"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_background_mypage_bg_20"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:paddingTop="24dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="24dp"
-                android:text="@string/txt_ex01_exp02"
-                android:textColor="@color/BG_90"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/BG_20"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/fm03_txt_guide01_head01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_guide01_head01"
-                    android:textColor="@color/sysblack1"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/txt_subBanner01"
+                    android:textColor="@color/syswhite"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/fm03_txt_guide01_head02"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/fm03_txt_subBanner02"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/backgroundword_orange"
-                    android:text="@string/txt_guide01_head02"
-                    android:textColor="@color/O_10"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_guide01_head03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_guide01_head03"
-                    android:textColor="@color/sysblack1"
-                    android:textSize="16sp" />
+                    android:text="@string/txt_subBanner02"
+                    android:textColor="@color/G_60"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/syswhite"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingTop="24dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="24dp">
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_plus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/background_o_10_stroke_o_50"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/txt_plus"
+                        android:textColor="@color/O_50"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_ex01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/backgroundword_o_10"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/txt_ex01"
+                        android:textColor="@color/O_50"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/fm03_txt_guide01_step01"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/fm03_txt_ex01_exp01"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="20dp"
-                    android:text="@string/txt_guide01_step"
-                    android:textColor="@color/O_50"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_guide01_sub01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_guide01_sub01"
+                    android:background="@drawable/btn_background_mypage_bg_20"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="24dp"
+                    android:text="@string/txt_ex01_exp01"
                     android:textColor="@color/BG_90"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:textSize="14sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@color/syswhite"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingTop="24dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="24dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_alarm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/resized_icon_bell_orange" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_ex02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_bg_30"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/txt_ex02"
+                        android:textColor="@color/BG_80"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/fm03_txt_guide01_step02"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/fm03_txt_ex01_exp02"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_guide01_step"
-                    android:textColor="@color/O_50"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_guide01_sub02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_guide01_sub02"
-                    android:textColor="@color/BG_90"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@color/syswhite"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingTop="24dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="24dp">
-
-                <TextView
-                    android:id="@+id/fm03_txt_guide01_step03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_guide01_step"
-                    android:textColor="@color/O_50"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_guide01_sub03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_guide01_sub03"
-                    android:textColor="@color/BG_90"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@color/syswhite"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingTop="24dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="24dp">
-
-                <TextView
-                    android:id="@+id/fm03_txt_guide01_step04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_guide01_step"
-                    android:textColor="@color/O_50"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_guide01_sub04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_guide01_sub04"
+                    android:background="@drawable/btn_background_mypage_bg_20"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="24dp"
+                    android:text="@string/txt_ex01_exp02"
                     android:textColor="@color/BG_90"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -330,304 +172,464 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/BG_20"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide01_head01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_guide01_head01"
+                        android:textColor="@color/sysblack1"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide01_head02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/backgroundword_orange"
+                        android:text="@string/txt_guide01_head02"
+                        android:textColor="@color/O_10"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide01_head03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_guide01_head03"
+                        android:textColor="@color/sysblack1"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/syswhite"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide01_step01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="20dp"
+                        android:text="@string/txt_guide01_step"
+                        android:textColor="@color/O_50"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide01_sub01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_guide01_sub01"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/syswhite"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide01_step02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_guide01_step"
+                        android:textColor="@color/O_50"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide01_sub02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_guide01_sub02"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/syswhite"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide01_step03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_guide01_step"
+                        android:textColor="@color/O_50"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide01_sub03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_guide01_sub03"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/syswhite"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide01_step04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_guide01_step"
+                        android:textColor="@color/O_50"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide01_sub04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_guide01_sub04"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide02_head"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_guide02_head"
+                        android:textColor="@color/sysblack1"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/img_paststudy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_background_mypage_bg_20"
+                        android:paddingLeft="14dp"
+                        android:paddingTop="20dp"
+                        android:paddingRight="14dp"
+                        android:paddingBottom="20dp"
+                        android:text="@string/btn_pastText"
+                        android:textColor="@color/BG_90"
+                        android:textSize="12sp"
+                        app:drawableTopCompat="@drawable/resized_icon_document_gray" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/resized_rectangle_h372"
                 android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/fm03_txt_guide02_head"
+                    android:id="@+id/fm03_txt_guide03_head01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_guide02_head"
-                    android:textColor="@color/sysblack1"
-                    android:textSize="14sp" />
+                    android:text="@string/txt_guide03_head01"
+                    android:textColor="@color/syswhite"
+                    android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/img_paststudy"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_background_mypage_bg_20"
-                    android:paddingLeft="14dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide03_head02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_guide03_head02"
+                        android:textColor="@color/syswhite"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide03_head03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/backgroundword_orange"
+                        android:text="@string/txt_guide03_head03"
+                        android:textColor="@color/syswhite"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_guide03_head04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_guide03_head04"
+                        android:textColor="@color/syswhite"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="24dp"
                     android:paddingTop="20dp"
-                    android:paddingRight="14dp"
-                    android:paddingBottom="20dp"
-                    android:text="@string/btn_pastText"
-                    android:textColor="@color/BG_90"
-                    android:textSize="12sp"
-                    app:drawableTopCompat="@drawable/resized_icon_document_gray" />
+                    android:paddingRight="24dp"
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        android:id="@+id/fm03_img_peopleNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/txt_peopleNumber"
+                        android:textColor="@color/G_60"
+                        android:textSize="12sp"
+                        app:drawableTopCompat="@drawable/resized_icon_document_gray" />
+
+                    <TextView
+                        android:id="@+id/fm03_img_fee"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/txt_fee"
+                        android:textColor="@color/G_60"
+                        android:textSize="12sp"
+                        app:drawableTopCompat="@drawable/resized_icon_coin_gray_24" />
+
+                    <TextView
+                        android:id="@+id/fm03_img_gender"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/txt_gender"
+                        android:textColor="@color/G_60"
+                        android:textSize="12sp"
+                        app:drawableTopCompat="@drawable/resized_icon_gender_gray_24" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/fm03_txt_guide_03_sub01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_guide_03_sub01"
+                    android:textColor="@color/G_60"
+                    android:textSize="14sp" />
             </LinearLayout>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:background="@drawable/resized_rectangle_h372">
-
-            <TextView
-                android:id="@+id/fm03_txt_guide03_head01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_guide03_head01"
-                android:textColor="@color/syswhite"
-                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/BG_20"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/background_white_stroke_o_30"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/fm03_txt_recruit_step01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/txt_guide01_step"
+                        android:textColor="@color/O_50"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_recruit_guide01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_recruit_guide01"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_recruit_guide02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_recruit_guide02"
+                        android:textColor="@color/BG_70"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/background_white_stroke_o_30"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/fm03_txt_recruit_step02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/txt_guide01_step"
+                        android:textColor="@color/O_50"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_recruit_guide03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_recruit_guide03"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/background_white_stroke_o_30"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/fm03_txt_recruit_step03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/txt_guide01_step"
+                        android:textColor="@color/O_50"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_recruit_guide04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_recruit_guide04"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_white_stroke_o_30"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/fm03_txt_recruit_step04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/txt_guide01_step"
+                        android:textColor="@color/O_50"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/fm03_txt_recruit_guide05"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_recruit_guide05"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/syswhite"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/fm03_txt_guide03_head02"
+                <ImageView
+                    android:id="@+id/fm03_img_fire"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_guide03_head02"
-                    android:textColor="@color/syswhite"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_guide03_head03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/backgroundword_orange"
-                    android:text="@string/txt_guide03_head03"
-                    android:textColor="@color/syswhite"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_guide03_head04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_guide03_head04"
-                    android:textColor="@color/syswhite"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="24dp"
-                android:paddingTop="20dp"
-                android:paddingRight="24dp"
-                android:paddingBottom="20dp">
-
-                <TextView
-                    android:id="@+id/fm03_img_peopleNumber"
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/txt_peopleNumber"
-                    android:textColor="@color/G_60"
-                    android:textSize="12sp"
-                    app:drawableTopCompat="@drawable/resized_icon_document_gray" />
+                    android:src="@drawable/resized_icon_fire" />
 
                 <TextView
-                    android:id="@+id/fm03_img_fee"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/txt_fee"
-                    android:textColor="@color/G_60"
-                    android:textSize="12sp"
-                    app:drawableTopCompat="@drawable/resized_icon_coin_gray_24" />
-
-                <TextView
-                    android:id="@+id/fm03_img_gender"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/txt_gender"
-                    android:textColor="@color/G_60"
-                    android:textSize="12sp"
-                    app:drawableTopCompat="@drawable/resized_icon_gender_gray_24" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/fm03_txt_guide_03_sub01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_guide_03_sub01"
-                android:textColor="@color/G_60"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/BG_20"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/background_white_stroke_o_30"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingTop="24dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="24dp">
-
-                <TextView
-                    android:id="@+id/fm03_txt_recruit_step01"
+                    android:id="@+id/fm03_txt_end_msg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:text="@string/txt_guide01_step"
-                    android:textColor="@color/O_50"
-                    android:textSize="12sp" />
+                    android:text="@string/txt_end_msg"
+                    android:textColor="@color/sysblack1"
+                    android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/txt_recruit_guide01"
-                    android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/fca_btn_next"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_recruit_guide01"
-                    android:textColor="@color/BG_90"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_recruit_guide02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_recruit_guide02"
-                    android:textColor="@color/BG_70"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/background_white_stroke_o_30"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingTop="24dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="24dp">
-
-                <TextView
-                    android:id="@+id/fm03_txt_recruit_step02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:text="@string/txt_guide01_step"
-                    android:textColor="@color/O_50"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_recruit_guide03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_recruit_guide03"
-                    android:textColor="@color/BG_90"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/background_white_stroke_o_30"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingTop="24dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="24dp">
-
-                <TextView
-                    android:id="@+id/fm03_txt_recruit_step03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:text="@string/txt_guide01_step"
-                    android:textColor="@color/O_50"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_recruit_guide04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_recruit_guide04"
-                    android:textColor="@color/BG_90"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_white_stroke_o_30"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingTop="24dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="24dp">
-
-                <TextView
-                    android:id="@+id/fm03_txt_recruit_step04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:text="@string/txt_guide01_step"
-                    android:textColor="@color/O_50"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/fm03_txt_recruit_guide05"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_recruit_guide05"
-                    android:textColor="@color/BG_90"
-                    android:textSize="14sp" />
+                    android:backgroundTint="@color/O_50"
+                    android:enabled="false"
+                    android:text="@string/btn_txt_writing"
+                    android:textColor="@color/syswhite" />
             </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/syswhite"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/fm03_img_fire"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:src="@drawable/resized_icon_fire" />
-
-            <TextView
-                android:id="@+id/fm03_txt_end_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_end_msg"
-                android:textColor="@color/sysblack1"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/fca_btn_next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/O_50"
-                android:enabled="false"
-                android:text="@string/btn_txt_writing"
-                android:textColor="@color/syswhite" />
-        </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</layout>

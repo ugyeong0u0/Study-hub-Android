@@ -1,104 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".feature.signup.MajorFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/createMajor_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/sysblack2">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
-
-            <ImageButton
-                android:id="@+id/icon_back"
-                android:layout_width="@dimen/resized_item"
-                android:layout_height="@dimen/resized_item"
-                android:layout_alignParentStart="true"
-                android:background="@drawable/icon_arrow_left_l_white" />
-
-            <TextView
-                android:id="@+id/word_registration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/icon_back"
-                android:gravity="center"
-                android:text="@string/word_registration"
-                android:textColor="@color/syswhite"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
-
-    <RelativeLayout
+    <data>
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.signup.SignupViewModel" />
+    </data>
+    
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/side_margin"
         android:orientation="vertical">
 
-
-        <TextView
-            android:id="@+id/txt_page_number"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/createMajor_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/G_60"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:text="4/4"
-            android:layout_marginTop="@dimen/login_top_margin"/>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
 
-        <TextView
-            android:id="@+id/txt_head"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
+
+                <TextView
+                    android:id="@+id/word_registration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/icon_back"
+                    android:gravity="center"
+                    android:text="@string/word_registration"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_page_number"
-            android:layout_marginBottom="@dimen/login_top_margin"
-            android:text="@string/txt_major"
-            android:textColor="@color/syswhite"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txt_word_major"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_head"
-            android:text="@string/txt_word_major"
-            android:textColor="@color/syswhite"
-            android:textSize="14sp" />
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:orientation="vertical">
 
 
-        <AutoCompleteTextView
-            android:id="@+id/autoMajor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_word_major"
-            android:completionThreshold="1"
-            android:hint="@string/hint_major"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:textColor="@color/syswhite"
-            android:textColorHint="@color/G_80"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/txt_page_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/login_top_margin"
+                android:textColor="@color/G_60"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="4/4" />
 
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:backgroundTint="@color/O_50"
-            android:text="@string/btn_nextpage"
-            android:textColor="@color/syswhite"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/txt_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_page_number"
+                android:layout_marginBottom="@dimen/login_top_margin"
+                android:text="@string/txt_major"
+                android:textColor="@color/syswhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    </RelativeLayout>
-</LinearLayout>
+            <TextView
+                android:id="@+id/txt_word_major"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_head"
+                android:text="@string/txt_word_major"
+                android:textColor="@color/syswhite"
+                android:textSize="14sp" />
+
+
+            <AutoCompleteTextView
+                android:id="@+id/autoMajor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_word_major"
+                android:completionThreshold="1"
+                android:hint="@string/hint_major"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:textColor="@color/syswhite"
+                android:textColorHint="@color/G_80"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:backgroundTint="@color/O_50"
+                android:text="@string/btn_nextpage"
+                android:textColor="@color/syswhite"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

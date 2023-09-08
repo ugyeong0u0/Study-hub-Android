@@ -9,27 +9,28 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentMajorBinding
 
 class MajorFragment : Fragment() {
-    private var _binding: FragmentMajorBinding? = null
-    private val binding get() = _binding!!
-    private val viewModel: RegisterViewModel by activityViewModels()
+    private lateinit var binding: FragmentMajorBinding
+    private val viewModel: SignupViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMajorBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_major,container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.viewModel=viewModel
+        binding.lifecycleOwner=viewLifecycleOwner
         // 툴바 설정
         val toolbar = binding.createMajorToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -67,11 +68,6 @@ class MajorFragment : Fragment() {
         binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 4)
         // 학과 선택박스(AutoCompleteTextView)
         selectMajor()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     // 학과 선택박스(AutoCompleteTextView)

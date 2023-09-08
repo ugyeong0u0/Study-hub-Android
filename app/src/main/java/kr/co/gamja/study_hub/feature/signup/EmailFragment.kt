@@ -1,10 +1,8 @@
 package kr.co.gamja.study_hub.feature.signup
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,31 +11,32 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.activityViewModels
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentEmailBinding
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
 // 회원가입- 이메일 인증
 class EmailFragment : Fragment() {
-    private var _binding: FragmentEmailBinding? = null
-    private val binding get() = _binding!!
-    private val viewModel :RegisterViewModel by activityViewModels()
+    private lateinit var binding: FragmentEmailBinding
+    private val viewModel: EmailViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentEmailBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_email, container, false)
+        return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         // 툴바 설정
         val toolbar = binding.createEmailToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -58,7 +57,7 @@ class EmailFragment : Fragment() {
             Log.d("회원가입 btnAuth눌렀을때", "")
             viewModel.emailSend()
 
-            binding.editLayoutEmail.error=getString(R.string.txt_sendedemail)
+            binding.editLayoutEmail.error = getString(R.string.txt_sendedemail)
             val errorColor = ContextCompat.getColor(requireContext(), R.color.G_40)
             val stateList = ColorStateList.valueOf(errorColor)
             binding.editLayoutEmail.setErrorTextColor(stateList)
@@ -69,23 +68,26 @@ class EmailFragment : Fragment() {
             binding.editAuthCode.isVisible = true
         }
         // 인증번호 재전송
-        binding.btnResend.setOnClickListener{
+        binding.btnResend.setOnClickListener {
             viewModel.emailSend()
-            CustomSnackBar.make(binding.layoutRelative,getString(R.string.txt_resendAlarm), binding.btnNext).show()
+            CustomSnackBar.make(
+                binding.layoutRelative,
+                getString(R.string.txt_resendAlarm),
+                binding.btnNext
+            ).show()
         }
 
         // 인증코드확인
-        binding.btnNext.setOnClickListener{
+        binding.btnNext.setOnClickListener {
             val txt_email = binding.editEmail.text.toString()
-            viewModel.emailAuthcheck( object : EmailValidCallback {
+            viewModel.emailAuthcheck(object : EmailValidCallback {
                 override fun onEmailValidResult(isValid: Boolean) {
                     Log.d("회원가입 - 이메일인증 콜백오버라이드", isValid.toString())
-                    if(isValid==true){
-                        User.email=txt_email
+                    if (isValid == true) {
+                        User.email = txt_email
                         findNavController().navigate(R.id.action_createAccountFragment01_to_createAccountFragment02)
-                    }
-                    else{
-                        Toast.makeText(requireContext(),"인증코드 틀림",Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(requireContext(), "인증코드 틀림", Toast.LENGTH_LONG).show()
                     }
                 }
             })
@@ -95,32 +97,28 @@ class EmailFragment : Fragment() {
 
     private fun setupEmailEditText() {
         binding.editEmail.doOnTextChanged { text, _, _, _ ->
-            if(text.toString() != viewModel.email.value) {
+            if (text.toString() != viewModel.email.value) {
                 viewModel.updateEmail(text.toString())
             }
         }
 
         viewModel.email.observe(viewLifecycleOwner) {
-            if(it != binding.editEmail.text.toString()) {
+            if (it != binding.editEmail.text.toString()) {
                 binding.editEmail.setText(it)
             }
         }
     }
-    private fun setupEmailAuthText(){
+
+    private fun setupEmailAuthText() {
         binding.editAuthCode.doOnTextChanged { text, _, _, _ ->
-            if(text.toString()!=viewModel.authNumber.value){
+            if (text.toString() != viewModel.authNumber.value) {
                 viewModel.updateAuthNumber(text.toString())
             }
         }
-        viewModel.authNumber.observe(viewLifecycleOwner, Observer { it->
-            if(it!=binding.editAuthCode.text.toString())
+        viewModel.authNumber.observe(viewLifecycleOwner, Observer { it ->
+            if (it != binding.editAuthCode.text.toString())
                 binding.editAuthCode.setText(it)
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }

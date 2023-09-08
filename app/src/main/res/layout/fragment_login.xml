@@ -1,139 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginHorizontal="@dimen/side_margin"
-    android:orientation="vertical"
-    tools:context=".feature.login.LoginFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <ImageView
-        android:id="@+id/title"
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.login.LoginViewModel" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="161dp"
-        android:src="@drawable/img_login_e"
-        android:layout_marginBottom="@dimen/login_top_margin"/>
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/side_margin">
 
-    <TextView
-        android:id="@+id/txt_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:text="@string/txt_word_email"
-        android:textColor="@color/syswhite"
-        android:textSize="14sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editLayout_email"
-        style="@style/LoginEditTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_email"
-        app:errorEnabled="true"
-        app:hintEnabled="false"
-        android:layout_marginBottom="@dimen/login_top_margin">
+        <ImageView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="161dp"
+            android:layout_marginBottom="@dimen/login_top_margin"
+            android:src="@drawable/img_login_e" />
+
+        <TextView
+            android:id="@+id/txt_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:text="@string/txt_word_email"
+            android:textColor="@color/syswhite"
+            android:textSize="14sp" />
+
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_email"
-            style="@style/LoginEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_email"
+            android:backgroundTint="@color/G_100"
             android:hint="@string/hint_email"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:textColor="@color/syswhite"
             android:textColorHint="@color/G_80"
             android:textSize="16sp" />
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/txt_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editLayout_email"
-        android:text="@string/txt_word_password"
-        android:textColor="@color/syswhite"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/error_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_email"
+            android:textColor="@color/R_50"
+            android:textSize="14sp"
+            tools:text="에러" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editLayout_password"
-        style="@style/LoginEditTextStyle"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_password"
-        android:backgroundTint="@color/G_80"
-        app:endIconDrawable="@drawable/toggle_endicon"
-        app:endIconMode="password_toggle"
-        app:errorEnabled="true"
-        app:hintEnabled="false">
+        <TextView
+            android:id="@+id/txt_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/error_email"
+            android:text="@string/txt_word_password"
+            android:textColor="@color/syswhite"
+            android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_password"
-            style="@style/LoginEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_password"
+            android:backgroundTint="@color/G_100"
             android:hint="@string/hint_password"
             android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:textColor="@color/syswhite"
             android:textColorHint="@color/G_80"
             android:textSize="16sp" />
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editLayout_password"
-        android:backgroundTint="@color/O_50"
-        android:text="@string/btn_login"
-        android:textColor="@color/syswhite"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:paddingTop="23dp"
-        android:paddingBottom="23dp"
-        />
+        <ImageButton
+            android:id="@+id/viewPassword"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@+id/txt_password"
+            android:layout_alignParentEnd="true"
+            android:layout_marginVertical="10dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/toggle_endicon"
+            android:tag="0"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_forgetPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_login"
-        android:background="#00ff0000"
-        android:text="@string/next_forget_password"
-        android:textColor="@color/G_60"
-        android:textSize="12sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_tour"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/error_password"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#00ff0000"
-            android:text="@string/btn_tour"
+            android:textColor="@color/R_50"
+            android:textSize="14sp"
+            android:layout_below="@+id/edit_password"
+            tools:text="에러" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/error_password"
+            android:backgroundTint="@color/O_50"
+            android:paddingTop="23dp"
+            android:paddingBottom="23dp"
+            android:text="@string/btn_login"
             android:textColor="@color/syswhite"
-            android:textSize="12sp" />
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_registration"
-            android:layout_width="0dp"
+            android:id="@+id/btn_forgetPassword"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_below="@+id/btn_login"
             android:background="#00ff0000"
-            android:text="@string/word_registration"
-            android:textColor="@color/O_60"
+            android:text="@string/next_forget_password"
+            android:textColor="@color/G_60"
             android:textSize="12sp" />
-    </LinearLayout>
-</RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_tour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00ff0000"
+                android:text="@string/btn_tour"
+                android:textColor="@color/syswhite"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_registration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00ff0000"
+                android:text="@string/word_registration"
+                android:textColor="@color/O_60"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

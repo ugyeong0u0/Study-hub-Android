@@ -6,28 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentContentBinding
 
 
 class ContentFragment : Fragment() {
-    private var _binding:FragmentContentBinding?=null
-    private val binding get()=_binding!!
+    private lateinit var binding:FragmentContentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding=FragmentContentBinding.inflate(inflater,container,false)
-        val view = binding.root
-        return view
+        binding= DataBindingUtil.inflate(inflater,R.layout.fragment_content,container,false)
+        return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // 툴바 설정
-        val toolbar = binding.searchMainToolbar
+        val toolbar = binding.contentToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
         binding.iconBack.setOnClickListener {
@@ -43,9 +43,5 @@ class ContentFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding=null
-    }
 
 }

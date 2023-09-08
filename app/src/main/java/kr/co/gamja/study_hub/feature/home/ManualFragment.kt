@@ -5,28 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import kr.co.gamja.study_hub.R
 
 import kr.co.gamja.study_hub.databinding.FragmentManualBinding
 
 
 class ManualFragment : Fragment() {
-    private var _binding :FragmentManualBinding?=null
-    private val binding get() =_binding!!
+    private lateinit var binding :FragmentManualBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding=FragmentManualBinding.inflate(layoutInflater,container,false)
-        val view= binding.root
-        return view
+        binding=DataBindingUtil.inflate(layoutInflater, R.layout.fragment_manual,container,false)
+        return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding=null
     }
 }

@@ -1,271 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/syswhite"
-    android:fillViewport="true"
-    android:scrollbars="vertical"
-    tools:context=".feature.mypage.MyInfoFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@color/syswhite"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/myPageMain_toolbar"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/sysblack2">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/myPageMain_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/sysblack2">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp">
+
+                    <ImageButton
+                        android:id="@+id/icon_back"
+                        android:layout_width="@dimen/resized_item"
+                        android:layout_height="@dimen/resized_item"
+                        android:layout_alignParentStart="true"
+                        android:background="@drawable/icon_arrow_left_l_white" />
+
+                    <TextView
+                        android:id="@+id/txt_myInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/txt_myInfo"
+                        android:textColor="@color/syswhite"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <ImageButton
-                    android:id="@+id/icon_back"
-                    android:layout_width="@dimen/resized_item"
-                    android:layout_height="@dimen/resized_item"
-                    android:layout_alignParentStart="true"
-                    android:background="@drawable/icon_arrow_left_l_white" />
+                <ImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/top_margin"
+                    android:src="@drawable/icon_profile_60" />
+
+                <Button
+                    android:id="@+id/btn_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_profile"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="1dp"
+                    android:background="#00000000"
+                    android:text="@string/btn_delete"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/BG_70"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/btn_modify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_profile"
+                    android:layout_toEndOf="@+id/btn_delete"
+                    android:background="#00000000"
+                    android:text="@string/btn_modify"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/O_50"
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/txt_myInfo"
-                    android:layout_width="match_parent"
+                    android:id="@+id/txt_nickName"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/txt_myInfo"
-                    android:textColor="@color/syswhite"
-                    android:textSize="18sp"
+                    android:layout_below="@id/btn_delete"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginHorizontal="@dimen/side_margin"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/txt_word_nickname"
+                    android:textColor="@color/sysblack1"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_txtNickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_delete"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="@dimen/side_margin"
+                    android:background="#00000000"
+                    android:textAlignment="center"
+                    android:textColor="@color/BG_80"
+                    android:textSize="16sp"
+                    tools:text="횃불이" />
+
+                <ImageView
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_below="@+id/btn_delete"
+                    android:layout_alignEnd="@id/btn_txtNickname"
+                    android:layout_marginTop="13dp"
+                    android:src="@drawable/resized_icon_arrow_right_gray" />
+
+                <TextView
+                    android:id="@+id/txt_major"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_nickName"
+                    android:layout_alignBaseline="@+id/btn_txt_major"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginHorizontal="@dimen/side_margin"
+                    android:text="@string/txt_word_major"
+                    android:textColor="@color/sysblack1"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_txt_major"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_txtNickname"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="@dimen/side_margin"
+                    android:background="#00000000"
+                    android:textAlignment="center"
+                    android:textColor="@color/BG_80"
+                    android:textSize="16sp"
+                    tools:text="경영학부" />
+
+                <ImageView
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_below="@+id/btn_txtNickname"
+                    android:layout_alignEnd="@id/btn_txtNickname"
+                    android:layout_marginTop="13dp"
+                    android:src="@drawable/resized_icon_arrow_right_gray" />
+
+                <TextView
+                    android:id="@+id/txt_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_major"
+                    android:layout_alignBaseline="@+id/btn_txt_password"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginHorizontal="@dimen/side_margin"
+                    android:text="@string/txt_word_password"
+                    android:textColor="@color/sysblack1"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_txt_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_txt_major"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="@dimen/side_margin"
+                    android:background="#00000000" />
+
+                <ImageView
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_below="@+id/btn_txt_major"
+                    android:layout_alignEnd="@id/btn_txtNickname"
+                    android:layout_marginTop="13dp"
+                    android:src="@drawable/resized_icon_arrow_right_gray" />
+
+                <TextView
+                    android:id="@+id/txt_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_password"
+                    android:layout_alignBaseline="@+id/txt_userGender"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginHorizontal="@dimen/side_margin"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/txt_gender"
+                    android:textColor="@color/sysblack1"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_userGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_txt_password"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="@dimen/side_margin"
+                    android:textColor="@color/BG_80"
+                    android:textSize="16sp"
+                    tools:text="여자" />
+
+                <TextView
+                    android:id="@+id/txt_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_gender"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginHorizontal="@dimen/side_margin"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/txt_word_email"
+                    android:textColor="@color/sysblack1"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_userEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_userGender"
+                    android:layout_alignBaseline="@+id/txt_email"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="@dimen/side_margin"
+                    android:textColor="@color/BG_80"
+                    android:textSize="16sp"
+                    tools:text="abcd@inu.ac.kr" />
+
+                <View
+                    android:id="@+id/from_email_to_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_below="@id/txt_email"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/BG_30" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/from_email_to_logout"
+                    android:layout_marginHorizontal="@dimen/side_margin"
+                    android:background="#00000000"
+                    android:text="@string/btn_logout"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/BG_90"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_leave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_logout"
+                    android:layout_marginHorizontal="@dimen/side_margin"
+                    android:background="#00000000"
+                    android:text="@string/btn_leave"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/BG_90"
+                    android:textSize="14sp" />
+
             </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/img_profile"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/top_margin"
-                android:src="@drawable/icon_profile_60" />
-
-            <Button
-                android:id="@+id/btn_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/img_profile"
-                android:layout_marginTop="1dp"
-                android:background="#00000000"
-                android:text="@string/btn_delete"
-                android:textAlignment="textEnd"
-                android:textColor="@color/BG_70"
-                android:textSize="14sp"
-                android:layout_centerHorizontal="true"/>
-
-            <Button
-                android:id="@+id/btn_modify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/img_profile"
-                android:layout_toEndOf="@+id/btn_delete"
-                android:background="#00000000"
-                android:text="@string/btn_modify"
-                android:textAlignment="textStart"
-                android:textColor="@color/O_50"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/txt_nickName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/btn_delete"
-                android:layout_alignParentStart="true"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:layout_marginTop="16dp"
-                android:text="@string/txt_word_nickname"
-                android:textColor="@color/sysblack1"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_txtNickname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_delete"
-                android:layout_alignParentEnd="true"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:background="#00000000"
-                android:textAlignment="center"
-                android:textColor="@color/BG_80"
-                android:textSize="16sp"
-                tools:text="횃불이" />
-
-            <ImageView
-                android:layout_width="@dimen/resized_item"
-                android:layout_height="@dimen/resized_item"
-                android:layout_below="@+id/btn_delete"
-                android:layout_alignEnd="@id/btn_txtNickname"
-                android:layout_marginTop="13dp"
-                android:src="@drawable/resized_icon_arrow_right_gray" />
-
-            <TextView
-                android:id="@+id/txt_major"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_nickName"
-                android:layout_alignBaseline="@+id/btn_txt_major"
-                android:layout_alignParentStart="true"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:text="@string/txt_word_major"
-                android:textColor="@color/sysblack1"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_txt_major"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_txtNickname"
-                android:layout_alignParentEnd="true"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:background="#00000000"
-                android:textAlignment="center"
-                android:textColor="@color/BG_80"
-                android:textSize="16sp"
-                tools:text="경영학부" />
-
-            <ImageView
-                android:layout_width="@dimen/resized_item"
-                android:layout_height="@dimen/resized_item"
-                android:layout_below="@+id/btn_txtNickname"
-                android:layout_alignEnd="@id/btn_txtNickname"
-                android:layout_marginTop="13dp"
-                android:src="@drawable/resized_icon_arrow_right_gray" />
-
-            <TextView
-                android:id="@+id/txt_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_major"
-                android:layout_alignBaseline="@+id/btn_txt_password"
-                android:layout_alignParentStart="true"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:text="@string/txt_word_password"
-                android:textColor="@color/sysblack1"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_txt_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_txt_major"
-                android:layout_alignParentEnd="true"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:background="#00000000" />
-
-            <ImageView
-                android:layout_width="@dimen/resized_item"
-                android:layout_height="@dimen/resized_item"
-                android:layout_below="@+id/btn_txt_major"
-                android:layout_alignEnd="@id/btn_txtNickname"
-                android:layout_marginTop="13dp"
-                android:src="@drawable/resized_icon_arrow_right_gray" />
-
-            <TextView
-                android:id="@+id/txt_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_password"
-                android:layout_alignBaseline="@+id/txt_userGender"
-                android:layout_alignParentStart="true"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:layout_marginTop="16dp"
-                android:text="@string/txt_gender"
-                android:textColor="@color/sysblack1"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txt_userGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_txt_password"
-                android:layout_alignParentEnd="true"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:textColor="@color/BG_80"
-                android:textSize="16sp"
-                tools:text="여자" />
-
-            <TextView
-                android:id="@+id/txt_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_gender"
-                android:layout_alignParentStart="true"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:layout_marginTop="16dp"
-                android:text="@string/txt_word_email"
-                android:textColor="@color/sysblack1"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txt_userEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_userGender"
-                android:layout_alignBaseline="@+id/txt_email"
-                android:layout_alignParentEnd="true"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:textColor="@color/BG_80"
-                android:textSize="16sp"
-                tools:text="abcd@inu.ac.kr" />
-
-            <View
-                android:id="@+id/from_email_to_logout"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:layout_below="@id/txt_email"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/BG_30" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/from_email_to_logout"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:background="#00000000"
-                android:text="@string/btn_logout"
-                android:textAlignment="textStart"
-                android:textColor="@color/BG_90"
-                android:textSize="14sp" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_leave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_logout"
-                android:layout_marginHorizontal="@dimen/side_margin"
-                android:background="#00000000"
-                android:text="@string/btn_leave"
-                android:textAlignment="textStart"
-                android:textColor="@color/BG_90"
-                android:textSize="14sp" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-</ScrollView>
+        </LinearLayout>
+    </ScrollView>
+</layout>

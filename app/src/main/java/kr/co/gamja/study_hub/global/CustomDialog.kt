@@ -6,7 +6,6 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.view.isVisible
 import kr.co.gamja.study_hub.R
 
 class CustomDialog(

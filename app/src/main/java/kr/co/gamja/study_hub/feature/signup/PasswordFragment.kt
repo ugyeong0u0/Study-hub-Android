@@ -8,21 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentPasswordBinding
 
 
 class PasswordFragment : Fragment() {
-    private var _binding: FragmentPasswordBinding?=null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentPasswordBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding=FragmentPasswordBinding.inflate(inflater,container,false)
-        val view = binding.root
-        return view
+        binding= DataBindingUtil.inflate(inflater,R.layout.fragment_password,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,10 +62,6 @@ class PasswordFragment : Fragment() {
             findNavController().navigate(R.id.action_createAccountFragment02_to_createAccountFragment03,null)
         }
 
-    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding=null
     }
 
 }

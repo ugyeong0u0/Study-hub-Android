@@ -1,55 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".feature.signup.EmailFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/createEmail_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/sysblack2">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
-
-            <ImageButton
-                android:id="@+id/icon_back"
-                android:layout_width="@dimen/resized_item"
-                android:layout_height="@dimen/resized_item"
-                android:layout_alignParentStart="true"
-                android:background="@drawable/icon_arrow_left_l_white" />
-
-            <TextView
-                android:id="@+id/word_registration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/icon_back"
-                android:gravity="center"
-                android:text="@string/word_registration"
-                android:textColor="@color/syswhite"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
+    <data>
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.signup.EmailViewModel" />
+    </data>
 
     <RelativeLayout
         android:id="@+id/layout_relative"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/side_margin"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/createEmail_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            android:background="@color/sysblack2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
+
+                <TextView
+                    android:id="@+id/word_registration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/icon_back"
+                    android:gravity="center"
+                    android:text="@string/word_registration"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
 
         <TextView
             android:id="@+id/txt_pageNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/createEmail_toolbar"
+            android:layout_marginHorizontal="@dimen/side_margin"
             android:layout_marginTop="@dimen/login_top_margin"
             android:textColor="@color/G_60"
             android:textSize="18sp"
@@ -61,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_pageNumber"
+            android:layout_marginHorizontal="@dimen/side_margin"
             android:layout_marginBottom="@dimen/login_top_margin"
             android:text="@string/txt_email"
             android:textColor="@color/syswhite"
@@ -72,6 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_head"
+            android:layout_marginHorizontal="@dimen/side_margin"
             android:text="@string/txt_word_email"
             android:textColor="@color/syswhite"
             android:textSize="14sp" />
@@ -80,7 +86,8 @@
             android:id="@+id/layout_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_email">
+            android:layout_below="@id/txt_email"
+            android:layout_marginHorizontal="@dimen/side_margin">
             <!--                        android:theme="@style/EditTextGreyStyle"-->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editLayout_email"
@@ -146,6 +153,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_email"
+            android:layout_marginHorizontal="@dimen/side_margin"
             android:text="@string/txt_authcode"
             android:textColor="@color/syswhite"
             android:textSize="14sp"
@@ -155,10 +163,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editLayout_authCode"
             style="@style/LoginEditTextStyle"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_authCode"
+            android:layout_marginHorizontal="@dimen/side_margin"
             app:errorEnabled="true"
             app:hintEnabled="false">
 
@@ -183,10 +191,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="@dimen/side_margin"
             android:backgroundTint="@color/O_50"
             android:paddingTop="23dp"
             android:paddingBottom="23dp"
             android:text="@string/btn_nextpage"
             android:textColor="@color/syswhite" />
     </RelativeLayout>
-</LinearLayout>
+
+</layout>
