@@ -2,7 +2,6 @@ package kr.co.gamja.study_hub.feature.signup
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
@@ -44,7 +43,7 @@ class MajorFragment : Fragment() {
         binding.btnNext.setOnClickListener {
             // 회원가입 api보냄
             Log.d("회원가입 버튼 누름", "")
-            viewModel.requestSignup(User, object : RegisterCallback {
+            viewModel.requestSignup( object : RegisterCallback {
                 override fun onSucess(isValid: Boolean) {
                     if (isValid) {
                         Log.d("회원가입 최종 성공", "")
@@ -77,6 +76,12 @@ class MajorFragment : Fragment() {
         var adapter_array =
             ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, array_major)
         editTxt_major.setAdapter(adapter_array)
+
+        binding.viewDelete.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+               binding.autoMajor.text.clear()
+            }
+        })
 
         binding.autoMajor.setOnItemClickListener { parent, view, position, id ->
             var txt_selected = binding.autoMajor.text.toString()

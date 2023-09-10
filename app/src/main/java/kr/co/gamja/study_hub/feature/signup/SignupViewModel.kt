@@ -12,9 +12,9 @@ import kr.co.gamja.study_hub.data.repository.RetrofitManager
 class SignupViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
 
-    fun requestSignup(user: User, params: RegisterCallback) {
+    fun requestSignup(params: RegisterCallback) {
         val signupReq = SignupRequest(
-            "koung0706@inu.ac.kr", User.gender!!,
+            User.email!!, User.gender!!,
             User.grade!!, User.nickname!!, User.password!!
         )
         Log.d(tag, "회원가입 요청시 데이터확인" + signupReq.toString())

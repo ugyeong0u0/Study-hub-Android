@@ -5,18 +5,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
+import kr.co.gamja.study_hub.data.model.LoginErrorResponse
 import kr.co.gamja.study_hub.data.model.LoginRequest
 import kr.co.gamja.study_hub.data.model.LoginResponse
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 const val EMAIL = "^[a-zA-Z0-9+-\\_.]+(@inu\\.ac\\.kr)$"
 const val PASSWORD = """^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9!@#$%^&*]).{8,15}$"""
 
 class LoginViewModel : ViewModel() {
+    private val tag = this.javaClass.simpleName
+
     private val _loginEmail = MutableLiveData<String>()
     val loginEmail: LiveData<String> get() = _loginEmail
 
@@ -28,7 +29,7 @@ class LoginViewModel : ViewModel() {
 
     private val _validPassword = MutableLiveData<Boolean>()
     val validPassword: LiveData<Boolean> get() = _validPassword
-    private val tag = this.javaClass.simpleName
+
 
     fun updateLoginEmail(newEmail: String) {
         _loginEmail.value = newEmail
@@ -42,17 +43,28 @@ class LoginViewModel : ViewModel() {
 
     fun goLogin(emailTxt: String, passwordTxt: String, params: LoginCallback) {
         var loginReq = LoginRequest(emailTxt, passwordTxt)
-        Log.d(tag, "로그인-request데이터"+loginReq.toString())
+        Log.d(tag, "로그인-request데이터" + loginReq.toString())
         viewModelScope.launch {
             try {
                 val response = RetrofitManager.api.login(loginReq)
                 if (response.isSuccessful) {
                     val result = response.body() as LoginResponse
-                    Log.d(tag,"로그인 성공 code"+ response.code().toString())
+                    Log.d(tag, "로그인 성공 code" + response.code().toString())
                     params.onSuccess(true, result.data.accessToken, result.data.refreshToken)
-                } else Log.e(tag, "로그인 실패")
-            }catch (e:Exception){
-                Log.e(tag,"로그인 Exception: ${e.message}")
+                } else {
+                    Log.e(tag, "로그인 실패")
+                    val errorResponse: LoginErrorResponse?=response.errorBody()?.let {
+                        val gson = Gson()
+                        gson.fromJson(it.charStream(),LoginErrorResponse::class.java)
+                    }
+                    if(errorResponse!=null){
+                        val status= errorResponse.status
+                        Log.e(tag,status.toString())
+                        params.onfail(true)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(tag, "로그인 Exception: ${e.message}")
             }
 
         }
@@ -61,4 +73,5 @@ class LoginViewModel : ViewModel() {
 
 interface LoginCallback {
     fun onSuccess(isBoolean: Boolean = false, accessToken: String, refreshToken: String)
+    fun onfail(isBoolean:Boolean=false)
 }

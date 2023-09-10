@@ -3,13 +3,14 @@ package kr.co.gamja.study_hub.global
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
 import kr.co.gamja.study_hub.databinding.SnackbarBinding
 
-class CustomSnackBar(view: View, private val message: String, private val anchorview: View) {
+class CustomSnackBar(view: View, private val message: String, private val anchorview: View, private val checkImg: Boolean) {
     companion object {
-        fun make(view: View, message: String, anchorview: View) =
-            CustomSnackBar(view, message, anchorview)
+        fun make(view: View, message: String, anchorview: View,checkImg: Boolean=true) =
+            CustomSnackBar(view, message, anchorview,checkImg)
     }
 
     private val context = view.context
@@ -35,6 +36,7 @@ class CustomSnackBar(view: View, private val message: String, private val anchor
 
     private fun initData() {
         snackbarBinding.txtSnackBar.text = message
+        if(!checkImg) snackbarBinding.iconCheak.isVisible=false
     }
 
     fun show() {

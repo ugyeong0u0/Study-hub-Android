@@ -84,38 +84,35 @@
                 android:text="@string/txt_word_nickname"
                 android:textColor="@color/syswhite"
                 android:textSize="14sp" />
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editLayout_nickname"
-                style="@style/Widget.Design.TextInputLayout"
 
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_nickName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_nickName"
-                android:layout_marginBottom="@dimen/login_top_margin"
-                android:paddingTop="20dp"
-                app:counterEnabled="true"
-                app:counterMaxLength="20"
-                app:errorEnabled="true"
-                app:hintEnabled="false">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_nickName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_nickname"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLength="20"
-                    android:textColor="@color/syswhite"
-                    android:textColorHint="@color/G_80"
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/hint_nickname"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLength="20"
+                android:backgroundTint="@color/G_100"
+                android:textColor="@color/syswhite"
+                android:textColorHint="@color/G_80"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/error_nickName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_nickName"
+                android:textColor="@color/R_50"
+                android:textSize="14sp"
+                tools:text="에러" />
 
             <TextView
                 android:id="@+id/txt_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editLayout_nickname"
+                android:layout_below="@+id/error_nickName"
                 android:text="@string/txt_gender"
                 android:textColor="@color/syswhite"
                 android:textSize="14sp" />
@@ -128,22 +125,22 @@
                 android:paddingTop="24dp">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/fca03_btn_female"
+                    android:id="@+id/btn_female"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="9dp"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_gender_o_deactivation_stroke_o_50"
+                    android:background="@drawable/btn_gender_g_100_stroke_g_80"
                     android:text="@string/btn_female"
                     android:textColor="@color/O_20"
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/fca03_btn_male"
+                    android:id="@+id/btn_male"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_gender_o_deactivation_stroke_o_50"
+                    android:background="@drawable/btn_gender_g_100_stroke_g_80"
                     android:text="@string/btn_male"
                     android:textColor="@color/O_20"
                     android:textSize="16sp" />
@@ -151,7 +148,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/fca03_btn_next"
+                android:id="@+id/btn_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

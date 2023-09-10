@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.feature.login
 
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -24,12 +26,16 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.datastore.App
 import kr.co.gamja.study_hub.databinding.FragmentLoginBinding
+import kotlin.properties.Delegates
 
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
-
+    private var grayColor by Delegates.notNull<Int>() // G_80 : 에딧텍스트 값 정답
+    private lateinit var grayStateList: ColorStateList
+    private var redColor by Delegates.notNull<Int>() // R_50 : 에딧텟스트 값 오류
+    private lateinit var redStateList:ColorStateList
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,10 +44,26 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                        requireActivity().finish()
+                }
+            })
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        grayColor=ContextCompat.getColor(requireContext(), R.color.G_80)
+        redColor=ContextCompat.getColor(requireContext(), R.color.R_50)
+        grayStateList=ColorStateList.valueOf(grayColor)
+        redStateList=ColorStateList.valueOf(redColor)
+
 
         setUpLoginEmail()
         setUpLoginPassword()
@@ -70,6 +92,25 @@ class LoginFragment : Fragment() {
             val passwordTxt = binding.editPassword.text.toString()
 
             viewModel.goLogin(emailTxt, passwordTxt, object : LoginCallback {
+                override fun onfail(isBoolean: Boolean) {
+                    if(isBoolean){
+                        binding.errorEmail.apply {
+                            text = getString(R.string.txterror_email)
+                            setTextColor(redColor)
+                            isVisible=true
+                        }
+                        binding.editEmail.backgroundTintList = redStateList
+
+                        binding.errorPassword.apply {
+                            text = getString(R.string.txterror_password)
+                            setTextColor(redColor)
+                            isVisible=true
+                        }
+                        binding.editPassword.backgroundTintList = redStateList
+
+                    }
+                }
+
                 override fun onSuccess(
                     isBoolean: Boolean,
                     accessToken: String,
@@ -80,7 +121,7 @@ class LoginFragment : Fragment() {
                             "로그인 토큰(accessToken // refreshToken) 저장",
                             accessToken + "//" + refreshToken
                         )
-                        findNavController().navigate(R.id.action_login_to_nav_graph02_main)
+                        findNavController().navigate(R.id.action_login_to_nav_graph02_main,null)
 
                         CoroutineScope(Dispatchers.Main).launch {
                             App.getInstance().getDataStore().setAccessToken(accessToken)
@@ -95,8 +136,9 @@ class LoginFragment : Fragment() {
 
         // 둘러보기 버튼 누름
         binding.btnTour.setOnClickListener {
-            findNavController().navigate(R.id.action_login_to_nav_graph02_main)
+            findNavController().navigate(R.id.action_login_to_nav_graph02_main,null)
         }
+
         // 회원가입페이지로 연결
         binding.btnRegistration.setOnClickListener {
             findNavController().navigate(R.id.action_login_to_createAccount, null)
@@ -117,18 +159,15 @@ class LoginFragment : Fragment() {
         // 이메일 에딧텍스트
         viewModel.validEmail.observe(viewLifecycleOwner, Observer { it ->
             if (!it) {
-                val errorColor = ContextCompat.getColor(requireContext(), R.color.R_50)
-                val stateList = ColorStateList.valueOf(errorColor)
                 binding.errorEmail.apply {
                     text = getString(R.string.txterror_email)
-                    setTextColor(errorColor)
+                    setTextColor(redColor)
+                    isVisible=true
                 }
-                binding.editEmail.backgroundTintList = stateList
+                binding.editEmail.backgroundTintList = redStateList
             } else {
                 binding.errorEmail.isVisible = false
-                val Color = ContextCompat.getColor(requireContext(), R.color.G_80)
-                val stateList = ColorStateList.valueOf(Color)
-                binding.editEmail.backgroundTintList = stateList
+                binding.editEmail.backgroundTintList = grayStateList
             }
         })
     }
@@ -151,19 +190,17 @@ class LoginFragment : Fragment() {
         // 패스워드 에딧텍스트
         viewModel.validPassword.observe(viewLifecycleOwner, Observer {
             if (!it) {
-                val errorColor = ContextCompat.getColor(requireContext(), R.color.R_50)
-                val stateList = ColorStateList.valueOf(errorColor)
                 binding.errorPassword.apply {
                     text = getString(R.string.txterror_password)
-                    setTextColor(errorColor)
+                    setTextColor(redColor)
+                    isVisible=true
                 }
-                binding.editPassword.backgroundTintList = stateList
+                binding.editPassword.backgroundTintList = redStateList
             } else {
                 binding.errorPassword.isVisible = false
-                val Color = ContextCompat.getColor(requireContext(), R.color.G_80)
-                val stateList = ColorStateList.valueOf(Color)
-                binding.editPassword.backgroundTintList = stateList
+                binding.editPassword.backgroundTintList = grayStateList
             }
         })
     }
+
 }

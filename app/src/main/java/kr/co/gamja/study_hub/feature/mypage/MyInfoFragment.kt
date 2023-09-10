@@ -2,12 +2,12 @@ package kr.co.gamja.study_hub.feature.mypage
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -53,7 +53,7 @@ class MyInfoFragment : Fragment() {
             dialog.setOnClickListener(object : OnDialogClickListener {
                 override fun onclickResult() { // 로그아웃 "네" 누르면
                     findNavController().navigate(
-                        R.id.action_myInfoFragment_to_loginFragment,
+                        R.id.action_global_loginFragment,
                         null
                     )
                 }

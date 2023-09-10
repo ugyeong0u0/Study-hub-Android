@@ -17,7 +17,9 @@
     <string name="btn_tour">둘러보기</string>
     <string name="word_registration">회원가입</string>
     <string name="txterror_email">잘못된 주소입니다. 다시 입력해주세요</string>
-    <string name="txterror_password">잘못된 비밀번호입니다.(10자리 이상, 특수문자 포함 필수)</string>
+    <string name="txterror_password">잘못된 비밀번호예요.(10자리 이상, 특수문자 포함 필수)</string>
+    <string name="txterror_passwordOk">사용 가능한 비밀번호예요.</string>
+    <string name="btnBack_login">한번 더 누르면 앱종료임.</string>
     <!--    회원가입-->
     <string name="txt_pagenumber">%d\/4</string>
 
@@ -34,7 +36,8 @@
 
     <string name="txt1_password">비밀번호를 설정해주세요</string>
     <string name="txt2_password">10자리 이상, 특수문자 포함(\!,\@,\#,\$,\%,\^,\&amp;,\*,\?,\~,\_) 필수예요</string>
-    <string name="txterror_rs_password">10자리이하, 특수문자 미포함 시 사용이 불가해요</string>
+    <string name="error_notSamePassword">비밀번호가 일치하지 않아요.</string>
+    <string name="error_samePassword">비밀번호가 확인되었어요.</string>
     <string name="txt_register_page3_header">스터디 참여에 필요한 정보를 알려주세요</string>
     <string name="txt_register_page3_sub">성별은 추후에 수정이 불가해요</string>
     <string name="txt_word_nickname">닉네임</string>
