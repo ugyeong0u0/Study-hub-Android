@@ -14,11 +14,11 @@
 
         <ImageView
             android:id="@+id/item01_icon_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/resized_icon_profile_50" />
+            android:src="@drawable/icon_profile_60" />
 
         <TextView
             android:id="@+id/item01_head"

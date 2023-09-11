@@ -109,6 +109,8 @@
         android:id="@+id/myInfoFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.MyInfoFragment"
         android:label="fragment_my_info"
-        tools:layout="@layout/fragment_my_info" >
-    </fragment>
+        tools:layout="@layout/fragment_my_info"/>
+    <action
+        android:id="@+id/action_global_createStudyFragment"
+        app:destination="@id/createStudyFragment" />
 </navigation>

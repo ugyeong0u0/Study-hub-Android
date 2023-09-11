@@ -52,10 +52,10 @@
 
                     <ImageButton
                         android:id="@+id/icon_alarm"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/resized_item"
+                        android:layout_height="@dimen/resized_item"
                         android:layout_alignParentEnd="true"
-                        android:background="@drawable/resized_icon_bell_orange" />
+                        android:background="@drawable/icon_bell_orange" />
 
                 </RelativeLayout>
 
@@ -70,8 +70,9 @@
                 <ImageView
                     android:id="@+id/img_studyHub"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/resized_main_banner" />
+                    android:layout_height="234dp"
+                    android:src="@drawable/main_banner"
+                    android:background="@color/sysblack2"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_goGuide"

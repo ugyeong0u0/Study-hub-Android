@@ -3,8 +3,11 @@
 <!--    홈 툴바~첫 뷰 사이간격 및 화면 옆 너비-->
     <dimen name="top_margin">24dp</dimen>
     <dimen name="side_margin">20dp</dimen>
+    <dimen name="side_margin_minus">15dp</dimen>
 <!--    로그인 회원가입 툴바~ 첫뷰 사이간격-->
     <dimen name="login_top_margin">40dp</dimen>
+    <dimen name="error_marginTop">24dp</dimen>
+    <dimen name="btn_gender_height">45dp</dimen>
 <!--다이어로그간격-->
     <dimen name="dialog_side_margin">14dp</dimen>
     <dimen name="dialog_top_margin">18dp</dimen>

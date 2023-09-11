@@ -117,7 +117,7 @@
                     android:layout_below="@+id/btn_delete"
                     android:layout_alignEnd="@id/btn_txtNickname"
                     android:layout_marginTop="13dp"
-                    android:src="@drawable/resized_icon_arrow_right_gray" />
+                    android:src="@drawable/icon_arrow_right_gray" />
 
                 <TextView
                     android:id="@+id/txt_major"
@@ -151,7 +151,7 @@
                     android:layout_below="@+id/btn_txtNickname"
                     android:layout_alignEnd="@id/btn_txtNickname"
                     android:layout_marginTop="13dp"
-                    android:src="@drawable/resized_icon_arrow_right_gray" />
+                    android:src="@drawable/icon_arrow_right_gray" />
 
                 <TextView
                     android:id="@+id/txt_password"
@@ -181,7 +181,7 @@
                     android:layout_below="@+id/btn_txt_major"
                     android:layout_alignEnd="@id/btn_txtNickname"
                     android:layout_marginTop="13dp"
-                    android:src="@drawable/resized_icon_arrow_right_gray" />
+                    android:src="@drawable/icon_arrow_right_gray" />
 
                 <TextView
                     android:id="@+id/txt_gender"

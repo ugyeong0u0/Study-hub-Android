@@ -31,23 +31,25 @@ class MainHomeFragment : Fragment() {
         super.onAttach(context)
         requireActivity().onBackPressedDispatcher.addCallback(
             this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (doubleBackPressed) {
-                        requireActivity().finish()
-                    } else {
-                        doubleBackPressed = true
-                        val activity =requireActivity() as AppCompatActivity
-                        val bottomView =activity.findViewById<View>(R.id.bottom_nav)
-                        CustomSnackBar.make(
-                            binding.layoutRelative,
-                            getString(R.string.btnBack_login), bottomView,false
-                        ).show()
-                        view?.postDelayed({ doubleBackPressed = false }, 2000)
-                    }
-                }
-            })
+             object : OnBackPressedCallback(true) {
+                 override fun handleOnBackPressed() {
+                     if (doubleBackPressed) {
+                         requireActivity().finish()
+                     } else {
+                         doubleBackPressed = true
+                         val activity =requireActivity() as AppCompatActivity
+                         val bottomView =activity.findViewById<View>(R.id.bottom_nav)
+                         CustomSnackBar.make(
+                             binding.layoutRelative,
+                             getString(R.string.btnBack_login), bottomView,false
+                         ).show()
+                         view?.postDelayed({ doubleBackPressed = false }, 2000)
+                     }
+                 }
+             }
+        )
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -174,7 +174,7 @@
                     android:layout_height="24dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/resized_icon_arrow_right_black" />
+                    android:background="@drawable/icon_arrow_right_black" />
 
             </RelativeLayout>
 

@@ -317,10 +317,10 @@
 
                     <ImageView
                         android:id="@+id/fsd_icon_profile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_below="@+id/fsd_head_writer"
-                        android:src="@drawable/resized_icon_profile_60" />
+                        android:src="@drawable/icon_profile_60" />
 
                     <TextView
                         android:id="@+id/fsd_txt_major2"

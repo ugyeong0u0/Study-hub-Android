@@ -58,11 +58,11 @@
 
                 <ImageView
                     android:id="@+id/icon_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:src="@drawable/resized_icon_profile_60"
+                    android:src="@drawable/icon_profile_60"
                     android:visibility="gone" />
 
                 <TextView
@@ -90,11 +90,11 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/resized_icon_arrow_right_black" />
+                    android:src="@drawable/icon_arrow_right_black" />
             </RelativeLayout>
 
             <LinearLayout

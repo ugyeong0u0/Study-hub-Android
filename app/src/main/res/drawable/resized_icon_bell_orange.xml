@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:width="@dimen/resized_item"
-        android:height="@dimen/resized_item"
-        android:drawable="@drawable/icon_bell_orange"/>
-</layer-list>

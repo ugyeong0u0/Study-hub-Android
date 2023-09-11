@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -43,13 +42,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/side_margin"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txt_pageNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/side_margin"
                 android:layout_marginTop="@dimen/login_top_margin"
                 android:textColor="@color/G_60"
                 android:textSize="18sp"
@@ -61,6 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_pageNumber"
+                android:layout_marginHorizontal="@dimen/side_margin"
                 android:text="@string/txt_register_page3_header"
                 android:textColor="@color/syswhite"
                 android:textSize="20sp"
@@ -71,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_head"
+                android:layout_marginHorizontal="@dimen/side_margin"
                 android:layout_marginBottom="@dimen/login_top_margin"
                 android:text="@string/txt_register_page3_sub"
                 android:textColor="@color/G_40"
@@ -81,6 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_sub"
+                android:layout_marginHorizontal="@dimen/side_margin"
                 android:text="@string/txt_word_nickname"
                 android:textColor="@color/syswhite"
                 android:textSize="14sp" />
@@ -91,19 +93,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_nickName"
+                android:layout_marginHorizontal="@dimen/side_margin_minus"
+                android:layout_marginTop="@dimen/error_marginTop"
+                android:backgroundTint="@color/G_100"
                 android:hint="@string/hint_nickname"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:maxLength="20"
-                android:backgroundTint="@color/G_100"
                 android:textColor="@color/syswhite"
                 android:textColorHint="@color/G_80"
                 android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/error_nickName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/edit_nickName"
+                android:layout_marginHorizontal="@dimen/side_margin"
                 android:textColor="@color/R_50"
                 android:textSize="14sp"
                 tools:text="에러" />
@@ -113,6 +119,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/error_nickName"
+                android:layout_marginHorizontal="@dimen/side_margin"
+                android:layout_marginTop="@dimen/error_marginTop"
                 android:text="@string/txt_gender"
                 android:textColor="@color/syswhite"
                 android:textSize="14sp" />
@@ -121,13 +129,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_gender"
+                android:layout_marginHorizontal="@dimen/side_margin"
                 android:orientation="horizontal"
-                android:paddingTop="24dp">
+                android:paddingTop="@dimen/resized_item">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_female"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/btn_gender_height"
                     android:layout_marginEnd="9dp"
                     android:layout_weight="1"
                     android:background="@drawable/btn_gender_g_100_stroke_g_80"
@@ -138,7 +147,7 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_male"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/btn_gender_height"
                     android:layout_weight="1"
                     android:background="@drawable/btn_gender_g_100_stroke_g_80"
                     android:text="@string/btn_male"
@@ -150,8 +159,9 @@
             <Button
                 android:id="@+id/btn_next"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:layout_alignParentBottom="true"
+                android:layout_marginHorizontal="@dimen/side_margin"
                 android:backgroundTint="@color/O_50"
                 android:enabled="false"
                 android:text="@string/btn_nextpage"

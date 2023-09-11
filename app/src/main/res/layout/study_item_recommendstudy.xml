@@ -49,9 +49,9 @@
 
             <ImageView
                 android:id="@+id/fsd_item_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/resized_icon_profile_60" />
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/icon_profile_60" />
 
             <TextView
                 android:id="@+id/fsd_item_major"
