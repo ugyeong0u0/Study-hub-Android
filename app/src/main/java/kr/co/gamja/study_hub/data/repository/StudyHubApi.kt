@@ -2,7 +2,6 @@ package kr.co.gamja.study_hub.data.repository
 
 import kr.co.gamja.study_hub.data.*
 import kr.co.gamja.study_hub.data.model.*
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -30,4 +29,7 @@ interface StudyHubApi {
     @POST("/api/users/signup")
     suspend fun signup(@Body signupRequest: SignupRequest): Response<Unit>
 
+    // 액세스 토큰 만료시, 리프레쉬 토큰으로 액세스, 리프레시 재발급
+    @POST("/api/jwt/accessToken")
+    suspend fun accessTokenIssued(@Body accessTokenRequest:AccessTokenRequest):Response<AccessTokenResponse>
 }

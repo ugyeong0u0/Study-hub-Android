@@ -49,5 +49,8 @@ class DataStoreModule(private val context: Context) {
             it[refeshTokenKey]=withoutBearerRefreshToken
         }
     }
-    
+    // 데이터 스토어 초기화
+    suspend fun clearDataStore(){
+        context.datastore.edit { it.clear() }
+    }
 }

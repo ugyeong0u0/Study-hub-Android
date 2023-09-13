@@ -43,7 +43,6 @@ class MyInfoFragment : Fragment() {
             navcontroller.navigateUp() // 뒤로 가기
         }
         // 로그아웃 누를 시 Dialog
-        isLogin()
         binding.btnLogout.setOnClickListener {
             var head = requireContext().resources.getString(R.string.q_logout)
             var no = requireContext().resources.getString(R.string.btn_no)
@@ -52,6 +51,11 @@ class MyInfoFragment : Fragment() {
             dialog.showDialog()
             dialog.setOnClickListener(object : OnDialogClickListener {
                 override fun onclickResult() { // 로그아웃 "네" 누르면
+                    // 데이터스토어 초기화
+                    CoroutineScope(Dispatchers.Main).launch {
+                        App.getInstance().getDataStore().clearDataStore()
+                        isLogin()
+                    }
                     findNavController().navigate(
                         R.id.action_global_loginFragment,
                         null
@@ -61,6 +65,8 @@ class MyInfoFragment : Fragment() {
         }
     }
 
+
+    // 확인용 코드
     fun isLogin(){
         CoroutineScope(Dispatchers.Main).launch {
             val accessToken = App.getInstance().getDataStore().accessToken.first()

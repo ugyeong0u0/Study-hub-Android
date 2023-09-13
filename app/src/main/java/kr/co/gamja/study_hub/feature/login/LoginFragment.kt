@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -22,6 +23,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.datastore.App
@@ -30,12 +32,27 @@ import kotlin.properties.Delegates
 
 
 class LoginFragment : Fragment() {
+    private val tag = this.javaClass.simpleName
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
     private var grayColor by Delegates.notNull<Int>() // G_80 : 에딧텍스트 값 정답
     private lateinit var grayStateList: ColorStateList
     private var redColor by Delegates.notNull<Int>() // R_50 : 에딧텟스트 값 오류
-    private lateinit var redStateList:ColorStateList
+    private lateinit var redStateList: ColorStateList
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    requireActivity().finish()
+                }
+            })
+        // 자동로그인 : 리프레쉬 토큰 x 경우 아예 통신 보내면 안됨 500에러 남.
+        autoLogin()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,26 +61,15 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        requireActivity().onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                        requireActivity().finish()
-                }
-            })
-    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        grayColor=ContextCompat.getColor(requireContext(), R.color.G_80)
-        redColor=ContextCompat.getColor(requireContext(), R.color.R_50)
-        grayStateList=ColorStateList.valueOf(grayColor)
-        redStateList=ColorStateList.valueOf(redColor)
-
+        grayColor = ContextCompat.getColor(requireContext(), R.color.G_80)
+        redColor = ContextCompat.getColor(requireContext(), R.color.R_50)
+        grayStateList = ColorStateList.valueOf(grayColor)
+        redStateList = ColorStateList.valueOf(redColor)
 
         setUpLoginEmail()
         setUpLoginPassword()
@@ -93,18 +99,18 @@ class LoginFragment : Fragment() {
 
             viewModel.goLogin(emailTxt, passwordTxt, object : LoginCallback {
                 override fun onfail(isBoolean: Boolean) {
-                    if(isBoolean){
+                    if (isBoolean) {
                         binding.errorEmail.apply {
                             text = getString(R.string.txterror_email)
                             setTextColor(redColor)
-                            isVisible=true
+                            isVisible = true
                         }
                         binding.editEmail.backgroundTintList = redStateList
 
                         binding.errorPassword.apply {
                             text = getString(R.string.txterror_password)
                             setTextColor(redColor)
-                            isVisible=true
+                            isVisible = true
                         }
                         binding.editPassword.backgroundTintList = redStateList
 
@@ -121,13 +127,14 @@ class LoginFragment : Fragment() {
                             "로그인 토큰(accessToken // refreshToken) 저장",
                             accessToken + "//" + refreshToken
                         )
-                        findNavController().navigate(R.id.action_login_to_nav_graph02_main,null)
+                        findNavController().navigate(R.id.action_login_to_nav_graph02_main, null)
 
                         CoroutineScope(Dispatchers.Main).launch {
-                            App.getInstance().getDataStore().setAccessToken(accessToken)
-                        }
-                        CoroutineScope(Dispatchers.Main).launch {
-                            App.getInstance().getDataStore().setRefreshToken(refreshToken)
+                            val dataStoreInstance = App.getInstance().getDataStore()
+
+                            dataStoreInstance.clearDataStore() // 초기화 후
+                            dataStoreInstance.setAccessToken(accessToken)
+                            dataStoreInstance.setRefreshToken(refreshToken)
                         }
                     }
                 }
@@ -136,7 +143,7 @@ class LoginFragment : Fragment() {
 
         // 둘러보기 버튼 누름
         binding.btnTour.setOnClickListener {
-            findNavController().navigate(R.id.action_login_to_nav_graph02_main,null)
+            findNavController().navigate(R.id.action_login_to_nav_graph02_main, null)
         }
 
         // 회원가입페이지로 연결
@@ -162,7 +169,7 @@ class LoginFragment : Fragment() {
                 binding.errorEmail.apply {
                     text = getString(R.string.txterror_email)
                     setTextColor(redColor)
-                    isVisible=true
+                    isVisible = true
                 }
                 binding.editEmail.backgroundTintList = redStateList
             } else {
@@ -193,7 +200,7 @@ class LoginFragment : Fragment() {
                 binding.errorPassword.apply {
                     text = getString(R.string.txterror_password)
                     setTextColor(redColor)
-                    isVisible=true
+                    isVisible = true
                 }
                 binding.editPassword.backgroundTintList = redStateList
             } else {
@@ -201,6 +208,54 @@ class LoginFragment : Fragment() {
                 binding.editPassword.backgroundTintList = grayStateList
             }
         })
+    }
+    fun autoLogin(){
+        var refreshToken: String? = null
+
+        CoroutineScope(Dispatchers.Main).launch() {
+            launch {
+                refreshToken = App.getInstance().getDataStore().refreshToken.first()
+                Log.d(tag, "데이터스토어에서 불러온 리프레시토큰 " + refreshToken)
+            }.join()
+            launch {
+                if (refreshToken != null) {
+                    Log.d(tag, "데이터스토어에서 불러온 리프레시토큰 통신실행? " + refreshToken)
+                    viewModel.autoLogin(refreshToken!!, object : LoginCallback {
+                        override fun onSuccess(
+                            isBoolean: Boolean,
+                            accessToken: String,
+                            refreshToken: String
+                        ) {
+                            if (isBoolean) {
+                                Log.d(tag, "리프레시토큰 유효하고 자동로그인 성공")
+                                findNavController().navigate(
+                                    R.id.action_login_to_nav_graph02_main,
+                                    null
+                                )
+                                // 리프레시 토큰이 유효하다면, 리프레시 액세스토큰 새롭게 저장
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    val dataStoreInstance = App.getInstance().getDataStore()
+
+                                    dataStoreInstance.clearDataStore() // 초기화 후
+                                    dataStoreInstance.setAccessToken(accessToken)
+                                    dataStoreInstance.setRefreshToken(refreshToken)
+                                    Log.d(tag, "새리프레시 토큰 확인 $refreshToken")
+                                }
+                            }
+                        }
+
+                        override fun onfail(isBoolean: Boolean) {
+                            if (isBoolean) {
+                                Log.e(tag, "리프레시토큰 유효x")
+                                Toast.makeText(requireContext(), "리프레쉬 토큰 만료", Toast.LENGTH_LONG)
+                                    .show()
+                            }
+                        }
+                    })
+                } else
+                    Log.d(tag, "리프레시 토큰 null로 넘어감 ")
+            }
+        }
     }
 
 }

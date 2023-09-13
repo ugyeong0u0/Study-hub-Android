@@ -7,9 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import kr.co.gamja.study_hub.data.model.LoginErrorResponse
-import kr.co.gamja.study_hub.data.model.LoginRequest
-import kr.co.gamja.study_hub.data.model.LoginResponse
+import kr.co.gamja.study_hub.data.model.*
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
 const val EMAIL = "^[a-zA-Z0-9+-\\_.]+(@inu\\.ac\\.kr)$"
@@ -30,6 +28,10 @@ class LoginViewModel : ViewModel() {
     private val _validPassword = MutableLiveData<Boolean>()
     val validPassword: LiveData<Boolean> get() = _validPassword
 
+    // 자동 로그인-> refreshToken 유효한지
+    private val _isValidAutoLogin = MutableLiveData<Boolean>()
+    val isValidAutoLogin: LiveData<Boolean> get() = _isValidAutoLogin
+
 
     fun updateLoginEmail(newEmail: String) {
         _loginEmail.value = newEmail
@@ -40,6 +42,7 @@ class LoginViewModel : ViewModel() {
         _loginPassword.value = newPassword
         _validPassword.value = newPassword.matches(PASSWORD.toRegex())
     }
+
 
     fun goLogin(emailTxt: String, passwordTxt: String, params: LoginCallback) {
         var loginReq = LoginRequest(emailTxt, passwordTxt)
@@ -53,13 +56,13 @@ class LoginViewModel : ViewModel() {
                     params.onSuccess(true, result.data.accessToken, result.data.refreshToken)
                 } else {
                     Log.e(tag, "로그인 실패")
-                    val errorResponse: LoginErrorResponse?=response.errorBody()?.let {
+                    val errorResponse: LoginErrorResponse? = response.errorBody()?.let {
                         val gson = Gson()
-                        gson.fromJson(it.charStream(),LoginErrorResponse::class.java)
+                        gson.fromJson(it.charStream(), LoginErrorResponse::class.java)
                     }
-                    if(errorResponse!=null){
-                        val status= errorResponse.status
-                        Log.e(tag,status.toString())
+                    if (errorResponse != null) {
+                        val status = errorResponse.status
+                        Log.e(tag, status.toString())
                         params.onfail(true)
                     }
                 }
@@ -69,9 +72,36 @@ class LoginViewModel : ViewModel() {
 
         }
     }
+
+    fun autoLogin(refreshToken: String, params: LoginCallback) {
+        val refreashValidReq = AccessTokenRequest(refreshToken)
+        Log.d(tag, "자동로그인 refresh토큰 $refreshToken")
+        viewModelScope.launch {
+            try {
+                val response = RetrofitManager.api.accessTokenIssued(refreashValidReq)
+                if (response.isSuccessful) {
+                    val result = response.body() as AccessTokenResponse
+                    params.onSuccess(true, result.accessToken, result.refreshToken)
+                } else {
+                    Log.e(tag, "레트로핏 안 refresh토큰 만료")
+                    val errorResponse: AccessTokenErrorResponse? = response.errorBody()?.let {
+                        val gson = Gson()
+                        gson.fromJson(it.charStream(), AccessTokenErrorResponse::class.java)
+                    }
+                    if (errorResponse != null) {
+                        val message = errorResponse.message
+                        Log.e(tag, message)
+                        params.onfail(true)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(tag, "자동 로그인 Exception: ${e.message}")
+            }
+        }
+    }
 }
 
 interface LoginCallback {
     fun onSuccess(isBoolean: Boolean = false, accessToken: String, refreshToken: String)
-    fun onfail(isBoolean:Boolean=false)
+    fun onfail(isBoolean: Boolean = false)
 }
