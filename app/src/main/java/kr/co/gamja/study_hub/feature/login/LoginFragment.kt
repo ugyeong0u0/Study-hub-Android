@@ -209,6 +209,7 @@ class LoginFragment : Fragment() {
             }
         })
     }
+    // TODO("리프레시 토큰 조회 api로 변경하기 ")
     fun autoLogin(){
         var refreshToken: String? = null
 

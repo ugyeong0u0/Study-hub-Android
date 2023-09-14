@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.data.repository
 
 import com.google.gson.GsonBuilder
+import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,11 +15,20 @@ object AuthRetrofitManager {
     // 레트로핏 생성
     val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .client(
-            OkHttpClient.Builder().addInterceptor(AuthInterceptor()).build()
-        )
+        .client(createClientAuth())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
     val api = retrofit.create(StudyHubApi::class.java)
+
+    // 동시 처리 1개로
+    private fun createClientAuth(): OkHttpClient {
+        val dispatcher = Dispatcher()
+        dispatcher.maxRequests = 1
+        val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
+        okHttpClientBuilder.dispatcher(dispatcher)
+        okHttpClientBuilder.addInterceptor(AuthInterceptor())
+        return okHttpClientBuilder.build()
+    }
+
 }

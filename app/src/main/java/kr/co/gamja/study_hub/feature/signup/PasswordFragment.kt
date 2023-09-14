@@ -1,14 +1,13 @@
 package kr.co.gamja.study_hub.feature.signup
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -19,6 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentPasswordBinding
+import kr.co.gamja.study_hub.global.ExtensionFragment.Companion.hideKeyboard
 import kotlin.properties.Delegates
 
 
@@ -57,6 +57,20 @@ class PasswordFragment : Fragment() {
         setupPasswordText()
         setupRePasswordText()
 
+        // 에딧텍스트 자판 내리기
+        binding.root.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    this.hideKeyboard()
+                    v.performClick()
+                    true
+                }
+                else -> false
+            }
+        }
         // 툴바 설정
         val toolbar = binding.createPassToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)

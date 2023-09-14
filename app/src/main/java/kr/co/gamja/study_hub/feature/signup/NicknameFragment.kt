@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentNicknameBinding
+import kr.co.gamja.study_hub.global.ExtensionFragment.Companion.hideKeyboard
 
 
 class NicknameFragment : Fragment() {
@@ -30,6 +32,21 @@ class NicknameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 에딧텍스트 자판 내리기
+        binding.root.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    this.hideKeyboard()
+                    v.performClick()
+                    true
+                }
+                else -> false
+            }
+        }
 
         selectedDrawable = ResourcesCompat.getDrawable(
             resources,
@@ -55,7 +72,7 @@ class NicknameFragment : Fragment() {
 
             var txt_nickname = binding.editNickName.text.toString()
             User.nickname = txt_nickname
-            Log.d("회원가입 - User.nickname성별클릭", User.nickname.toString())
+            Log.d("회원가입 - User.nickname클릭", User.nickname.toString())
             User.gender = "FEMALE"
             Log.d("회원가입 - 여자", User.gender.toString())
 

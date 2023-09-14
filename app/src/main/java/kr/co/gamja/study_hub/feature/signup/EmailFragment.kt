@@ -23,6 +23,7 @@ import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentEmailBinding
 import kr.co.gamja.study_hub.global.CustomSnackBar
+import kr.co.gamja.study_hub.global.ExtensionFragment.Companion.hideKeyboard
 import kotlin.properties.Delegates
 
 // 회원가입- 이메일 인증
@@ -75,7 +76,7 @@ class EmailFragment : Fragment() {
                     true
                 }
                 MotionEvent.ACTION_UP -> {
-                    hideKeyboard()
+                    this.hideKeyboard()
                     v.performClick()
                     true
                 }
@@ -235,18 +236,7 @@ class EmailFragment : Fragment() {
         }
     }
 
-    private fun hideKeyboard() {
-        activity?.let { fragmentActivity ->
-            fragmentActivity.currentFocus?.let { currentFocusView ->
-                val inputManager =
-                    fragmentActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputManager.hideSoftInputFromWindow(
-                    currentFocusView.windowToken,
-                    InputMethodManager.HIDE_NOT_ALWAYS
-                )
-            }
-        }
-    }
+
 
     private fun hideKeyboardForResend() {
         val inputMethodManager =

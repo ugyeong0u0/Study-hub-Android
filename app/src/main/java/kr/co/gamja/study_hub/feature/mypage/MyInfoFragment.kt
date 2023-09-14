@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,21 +23,27 @@ import kr.co.gamja.study_hub.global.OnDialogClickListener
 class MyInfoFragment : Fragment() {
     private lateinit var binding: FragmentMyInfoBinding
     private val tag = this.javaClass.simpleName
+    private val viewModel: MyInfoViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_my_info, container, false)
+        binding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_my_info, container, false)
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         // 툴바 설정
         val toolbar = binding.myPageMainToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
+        viewModel.getUsers()
 
         binding.iconBack.setOnClickListener {
             val navcontroller = findNavController()
@@ -67,12 +74,10 @@ class MyInfoFragment : Fragment() {
 
 
     // 확인용 코드
-    fun isLogin(){
+    fun isLogin() {
         CoroutineScope(Dispatchers.Main).launch {
             val accessToken = App.getInstance().getDataStore().accessToken.first()
-            Log.d(tag, "데이터스토어에서 불러온 액세스토큰 "+accessToken)
+            Log.d(tag, "데이터스토어에서 불러온 액세스토큰 " + accessToken)
         }
     }
-
-
 }

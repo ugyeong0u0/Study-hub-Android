@@ -4,6 +4,7 @@ import kr.co.gamja.study_hub.data.*
 import kr.co.gamja.study_hub.data.model.*
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
@@ -32,4 +33,9 @@ interface StudyHubApi {
     // 액세스 토큰 만료시, 리프레쉬 토큰으로 액세스, 리프레시 재발급
     @POST("/api/jwt/accessToken")
     suspend fun accessTokenIssued(@Body accessTokenRequest:AccessTokenRequest):Response<AccessTokenResponse>
+
+    // 회원 단건조회 : myPageInfo.kt
+    @GET("/api/users")
+    suspend fun getUserInfo():Response<UsersResponse>
+
 }

@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="kr.co.gamja.study_hub.feature.signup.SignupViewModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/createMajor_toolbar"
@@ -47,80 +45,81 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <RelativeLayout
+
+        <TextView
+            android:id="@+id/txt_page_number"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createMajor_toolbar"
             android:layout_marginHorizontal="@dimen/side_margin"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/login_top_margin"
+            android:textColor="@color/G_60"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="4/4" />
+
+        <TextView
+            android:id="@+id/txt_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_page_number"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginBottom="@dimen/login_top_margin"
+            android:text="@string/txt_major"
+            android:textColor="@color/syswhite"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_word_major"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_head"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:text="@string/txt_word_major"
+            android:textColor="@color/syswhite"
+            android:textSize="14sp" />
 
 
-            <TextView
-                android:id="@+id/txt_page_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/login_top_margin"
-                android:textColor="@color/G_60"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:text="4/4" />
+        <AutoCompleteTextView
+            android:id="@+id/autoMajor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_word_major"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:backgroundTint="@color/G_100"
+            android:completionThreshold="1"
+            android:hint="@string/hint_major"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:scrollbars="vertical"
+            android:textColor="@color/syswhite"
+            android:textColorHint="@color/G_80"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/txt_head"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_page_number"
-                android:layout_marginBottom="@dimen/login_top_margin"
-                android:text="@string/txt_major"
-                android:textColor="@color/syswhite"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+        <ImageButton
+            android:id="@+id/view_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@+id/txt_word_major"
+            android:layout_alignParentEnd="true"
+            android:layout_marginVertical="10dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_circle_delete_dark"
+            android:tag="0" />
 
-            <TextView
-                android:id="@+id/txt_word_major"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_head"
-                android:text="@string/txt_word_major"
-                android:textColor="@color/syswhite"
-                android:textSize="14sp" />
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="@dimen/side_margin"
+            android:backgroundTint="@color/O_50"
+            android:text="@string/btn_nextpage"
+            android:textColor="@color/syswhite"
+            android:textSize="16sp" />
 
+    </RelativeLayout>
 
-            <AutoCompleteTextView
-                android:id="@+id/autoMajor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_word_major"
-                android:backgroundTint="@color/G_100"
-                android:completionThreshold="1"
-                android:hint="@string/hint_major"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:textColor="@color/syswhite"
-                android:textColorHint="@color/G_80"
-                android:textSize="16sp" />
-
-            <ImageButton
-                android:id="@+id/view_delete"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_below="@+id/txt_word_major"
-                android:layout_alignParentEnd="true"
-                android:layout_marginVertical="10dp"
-                android:background="@android:color/transparent"
-                android:scaleType="centerInside"
-                android:src="@drawable/icon_circle_delete_dark"
-                android:tag="0" />
-
-            <Button
-                android:id="@+id/btn_next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:backgroundTint="@color/O_50"
-                android:text="@string/btn_nextpage"
-                android:textColor="@color/syswhite"
-                android:textSize="16sp" />
-
-        </RelativeLayout>
-    </LinearLayout>
 </layout>

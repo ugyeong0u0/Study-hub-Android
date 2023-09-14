@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.mypage.MyInfoViewModel" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,36 +66,40 @@
                     android:layout_marginTop="@dimen/top_margin"
                     android:src="@drawable/icon_profile_60" />
 
-                <Button
-                    android:id="@+id/btn_delete"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/layout_button"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_profile"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="1dp"
-                    android:background="#00000000"
-                    android:text="@string/btn_delete"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/BG_70"
-                    android:textSize="14sp" />
+                    android:gravity="center"
+                    android:layout_below="@+id/img_profile">
 
-                <Button
-                    android:id="@+id/btn_modify"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_profile"
-                    android:layout_toEndOf="@+id/btn_delete"
-                    android:background="#00000000"
-                    android:text="@string/btn_modify"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/O_50"
-                    android:textSize="14sp" />
+                    <Button
+                        android:id="@+id/btn_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:background="#00000000"
+                        android:text="@string/btn_delete"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/BG_70"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/btn_modify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:text="@string/btn_modify"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/O_50"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/txt_nickName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/btn_delete"
+                    android:layout_below="@id/layout_button"
                     android:layout_alignParentStart="true"
                     android:layout_marginHorizontal="@dimen/side_margin"
                     android:layout_marginTop="16dp"
@@ -102,10 +112,11 @@
                     android:id="@+id/btn_txtNickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/btn_delete"
+                    android:layout_below="@+id/layout_button"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/side_margin"
                     android:background="#00000000"
+                    android:text="@{viewModel.nicknameData}"
                     android:textAlignment="center"
                     android:textColor="@color/BG_80"
                     android:textSize="16sp"
@@ -114,7 +125,7 @@
                 <ImageView
                     android:layout_width="@dimen/resized_item"
                     android:layout_height="@dimen/resized_item"
-                    android:layout_below="@+id/btn_delete"
+                    android:layout_below="@+id/layout_button"
                     android:layout_alignEnd="@id/btn_txtNickname"
                     android:layout_marginTop="13dp"
                     android:src="@drawable/icon_arrow_right_gray" />
@@ -140,6 +151,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/side_margin"
                     android:background="#00000000"
+                    android:text="@{viewModel.majorData}"
                     android:textAlignment="center"
                     android:textColor="@color/BG_80"
                     android:textSize="16sp"
@@ -204,6 +216,7 @@
                     android:layout_below="@+id/btn_txt_password"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/side_margin"
+                    android:text="@{viewModel.genderData}"
                     android:textColor="@color/BG_80"
                     android:textSize="16sp"
                     tools:text="여자" />
@@ -229,6 +242,7 @@
                     android:layout_alignBaseline="@+id/txt_email"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/side_margin"
+                    android:text="@{viewModel.emailData}"
                     android:textColor="@color/BG_80"
                     android:textSize="16sp"
                     tools:text="abcd@inu.ac.kr" />

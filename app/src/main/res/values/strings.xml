@@ -54,8 +54,69 @@
 
     <!--    학과이름-->
     <string-array name="array_majors">
-        <item>컴퓨터 공학부</item>
-        <item>컴퓨터 공학부</item>
+        <item>공연예술과</item>
+        <item>IBE전공</item>
+        <item>건설환경공학</item>
+        <item>건축공학</item>
+        <item>경영학부</item>
+        <item>경제학과</item>
+        <item>국어교육과</item>
+        <item>국어국문학과</item>
+        <item>기계공학과</item>
+        <item>데이터과학과</item>
+        <item>도시건축학</item>
+        <item>도시공학과</item>
+        <item>도시행정학과</item>
+        <item>독어독문학과</item>
+        <item>동북아통상전공</item>
+        <item>디자인학부</item>
+        <item>무역학부</item>
+        <item>문헌정보학과</item>
+        <item>물리학과</item>
+        <item>미디어커뮤니케이션학과</item>
+        <item>바이오-로봇 시스템 공학과</item>
+        <item>법학부</item>
+        <item>불어불문학과</item>
+        <item>사회복지학과</item>
+        <item>산업경영공학과</item>
+        <item>생명공학부(나노바이오공학전공)</item>
+        <item>생명공학부(생명공학전공)</item>
+        <item>생명과학부(분자의생명전공)</item>
+        <item>생명과학부(생명과학전공)</item>
+        <item>서양화전공</item>
+        <item>세무회계학과</item>
+        <item>소비자학과</item>
+        <item>수학과</item>
+        <item>수학교육과</item>
+        <item>스마트물류공학전공</item>
+        <item>스포츠과학부</item>
+        <item>신소재공학과</item>
+        <item>안전공학과</item>
+        <item>에너지화학공학</item>
+        <item>역사교육과</item>
+        <item>영어교육학과</item>
+        <item>영어영문학과</item>
+        <item>운동건강학부</item>
+        <item>유아교육과</item>
+        <item>윤리교육과</item>
+        <item>일본지역문화학과</item>
+        <item>일어교육과</item>
+        <item>임베디드시스템공학과</item>
+        <item>전기공학과</item>
+        <item>전자공학과</item>
+        <item>정보통신학과</item>
+        <item>정치외교학과</item>
+        <item>중어중문학과</item>
+        <item>창의인재개발학과</item>
+        <item>체육교육과</item>
+        <item>컴퓨터공학부</item>
+        <item>테크노경영학과</item>
+        <item>패션산업학과</item>
+        <item>한국화전공</item>
+        <item>해양학과</item>
+        <item>행정학과</item>
+        <item>화학과</item>
+        <item>환경공학</item>
     </string-array>
 
     <string name="txt1_joincomplete1">가입을</string>

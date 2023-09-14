@@ -3,6 +3,7 @@ package kr.co.gamja.study_hub.feature.signup
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -14,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentMajorBinding
+import kr.co.gamja.study_hub.global.ExtensionFragment.Companion.hideKeyboard
 
 class MajorFragment : Fragment() {
     private lateinit var binding: FragmentMajorBinding
@@ -22,14 +24,30 @@ class MajorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_major,container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_major, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel=viewModel
-        binding.lifecycleOwner=viewLifecycleOwner
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        // 에딧텍스트 자판 내리기
+        binding.root.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    this.hideKeyboard()
+                    v.performClick()
+                    true
+                }
+                else -> false
+            }
+        }
+
         // 툴바 설정
         val toolbar = binding.createMajorToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -43,7 +61,7 @@ class MajorFragment : Fragment() {
         binding.btnNext.setOnClickListener {
             // 회원가입 api보냄
             Log.d("회원가입 버튼 누름", "")
-            viewModel.requestSignup( object : RegisterCallback {
+            viewModel.requestSignup(object : RegisterCallback {
                 override fun onSucess(isValid: Boolean) {
                     if (isValid) {
                         Log.d("회원가입 최종 성공", "")
@@ -72,34 +90,28 @@ class MajorFragment : Fragment() {
     // 학과 선택박스(AutoCompleteTextView)
     fun selectMajor() {
         val editTxt_major = binding.autoMajor
-        var array_major: Array<String> = resources.getStringArray(R.array.array_majors)
-        var adapter_array =
+        val array_major: Array<String> = resources.getStringArray(R.array.array_majors)
+        val adapter_array =
             ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, array_major)
         editTxt_major.setAdapter(adapter_array)
 
         binding.viewDelete.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-               binding.autoMajor.text.clear()
+                binding.autoMajor.text.clear()
             }
         })
 
-        binding.autoMajor.setOnItemClickListener { parent, view, position, id ->
-            var txt_selected = binding.autoMajor.text.toString()
-            User.grade = "COMPUTER"
-            Log.d("회원가입 - User.grade", User.grade.toString())
+        binding.autoMajor.setOnItemClickListener { parent, _, position, _ ->
             binding.autoMajor.isEnabled = true
-//            when (position) {
-//                1 -> {Toast.makeText(requireContext(), "$txt_selected", Toast.LENGTH_SHORT).show()
-//
-//                }
-//            }
+            var selectedItem=parent.adapter.getItem(position) as String
+            viewModel.setUserMajor(selectedItem)
+
         }
         // 드랍다운 배경셋팅
         binding.autoMajor.let {
             it.setDropDownBackgroundResource(R.drawable.back_select_major)
-            it.dropDownVerticalOffset = 300 // TODO("사이즈 물어봐야 함")
+            it.dropDownVerticalOffset = 10 // TODO("위치 물어봐야 함")
         }
-
 
     }
 
