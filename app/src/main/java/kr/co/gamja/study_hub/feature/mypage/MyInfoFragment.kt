@@ -61,7 +61,6 @@ class MyInfoFragment : Fragment() {
                     // 데이터스토어 초기화
                     CoroutineScope(Dispatchers.Main).launch {
                         App.getInstance().getDataStore().clearDataStore()
-                        isLogin()
                     }
                     findNavController().navigate(
                         R.id.action_global_loginFragment,
@@ -72,12 +71,4 @@ class MyInfoFragment : Fragment() {
         }
     }
 
-
-    // 확인용 코드
-    fun isLogin() {
-        CoroutineScope(Dispatchers.Main).launch {
-            val accessToken = App.getInstance().getDataStore().accessToken.first()
-            Log.d(tag, "데이터스토어에서 불러온 액세스토큰 " + accessToken)
-        }
-    }
 }

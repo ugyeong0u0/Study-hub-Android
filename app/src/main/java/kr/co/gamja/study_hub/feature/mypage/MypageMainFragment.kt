@@ -8,7 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.datastore.App
 import kr.co.gamja.study_hub.databinding.FragmentMypageMainBinding
 
 
@@ -18,7 +21,7 @@ class MypageMainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_mypage_main, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mypage_main, container, false)
         return binding.root
 
     }
@@ -38,12 +41,27 @@ class MypageMainFragment : Fragment() {
             )
         }
         // 회원 조회 누를시
-        binding.layoutUserInfo.setOnClickListener{
-            // TODO("리프레쉬토큰 데이터스토어에서 조회")
-            findNavController().navigate(
-                R.id.action_mypageMainFragment_to_myInfoFragment,
-                null
-            )
+        binding.layoutUserInfo.setOnClickListener {
+            runBlocking {
+                val accessTokenDeferred = async(Dispatchers.IO) {
+                    App.getInstance().getDataStore().accessToken.first()
+                }
+                val accessToken = accessTokenDeferred.await()
+
+                if (accessToken == null) {
+                    findNavController().navigate(
+                        R.id.action_global_loginFragment,
+                        null
+                    )
+                } else {
+                    findNavController().navigate(
+                        R.id.action_mypageMainFragment_to_myInfoFragment,
+                        null
+                    )
+
+                }
+            }
+
         }
 
     }

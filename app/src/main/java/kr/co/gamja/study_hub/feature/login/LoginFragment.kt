@@ -49,8 +49,6 @@ class LoginFragment : Fragment() {
                     requireActivity().finish()
                 }
             })
-        // 자동로그인 : 리프레쉬 토큰 x 경우 아예 통신 보내면 안됨 500에러 남.
-        autoLogin()
     }
 
     override fun onCreateView(
@@ -65,7 +63,8 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
+// 자동로그인 : 리프레쉬 토큰 x 경우 아예 통신 보내면 안됨 500에러 남.
+        autoLogin()
         grayColor = ContextCompat.getColor(requireContext(), R.color.G_80)
         redColor = ContextCompat.getColor(requireContext(), R.color.R_50)
         grayStateList = ColorStateList.valueOf(grayColor)
@@ -209,8 +208,9 @@ class LoginFragment : Fragment() {
             }
         })
     }
+
     // TODO("리프레시 토큰 조회 api로 변경하기 ")
-    fun autoLogin(){
+    fun autoLogin() {
         var refreshToken: String? = null
 
         CoroutineScope(Dispatchers.Main).launch() {
