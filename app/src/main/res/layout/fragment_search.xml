@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/searchMain_toolbar"
-            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginHorizontal="@dimen/twenty"
             android:background="@drawable/btn_background_search"
             android:completionThreshold="1"
             android:drawableEnd="@drawable/baseline_search_24_black"
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_search"
-            android:layout_marginStart="@dimen/side_margin"
+            android:layout_marginStart="@dimen/twenty"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:text="@string/txt_recentsearch"
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/txt_recentSearch"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/side_margin"
+            android:layout_marginEnd="@dimen/twenty"
             android:background="#00000000"
             android:text="@string/btn_delete"
             android:textAlignment="textEnd"
@@ -94,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_recentSearch"
-            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginHorizontal="@dimen/twenty"
             android:layout_marginBottom="24dp" />
 
         <View
@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/line_from_chip_to_recommend"
-            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginHorizontal="@dimen/twenty"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:text="@string/txt_recomsearch"
@@ -121,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_recommend"
-            android:layout_marginHorizontal="@dimen/side_margin" />
+            android:layout_marginHorizontal="@dimen/twenty" />
 
     </RelativeLayout>
 </layout>

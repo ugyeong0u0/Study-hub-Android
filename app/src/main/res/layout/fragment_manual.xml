@@ -93,7 +93,7 @@
                 android:id="@+id/btn_next"
                 android:layout_width="match_parent"
                 android:layout_height="57dp"
-                android:layout_marginHorizontal="@dimen/side_margin"
+                android:layout_marginHorizontal="@dimen/twenty"
                 android:backgroundTint="@color/O_50"
                 android:text="@string/btn_txt_writing" />
         </LinearLayout>

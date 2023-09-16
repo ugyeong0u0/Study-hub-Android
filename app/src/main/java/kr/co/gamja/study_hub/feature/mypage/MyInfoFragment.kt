@@ -51,9 +51,9 @@ class MyInfoFragment : Fragment() {
         }
         // 로그아웃 누를 시 Dialog
         binding.btnLogout.setOnClickListener {
-            var head = requireContext().resources.getString(R.string.q_logout)
-            var no = requireContext().resources.getString(R.string.btn_no)
-            var yes = requireContext().resources.getString(R.string.btn_yes)
+            val head = requireContext().resources.getString(R.string.q_logout)
+            val no = requireContext().resources.getString(R.string.btn_no)
+            val yes = requireContext().resources.getString(R.string.btn_yes)
             val dialog = CustomDialog(requireContext(), head, null, no, yes)
             dialog.showDialog()
             dialog.setOnClickListener(object : OnDialogClickListener {

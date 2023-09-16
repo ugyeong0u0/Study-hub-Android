@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
-            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginHorizontal="@dimen/twenty"
             android:text="@string/txt_word_email"
             android:textColor="@color/syswhite"
             android:textSize="14sp" />
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_email"
-            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginHorizontal="@dimen/twenty"
 
             android:textColor="@color/R_50"
             android:textSize="14sp"
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/error_email"
-            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginHorizontal="@dimen/twenty"
             android:layout_marginTop="@dimen/error_marginTop"
             android:text="@string/txt_word_password"
             android:textColor="@color/syswhite"
@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_password"
-            android:layout_marginHorizontal="@dimen/side_margin"
+            android:layout_marginHorizontal="@dimen/twenty"
             android:textColor="@color/R_50"
             android:textSize="14sp"
             tools:text="에러" />
