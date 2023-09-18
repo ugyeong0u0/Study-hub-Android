@@ -77,7 +77,7 @@
         tools:layout="@layout/fragment_alarm" />
     <fragment
         android:id="@+id/bookmarkFragment"
-        android:name="kr.co.gamja.study_hub.feature.toolbar.BookmarkFragment"
+        android:name="kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkFragment"
         android:label="fragment_main_bookmark"
         tools:layout="@layout/fragment_bookmark" />
     <fragment

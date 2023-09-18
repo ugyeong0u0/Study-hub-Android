@@ -38,4 +38,7 @@ interface StudyHubApi {
     @GET("/api/users")
     suspend fun getUserInfo():Response<UsersResponse>
 
+    // 북마크 조회 : Bookmarkmark.kt
+    @GET("/api/bookmark")
+    suspend fun getBookmark():Response<BookmarkResponse>
 }

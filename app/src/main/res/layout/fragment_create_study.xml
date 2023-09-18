@@ -51,7 +51,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/twenty"
                 android:paddingTop="32dp"
-                android:paddingBottom="14dp"
                 android:text="@string/txt_chatLink"
                 android:textColor="@color/sysblack1"
                 android:textSize="16sp" />
@@ -61,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/twenty"
-                android:paddingBottom="14dp"
+                android:paddingBottom="22dp"
                 android:text="@string/txt_chatLink_sub"
                 android:textColor="@color/BG_70"
                 android:textSize="12sp" />
@@ -80,6 +79,7 @@
                 android:paddingTop="20dp"
                 android:paddingRight="14dp"
                 android:paddingBottom="20dp"
+                android:layout_marginBottom="32dp"
                 android:textColor="@color/BG_70"
                 android:textSize="14sp" />
 
