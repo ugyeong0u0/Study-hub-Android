@@ -9,40 +9,41 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.BookmarkResponse
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 
-class BookmarkViewModel: ViewModel() {
+class BookmarkViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
+
     // 리스트 개수
     private val _listSize = MutableLiveData<Int>()
     val listSize: LiveData<Int> get() = _listSize
 
-    fun getBookmarkList(adapter: BookmarkAdapter){
+    fun getBookmarkList(adapter: BookmarkAdapter) {
         viewModelScope.launch {
             try {
-                val response=AuthRetrofitManager.api.getBookmark()
-                if(response.isSuccessful){
-                    val result= response.body() as BookmarkResponse
+                val response = AuthRetrofitManager.api.getBookmark()
+                if (response.isSuccessful) {
+                    val result = response.body() as BookmarkResponse
                     Log.d(tag, "북마크조회 성공 code" + response.code().toString())
-                    adapter.bookmarkList=result
+                    adapter.bookmarkList = result
                     adapter.notifyDataSetChanged()
                     Log.d(tag, "북마크조회 성공 result.size" + result.size)
-                    _listSize.value=result.size
+                    _listSize.value = result.size
                 }
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 Log.e(tag, "북마크조회 Exception: ${e.message}")
             }
         }
     }
 
-    fun saveBookmarkItem(postId:Int?){
-        val req =postId
+    fun saveBookmarkItem(postId: Int?) {
+        val req = postId
         Log.d(tag, req.toString())
         viewModelScope.launch {
             try {
-                val response=AuthRetrofitManager.api.saveBookmark(req)
-                if(response.isSuccessful){
-                    Log.d(tag, "북마크 코드 200~300사이 code" + response.code().toString())
+                val response = AuthRetrofitManager.api.saveBookmark(req)
+                if (response.isSuccessful) {
+                    Log.d(tag, "북마크 저장 코드 code" + response.code().toString())
                 }
-            }catch(e:Exception){
+            } catch (e: Exception) {
                 Log.e(tag, "북마크 저장 Exception: ${e.message}")
             }
         }

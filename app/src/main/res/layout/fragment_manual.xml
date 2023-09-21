@@ -1,101 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/syswhite">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/maunal_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/maunal_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/sysblack2">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
+
+                <TextView
+                    android:id="@+id/word_manual"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp">
+                    android:layout_toEndOf="@id/icon_back"
+                    android:gravity="center"
+                    android:text="@string/txt_guideToolBar"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
 
-                    <ImageButton
-                        android:id="@+id/icon_back"
-                        android:layout_width="@dimen/resized_item"
-                        android:layout_height="@dimen/resized_item"
-                        android:layout_alignParentStart="true"
-                        android:background="@drawable/icon_arrow_left_l_white" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/syswhite">
 
-                    <TextView
-                        android:id="@+id/word_manual"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/icon_back"
-                        android:gravity="center"
-                        android:text="@string/txt_guideToolBar"
-                        android:textColor="@color/syswhite"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-            </androidx.appcompat.widget.Toolbar>
-
-            <ImageView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="305dp"
-                android:background="@color/sysblack2"
-                android:src="@drawable/img_manualfirst" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="550dp"
-                android:background="@color/sysblack2"
-                android:src="@drawable/img_manualsecond" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="550dp"
-                android:background="@color/sysblack2"
-                android:src="@drawable/img_manualthird" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="305dp"
+                    android:background="@color/sysblack2"
+                    android:src="@drawable/img_manualfirst" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="750dp"
-                android:src="@drawable/img_manualfourth" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="550dp"
+                    android:background="@color/sysblack2"
+                    android:src="@drawable/img_manualsecond" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:src="@drawable/img_manualfifth" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="550dp"
+                    android:background="@color/sysblack2"
+                    android:src="@drawable/img_manualthird" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="370dp"
-                android:background="@color/sysblack2"
-                android:src="@drawable/img_manualsixth" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="750dp"
+                    android:src="@drawable/img_manualfourth" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="700dp"
-                android:src="@drawable/img_manualseventh" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:src="@drawable/img_manualfifth" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="305dp"
-                android:src="@drawable/img_manualeighth" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="370dp"
+                    android:background="@color/sysblack2"
+                    android:src="@drawable/img_manualsixth" />
 
-            <Button
-                android:id="@+id/btn_next"
-                android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:layout_marginHorizontal="@dimen/twenty"
-                android:backgroundTint="@color/O_50"
-                android:text="@string/btn_txt_writing" />
-        </LinearLayout>
-    </ScrollView>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="700dp"
+                    android:src="@drawable/img_manualseventh" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="305dp"
+                    android:src="@drawable/img_manualeighth" />
+
+                <Button
+                    android:id="@+id/btn_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="57dp"
+                    android:layout_marginHorizontal="@dimen/twenty"
+                    android:backgroundTint="@color/O_50"
+                    android:text="@string/btn_txt_writing" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </layout>

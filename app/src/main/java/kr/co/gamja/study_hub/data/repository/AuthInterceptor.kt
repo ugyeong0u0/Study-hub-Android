@@ -25,7 +25,7 @@ class AuthInterceptor() : Interceptor {
         val accessToken = accessTokenDeferred.await()
         val refreshToken = refreshTokenDeferred.await()
 
-        Log.d(tag, "데이터스토어에서 불러온 액세스토큰 " + accessToken + "//////" + refreshToken)
+        Log.d(tag, "데이터스토어에서 불러온 토큰 두개 " + accessToken + "//////" + refreshToken)
 
         val request =
             chain.request().newBuilder().addHeader("Authorization", accessToken).build()
@@ -33,18 +33,19 @@ class AuthInterceptor() : Interceptor {
 
         Log.d(tag, "회원조회 인터셉트 시작")
 
-        if (response.code != 200) {
-            Log.d(tag, "회원조회 인터셉트 기존토큰 유효x " + response.code)
-            val getNewToken = async { RetrofitManager.api.accessTokenIssued(AccessTokenRequest(refreshToken)) }.await()
+        if (response.code != 200 && response.code != 201) {
+            Log.e(tag, "회원조회 인터셉트 기존토큰 유효x " + response.code)
+            val getNewToken =
+                RetrofitManager.api.accessTokenIssued(AccessTokenRequest(refreshToken))
 
             if (getNewToken.code() == 200) {
                 Log.d(tag, "회원조회 인터셉트 뉴토큰코드 " + getNewToken.code())
                 val dataStoreInstance = App.getInstance().getDataStore()
 
-               dataStoreInstance.clearDataStore()   // 초기화
-                 dataStoreInstance.setAccessToken(getNewToken.body()?.accessToken.toString())
-                 dataStoreInstance.setAccessToken(getNewToken.body()?.refreshToken.toString())
-                Log.d(tag, "회원조회 갱신 뉴토큰 " + accessToken + "//////" + refreshToken)
+                dataStoreInstance.clearDataStore()   // 초기화
+                dataStoreInstance.setAccessToken(getNewToken.body()?.accessToken.toString())
+                dataStoreInstance.setRefreshToken(getNewToken.body()?.refreshToken.toString())
+                Log.d(tag, "회원조회 갱신 뉴토큰 " + accessToken + "////RefreshToken:////" + refreshToken)
 
                 val newAuthRequest =
                     chain.request().newBuilder()
@@ -56,8 +57,9 @@ class AuthInterceptor() : Interceptor {
                 Log.d(tag, "회원조회 인터셉트 뉴토큰으로 ")
                 response.close()
                 return@runBlocking chain.proceed(newAuthRequest)
-            } else{
-                Log.d(tag, "회원조회 인터셉트 리프레쉬유효x " + getNewToken.code())
+            } else {
+                Log.e(tag, "회원조회 인터셉트 리프레쉬유효x " + getNewToken.code())
+
                 return@runBlocking response
             }
         } else {
