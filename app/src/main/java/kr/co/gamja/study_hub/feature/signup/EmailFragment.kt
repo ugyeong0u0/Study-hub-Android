@@ -182,7 +182,11 @@ class EmailFragment : Fragment() {
                             null
                         )
                     } else {
-                        Toast.makeText(requireContext(), "인증코드 틀림", Toast.LENGTH_LONG).show()
+                        CustomSnackBar.make(
+                            binding.layoutRelative,
+                            getString(R.string.txt_errorAuthCode),
+                            binding.btnNext,true,R.drawable.icon_warning_m_orange_8_12
+                        ).show()
                     }
                 }
             })

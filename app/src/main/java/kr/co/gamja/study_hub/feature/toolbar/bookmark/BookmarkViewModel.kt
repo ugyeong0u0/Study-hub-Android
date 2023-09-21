@@ -21,14 +21,29 @@ class BookmarkViewModel: ViewModel() {
                 val response=AuthRetrofitManager.api.getBookmark()
                 if(response.isSuccessful){
                     val result= response.body() as BookmarkResponse
-                    Log.d(tag, "북마크 성공 code" + response.code().toString())
+                    Log.d(tag, "북마크조회 성공 code" + response.code().toString())
                     adapter.bookmarkList=result
                     adapter.notifyDataSetChanged()
-                    Log.d(tag, "북마크 성공 result.size" + result.size)
+                    Log.d(tag, "북마크조회 성공 result.size" + result.size)
                     _listSize.value=result.size
                 }
             }catch (e:Exception){
-                Log.e(tag, "북마크 Exception: ${e.message}")
+                Log.e(tag, "북마크조회 Exception: ${e.message}")
+            }
+        }
+    }
+
+    fun saveBookmarkItem(postId:Int?){
+        val req =postId
+        Log.d(tag, req.toString())
+        viewModelScope.launch {
+            try {
+                val response=AuthRetrofitManager.api.saveBookmark(req)
+                if(response.isSuccessful){
+                    Log.d(tag, "북마크 코드 200~300사이 code" + response.code().toString())
+                }
+            }catch(e:Exception){
+                Log.e(tag, "북마크 저장 Exception: ${e.message}")
             }
         }
     }

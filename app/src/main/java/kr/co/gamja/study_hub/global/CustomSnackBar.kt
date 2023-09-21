@@ -2,15 +2,18 @@ package kr.co.gamja.study_hub.global
 
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
+import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.SnackbarBinding
 
-class CustomSnackBar(view: View, private val message: String, private val anchorview: View, private val checkImg: Boolean) {
+class CustomSnackBar(view: View, private val message: String, private val anchorview: View, private val checkImg: Boolean,private val imgRes:Int) {
     companion object {
-        fun make(view: View, message: String, anchorview: View,checkImg: Boolean=true) =
-            CustomSnackBar(view, message, anchorview,checkImg)
+        val okImg= R.drawable.icon_check_green
+        fun make(view: View, message: String, anchorview: View,checkImg: Boolean=true,imgRes:Int= okImg) =
+            CustomSnackBar(view, message, anchorview,checkImg,imgRes)
     }
 
     private val context = view.context
@@ -37,6 +40,7 @@ class CustomSnackBar(view: View, private val message: String, private val anchor
     private fun initData() {
         snackbarBinding.txtSnackBar.text = message
         if(!checkImg) snackbarBinding.iconCheak.isVisible=false
+        snackbarBinding.iconCheak.setImageDrawable(AppCompatResources.getDrawable(context,imgRes))
     }
 
     fun show() {

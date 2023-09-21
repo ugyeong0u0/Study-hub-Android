@@ -11,7 +11,6 @@
     <string name="hint_email">이메일 주소를 입력해주세요(@inu.ac.kr)</string>
     <string name="hint_password">비밀번호를 입력해주세요</string>
     <string name="hint_password02">비밀번호를 한 번 더 입력해주세요</string>
-    <string name="btn_ok">확인</string>
     <string name="btn_login">로그인하기</string>
     <string name="next_forget_password"><u>비밀번호가 기억나지 않으시나요?</u></string>
     <string name="btn_tour">둘러보기</string>
@@ -29,6 +28,7 @@
     <string name="btn_nextpage">다음</string>
     <string name="txt_sendedemail">인증 코드를 메일로 보내드렸어요</string>
     <string name="txt_resendAlarm">인증코드가 재전송되었어요</string>
+    <string name="txt_errorAuthCode">인증코드가 일치하지 않아요</string>
     <string name="hint_authcode">인증코드를 입력해주세요</string>
     <string name="txt_authcode">인증코드</string>
     <string name="btn_resendauth">재전송</string>

@@ -66,6 +66,6 @@
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="6dp"
-            android:background="@drawable/btn_item01_bookmark" />
+            android:background="@drawable/baseline_bookmark_border_24_unselected" />
     </RelativeLayout>
 </layout>

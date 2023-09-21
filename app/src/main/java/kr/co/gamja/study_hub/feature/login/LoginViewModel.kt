@@ -11,7 +11,7 @@ import kr.co.gamja.study_hub.data.model.*
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
 const val EMAIL = "^[a-zA-Z0-9+-\\_.]+(@inu\\.ac\\.kr)$"
-const val PASSWORD = """^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9!@#$%^&*]).{8,15}$"""
+const val PASSWORD = """^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{10,15}$"""
 
 class LoginViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
@@ -45,7 +45,7 @@ class LoginViewModel : ViewModel() {
 
 
     fun goLogin(emailTxt: String, passwordTxt: String, params: LoginCallback) {
-        var loginReq = LoginRequest(emailTxt, passwordTxt)
+        val loginReq = LoginRequest(emailTxt, passwordTxt)
         Log.d(tag, "로그인-request데이터" + loginReq.toString())
         viewModelScope.launch {
             try {

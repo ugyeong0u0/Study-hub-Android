@@ -25,13 +25,14 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/item01_bookmark"
+                android:id="@+id/btn_bookmark"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/sixteen"
                 android:layout_marginEnd="@dimen/sixteen"
-                android:background="@drawable/btn_item01_bookmark" />
+                android:background="@drawable/baseline_bookmark_24_selected"
+                android:tag="1"/>
 
             <TextView
                 android:id="@+id/txt_title"

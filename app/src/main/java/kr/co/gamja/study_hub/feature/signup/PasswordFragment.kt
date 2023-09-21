@@ -117,12 +117,8 @@ class PasswordFragment : Fragment() {
             }
         })
 
-
-        binding.btnOk.setOnClickListener {
-            binding.btnNext.isEnabled = true
-            User.password = viewModel.password.value.toString()
-        }
         binding.btnNext.setOnClickListener {
+            User.password = viewModel.password.value.toString()
             findNavController().navigate(
                 R.id.action_createAccountFragment02_to_createAccountFragment03,
                 null
@@ -184,7 +180,7 @@ class PasswordFragment : Fragment() {
                     setTextColor(greenColor)
                     isVisible = true
                 }
-                binding.btnOk.isEnabled = true
+                binding.btnNext.isEnabled = true
             } else {
                 binding.editRePassword.backgroundTintList = redStateList
                 binding.errorRePassword.apply {
@@ -192,7 +188,6 @@ class PasswordFragment : Fragment() {
                     setTextColor(redColor)
                     isVisible = true
                 }
-                binding.btnOk.isEnabled = false
                 binding.btnNext.isEnabled = false
             }
         }
