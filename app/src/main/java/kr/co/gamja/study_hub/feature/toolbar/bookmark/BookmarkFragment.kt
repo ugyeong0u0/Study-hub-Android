@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import kr.co.gamja.study_hub.R
@@ -24,7 +25,9 @@ import okhttp3.internal.wait
 class BookmarkFragment : Fragment() {
     private lateinit var binding: FragmentBookmarkBinding
     private val viewModel: BookmarkViewModel by viewModels()
-    private val tag= this.javaClass.simpleName
+    private val tag = this.javaClass.simpleName
+    private var page =0 // 북마크 조회 시작 페이지
+    private var isLastPage =false // 북마크 조회 마지막 페이지인지
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,17 +51,42 @@ class BookmarkFragment : Fragment() {
         val adapter = BookmarkAdapter()
         binding.recylerBookmark.adapter = adapter
         binding.recylerBookmark.layoutManager = LinearLayoutManager(requireContext())
-        // 북마크 조회 api통신
-        viewModel.getBookmarkList(adapter)
+        // 1. 북마크 조회- api통신, page:0부터 설정
+        viewModel.getBookmarkList(adapter,page,object : BookmarkCallback{
+            override fun isLastPage(lastPage: Boolean) {
+               isLastPage=lastPage
+            }
+        })
 
-        adapter.setOnItemClickListener(object:OnItemClickListener{
+        // 2. 북마크 조회- 리사이클러뷰 페이지네이션
+        binding.recylerBookmark.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                if(!isLastPage){
+                   page++ // 페이지 +1
+                    viewModel.getBookmarkList(adapter,page, object : BookmarkCallback{
+                        override fun isLastPage(lastPage: Boolean) {
+                            isLastPage=lastPage
+                        }
+                    })
+                }else{
+                    Toast.makeText(requireContext(),"마지막 페이지임 ",Toast.LENGTH_SHORT ).show()
+                }
+            }
+        })
+
+        // 북마크 삭제 저장 api 연결
+        adapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(tagId: String, postId: Int?) {
-               when(tagId){
-                   "0"->Toast.makeText(requireContext(),"삭제인 경우",Toast.LENGTH_SHORT).show()
-                   "1"->{viewModel.saveBookmarkItem(postId)
-                       Log.d(tag,postId.toString())
-                   }
-               }
+                when (tagId) {
+                    "0" -> viewModel.saveDeleteBookmarkItem(postId)
+                    "1" -> {
+                        viewModel.saveDeleteBookmarkItem(postId)
+                        Log.d(tag, postId.toString())
+                    }
+                }
             }
         })
 

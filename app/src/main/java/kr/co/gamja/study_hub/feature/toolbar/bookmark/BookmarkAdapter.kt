@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.model.BookmarkResponse
-import kr.co.gamja.study_hub.data.model.BookmarkResponseItem
+import kr.co.gamja.study_hub.data.model.Content
+import kr.co.gamja.study_hub.data.model.GetBookmarkResponse
 import kr.co.gamja.study_hub.databinding.BookmarkItemBinding
 
 class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
-    var bookmarkList: BookmarkResponse? = null
+    var bookmarkList: GetBookmarkResponse? = null
     private lateinit var mOnItemClickListener: OnItemClickListener
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
@@ -23,20 +23,21 @@ class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
     }
 
     override fun onBindViewHolder(holder: BookmarkHolder, position: Int) {
-        val bookmarkItem = bookmarkList?.get(position)
+        val bookmarkItem = bookmarkList?.content?.get(position)
         holder.setBookmarkList(bookmarkItem)
     }
 
     override fun getItemCount(): Int {
-        return bookmarkList?.size ?: 0
+        return bookmarkList?.content?.size ?: 0
     }
     inner class BookmarkHolder(val binding: BookmarkItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun setBookmarkList(bookmarkItem: BookmarkResponseItem?) {
+        fun setBookmarkList(bookmarkItem: Content?) {
             val postId: Int? = bookmarkItem?.postId
             bookmarkItem?.let {
+                binding.txtRelativeMajor.text=it.major
                 binding.txtTitle.text = it.title
                 binding.txtSubTitle.text = it.content
-                binding.txtAvailable.text = it.leftover.toString()
+                binding.txtAvailable.text = it.remainingSeat.toString()
                 binding.btnBookmark.setOnClickListener(object : View.OnClickListener {
                     override fun onClick(p0: View?) {
                         // 북마크 추가

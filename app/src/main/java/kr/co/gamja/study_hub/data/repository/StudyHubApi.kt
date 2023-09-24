@@ -35,11 +35,19 @@ interface StudyHubApi {
     @GET("/api/users")
     suspend fun getUserInfo(): Response<UsersResponse>
 
-    // 북마크 조회 : Bookmarkmark.kt
+   /* // 북마크 조회 : Bookmarkmark.kt
     @GET("/api/bookmark")
-    suspend fun getBookmark(): Response<BookmarkResponse>
+    suspend fun getBookmark(): Response<BookmarkResponse>*/
 
-    //북마크 저장
+   /* //북마크 저장
     @POST("/api/bookmark")
-    suspend fun saveBookmark(@Query("postId") postId: Int?): Response<Unit>
+    suspend fun saveBookmark(@Query("postId") postId: Int?): Response<Unit>*/
+
+    // new - 내가 북마크한 스터디 조회
+    @GET("/api/study-posts/bookmarked")
+    suspend fun getBookmark(@Query("page") page: Int, @Query("size") size: Int): Response<GetBookmarkResponse>
+
+    //new - 북마크 저장, 삭제
+    @POST("/api/study-posts/{postId}/bookmark")
+    suspend fun saveDeleteBookmark(@Path("postId") postId: Int?): Response<BookmarkSaveDeleteResponse>
 }

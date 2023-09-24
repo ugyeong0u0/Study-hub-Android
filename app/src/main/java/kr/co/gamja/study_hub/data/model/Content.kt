@@ -1,8 +1,10 @@
 package kr.co.gamja.study_hub.data.model
 
-data class BookmarkResponseItem(
+data class Content(
+    val close: Boolean,
     val content: String,
-    val leftover: Int,
+    val major: String,
     val postId: Int,
+    val remainingSeat: Int,
     val title: String
 )
