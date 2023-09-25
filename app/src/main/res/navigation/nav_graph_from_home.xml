@@ -99,7 +99,11 @@
         android:id="@+id/createStudyFragment"
         android:name="kr.co.gamja.study_hub.feature.studypage.CreateStudyFragment"
         android:label="fragment_create_study"
-        tools:layout="@layout/fragment_create_study" />
+        tools:layout="@layout/fragment_create_study" >
+        <action
+            android:id="@+id/action_createStudyFragment_to_relativeMajorFragment"
+            app:destination="@id/relativeMajorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bottomSheetFragment"
         android:name="kr.co.gamja.study_hub.feature.studypage.BottomSheetFragment"
@@ -113,4 +117,9 @@
     <action
         android:id="@+id/action_global_createStudyFragment"
         app:destination="@id/createStudyFragment" />
+    <fragment
+        android:id="@+id/relativeMajorFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.RelativeMajorFragment"
+        android:label="fragment_relative_major"
+        tools:layout="@layout/fragment_relative_major" />
 </navigation>

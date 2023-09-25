@@ -173,7 +173,7 @@
     <string name="txt_fee">벌금</string>
     <string name="txt_gender">성별</string>
     <string name="btn_txt_writing">작성하기</string>
-<!--    북마크-->
+    <!--    북마크-->
 
     <string name="txt_bookMark">북마크</string>
     <string name="btn_allDelete">전체삭제</string>

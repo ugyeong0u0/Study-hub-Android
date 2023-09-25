@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/syswhite">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/relativeMajor_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/twenty"
+                android:layout_marginEnd="@dimen/twenty">
+
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignBottom="@+id/txt_relativeMajor"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
+
+                <TextView
+                    android:id="@+id/txt_relativeMajor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/btn_button"
+                    android:layout_toStartOf="@id/btn_button"
+                    android:layout_toEndOf="@id/icon_back"
+                    android:gravity="center"
+                    android:text="@string/txt_relativeMajor"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+
+                    />
+
+                <Button
+                    android:id="@+id/btn_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="#00000000"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="@string/btn_button"
+                    android:textColor="@color/O_50"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <AutoCompleteTextView
+            android:id="@+id/autoMajor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeMajor_toolbar"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="@dimen/sixteen"
+            android:background="@drawable/edit_from_stroke_bg_50_to_stroke_black"
+            android:completionThreshold="1"
+            android:hint="@string/autoTxt_selectMajor"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:paddingStart="@dimen/fourteen"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:scrollbars="vertical"
+            android:textColor="@color/sysblack1"
+            android:textColorHint="@color/BG_70"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:id="@+id/btn_search"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignEnd="@+id/autoMajor"
+            android:layout_alignBottom="@+id/autoMajor"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="13dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/baseline_search_24_black" />
+
+        <ImageButton
+            android:id="@+id/btn_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignEnd="@+id/autoMajor"
+            android:layout_alignBottom="@+id/autoMajor"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="13dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_circle_delete_bright"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/txt_sub_relativeMajor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/autoMajor"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="@dimen/sixteen"
+            android:text="@string/txt_sub_relativeMajor"
+            android:textColor="@color/BG_60"
+            android:textSize="12sp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/autoMajor"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="@color/BG_80"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            app:chipIconVisible="false"
+            app:closeIconTint="@color/BG_70"
+            app:closeIconVisible="true" />
+
+    </RelativeLayout>
+</layout>

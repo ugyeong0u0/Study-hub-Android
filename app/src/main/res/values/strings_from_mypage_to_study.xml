@@ -30,13 +30,14 @@
     <string name="txt_Edit_chatLink">채팅방 링크를 첨부해 주세요</string>
     <string name="txt_studyTitle">스터디 제목</string>
     <string name="txt_aboutTitle">제목을 적어주세요</string>
-    <string name="txt_studyintro">스터디 소개</string>
-    <string name="txt_aboutStudy">스터디에 대해 알려주세요</string>
+    <string name="txt_studyintro">내용</string>
+    <string name="txt_aboutStudy">스터디에 대해 알려주세요\n(운영방법, 대면여부, 벌금, 공부인증 방법 등)</string>
     <string name="txt_selectMajor">관련학과 선택</string>
     <string name="txt_studyTeam">스터디 팀원</string>
     <string name="txt_joinNumber">인원</string>
     <string name="txt_joinNumber_sub">최대 50명 참여 가능</string>
-    <string name="txt_aboutPNumber">인원을 알려주세요</string>
+    <string name="txt_aboutPNumber">스터디 인원을 알려주세요</string>
+    <string name="txt_persons">명</string>
     <string name="txt_gender_sub">참여자의 성별 선택</string>
     <string name="txt_gender_all">남녀무관</string>
     <string name="txt_gender_male">남자만</string>
@@ -49,6 +50,11 @@
     <string name="txt_mix">혼합</string>
     <string name="txt_yes">있어요</string>
     <string name="txt_no">없어요</string>
+    <string name="txt_kindOfFee">어떤 벌금인가요?</string>
+    <string name="edit_kindOfFee">지각비, 결석비</string>
+    <string name="edit_howMuchFee">금액을 알려주세요</string>
+    <string name="txt_howMuchFee">얼마인가요?</string>
+    <string name="txt_limitFee">최대 %d원</string>
     <string name="txt_startDay">시작하는 날</string>
     <string name="txt_endDay">종료하는 날</string>
     <string name="txt_choice">선택하기</string>
@@ -56,12 +62,13 @@
     <string name="btn_verb_delete">삭제하기</string>
     <string name="btn_verb_modify">수정하기</string>
     <string name="btn_close">닫기</string>
-
-
-
+    <string name="word_won">원</string>
+    <!--관련학과 선택하기-->
+    <string name="txt_relativeMajor">관련학과</string>
+    <string name="btn_button">버튼</string>
     <string name="txt_pNum_sub">최대 50명 참여 가능</string>
     <string name="txt_about_pNum">인원을 알려주세요</string>
-
+    <string name="autoTxt_selectMajor">관련학과를 입력해주세요</string>
     <!--    마이페이지-->
     <string name="txt_mypage">마이페이지</string>
     <string name="txt_notLogin_major">나의 스터디 팀원을 만나보세요</string>
@@ -72,5 +79,6 @@
     <string name="btn_no">아니요</string>
     <string name="btn_yes">네</string>
     <string name="q_logout">로그아웃 하시겠어요?</string>
+    <string name="txt_sub_relativeMajor">-해당스터디와 관련된 학과를 선택해 주세요\n-관련학과는 1개만 선택할 수 있어요</string>
 
 </resources>

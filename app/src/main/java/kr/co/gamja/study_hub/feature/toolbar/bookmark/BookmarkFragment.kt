@@ -55,6 +55,7 @@ class BookmarkFragment : Fragment() {
         viewModel.getBookmarkList(adapter,page,object : BookmarkCallback{
             override fun isLastPage(lastPage: Boolean) {
                isLastPage=lastPage
+                Log.d(tag,"첫 api 이즈 라스트 페이지?"+isLastPage)
             }
         })
 
@@ -64,8 +65,12 @@ class BookmarkFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 val lastVisibleItemPosition =
                     (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
-                if(!isLastPage){
+                Log.d(tag,"라스트 페이지1-"+lastVisibleItemPosition.toString())
+                Log.d(tag,"두번째 api 이즈 라스트 페이지?"+isLastPage)
+                // TODO("라스트 페이지 수정 후 확인해봐야함+ 스크롤 처음으로 올라가는지 확인하기")
+                if(!isLastPage && lastVisibleItemPosition==9){
                    page++ // 페이지 +1
+                    Log.d(tag,"라스트 페이지2-"+lastVisibleItemPosition.toString())
                     viewModel.getBookmarkList(adapter,page, object : BookmarkCallback{
                         override fun isLastPage(lastPage: Boolean) {
                             isLastPage=lastPage
