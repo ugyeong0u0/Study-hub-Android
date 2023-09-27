@@ -9,18 +9,30 @@ import com.google.android.material.snackbar.Snackbar
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.SnackbarBinding
 
-class CustomSnackBar(view: View, private val message: String, private val anchorview: View, private val checkImg: Boolean,private val imgRes:Int) {
+class CustomSnackBar(
+    view: View,
+    private val message: String,
+    private val anchorview: View?,
+    private val checkImg: Boolean,
+    private val imgRes: Int
+) {
     companion object {
-        val okImg= R.drawable.icon_check_green
-        fun make(view: View, message: String, anchorview: View,checkImg: Boolean=true,imgRes:Int= okImg) =
-            CustomSnackBar(view, message, anchorview,checkImg,imgRes)
+        val okImg = R.drawable.icon_check_green
+        fun make(
+            view: View,
+            message: String,
+            anchorview: View?=null,
+            checkImg: Boolean = true,
+            imgRes: Int = okImg
+        ) =
+            CustomSnackBar(view, message, anchorview, checkImg, imgRes)
     }
 
     private val context = view.context
     private val snackbar = Snackbar.make(view, "", Snackbar.LENGTH_SHORT)
     private val snackbarLayout = snackbar.view as Snackbar.SnackbarLayout
 
-    private val snackbarBinding: SnackbarBinding=
+    private val snackbarBinding: SnackbarBinding =
         SnackbarBinding.inflate(LayoutInflater.from(context))
 
     init {
@@ -39,14 +51,18 @@ class CustomSnackBar(view: View, private val message: String, private val anchor
 
     private fun initData() {
         snackbarBinding.txtSnackBar.text = message
-        if(!checkImg) snackbarBinding.iconCheak.isVisible=false
-        snackbarBinding.iconCheak.setImageDrawable(AppCompatResources.getDrawable(context,imgRes))
+        if (!checkImg) snackbarBinding.iconCheak.isVisible = false
+        snackbarBinding.iconCheak.setImageDrawable(AppCompatResources.getDrawable(context, imgRes))
     }
 
     fun show() {
-        snackbar.apply {
-            anchorView =anchorview
-        }.show()
+        if (anchorview != null) {
+            snackbar.apply {
+                anchorView = anchorview
+            }.show()
+        } else {
+            snackbar.show()
+        }
     }
 
 }

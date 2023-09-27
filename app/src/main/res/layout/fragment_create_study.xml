@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.studypage.CreateStudyViewModel" />
+
+        <import type="android.view.View" />
+    </data>
 
     <LinearLayout
+        android:id="@+id/layout_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/syswhite"
@@ -86,6 +96,7 @@
                     android:paddingTop="20dp"
                     android:paddingRight="14dp"
                     android:paddingBottom="20dp"
+                    android:text="@={viewModel.urlEditText}"
                     android:textColor="@color/sysblack1"
                     android:textColorHint="@color/BG_70"
                     android:textSize="14sp" />
@@ -101,7 +112,7 @@
                     android:background="@android:color/transparent"
                     android:scaleType="centerInside"
                     android:src="@drawable/icon_circle_delete_bright"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
 
                 <View
                     android:id="@+id/view_edit_chatLink"
@@ -137,6 +148,7 @@
                     android:paddingTop="20dp"
                     android:paddingRight="14dp"
                     android:paddingBottom="20dp"
+                    android:text="@={viewModel.studyTitle}"
                     android:textColor="@color/sysblack1"
                     android:textSize="14sp" />
 
@@ -169,6 +181,7 @@
                     android:paddingTop="20dp"
                     android:paddingRight="14dp"
                     android:paddingBottom="20dp"
+                    android:text="@={viewModel.studyContent}"
                     android:textColor="@color/sysblack1"
                     android:textSize="14sp" />
 
@@ -187,7 +200,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginHorizontal="@dimen/twenty"
                     android:layout_marginTop="32dp"
-                    android:layout_marginBottom="@dimen/twenty"
+                    android:layout_marginBottom="@dimen/twenty_four"
                     android:text="@string/txt_selectMajor"
                     android:textColor="@color/sysblack1"
                     android:textSize="16sp" />
@@ -203,11 +216,28 @@
                     android:layout_marginBottom="@dimen/twenty"
                     android:background="@drawable/icon_arrow_right_black" />
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_major"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_selectMajor"
+                    android:layout_marginHorizontal="@dimen/twenty"
+                    android:layout_marginBottom="@dimen/twenty_four"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@{viewModel.postRelativeMajor}"
+                    android:textColor="@color/BG_80"
+                    android:textSize="14sp"
+                    android:visibility="@{viewModel.isRelativeMajor?  View.VISIBLE :  View.GONE}"
+                    app:chipIconVisible="false"
+                    app:closeIconTint="@color/BG_70"
+                    app:closeIconVisible="true" />
+
                 <View
                     android:id="@+id/view_btn_selectMajor"
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
-                    android:layout_below="@+id/btn_selectMajor"
+                    android:layout_below="@+id/chip_major"
                     android:background="@color/BG_30" />
 
                 <TextView
@@ -267,6 +297,7 @@
                     android:paddingTop="20dp"
                     android:paddingRight="14dp"
                     android:paddingBottom="20dp"
+                    android:text="@={viewModel.persons}"
                     android:textColor="@color/BG_70"
                     android:textSize="14sp" />
 
@@ -281,12 +312,22 @@
                     android:text="@string/txt_persons"
                     android:textColor="@color/BG_80"
                     android:textSize="14sp" />
-
+                <TextView
+                    android:id="@+id/error_persons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/edit_aboutPNumber"
+                    android:layout_marginHorizontal="@dimen/twenty"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/error_persons"
+                    android:textColor="@color/R_50"
+                    android:textSize="12sp"
+                    android:visibility="@{viewModel.errorPersons? View.VISIBLE : View.GONE}"/>
                 <TextView
                     android:id="@+id/txt_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_persons"
+                    android:layout_below="@+id/error_persons"
                     android:layout_marginHorizontal="@dimen/twenty"
                     android:layout_marginTop="@dimen/thirty_two"
                     android:text="@string/txt_gender"
@@ -305,11 +346,48 @@
                     android:textColor="@color/BG_70"
                     android:textSize="12sp" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_regardlessOfGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_gender_sub"
+                    android:layout_marginStart="@dimen/twenty"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="@dimen/thirty_two"
+                    android:background="@{viewModel.regardlessOfGender ? @drawable/background_white_stroke_o_40_corener_5:@drawable/btn_bg_white_stroke_bg_50}"
+                    android:text="@string/txt_gender_all"
+                    android:textColor="@{viewModel.regardlessOfGender? @color/O_50:@color/BG_70}"
+                    android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_genderMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_gender_sub"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@+id/btn_regardlessOfGender"
+                    android:background="@{viewModel.male?@drawable/background_white_stroke_o_40_corener_5:@drawable/btn_bg_white_stroke_bg_50}"
+                    android:text="@string/txt_gender_male"
+                    android:textColor="@{viewModel.male? @color/O_50:@color/BG_70}"
+                    android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_genderFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_gender_sub"
+                    android:layout_toEndOf="@id/btn_genderMale"
+                    android:background="@{viewModel.female?@drawable/background_white_stroke_o_40_corener_5:@drawable/btn_bg_white_stroke_bg_50}"
+                    android:text="@string/txt_gender_female"
+                    android:textColor="@{viewModel.female? @color/O_50:@color/BG_70}"
+                    android:textSize="16sp" />
+
+
                 <View
                     android:id="@+id/view_txt_gender_sub"
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
-                    android:layout_below="@+id/txt_gender_sub"
+                    android:layout_below="@+id/btn_regardlessOfGender"
                     android:background="@color/BG_30" />
 
                 <TextView
@@ -356,45 +434,45 @@
                     android:textSize="12sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/txt_mix"
+                    android:id="@+id/btn_mix"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txt_meetMethod_sub"
                     android:layout_marginStart="@dimen/twenty"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/btn_bg_white_stroke_bg_50"
+                    android:background="@{viewModel.mix?@drawable/background_white_stroke_o_40_corener_5:@drawable/btn_bg_white_stroke_bg_50}"
                     android:text="@string/txt_mix"
-                    android:textColor="@color/BG_70"
+                    android:textColor="@{viewModel.mix? @color/O_50:@color/BG_70}"
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/txt_faceToFace"
+                    android:id="@+id/btn_offline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txt_meetMethod_sub"
                     android:layout_marginEnd="10dp"
-                    android:layout_toEndOf="@+id/txt_mix"
-                    android:background="@drawable/btn_bg_white_stroke_bg_50"
+                    android:layout_toEndOf="@+id/btn_mix"
+                    android:background="@{viewModel.offline?@drawable/background_white_stroke_o_40_corener_5:@drawable/btn_bg_white_stroke_bg_50}"
                     android:text="@string/txt_faceToFace"
-                    android:textColor="@color/BG_70"
+                    android:textColor="@{viewModel.offline? @color/O_50:@color/BG_70}"
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/txt_online"
+                    android:id="@+id/btn_online"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txt_meetMethod_sub"
-                    android:layout_toEndOf="@id/txt_faceToFace"
-                    android:background="@drawable/btn_bg_white_stroke_bg_50"
+                    android:layout_toEndOf="@id/btn_offline"
+                    android:background="@{viewModel.online?@drawable/background_white_stroke_o_40_corener_5:@drawable/btn_bg_white_stroke_bg_50}"
                     android:text="@string/txt_online"
-                    android:textColor="@color/BG_70"
+                    android:textColor="@{viewModel.online? @color/O_50:@color/BG_70}"
                     android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/txt_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_faceToFace"
+                    android:layout_below="@+id/btn_offline"
                     android:layout_marginHorizontal="@dimen/twenty"
                     android:layout_marginTop="@dimen/thirty_two"
                     android:layout_marginBottom="@dimen/sixteen"
@@ -410,17 +488,21 @@
                     android:layout_marginHorizontal="@dimen/twenty"
                     android:orientation="horizontal">
 
-                    <RadioButton
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radio_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/twenty_four"
+                        android:button="@drawable/radiobutton_cheked_orange_unchecked_gray"
                         android:text="@string/txt_yes"
                         android:textColor="@color/BG_70"
                         android:textSize="16sp" />
 
-                    <RadioButton
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radio_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:button="@drawable/radiobutton_cheked_orange_unchecked_gray"
                         android:text="@string/txt_no"
                         android:textColor="@color/BG_70"
                         android:textSize="16sp" />
@@ -436,7 +518,8 @@
                     android:layout_marginBottom="@dimen/fourteen"
                     android:text="@string/txt_kindOfFee"
                     android:textColor="@color/sysblack1"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="@{viewModel.selectedFee?  View.VISIBLE : View.GONE}" />
 
                 <EditText
                     android:id="@+id/edit_kindOfFee"
@@ -449,14 +532,16 @@
                     android:gravity="top|start"
                     android:hint="@string/edit_kindOfFee"
                     android:imeOptions="actionNext"
-                    android:maxLines="1"
                     android:inputType="text"
+                    android:maxLines="1"
                     android:paddingLeft="14dp"
                     android:paddingTop="20dp"
                     android:paddingRight="14dp"
                     android:paddingBottom="20dp"
+                    android:text="@={viewModel.whatFee}"
                     android:textColor="@color/BG_70"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="@{viewModel.selectedFee?  View.VISIBLE : View.GONE}" />
 
                 <TextView
                     android:id="@+id/txt_howMuchFee"
@@ -467,7 +552,8 @@
                     android:layout_marginBottom="@dimen/twenty_four"
                     android:text="@string/txt_howMuchFee"
                     android:textColor="@color/sysblack1"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="@{viewModel.selectedFee?  View.VISIBLE : View.GONE}" />
 
                 <EditText
                     android:id="@+id/edit_howMuchFee"
@@ -485,8 +571,11 @@
                     android:paddingTop="20dp"
                     android:paddingRight="14dp"
                     android:paddingBottom="20dp"
+                    android:text="@={viewModel.howMuch}"
                     android:textColor="@color/BG_70"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="@{viewModel.selectedFee?  View.VISIBLE : View.GONE}" />
+
                 <TextView
                     android:id="@+id/txt_won"
                     android:layout_width="wrap_content"
@@ -497,7 +586,8 @@
                     android:layout_marginTop="@dimen/twenty"
                     android:text="@string/word_won"
                     android:textColor="@color/BG_80"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="@{viewModel.selectedFee?  View.VISIBLE : View.GONE}" />
 
                 <TextView
                     android:id="@+id/txt_limitFee"
@@ -508,7 +598,8 @@
                     android:layout_marginBottom="40dp"
                     android:text="@string/txt_limitFee"
                     android:textColor="@color/BG_70"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:visibility="@{viewModel.selectedFee?  View.VISIBLE : View.GONE}" />
 
                 <View
                     android:id="@+id/view_radioGroup"
@@ -554,16 +645,27 @@
                     android:layout_below="@+id/txt_startDay"
                     android:layout_marginHorizontal="@dimen/twenty"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/edit_from_stroke_bg_50_to_stroke_black"
+                    android:background="@drawable/btn_from_stroke_bg_50_to_stroke_black"
                     android:paddingLeft="@dimen/fourteen"
                     android:paddingTop="13dp"
                     android:paddingRight="@dimen/fourteen"
                     android:paddingBottom="13dp"
-                    android:text="@string/txt_choice"
+                    android:text="@{viewModel.startDay}"
                     android:textAlignment="textStart"
-                    android:textColor="@color/BG_70"
+                    android:textColor="@{viewModel.startDayColor?@color/sysblack1:@color/BG_70}"
                     android:textSize="16sp"
                     android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/img_startArrow"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_below="@+id/txt_startDay"
+                    android:layout_alignEnd="@+id/btn_startDay"
+                    android:layout_marginTop="29dp"
+                    android:layout_marginEnd="@dimen/fourteen"
+                    android:layout_marginBottom="@dimen/twenty"
+                    android:background="@drawable/icon_arrow_right_gray" />
 
                 <TextView
                     android:id="@+id/txt_endDay"
@@ -577,35 +679,48 @@
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_txt_endDay"
+                    android:id="@+id/btn_endDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_endDay"
                     android:layout_marginHorizontal="@dimen/twenty"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="40dp"
-                    android:background="@drawable/edit_from_stroke_bg_50_to_stroke_black"
+                    android:background="@drawable/btn_from_stroke_bg_50_to_stroke_black"
                     android:paddingLeft="@dimen/fourteen"
                     android:paddingTop="13dp"
                     android:paddingRight="@dimen/fourteen"
                     android:paddingBottom="13dp"
-                    android:text="@string/txt_choice"
+                    android:text="@{viewModel.endDay}"
                     android:textAlignment="textStart"
-                    android:textColor="@color/BG_70"
+                    android:textColor="@{viewModel.endDayColor?@color/sysblack1:@color/BG_70}"
                     android:textSize="16sp"
                     android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/img_endArrow"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_below="@+id/txt_endDay"
+                    android:layout_alignEnd="@+id/btn_endDay"
+                    android:layout_marginTop="29dp"
+                    android:layout_marginEnd="@dimen/fourteen"
+                    android:layout_marginBottom="@dimen/twenty"
+                    android:background="@drawable/icon_arrow_right_gray" />
 
                 <Button
                     android:id="@+id/btn_complete"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_below="@+id/btn_txt_endDay"
+                    android:layout_below="@+id/btn_endDay"
                     android:layout_marginHorizontal="@dimen/side_margin_minus"
                     android:layout_marginBottom="@dimen/twenty_four"
                     android:backgroundTint="@color/O_50"
+                    android:enabled="@{viewModel.completeBtn}"
                     android:text="@string/btn_txt_complete"
                     android:textColor="@color/syswhite"
                     android:textSize="16sp" />
+
             </RelativeLayout>
         </ScrollView>
     </LinearLayout>

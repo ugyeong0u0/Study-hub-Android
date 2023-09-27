@@ -2,7 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.studypage.CreateStudyViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
     <RelativeLayout
+        android:id="@+id/layout_relative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/syswhite">
@@ -48,6 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:backgroundTint="#00000000"
+                    android:enabled="@{viewModel.isRelativeMajor}"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
                     android:text="@string/btn_button"
@@ -110,7 +121,8 @@
             android:layout_marginTop="@dimen/sixteen"
             android:text="@string/txt_sub_relativeMajor"
             android:textColor="@color/BG_60"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="@{viewModel.isRelativeMajor? View.GONE : View.VISIBLE}" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_major"
@@ -121,9 +133,10 @@
             android:layout_marginTop="8dp"
             android:clickable="true"
             android:focusable="true"
+            android:text="@{viewModel.postRelativeMajor}"
             android:textColor="@color/BG_80"
             android:textSize="14sp"
-            android:visibility="invisible"
+            android:visibility="@{viewModel.isRelativeMajor?  View.VISIBLE :  View.GONE}"
             app:chipIconVisible="false"
             app:closeIconTint="@color/BG_70"
             app:closeIconVisible="true" />

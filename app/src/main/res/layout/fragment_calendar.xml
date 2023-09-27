@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<data>
+    <variable
+        name="viewModel"
+        type="kr.co.gamja.study_hub.feature.studypage.CreateStudyViewModel" />
+</data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/modal_shape">
+
+        <View
+            android:id="@+id/view_top"
+            android:layout_width="55dp"
+            android:layout_height="4dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/BG_50"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="@dimen/sixteen"/>
+        <CalendarView
+            android:id="@+id/calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_top"
+            android:layout_marginHorizontal="@dimen/twenty"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_complete"
+            android:textColor="@color/O_20"
+            android:textSize="18sp"
+            android:background="#00000000"
+            android:enabled="false"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+</layout>

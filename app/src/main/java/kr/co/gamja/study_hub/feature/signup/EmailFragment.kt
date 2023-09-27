@@ -9,7 +9,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -185,7 +184,7 @@ class EmailFragment : Fragment() {
                         CustomSnackBar.make(
                             binding.layoutRelative,
                             getString(R.string.txt_errorAuthCode),
-                            binding.btnNext,true,R.drawable.icon_warning_m_orange_8_12
+                            binding.btnNext, true, R.drawable.icon_warning_m_orange_8_12
                         ).show()
                     }
                 }
@@ -239,7 +238,6 @@ class EmailFragment : Fragment() {
             else binding.editAuthCode.backgroundTintList = grayStateList
         }
     }
-
 
 
     private fun hideKeyboardForResend() {

@@ -38,8 +38,9 @@
     <string name="txt_joinNumber_sub">최대 50명 참여 가능</string>
     <string name="txt_aboutPNumber">스터디 인원을 알려주세요</string>
     <string name="txt_persons">명</string>
+    <string name="error_persons">1명부터 가능해요</string>
     <string name="txt_gender_sub">참여자의 성별 선택</string>
-    <string name="txt_gender_all">남녀무관</string>
+    <string name="txt_gender_all">무관</string>
     <string name="txt_gender_male">남자만</string>
     <string name="txt_gender_female">여자만</string>
     <string name="txt_studyMethod">스터디 방식</string>
@@ -63,6 +64,7 @@
     <string name="btn_verb_modify">수정하기</string>
     <string name="btn_close">닫기</string>
     <string name="word_won">원</string>
+    <string name="txt_warningMajor">관련학과는 1개만 선택이 가능해요</string>
     <!--관련학과 선택하기-->
     <string name="txt_relativeMajor">관련학과</string>
     <string name="btn_button">버튼</string>

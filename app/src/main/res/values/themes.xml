@@ -15,16 +15,12 @@
         <!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
         <!-- Customize your theme here. -->
     </style>
+    <style name="RoundCornerBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/RoundCornerModalStyle</item>
+    </style>
 
-    <!--    Underline error color-->
-<!--    <style name="error_appearance" parent="@android:style/TextAppearance">-->
-<!--        <item name="android:textColor">@color/R_50</item>-->
-<!--    </style>-->
-    <!--    <item name="android:textCursorDrawable">@drawable/edittext_cursor</item>-->
-    <style name="LoginEditTextStyle" parent="Widget.Design.TextInputLayout">
-        <item name="colorControlNormal">@color/G_100</item>
-        <item name="colorControlActivated">@color/G_60</item>
-        <item name="boxStrokeErrorColor">@color/G_10</item>
+    <style name="RoundCornerModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/modal_shape</item>
     </style>
 
 </resources>

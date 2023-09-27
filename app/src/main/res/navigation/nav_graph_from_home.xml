@@ -103,6 +103,9 @@
         <action
             android:id="@+id/action_createStudyFragment_to_relativeMajorFragment"
             app:destination="@id/relativeMajorFragment" />
+        <action
+            android:id="@+id/action_createStudyFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/bottomSheetFragment"
@@ -122,4 +125,9 @@
         android:name="kr.co.gamja.study_hub.feature.studypage.RelativeMajorFragment"
         android:label="fragment_relative_major"
         tools:layout="@layout/fragment_relative_major" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
 </navigation>
