@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="kr.co.gamja.study_hub.feature.studypage.CreateStudyViewModel" />
+            type="kr.co.gamja.study_hub.feature.studypage.createStudy.CreateStudyViewModel" />
 
         <import type="android.view.View" />
     </data>

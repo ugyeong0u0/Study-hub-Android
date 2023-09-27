@@ -1,4 +1,4 @@
-package kr.co.gamja.study_hub.feature.signup
+package kr.co.gamja.study_hub.feature.signup.major
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

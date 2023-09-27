@@ -1,4 +1,4 @@
-package kr.co.gamja.study_hub.feature.signup
+package kr.co.gamja.study_hub.feature.signup.password
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

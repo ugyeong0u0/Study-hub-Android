@@ -1,4 +1,4 @@
-package kr.co.gamja.study_hub.feature.signup
+package kr.co.gamja.study_hub.feature.signup.email
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -21,9 +21,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentEmailBinding
+import kr.co.gamja.study_hub.feature.signup.major.User
 import kr.co.gamja.study_hub.global.CustomSnackBar
 import kr.co.gamja.study_hub.global.ExtensionFragment.Companion.hideKeyboard
 import kotlin.properties.Delegates
+
 
 // 회원가입- 이메일 인증
 class EmailFragment : Fragment() {

@@ -1,4 +1,4 @@
-package kr.co.gamja.study_hub.feature.studypage
+package kr.co.gamja.study_hub.feature.studypage.createStudy
 
 import android.util.Log
 import androidx.lifecycle.LiveData

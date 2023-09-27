@@ -1,4 +1,4 @@
-package kr.co.gamja.study_hub.feature.signup
+package kr.co.gamja.study_hub.feature.signup.major
 
 import android.os.Bundle
 import android.util.Log
@@ -30,7 +30,7 @@ class MajorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = viewModel
+        binding.viewModel=viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         // 에딧텍스트 자판 내리기

@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/emailFragment"
-        android:name="kr.co.gamja.study_hub.feature.signup.EmailFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.email.EmailFragment"
         android:label="@string/word_registration"
         tools:layout="@layout/fragment_email">
         <argument
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/passwordFragment"
-        android:name="kr.co.gamja.study_hub.feature.signup.PasswordFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.password.PasswordFragment"
         android:label="@string/word_registration"
         tools:layout="@layout/fragment_password">
         <argument
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/nicknameFragment"
-        android:name="kr.co.gamja.study_hub.feature.signup.NicknameFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.nickname.NicknameFragment"
         android:label="@string/word_registration"
         tools:layout="@layout/fragment_nickname">
         <argument
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/majorFragment"
-        android:name="kr.co.gamja.study_hub.feature.signup.MajorFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.major.MajorFragment"
         android:label="@string/word_registration"
         tools:layout="@layout/fragment_major">
         <argument

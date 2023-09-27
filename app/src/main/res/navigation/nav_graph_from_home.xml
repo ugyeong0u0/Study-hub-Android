@@ -97,7 +97,7 @@
         app:destination="@id/bookmarkFragment" />
     <fragment
         android:id="@+id/createStudyFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.CreateStudyFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.createStudy.CreateStudyFragment"
         android:label="fragment_create_study"
         tools:layout="@layout/fragment_create_study" >
         <action
@@ -122,12 +122,12 @@
         app:destination="@id/createStudyFragment" />
     <fragment
         android:id="@+id/relativeMajorFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.RelativeMajorFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.createStudy.RelativeMajorFragment"
         android:label="fragment_relative_major"
         tools:layout="@layout/fragment_relative_major" />
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.CalendarFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.createStudy.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" />
 </navigation>

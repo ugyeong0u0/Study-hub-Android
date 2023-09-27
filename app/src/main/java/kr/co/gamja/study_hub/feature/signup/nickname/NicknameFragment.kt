@@ -1,9 +1,7 @@
-package kr.co.gamja.study_hub.feature.signup
+package kr.co.gamja.study_hub.feature.signup.nickname
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -11,13 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentNicknameBinding
+import kr.co.gamja.study_hub.feature.signup.major.User
 import kr.co.gamja.study_hub.global.ExtensionFragment.Companion.hideKeyboard
 
 
@@ -25,7 +23,7 @@ class NicknameFragment : Fragment() {
     private lateinit var binding: FragmentNicknameBinding
     private lateinit var selectedDrawable: Drawable
     private lateinit var nonSeletedDrawaable: Drawable
-    private val viewModel:NicknameViewModel by viewModels()
+    private val viewModel: NicknameViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

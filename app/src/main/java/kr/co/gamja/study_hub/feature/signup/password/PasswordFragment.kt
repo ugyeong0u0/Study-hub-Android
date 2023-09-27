@@ -1,4 +1,4 @@
-package kr.co.gamja.study_hub.feature.signup
+package kr.co.gamja.study_hub.feature.signup.password
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -18,6 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentPasswordBinding
+import kr.co.gamja.study_hub.feature.signup.major.User
 import kr.co.gamja.study_hub.global.ExtensionFragment.Companion.hideKeyboard
 import kotlin.properties.Delegates
 

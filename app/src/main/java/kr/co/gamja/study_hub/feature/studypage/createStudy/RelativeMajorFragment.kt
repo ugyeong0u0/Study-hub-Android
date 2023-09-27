@@ -1,4 +1,4 @@
-package kr.co.gamja.study_hub.feature.studypage
+package kr.co.gamja.study_hub.feature.studypage.createStudy
 
 import android.os.Bundle
 import android.util.Log
@@ -91,11 +91,9 @@ class RelativeMajorFragment : Fragment() {
         }
         binding.autoMajor.setOnItemClickListener { parent, _, position, _ ->
             binding.autoMajor.isEnabled = true // 추가로 텍스트 변경 가능
-            var selectedItem = parent.adapter.getItem(position) as String
-            viewModel.setUserMajor(selectedItem) // 통신시 값으로
             binding.chipMajor.apply {
                 // 스낵바 띄우기, 통신시 값확인
-                if (viewModel.relativeMajor.value == "null") {
+                if (viewModel.isRelativeMajor.value==true) {
                     CustomSnackBar.make(
                         binding.layoutRelative,
                         getString(R.string.txt_warningMajor),
@@ -104,9 +102,13 @@ class RelativeMajorFragment : Fragment() {
                         R.drawable.icon_warning_m_orange_8_12
                     ).show()
                 }
-                viewModel.setPostRelativeMajor(selectedItem) // 포스트 값
                 setChipBackgroundColorResource(R.color.BG_30)
             }
+            var selectedItem = parent.adapter.getItem(position) as String
+            viewModel.setUserMajor(selectedItem) // 통신시 값으로
+            viewModel.setPostRelativeMajor(selectedItem) // 포스트 값
+
+
         }
     }
 }

@@ -3,7 +3,7 @@
 <data>
     <variable
         name="viewModel"
-        type="kr.co.gamja.study_hub.feature.studypage.CreateStudyViewModel" />
+        type="kr.co.gamja.study_hub.feature.studypage.createStudy.CreateStudyViewModel" />
 </data>
     <RelativeLayout
         android:layout_width="match_parent"
