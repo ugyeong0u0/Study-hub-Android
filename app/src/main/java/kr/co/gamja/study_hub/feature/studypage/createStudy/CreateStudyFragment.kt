@@ -46,6 +46,7 @@ class CreateStudyFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
         binding.iconBack.setOnClickListener {
+            viewModel.setInit() // 초기화
             val navcontroller = findNavController()
             navcontroller.navigateUp() // 뒤로 가기
         }
@@ -133,9 +134,11 @@ class CreateStudyFragment : Fragment() {
             }
             persons.observe(viewLifecycleOwner) {
                 viewModel.setButtonEnable()
-                if(it.toInt()==0){
-                    viewModel.setErrorPersons(true)
-                }else  viewModel.setErrorPersons(false)
+                if (!viewModel.persons.value.isNullOrEmpty())
+                    if (viewModel.persons.value.toString().toInt() == 0) {
+                        viewModel.setErrorPersons(true)
+                    } else
+                        viewModel.setErrorPersons(false)
             }
             gender.observe(viewLifecycleOwner) {
                 viewModel.setButtonEnable()
@@ -157,7 +160,7 @@ class CreateStudyFragment : Fragment() {
         binding.btnComplete.setOnClickListener {
             viewModel.createStudy()
             val navcontroller = findNavController()
-            navcontroller.popBackStack() // TODO("스터디 글 상세 보기 페이지로 넘어가는걸로 수정 필요")
+            navcontroller.navigateUp() // TODO("스터디 글 상세 보기 페이지로 넘어가는걸로 수정 필요")
         }
 
     }
@@ -170,4 +173,6 @@ class CreateStudyFragment : Fragment() {
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         modal.show(parentFragmentManager, modal.tag)
     }
+
+
 }

@@ -90,9 +90,11 @@ class CreateStudyViewModel : ViewModel() {
     val persons = MutableLiveData<String>()
 
     //스터디 인원 0인 경우 에러메시지
-    private val _errorPersons =MutableLiveData<Boolean>(false)
-    val errorPersons:LiveData<Boolean> get() = _errorPersons
-    fun setErrorPersons(new :Boolean){_errorPersons.value=new}
+    private val _errorPersons = MutableLiveData<Boolean>(false)
+    val errorPersons: LiveData<Boolean> get() = _errorPersons
+    fun setErrorPersons(new: Boolean) {
+        _errorPersons.value = new
+    }
 
 
     // 스터디 성별
@@ -149,6 +151,14 @@ class CreateStudyViewModel : ViewModel() {
         gender.value = "FEMALE"
     }
 
+    fun initGender(new: Boolean) {
+        _RegardlessOfGender.value = false
+        _male.value = false
+        _female.value = false
+        gender.value = ""
+    }
+
+
     //대면 여부
     fun setMix(new: Boolean) {
         _mix.value = true
@@ -171,6 +181,13 @@ class CreateStudyViewModel : ViewModel() {
         meetMethod.value = "CONTACT"
     }
 
+    fun initMeet(new: Boolean) {
+        _mix.value = false
+        _offline.value = false
+        _online.value = false
+        meetMethod.value = ""
+    }
+
     fun setStartDay(new: String) {
         _startDay.value = new
         _startDayColor.value = true
@@ -182,6 +199,16 @@ class CreateStudyViewModel : ViewModel() {
         _endDayColor.value = true
         editEndDay.value = converDate(new)
     }
+
+    fun initDay() {
+        _startDay.value = ""
+        editStartDay.value = ""
+        _startDayColor.value = false
+        _endDay.value = ""
+        editEndDay.value = ""
+        _endDayColor.value = false
+    }
+
 
     fun converDate(inputDate: String): String {
         try {
@@ -196,6 +223,22 @@ class CreateStudyViewModel : ViewModel() {
             e.printStackTrace()
             return "" // 날짜 변환 실패 시 빈 문자열 반환
         }
+    }
+    // editText초기화
+    fun setInit() {
+        urlEditText.value = ""
+        studyContent.value = ""
+        initGender(false)
+        setRelativeMajor("")
+        setPostRelativeMajor("")
+        setIsRelativeMajor(false)
+        setSelectedFee(false)
+        whatFee.value = ""
+        howMuch.value = "0"
+        initDay()
+        persons.value = ""
+        initMeet(false)
+        studyTitle.value = ""
     }
 
     fun setUserMajor(item: String) {
@@ -289,6 +332,7 @@ class CreateStudyViewModel : ViewModel() {
                 val response = AuthRetrofitManager.api.setCreateStudy(req)
                 if (response.isSuccessful) {
                     Log.d(tag, "스터디 생성 code" + response.code().toString())
+                    setInit()
                 } else {
                     Log.e(tag, "스터디 생성 실패 code" + response.code().toString())
                 }
@@ -301,11 +345,14 @@ class CreateStudyViewModel : ViewModel() {
     fun setButtonEnable() {
         Log.d(tag, "버튼 확인 호출됨")
         if (!urlEditText.value.isNullOrEmpty() && !studyTitle.value.isNullOrEmpty() && !studyContent.value.isNullOrEmpty()
-            && !persons.value.isNullOrEmpty() && persons.value.toString().toInt()>0 && !editStartDay.value.isNullOrEmpty() && !editEndDay.value.isNullOrEmpty()
+            && !persons.value.isNullOrEmpty() && persons.value.toString()
+                .toInt() > 0 && !editStartDay.value.isNullOrEmpty() && !editEndDay.value.isNullOrEmpty()
             && !relativeMajor.value.isNullOrEmpty() && relativeMajor.value != "null" && !gender.value.isNullOrEmpty() && !meetMethod.value.isNullOrEmpty()
         ) {
             if (selectedFee.value == true) {
-                if (!whatFee.value.isNullOrEmpty() && !howMuch.value.isNullOrEmpty()) {
+                if (!whatFee.value.isNullOrEmpty() && !howMuch.value.isNullOrEmpty() && howMuch.value.toString()
+                        .toInt() > 0
+                ) {
                     Log.d(tag, "통신시작" + selectedFee.value.toString())
                     setCompleteBtn(true)
                 } else {
