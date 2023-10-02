@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="kr.co.gamja.study_hub.feature.studypage.createStudy.InfoOfDays" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@color/syswhite"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/txt_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@{model.isSelected?@color/O_50 :@color/syswhite, default=@color/syswhite}"
+            android:textColor="@color/sysblack1"
+            android:textSize="18sp"
+            tools:text="@{model.day}" />
+    </LinearLayout>
+
+</layout>

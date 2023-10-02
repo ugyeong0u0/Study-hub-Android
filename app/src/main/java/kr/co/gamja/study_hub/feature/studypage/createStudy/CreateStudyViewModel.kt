@@ -215,7 +215,6 @@ class CreateStudyViewModel : ViewModel() {
             // 입력된 날짜 형식 지정
             val inputDateFormat = SimpleDateFormat("yyyy년 M월 d일", Locale.KOREAN)
             val date: Date = inputDateFormat.parse(inputDate)!!
-
             // 원하는 날짜 형식 지정
             val outputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
             return outputDateFormat.format(date)

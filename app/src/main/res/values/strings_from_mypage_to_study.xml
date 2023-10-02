@@ -82,5 +82,12 @@
     <string name="btn_yes">네</string>
     <string name="q_logout">로그아웃 하시겠어요?</string>
     <string name="txt_sub_relativeMajor">-해당스터디와 관련된 학과를 선택해 주세요\n-관련학과는 1개만 선택할 수 있어요</string>
-
+<!--    달력커스텀-->
+    <string name="sunday">일</string>
+    <string name="monday">월</string>
+    <string name="tuesday">화</string>
+    <string name="wednesday">수</string>
+    <string name="Thursday">목</string>
+    <string name="friday">금</string>
+    <string name="Saturday">토</string>
 </resources>
