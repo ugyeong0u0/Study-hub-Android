@@ -1,5 +1,6 @@
 package kr.co.gamja.study_hub.feature.toolbar.bookmark
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,12 +45,14 @@ class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
                         if (binding.btnBookmark.tag.toString() == "0") {
                             binding.btnBookmark.tag = "1"
                             binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
+                            Log.d("북마크 그림 채워진걸로 바뀜",it.title )
                             val tagId =binding.btnBookmark.tag.toString()
                             mOnItemClickListener.onItemClick(tagId,postId)
 
                         } else { // 북마크 삭제
                             binding.btnBookmark.setTag("0")
                             binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
+                            Log.d("북마크 그림 빈걸로 바뀜",it.title )
                             val tagId =binding.btnBookmark.tag.toString()
                             mOnItemClickListener.onItemClick(tagId,postId)
                         }

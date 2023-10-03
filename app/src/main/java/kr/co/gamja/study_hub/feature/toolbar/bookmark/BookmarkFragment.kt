@@ -7,27 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentBookmarkBinding
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
-import okhttp3.internal.wait
 
 class BookmarkFragment : Fragment() {
     private lateinit var binding: FragmentBookmarkBinding
-    private val viewModel: BookmarkViewModel by viewModels()
+    private val viewModel: BookmarkViewModel by activityViewModels()
     private val tag = this.javaClass.simpleName
-    private var page =0 // 북마크 조회 시작 페이지
-    private var isLastPage =false // 북마크 조회 마지막 페이지인지
+    private var page = 0 // 북마크 조회 시작 페이지
+    private var isLastPage = false // 북마크 조회 마지막 페이지인지
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,10 +48,10 @@ class BookmarkFragment : Fragment() {
         binding.recylerBookmark.adapter = adapter
         binding.recylerBookmark.layoutManager = LinearLayoutManager(requireContext())
         // 1. 북마크 조회- api통신, page:0부터 설정
-        viewModel.getBookmarkList(adapter,page,object : BookmarkCallback{
+        viewModel.getBookmarkList(adapter, page, object : BookmarkCallback {
             override fun isLastPage(lastPage: Boolean) {
-               isLastPage=lastPage
-                Log.d(tag,"첫 api 이즈 라스트 페이지?"+isLastPage)
+                isLastPage = lastPage
+                Log.d(tag, "북마크 마지막 페이지?" + isLastPage)
             }
         })
 
@@ -65,19 +61,19 @@ class BookmarkFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 val lastVisibleItemPosition =
                     (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
-                Log.d(tag,"라스트 페이지1-"+lastVisibleItemPosition.toString())
-                Log.d(tag,"두번째 api 이즈 라스트 페이지?"+isLastPage)
+                Log.d(tag, "라스트 페이지1-" + lastVisibleItemPosition.toString())
+                Log.d(tag, "두번째 api 이즈 라스트 페이지?" + isLastPage)
                 // TODO("라스트 페이지 수정 후 확인해봐야함+ 스크롤 처음으로 올라가는지 확인하기")
-                if(!isLastPage && lastVisibleItemPosition==9){
-                   page++ // 페이지 +1
-                    Log.d(tag,"라스트 페이지2-"+lastVisibleItemPosition.toString())
-                    viewModel.getBookmarkList(adapter,page, object : BookmarkCallback{
+                if (!isLastPage && lastVisibleItemPosition == 9) {
+                    page++ // 페이지 +1
+                    Log.d(tag, "라스트 페이지2-" + lastVisibleItemPosition.toString())
+                    viewModel.getBookmarkList(adapter, page, object : BookmarkCallback {
                         override fun isLastPage(lastPage: Boolean) {
-                            isLastPage=lastPage
+                            isLastPage = lastPage
                         }
                     })
-                }else{
-                    Toast.makeText(requireContext(),"마지막 페이지임 ",Toast.LENGTH_SHORT ).show()
+                } else {
+                    Toast.makeText(requireContext(), "마지막 페이지임 ", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -85,13 +81,7 @@ class BookmarkFragment : Fragment() {
         // 북마크 삭제 저장 api 연결
         adapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(tagId: String, postId: Int?) {
-                when (tagId) {
-                    "0" -> viewModel.saveDeleteBookmarkItem(postId)
-                    "1" -> {
-                        viewModel.saveDeleteBookmarkItem(postId)
-                        Log.d(tag, postId.toString())
-                    }
-                }
+                viewModel.saveDeleteBookmarkItem(postId)
             }
         })
 

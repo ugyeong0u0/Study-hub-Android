@@ -54,4 +54,9 @@ interface StudyHubApi {
     // 스더디 생성
     @POST("/api/study-posts")
     suspend fun setCreateStudy(@Body createStudyRequest:CreateStudyRequest):Response<Unit>
+
+    // 스터디 게시글 전체 조회
+    @GET("/api/study-posts/find/all")
+    suspend fun getStudyPostAll(@Query("page") page:Int, @Query("size") size: Int):Response<FindStudyResponse>
+
 }

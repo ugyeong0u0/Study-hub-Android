@@ -1,169 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/syswhite">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/studyMain_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/studyMain_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/sysblack2">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/icon_txt_study"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp">
+                    android:layout_alignParentStart="true"
+                    android:text="@string/txt_study"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/icon_txt_study"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/txt_study"
-                        android:textColor="@color/syswhite"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                <ImageButton
+                    android:id="@+id/icon_bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/icon_alarm"
+                    android:background="@drawable/baseline_bookmark_border_24_ffffff" />
 
-                    <ImageButton
-                        android:id="@+id/icon_bookmark"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_toStartOf="@+id/icon_alarm"
-                        android:background="@drawable/baseline_bookmark_border_24_ffffff" />
+                <ImageButton
+                    android:id="@+id/icon_alarm"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/icon_bell_orange" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
 
-                    <ImageButton
-                        android:id="@+id/icon_alarm"
-                        android:layout_width="@dimen/resized_item"
-                        android:layout_height="@dimen/resized_item"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/icon_bell_orange" />
-                </RelativeLayout>
-            </androidx.appcompat.widget.Toolbar>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/syswhite">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:id="@+id/fm01_linear02"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/fs01_btn_latestOrder"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#00000000"
-                        android:text="@string/btn_latestOrder"
-                        android:textColor="@color/sysblack1"
-                        android:textSize="14sp" />
-
-                    <View
-                        android:id="@+id/fs01_line01"
-                        android:layout_width="2dp"
-                        android:layout_height="12dp"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/BG_50" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/fs01_btn_popularOrder"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#00000000"
-                        android:text="@string/btn_popularOrder"
-                        android:textColor="@color/sysblack1"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/fs01_txt_list_number"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_latestOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:padding="10dp"
+                    android:text="@string/btn_latestOrder"
+                    android:textColor="@color/sysblack1"
+                    android:textSize="14sp" />
+
+                <View
+                    android:id="@+id/view_line"
+                    android:layout_width="2dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="18dp"
+                    android:layout_toEndOf="@+id/btn_latestOrder"
+                    android:background="@color/BG_50" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_popularOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/view_line"
+                    android:background="#00000000"
+                    android:padding="10dp"
+                    android:text="@string/btn_popularOrder"
+                    android:textColor="@color/sysblack1"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/txt_numberOfList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/btn_latestOrder"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
+                    android:layout_marginHorizontal="@dimen/twenty"
                     android:text="@string/txt_list_number"
                     android:textColor="@color/BG_80"
                     android:textSize="14sp" />
-            </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/BG_30" />
+                <View
+                    android:id="@+id/view_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/btn_latestOrder"
+                    android:background="@color/BG_30" />
 
-            <RelativeLayout
-                android:id="@+id/fs01_relative"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/img_noList"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/resized_img_non_study" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/txt_noText01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
+                    android:layout_below="@+id/img_noList"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/txt_no_Text01"
+                    android:textColor="@color/BG_80"
+                    android:textSize="14sp" />
 
-                    <ImageView
-                        android:id="@+id/fs01_img_noList"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/resized_img_non_study" />
-
-                    <TextView
-                        android:id="@+id/fs01_txt_noText01"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:text="@string/txt_no_Text01"
-                        android:textColor="@color/BG_80"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/fs01_txt_noText02"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_no_Text02"
-                        android:textColor="@color/O_40"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/txt_noText02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_noText01"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/txt_no_Text02"
+                    android:textColor="@color/O_40"
+                    android:textSize="14sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fs01_recycler01"
+                    android:id="@+id/recycler_studyMain"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:listitem="@layout/study_item_on_recruiting" />
-
+                    android:layout_below="@+id/view_horizontal"
+                    android:layout_marginHorizontal="@dimen/twenty"
+                    android:layout_marginTop="22dp" />
             </RelativeLayout>
-        </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fs01_btn_flaot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="30dp"
-            android:backgroundTint="@color/O_50"
-            android:src="@drawable/icon_plus"
-            app:layout_anchor="@+id/fs01_recycler01"
-            app:layout_anchorGravity="bottom|end"
-            app:tint="@color/syswhite" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_flaot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="30dp"
+                android:backgroundTint="@color/O_50"
+                android:src="@drawable/icon_plus"
+                app:borderWidth="0dp"
+                app:layout_anchor="@+id/recycler_studyMain"
+                app:layout_anchorGravity="bottom|end"
+                app:tint="@color/syswhite" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
 </layout>

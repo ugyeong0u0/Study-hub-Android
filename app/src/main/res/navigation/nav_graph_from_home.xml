@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/studyMainFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.StudyMainFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.studyHome.StudyMainFragment"
         android:label="fragment_study01"
         tools:layout="@layout/fragment_study_main">
         <argument
