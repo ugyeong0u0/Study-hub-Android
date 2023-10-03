@@ -17,7 +17,9 @@ class StudyMainAdapter(private val context:Context) : RecyclerView.Adapter<Study
     fun setOnItemClickListener(listener: OnItemClickListener) {
         mOnItemClickListener = listener
     }
-
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudyMainHolder {
         val binding =
             StudyItemOnRecruitingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
