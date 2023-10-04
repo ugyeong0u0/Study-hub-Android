@@ -1,4 +1,4 @@
-package kr.co.gamja.study_hub.feature.studypage
+package kr.co.gamja.study_hub.feature.studypage.studyContent
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -71,11 +71,17 @@ class CalendarAdapter(private val context: Context) :
         }
     }
 
-    private fun CalendarCellItemBinding.setChecked() =
-        txtDay.setTextColor(ContextCompat.getColor(context, R.color.R_50))
+    private fun CalendarCellItemBinding.setChecked() {
+        txtDay.setTextColor(ContextCompat.getColor(context, R.color.syswhite))
+        txtDay.setBackgroundResource(R.drawable.solid_o_50_corner_99)
+    }
 
-    private fun CalendarCellItemBinding.setUncheked() =
+
+    private fun CalendarCellItemBinding.setUncheked(){
         txtDay.setTextColor(ContextCompat.getColor(context, R.color.sysblack1))
+        txtDay.setBackgroundResource(R.drawable.solid_syswhite)
+    }
+
 }
 
 interface OnCalendarItemClickListener {

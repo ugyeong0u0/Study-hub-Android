@@ -116,7 +116,7 @@ class CreateStudyViewModel : ViewModel() {
     // 벌금 얼마인지
     val howMuch = MutableLiveData<String>("0")
 
-    // 시작날짜
+    // 시작날짜 2023-10-04
     val editStartDay = MutableLiveData<String>()
 
     //종료날짜
@@ -189,9 +189,9 @@ class CreateStudyViewModel : ViewModel() {
     }
 
     fun setStartDay(new: String) {
-        _startDay.value = new
+        _startDay.value = new // 화면 표시 날짜 2023년 10월 4일
         _startDayColor.value = true
-        editStartDay.value = converDate(new)
+        editStartDay.value = converDate(new) // api 통신시 사용 2023-10-04
     }
 
     fun setEndDay(new: String) {
@@ -201,10 +201,10 @@ class CreateStudyViewModel : ViewModel() {
     }
 
     fun initDay() {
-        _startDay.value = ""
+        _startDay.value = "선택하기"
         editStartDay.value = ""
         _startDayColor.value = false
-        _endDay.value = ""
+        _endDay.value = "선택하기ㅓ"
         editEndDay.value = ""
         _endDayColor.value = false
     }
@@ -223,6 +223,7 @@ class CreateStudyViewModel : ViewModel() {
             return "" // 날짜 변환 실패 시 빈 문자열 반환
         }
     }
+
     // editText초기화
     fun setInit() {
         urlEditText.value = ""
@@ -310,7 +311,7 @@ class CreateStudyViewModel : ViewModel() {
 
     }
 
-
+    // 스터디 생성 api
     fun createStudy() {
         val req = CreateStudyRequest(
             urlEditText.value.toString(),
@@ -366,6 +367,17 @@ class CreateStudyViewModel : ViewModel() {
             Log.d(tag, "입력불충분" + selectedFee.value.toString())
             setCompleteBtn(false)
         }
+    }
+
+    //뒤로 가기시 알림 띄울지 말지
+    // 아무것도 안써져있는경우 메시지 안 띄움 return false
+    fun goBack(): Boolean {
+        return !(urlEditText.value.isNullOrEmpty() && studyTitle.value.isNullOrEmpty() && studyContent.value.isNullOrEmpty()
+                && persons.value.isNullOrEmpty() && editStartDay.value.isNullOrEmpty() && editEndDay.value.isNullOrEmpty()
+                && (relativeMajor.value.isNullOrEmpty() || relativeMajor.value != "null") && gender.value.isNullOrEmpty() && meetMethod.value.isNullOrEmpty()
+                && selectedFee.value.toString()
+            .isNotEmpty() && whatFee.value.isNullOrEmpty() && howMuch.value.toString()
+            .toInt() >= 0)
     }
 
 }

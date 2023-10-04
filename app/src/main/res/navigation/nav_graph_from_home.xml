@@ -82,7 +82,7 @@
         tools:layout="@layout/fragment_bookmark" />
     <fragment
         android:id="@+id/studyContentFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.ContentFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragment"
         android:label="fragment_study_detail"
         tools:layout="@layout/fragment_content">
         <action
@@ -109,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/bottomSheetFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.BottomSheetFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.studyContent.BottomSheetFragment"
         android:label="fragment_bottom_sheet"
         tools:layout="@layout/fragment_bottom_sheet" />
     <fragment

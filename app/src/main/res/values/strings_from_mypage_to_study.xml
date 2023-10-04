@@ -65,6 +65,9 @@
     <string name="btn_close">닫기</string>
     <string name="word_won">원</string>
     <string name="txt_warningMajor">관련학과는 1개만 선택이 가능해요</string>
+<!--    스터디 다이얼로그-->
+    <string name="q_cancelCreatingStudy">작성을 취소할까요?</string>\
+    <string name="q_sub_cancelCreatingStudy">취소할 시 내용이 저장되지 않아요</string>
     <!--관련학과 선택하기-->
     <string name="txt_relativeMajor">관련학과</string>
     <string name="btn_button">버튼</string>

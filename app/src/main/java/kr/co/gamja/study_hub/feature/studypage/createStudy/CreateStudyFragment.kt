@@ -16,6 +16,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentCreateStudyBinding
+import kr.co.gamja.study_hub.global.CustomDialog
+import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 
 class CreateStudyFragment : Fragment() {
@@ -44,11 +46,27 @@ class CreateStudyFragment : Fragment() {
         val toolbar = binding.createStudyToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
-
+        // 뒤로가기 아이콘 누를 시 알림 메시지
         binding.iconBack.setOnClickListener {
-            viewModel.setInit() // 초기화
-            val navcontroller = findNavController()
-            navcontroller.navigateUp() // 뒤로 가기
+            if (viewModel.goBack()) { // 하나라도 입력 된 경우 뒤로가기 시 알림띄움
+                val head = requireContext().resources.getString(R.string.q_cancelCreatingStudy)
+                val sub = requireContext().resources.getString(R.string.q_sub_cancelCreatingStudy)
+                val no = requireContext().resources.getString(R.string.btn_no)
+                val yes = requireContext().resources.getString(R.string.btn_yes)
+                val dialog = CustomDialog(requireContext(), head, sub, no, yes)
+                dialog.showDialog()
+                dialog.setOnClickListener(object : OnDialogClickListener {
+                    override fun onclickResult() {
+                        viewModel.setInit() // 초기화
+                        val navcontroller = findNavController()
+                        navcontroller.navigateUp() // 뒤로 가기
+                    }
+                })
+            }else{ // 입력된게 없는 경우
+                viewModel.setInit() // 초기화
+                val navcontroller = findNavController()
+                navcontroller.navigateUp() // 뒤로 가기
+            }
         }
 
         // TODO("번들로 받을지?")

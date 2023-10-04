@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@{model.isSelected?@color/O_50 :@color/syswhite, default=@color/syswhite}"
+            android:background="@drawable/solid_syswhite"
             android:textColor="@color/sysblack1"
             android:textSize="18sp"
             tools:text="@{model.day}" />

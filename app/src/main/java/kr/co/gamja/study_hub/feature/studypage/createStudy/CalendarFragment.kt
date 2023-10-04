@@ -66,9 +66,10 @@ class CalendarFragment : BottomSheetDialogFragment() {
             selectedDate = selectedDate.plusMonths(1)
             setMonthView() // 월 업데이트
         }
+        //
         binding.btnOk.setOnClickListener {
             if (whatDay == "0") {
-                viewModel.setStartDay(formattedDate)
+                viewModel.setStartDay(formattedDate) // 2023년 11월 1일 표시 및 api통신 날짜(2023-11-01) 설정
             } else {
                 viewModel.setEndDay(formattedDate)
             }

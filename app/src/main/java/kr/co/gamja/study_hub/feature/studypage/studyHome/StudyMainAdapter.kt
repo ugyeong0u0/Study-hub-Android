@@ -42,7 +42,6 @@ class StudyMainAdapter(private val context:Context) : RecyclerView.Adapter<Study
             studyItem?.let {
                 binding.txtCategory.text=it.major
                 binding.txtTitle.text=it.title
-
                 binding.txtAvailable.text=context.getString(R.string.txt_left_number,it.leftover)
                 //TODO("기간")
                 val available=it.studyPerson-it.leftover
