@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.feature.studypage.studyHome
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -98,4 +99,7 @@ class StudyMainFragment : Fragment() {
         })
 
     }
+
+
+
 }

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-<data>
-    <variable
-        name="viewModel"
-        type="kr.co.gamja.study_hub.feature.studypage.createStudy.CreateStudyViewModel" />
-</data>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.studypage.createStudy.CreateStudyViewModel" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,48 +19,54 @@
             android:layout_width="55dp"
             android:layout_height="4dp"
             android:layout_centerHorizontal="true"
-            android:background="@color/BG_50"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="@dimen/sixteen"/>
+            android:layout_marginBottom="@dimen/sixteen"
+            android:background="@color/BG_50" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_complete"
-            android:textColor="@color/O_20"
-            android:textSize="18sp"
+            android:layout_below="@+id/view_top"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
             android:background="#00000000"
             android:enabled="false"
-            android:layout_below="@+id/view_top"
-            android:layout_alignParentEnd="true"/>
+            android:text="@string/btn_complete"
+            android:textColor="@color/O_20"
+            android:textSize="18sp" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_left"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_below="@+id/view_top"
-            android:layout_marginTop="@dimen/fourteen"
             android:layout_marginStart="@dimen/twenty"
+            android:layout_marginTop="@dimen/fourteen"
             android:layout_marginBottom="@dimen/fourteen"
             android:background="@drawable/icon_arrow_left_l_gray" />
+
         <TextView
             android:id="@+id/txt_Month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_top"
-            android:layout_toEndOf="@+id/btn_left"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="@dimen/fourteen"
-            tools:text="month "
+            android:layout_toEndOf="@+id/btn_left"
             android:textColor="@color/sysblack1"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="month " />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_right"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_below="@+id/view_top"
-            android:layout_toEndOf="@+id/txt_Month"
             android:layout_marginTop="@dimen/fourteen"
+            android:layout_toEndOf="@+id/txt_Month"
             android:background="@drawable/icon_arrow_right_black" />
+
         <TextView
             android:id="@+id/txt_sunday"
             android:layout_width="wrap_content"
@@ -68,72 +77,78 @@
             android:text="@string/sunday"
             android:textColor="@color/BG_80"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/txt_monday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_left"
-            android:layout_toEndOf="@+id/txt_sunday"
             android:layout_marginEnd="35dp"
+            android:layout_toEndOf="@+id/txt_sunday"
             android:text="@string/monday"
             android:textColor="@color/BG_80"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/txt_tuesday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_left"
-            android:layout_toEndOf="@+id/txt_monday"
             android:layout_marginEnd="35dp"
+            android:layout_toEndOf="@+id/txt_monday"
             android:text="@string/tuesday"
             android:textColor="@color/BG_80"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/txt_wednesday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_left"
-            android:layout_toEndOf="@+id/txt_tuesday"
             android:layout_marginEnd="35dp"
+            android:layout_toEndOf="@+id/txt_tuesday"
             android:text="@string/wednesday"
             android:textColor="@color/BG_80"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/txt_Thursday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_left"
-            android:layout_toEndOf="@+id/txt_wednesday"
             android:layout_marginEnd="35dp"
+            android:layout_toEndOf="@+id/txt_wednesday"
             android:text="@string/Thursday"
             android:textColor="@color/BG_80"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/txt_friday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_left"
-            android:layout_toEndOf="@+id/txt_Thursday"
             android:layout_marginEnd="35dp"
+            android:layout_toEndOf="@+id/txt_Thursday"
             android:text="@string/friday"
             android:textColor="@color/BG_80"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/txt_Saturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_left"
             android:layout_toEndOf="@+id/txt_friday"
-            android:layout_marginEnd="33dp"
             android:text="@string/Saturday"
             android:textColor="@color/BG_80"
             android:textSize="14sp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_Saturday"
-            android:layout_marginHorizontal="21dp"/>
+            android:layout_marginHorizontal="21dp" />
     </RelativeLayout>
 
 </layout>

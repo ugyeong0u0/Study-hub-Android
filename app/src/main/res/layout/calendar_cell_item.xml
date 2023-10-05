@@ -23,7 +23,7 @@
             android:background="@drawable/solid_syswhite"
             android:textColor="@color/sysblack1"
             android:textSize="18sp"
-            tools:text="@{model.day}" />
+            tools:text="@{model.infoDay}" />
     </LinearLayout>
 
 </layout>

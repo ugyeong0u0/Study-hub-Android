@@ -125,7 +125,6 @@ class CreateStudyViewModel : ViewModel() {
     // 완료 버튼 enable
     private val _completeBtn = MutableLiveData<Boolean>(false)
     val completeBtn: LiveData<Boolean> get() = _completeBtn
-
     fun setCompleteBtn(new: Boolean) {
         _completeBtn.value = new
     }
@@ -204,7 +203,7 @@ class CreateStudyViewModel : ViewModel() {
         _startDay.value = "선택하기"
         editStartDay.value = ""
         _startDayColor.value = false
-        _endDay.value = "선택하기ㅓ"
+        _endDay.value = "선택하기"
         editEndDay.value = ""
         _endDayColor.value = false
     }
@@ -341,7 +340,7 @@ class CreateStudyViewModel : ViewModel() {
             }
         }
     }
-
+    // 입력 확인 후 생성 버튼 가능 여부
     fun setButtonEnable() {
         Log.d(tag, "버튼 확인 호출됨")
         if (!urlEditText.value.isNullOrEmpty() && !studyTitle.value.isNullOrEmpty() && !studyContent.value.isNullOrEmpty()

@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.Content
-import kr.co.gamja.study_hub.data.model.GetBookmarkResponse
+import kr.co.gamja.study_hub.data.model.GetBookmarkResponse1
 import kr.co.gamja.study_hub.databinding.BookmarkItemBinding
 
 class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
-    var bookmarkList: GetBookmarkResponse? = null
+    var bookmarkList: GetBookmarkResponse1? = null
     private lateinit var mOnItemClickListener: OnItemClickListener
     // 리사이클러뷰 재활용 문제
     override fun getItemViewType(position: Int): Int {

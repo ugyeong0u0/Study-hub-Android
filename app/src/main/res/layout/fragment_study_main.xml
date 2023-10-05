@@ -138,7 +138,8 @@
                     android:layout_height="match_parent"
                     android:layout_below="@+id/view_horizontal"
                     android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginTop="22dp" />
+                    android:layout_marginTop="22dp"
+                    android:scrollbars="vertical" />
             </RelativeLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton

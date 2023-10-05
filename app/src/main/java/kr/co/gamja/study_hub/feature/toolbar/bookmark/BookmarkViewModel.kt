@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
-import kr.co.gamja.study_hub.data.model.GetBookmarkResponse
+import kr.co.gamja.study_hub.data.model.GetBookmarkResponse1
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 
 class BookmarkViewModel : ViewModel() {
@@ -23,7 +23,7 @@ class BookmarkViewModel : ViewModel() {
                 // @Query("page") page: Int?, @Query("size") size: Int?
                 val response = AuthRetrofitManager.api.getBookmark(page, 10)
                 if (response.isSuccessful) {
-                    val result = response.body() as GetBookmarkResponse
+                    val result = response.body() as GetBookmarkResponse1
                     Log.d(tag, "북마크조회 성공 code" + response.code().toString())
                     params.isLastPage(result.last) // 마지막 페이지 여부
                     adapter.bookmarkList = result

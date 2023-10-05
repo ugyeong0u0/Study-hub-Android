@@ -708,14 +708,14 @@
                     android:layout_marginBottom="@dimen/twenty"
                     android:background="@drawable/icon_arrow_right_gray" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_complete"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_below="@+id/btn_endDay"
                     android:layout_marginHorizontal="@dimen/side_margin_minus"
                     android:layout_marginBottom="@dimen/twenty_four"
-                    android:backgroundTint="@color/O_50"
+                    android:background="@{viewModel.completeBtn?@drawable/btn_background_o_50_corner_6:@drawable/solid_o_20_corner_6, default=@drawable/solid_o_20_corner_6}"
                     android:enabled="@{viewModel.completeBtn}"
                     android:text="@string/btn_txt_complete"
                     android:textColor="@color/syswhite"

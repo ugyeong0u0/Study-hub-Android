@@ -1,6 +1,6 @@
 package kr.co.gamja.study_hub.data.model
 
-data class GetBookmarkResponse(
+data class GetBookmarkResponse1(
     val content: List<Content>,
     val empty: Boolean,
     val first: Boolean,
