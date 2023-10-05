@@ -146,7 +146,6 @@ class CalendarFragment : BottomSheetDialogFragment() {
                     formattedDate = "${changedYear}년 ${changedMonth}월 ${item.infoDay}일"
                     binding.btnOk.isEnabled = true
                     binding.btnOk.setTextColor(ContextCompat.getColor(requireContext(), R.color.O_50))
-                    Toast.makeText(requireContext(), "년 월 일 ${item.infoDay}", Toast.LENGTH_SHORT).show()
                 }
             })
         }

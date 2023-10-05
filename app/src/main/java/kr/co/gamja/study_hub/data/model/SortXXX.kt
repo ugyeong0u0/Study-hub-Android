@@ -1,6 +1,6 @@
 package kr.co.gamja.study_hub.data.model
 
-data class SortX(
+data class SortXXX(
     val empty: Boolean,
     val sorted: Boolean,
     val unsorted: Boolean

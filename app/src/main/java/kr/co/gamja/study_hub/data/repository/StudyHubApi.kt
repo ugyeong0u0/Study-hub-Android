@@ -45,7 +45,7 @@ interface StudyHubApi {
 
     // new - 내가 북마크한 스터디 조회
     @GET("/api/study-posts/bookmarked")
-    suspend fun getBookmark(@Query("page") page: Int, @Query("size") size: Int): Response<GetBookmarkResponse1>
+    suspend fun getBookmark(@Query("page") page: Int, @Query("size") size: Int): Response<GetBookmarkResponse>
 
     //new - 북마크 저장, 삭제
     @POST("/api/study-posts/{postId}/bookmark")

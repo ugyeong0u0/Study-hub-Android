@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.model.Content
-import kr.co.gamja.study_hub.data.model.GetBookmarkResponse1
+import kr.co.gamja.study_hub.data.model.ContentXX
+import kr.co.gamja.study_hub.data.model.GetBookmarkResponse
 import kr.co.gamja.study_hub.databinding.BookmarkItemBinding
 
 class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
-    var bookmarkList: GetBookmarkResponse1? = null
+    var bookmarkList: GetBookmarkResponse? = null
     private lateinit var mOnItemClickListener: OnItemClickListener
     // 리사이클러뷰 재활용 문제
     override fun getItemViewType(position: Int): Int {
@@ -27,15 +27,15 @@ class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
     }
 
     override fun onBindViewHolder(holder: BookmarkHolder, position: Int) {
-        val bookmarkItem = bookmarkList?.content?.get(position)
+        val bookmarkItem = bookmarkList?.getBookmarkedPostsData?.content?.get(position)
         holder.setBookmarkList(bookmarkItem)
     }
 
     override fun getItemCount(): Int {
-        return bookmarkList?.content?.size ?: 0
+        return bookmarkList?.getBookmarkedPostsData?.content?.size ?: 0
     }
     inner class BookmarkHolder(val binding: BookmarkItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun setBookmarkList(bookmarkItem: Content?) {
+        fun setBookmarkList(bookmarkItem: ContentXX?) {
             val postId: Int? = bookmarkItem?.postId
             bookmarkItem?.let {
                 binding.txtRelativeMajor.text=it.major

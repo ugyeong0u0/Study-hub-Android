@@ -1,6 +1,6 @@
 package kr.co.gamja.study_hub.data.model
 
-data class Content(
+data class ContentXX(
     val close: Boolean,
     val content: String,
     val major: String,
