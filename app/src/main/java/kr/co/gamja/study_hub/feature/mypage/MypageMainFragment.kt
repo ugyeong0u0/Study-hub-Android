@@ -1,22 +1,24 @@
 package kr.co.gamja.study_hub.feature.mypage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.first
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.datastore.App
 import kr.co.gamja.study_hub.databinding.FragmentMypageMainBinding
 
 
 class MypageMainFragment : Fragment() {
+    private val tag=this.javaClass.simpleName
     private lateinit var binding: FragmentMypageMainBinding
+    private val viewModel: MyInfoViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,42 +30,30 @@ class MypageMainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         // 툴바 설정
         val toolbar = binding.myPageMainToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
-
+        viewModel.getUsers()
+        viewModel.setOnClickListener(object:MyInfoCallbackListener{
+            override fun myInfoCallbackResult(isSuccess: Boolean) {
+                Log.d(tag, "MyInfoViewModel 통신 값$isSuccess")
+            }
+        })
         binding.iconAlarm.setOnClickListener {
             findNavController().navigate(
                 R.id.action_global_mainAlarmFragment,
                 null
             )
         }
-        // 회원 조회 누를시
+        // 회원 정보 보기 누를시
         binding.layoutUserInfo.setOnClickListener {
-            runBlocking {
-                val accessTokenDeferred = async(Dispatchers.IO) {
-                    App.getInstance().getDataStore().accessToken.first()
-                }
-                val accessToken = accessTokenDeferred.await()
-
-                if (accessToken == null) {
-                    findNavController().navigate(
-                        R.id.action_global_loginFragment,
-                        null
-                    )
-                } else {
-                    findNavController().navigate(
-                        R.id.action_mypageMainFragment_to_myInfoFragment,
-                        null
-                    )
-
-                }
-            }
-
+            findNavController().navigate(
+                R.id.action_mypageMainFragment_to_myInfoFragment,
+                null
+            )
         }
-
     }
-
 }

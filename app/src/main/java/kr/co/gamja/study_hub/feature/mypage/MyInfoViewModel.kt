@@ -14,17 +14,37 @@ import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 class MyInfoViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
 
-    private val _emailData = MutableLiveData<String>("")
+    private val _emailData = MutableLiveData<String>()
     val emailData: LiveData<String> get() = _emailData
 
-    private val _nicknameData = MutableLiveData<String>("")
+    private val _nicknameData = MutableLiveData<String>()
     val nicknameData: LiveData<String> get() = _nicknameData
 
-    private val _majorData = MutableLiveData<String>("")
+    // 회원 비회원 여부
+    private val _isNicknameData = MutableLiveData<Boolean>()
+    val isNicknameData: LiveData<Boolean> get() = _isNicknameData
+
+    private val _majorData = MutableLiveData<String>()
     val majorData: LiveData<String> get() = _majorData
 
-    private val _genderData = MutableLiveData<String>("")
+    // 회원 비회원 여부
+    private val _isMajorData = MutableLiveData<Boolean>()
+    val isMajorData: LiveData<Boolean> get() = _isMajorData
+
+    private val _genderData = MutableLiveData<String>()
     val genderData: LiveData<String> get() = _genderData
+
+    private val _imgData = MutableLiveData<Any>()
+    val imgData: LiveData<Any> get() = _imgData
+
+    // 회원 비회원 여부
+    private val _isImgData = MutableLiveData<Boolean>()
+    val isImgData: LiveData<Boolean> get() = _isImgData
+
+    private lateinit var onClickListener: MyInfoCallbackListener
+    fun setOnClickListener(listener: MyInfoCallbackListener) {
+        onClickListener = listener
+    }
 
     // 회원조회
     fun getUsers() {
@@ -36,11 +56,16 @@ class MyInfoViewModel : ViewModel() {
                     Log.d(tag, "회원조회 성공 code" + response.code().toString())
                     _emailData.value = result.email
                     _nicknameData.value = result.nickname
+                    _isNicknameData.value = true
                     _majorData.value = result.major
+                    _isMajorData.value = true
                     _genderData.value = result.gender
-
+                    _imgData.value = result.imageUrl // TODO("이미지처리")
+                    _isImgData.value = true
+                    onClickListener.myInfoCallbackResult(true)
                 } else {
                     Log.e(tag, "회원조회 실패")
+                    onClickListener.myInfoCallbackResult(false)
                     val errorResponse: UsersErrorResponse? = response.errorBody()?.let {
                         val gson = Gson()
                         gson.fromJson(it.charStream(), UsersErrorResponse::class.java)
@@ -55,4 +80,8 @@ class MyInfoViewModel : ViewModel() {
             }
         }
     }
+}
+
+interface MyInfoCallbackListener {
+    fun myInfoCallbackResult(isSuccess: Boolean = false)
 }

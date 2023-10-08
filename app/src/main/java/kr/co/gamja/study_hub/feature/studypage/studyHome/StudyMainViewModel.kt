@@ -15,7 +15,7 @@ class StudyMainViewModel : ViewModel() {
     // 리스트 개수
     private val _listSize = MutableLiveData<Int>()
     val listSize: LiveData<Int> get() = _listSize
-
+    // TODO("api 변경")
     fun getStudyPosts(adapter: StudyMainAdapter, page: Int, params: getStudyCallback) {
         viewModelScope.launch {
             try {

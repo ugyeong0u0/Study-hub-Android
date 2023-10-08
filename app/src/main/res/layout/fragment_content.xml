@@ -21,8 +21,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/toolbar_margin"
-                    android:layout_marginEnd="@dimen/toolbar_margin">
+                    android:layout_marginStart="@dimen/twenty"
+                    android:layout_marginEnd="@dimen/twenty">
 
                     <ImageButton
                         android:id="@+id/icon_back"

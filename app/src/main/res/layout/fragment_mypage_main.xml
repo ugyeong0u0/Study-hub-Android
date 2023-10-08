@@ -2,245 +2,251 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.mypage.MyInfoViewModel" />
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/syswhite"
-        android:fillViewport="true"
-        android:scrollbars="vertical">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/myPageMain_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/myPageMain_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/sysblack2">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp">
-
-                    <TextView
-                        android:id="@+id/icon_txt_mypage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/txt_mypage"
-                        android:textColor="@color/syswhite"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <ImageButton
-                        android:id="@+id/icon_alarm"
-                        android:layout_width="@dimen/resized_item"
-                        android:layout_height="@dimen/resized_item"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/icon_bell_non_white" />
-                </RelativeLayout>
-            </androidx.appcompat.widget.Toolbar>
-
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
 
             <RelativeLayout
-                android:id="@+id/layout_userInfo"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/twenty"
-                android:layout_marginTop="@dimen/top_margin"
-                android:layout_marginBottom="@dimen/toolbar_margin"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:id="@+id/icon_profile"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:src="@drawable/icon_profile_60"
-                    android:visibility="gone" />
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
 
                 <TextView
-                    android:id="@+id/txt_major"
+                    android:id="@+id/icon_txt_mypage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_toEndOf="@+id/icon_profile"
-                    android:text="@string/txt_notLogin_major"
-                    android:textColor="@color/BG_80"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_nickName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_major"
-                    android:layout_marginStart="14dp"
-                    android:layout_toEndOf="@+id/icon_profile"
-                    android:text="@string/txt_notLogin_name"
-                    android:textColor="@color/sysblack1"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/txt_mypage"
+                    android:textColor="@color/syswhite"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/icon_alarm"
                     android:layout_width="@dimen/resized_item"
                     android:layout_height="@dimen/resized_item"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/icon_arrow_right_black" />
+                    android:background="@drawable/icon_bell_non_white" />
             </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
 
-            <LinearLayout
-                android:id="@+id/layout_userAction"
-                android:layout_width="match_parent"
+        <RelativeLayout
+            android:id="@+id/layout_userInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="@dimen/top_margin"
+            android:layout_marginBottom="@dimen/twenty"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/icon_profile"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/icon_profile_60"
+                android:visibility="@{viewModel.isImgData?View.VISIBLE:View.GONE}" />
+
+            <TextView
+                android:id="@+id/txt_major"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/twenty"
-                android:layout_marginBottom="@dimen/toolbar_margin"
-                android:orientation="horizontal">
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="15dp"
+                android:layout_toEndOf="@+id/icon_profile"
+                android:text="@{viewModel.isMajorData?viewModel.majorData:@string/txt_notLogin_major}"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="학과"/>
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_userContent"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_background_mypage_bg_20"
-                    android:drawableTop="@drawable/resized_icon_pencill_gray"
-                    android:paddingLeft="21dp"
-                    android:paddingTop="20dp"
-                    android:paddingRight="21dp"
-                    android:paddingBottom="20dp"
-                    android:text="@string/btn_pastText"
-                    android:textColor="@color/BG_90"
-                    android:textSize="12sp" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_userStudy"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_background_mypage_bg_20"
-                    android:drawableTop="@drawable/resized_icon_document_gray"
-                    android:paddingLeft="14dp"
-                    android:paddingTop="20dp"
-                    android:paddingRight="14dp"
-                    android:paddingBottom="20dp"
-                    android:text="@string/btn_pastText"
-                    android:textColor="@color/BG_90"
-                    android:textSize="12sp" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_userBookmark"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_background_mypage_bg_20"
-                    android:drawableTop="@drawable/baseline_bookmark_border_24_bg_80"
-                    android:paddingLeft="21dp"
-                    android:paddingTop="20dp"
-                    android:paddingRight="21dp"
-                    android:paddingBottom="20dp"
-                    android:text="@string/btn_pastText"
-                    android:textColor="@color/BG_90"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/line_belowUserAction"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@color/BG_30"
-                android:paddingBottom="8dp"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/btn_waitPartner"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/txt_nickName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/twenty"
-                android:layout_marginTop="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_waitPartner"
-                android:textAlignment="viewStart"
+                android:layout_below="@+id/txt_major"
+                android:layout_marginStart="14dp"
+                android:layout_toEndOf="@+id/icon_profile"
+                android:text="@{viewModel.isNicknameData?viewModel.nicknameData:@string/txt_notLogin_name}"
+                android:textColor="@color/sysblack1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="닉네임"
+                />
+
+            <ImageView
+                android:layout_width="@dimen/resized_item"
+                android:layout_height="@dimen/resized_item"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/icon_arrow_right_black" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_userAction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/twenty"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_userContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/twenty"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_background_mypage_bg_20"
+                android:drawableTop="@drawable/resized_icon_pencill_gray"
+                android:paddingLeft="21dp"
+                android:paddingTop="20dp"
+                android:paddingRight="21dp"
+                android:paddingBottom="20dp"
+                android:text="@string/btn_pastText"
                 android:textColor="@color/BG_90"
-                android:textSize="16sp"
-                android:visibility="gone" />
+                android:textSize="12sp" />
 
-            <View
-                android:id="@+id/line_belowWaitPartner"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/BG_30"
-                android:paddingBottom="8dp" />
-
-            <Button
-                android:id="@+id/btn_notice"
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_userStudy"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/twenty"
-                android:layout_marginTop="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_notice"
-                android:textAlignment="viewStart"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_background_mypage_bg_20"
+                android:drawableTop="@drawable/resized_icon_document_gray"
+                android:paddingLeft="14dp"
+                android:paddingTop="20dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="20dp"
+                android:text="@string/btn_pastText"
                 android:textColor="@color/BG_90"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
 
-            <Button
-                android:id="@+id/btn_asking"
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_userBookmark"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/twenty"
-                android:layout_marginTop="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_asking"
-                android:textAlignment="viewStart"
+                android:layout_marginEnd="@dimen/twenty"
+                android:layout_weight="1"
+                android:background="@drawable/btn_background_mypage_bg_20"
+                android:drawableTop="@drawable/baseline_bookmark_border_24_bg_80"
+                android:paddingLeft="21dp"
+                android:paddingTop="20dp"
+                android:paddingRight="21dp"
+                android:paddingBottom="20dp"
+                android:text="@string/btn_pastText"
                 android:textColor="@color/BG_90"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btn_usingGuide"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/twenty"
-                android:layout_marginTop="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_usingGuide"
-                android:textAlignment="viewStart"
-                android:textColor="@color/BG_90"
-                android:textSize="16sp" />
-
-
-            <Button
-                android:id="@+id/btn_terms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/twenty"
-                android:layout_marginTop="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_terms"
-                android:textAlignment="viewStart"
-                android:textColor="@color/BG_90"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btn_uerTerms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/twenty"
-                android:layout_marginTop="24dp"
-                android:background="#00000000"
-                android:text="@string/btn_uerTerms"
-                android:textAlignment="viewStart"
-                android:textColor="@color/BG_90"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
         </LinearLayout>
-    </ScrollView>
+
+        <View
+            android:id="@+id/line_belowUserAction"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/BG_30"
+            android:paddingBottom="8dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_waitPartner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="24dp"
+            android:background="#00000000"
+            android:text="@string/btn_waitPartner"
+            android:textAlignment="viewStart"
+            android:textColor="@color/BG_90"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/line_belowWaitPartner"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/BG_30"
+            android:paddingBottom="8dp" />
+
+        <Button
+            android:id="@+id/btn_notice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:background="#00000000"
+            android:text="@string/btn_notice"
+            android:textAlignment="viewStart"
+            android:textColor="@color/BG_90"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_asking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="24dp"
+            android:background="#00000000"
+            android:text="@string/btn_asking"
+            android:textAlignment="viewStart"
+            android:textColor="@color/BG_90"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_usingGuide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="24dp"
+            android:background="#00000000"
+            android:text="@string/btn_usingGuide"
+            android:textAlignment="viewStart"
+            android:textColor="@color/BG_90"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/btn_terms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="24dp"
+            android:background="#00000000"
+            android:text="@string/btn_terms"
+            android:textAlignment="viewStart"
+            android:textColor="@color/BG_90"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_uerTerms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="24dp"
+            android:background="#00000000"
+            android:text="@string/btn_uerTerms"
+            android:textAlignment="viewStart"
+            android:textColor="@color/BG_90"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
 </layout>

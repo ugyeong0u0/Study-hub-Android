@@ -1,12 +1,14 @@
 package kr.co.gamja.study_hub.feature.mypage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
@@ -19,9 +21,9 @@ import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 class MyInfoFragment : Fragment() {
-    private lateinit var binding: FragmentMyInfoBinding
     private val tag = this.javaClass.simpleName
-    private val viewModel: MyInfoViewModel by viewModels()
+    private lateinit var binding: FragmentMyInfoBinding
+    private val viewModel: MyInfoViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,11 +39,19 @@ class MyInfoFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
         // 툴바 설정
         val toolbar = binding.myPageMainToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
+
         viewModel.getUsers()
+        viewModel.setOnClickListener(object:MyInfoCallbackListener{
+            override fun myInfoCallbackResult(isSuccess: Boolean) {
+                if(!isSuccess)
+                    goLogout()
+            }
+        })
 
         binding.iconBack.setOnClickListener {
             val navcontroller = findNavController()
@@ -56,17 +66,21 @@ class MyInfoFragment : Fragment() {
             dialog.showDialog()
             dialog.setOnClickListener(object : OnDialogClickListener {
                 override fun onclickResult() { // 로그아웃 "네" 누르면
-                    // 데이터스토어 초기화
-                    CoroutineScope(Dispatchers.Main).launch {
-                        App.getInstance().getDataStore().clearDataStore()
-                    }
-                    findNavController().navigate(
-                        R.id.action_global_loginFragment,
-                        null
-                    )
+                    goLogout() // 로그인 요청 페이지로 이동
                 }
             })
         }
+    }
+
+    fun goLogout() {
+        // 데이터스토어 초기화
+        CoroutineScope(Dispatchers.Main).launch {
+            App.getInstance().getDataStore().clearDataStore()
+        }
+        findNavController().navigate(
+            R.id.action_global_loginFragment,
+            null
+        )
     }
 
 }
