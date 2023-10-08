@@ -116,7 +116,11 @@
         android:id="@+id/myInfoFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.MyInfoFragment"
         android:label="fragment_my_info"
-        tools:layout="@layout/fragment_my_info"/>
+        tools:layout="@layout/fragment_my_info">
+        <action
+            android:id="@+id/action_myInfoFragment_to_changeNicknameFragment"
+            app:destination="@id/changeNicknameFragment" />
+    </fragment>
     <action
         android:id="@+id/action_global_createStudyFragment"
         app:destination="@id/createStudyFragment" />
@@ -130,4 +134,9 @@
         android:name="kr.co.gamja.study_hub.feature.studypage.createStudy.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/changeNicknameFragment"
+        android:name="kr.co.gamja.study_hub.ChangeNicknameFragment"
+        android:label="fragment_change_nickname"
+        tools:layout="@layout/fragment_change_nickname" />
 </navigation>

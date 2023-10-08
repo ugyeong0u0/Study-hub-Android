@@ -74,6 +74,16 @@
     <string name="txt_pNum_sub">최대 50명 참여 가능</string>
     <string name="txt_about_pNum">인원을 알려주세요</string>
     <string name="autoTxt_selectMajor">관련학과를 입력해주세요</string>
+   
+<!--    달력커스텀-->
+    <string name="sunday">일</string>
+    <string name="monday">월</string>
+    <string name="tuesday">화</string>
+    <string name="wednesday">수</string>
+    <string name="Thursday">목</string>
+    <string name="friday">금</string>
+    <string name="Saturday">토</string>
+
     <!--    마이페이지-->
     <string name="txt_mypage">마이페이지</string>
     <string name="txt_notLogin_major">나의 스터디 팀원을 만나보세요</string>
@@ -85,12 +95,10 @@
     <string name="btn_yes">네</string>
     <string name="q_logout">로그아웃 하시겠어요?</string>
     <string name="txt_sub_relativeMajor">-해당스터디와 관련된 학과를 선택해 주세요\n-관련학과는 1개만 선택할 수 있어요</string>
-<!--    달력커스텀-->
-    <string name="sunday">일</string>
-    <string name="monday">월</string>
-    <string name="tuesday">화</string>
-    <string name="wednesday">수</string>
-    <string name="Thursday">목</string>
-    <string name="friday">금</string>
-    <string name="Saturday">토</string>
+    
+<!--    닉네임 변경-->
+    <string name="txt_changeNickname">닉네임 변경</string>
+    <string name="txt_tellNewNickname">새로운 닉네임을 알려주세요</string>
+    <string name="txt_exampleOfNickname">라이언</string>
+    <string name="txt_limitOfNickNameLength">%d/10</string>
 </resources>

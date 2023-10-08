@@ -46,9 +46,9 @@ class MyInfoFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
         viewModel.getUsers()
-        viewModel.setOnClickListener(object:MyInfoCallbackListener{
+        viewModel.setOnClickListener(object : MyInfoCallbackListener {
             override fun myInfoCallbackResult(isSuccess: Boolean) {
-                if(!isSuccess)
+                if (!isSuccess)
                     goLogout()
             }
         })
@@ -69,6 +69,10 @@ class MyInfoFragment : Fragment() {
                     goLogout() // 로그인 요청 페이지로 이동
                 }
             })
+        }
+        // 닉네임 변경페이지로 이동
+        binding.btnTxtNickname.setOnClickListener {
+            findNavController().navigate(R.id.action_myInfoFragment_to_changeNicknameFragment, null)
         }
     }
 
