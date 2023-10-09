@@ -102,4 +102,5 @@
     <string name="txt_exampleOfNickname">라이언</string>
     <string name="txt_limitOfNickNameLength">%d/10</string>
     <string name="txt_dontUseThisNickname">이미 존재하는 닉네임이에요</string>
+    <string name="txt_successChangeNickname">닉네임이 변경되었어요</string>
 </resources>

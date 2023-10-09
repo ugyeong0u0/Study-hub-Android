@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
+import kr.co.gamja.study_hub.data.model.ChangeNicknameRequest
 import kr.co.gamja.study_hub.data.model.DuplicationNicknameErrorResponse
+import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
@@ -57,7 +59,17 @@ class ChangeNickNameViewModel : ViewModel() {
     }
 
     // 닉네임 변경 api
-    fun putChangedNickname() {
+    fun putChangedNickname(params: CallBackListener) {
+        val req=ChangeNicknameRequest(nickname.value.toString())
+        viewModelScope.launch {
+            val response=AuthRetrofitManager.api.postNewNickname(req)
+            if (response.isSuccessful){
+                Log.d(tag, "닉네임 수정 성공 ${response.code()}")
+                params.isSuccess(true)
+            }else{
+                Log.e(tag, "닉네임수정api 에러 ${response.code()} ")
+            }
+        }
 
     }
 

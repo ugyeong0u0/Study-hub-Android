@@ -57,7 +57,20 @@ class ChangeNicknameFragment : Fragment() {
                     // 닉네임 중복 확인 후 수정
                     Log.d(tag, "닉네임 중복인경우 false임. result: ${result}")
                     if (result) {
-                        viewModel.putChangedNickname()
+                        viewModel.putChangedNickname(object : CallBackListener {
+                            override fun isSuccess(result: Boolean) {
+                                if (result) {
+                                    CustomSnackBar.make(
+                                        binding.layoutRelative,
+                                        getString(R.string.txt_successChangeNickname),
+                                        null,
+                                        true
+                                    ).show()
+                                    val navcontroller = findNavController()
+                                    navcontroller.navigateUp() // 내 정보 페이지로 돌아감
+                                }
+                            }
+                        }) // 닉네임 수정 api
                     } else {
                         // 중복 snackBar
                         CustomSnackBar.make(
@@ -74,6 +87,7 @@ class ChangeNicknameFragment : Fragment() {
 
 
     }
+
     private fun hideKeyboardForBtnComplete() {
         val inputMethodManager =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
