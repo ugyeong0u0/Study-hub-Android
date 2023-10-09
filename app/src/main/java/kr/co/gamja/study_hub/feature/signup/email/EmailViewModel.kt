@@ -61,7 +61,7 @@ class EmailViewModel : ViewModel() {
                     }
                     if(errorResponse!=null){
                         val status= errorResponse.status
-                        Log.e(tag,status)
+                        Log.d(tag,status)
                         params.onEmailValidResult(false, status)
                     }
 

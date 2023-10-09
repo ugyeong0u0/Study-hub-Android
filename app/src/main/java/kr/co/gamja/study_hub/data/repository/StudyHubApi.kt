@@ -57,4 +57,7 @@ interface StudyHubApi {
         @Query("size") size: Int
     ): Response<FindStudyResponse>
 
+    // 닉네임 중복 조회
+    @GET("/api/users/duplication-nickname")
+    suspend fun getIsDuplicationNickname(@Query("nickname") nickname:String):Response<Unit>
 }

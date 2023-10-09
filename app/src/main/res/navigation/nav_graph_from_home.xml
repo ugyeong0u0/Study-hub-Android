@@ -136,7 +136,7 @@
         tools:layout="@layout/fragment_calendar" />
     <fragment
         android:id="@+id/changeNicknameFragment"
-        android:name="kr.co.gamja.study_hub.ChangeNicknameFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.changeNickname.ChangeNicknameFragment"
         android:label="fragment_change_nickname"
         tools:layout="@layout/fragment_change_nickname" />
 </navigation>

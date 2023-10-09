@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.mypage.changeNickname.ChangeNickNameViewModel" />
+    </data>
 
     <RelativeLayout
+        android:id="@+id/layout_relative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/syswhite">
@@ -37,16 +46,17 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_complete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:backgroundTint="#00000000"
+                    android:enabled="@{viewModel.enableBtn?true:false}"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
                     android:text="@string/btn_complete"
-                    android:textColor="@color/O_50"
+                    android:textColor="@{viewModel.enableBtn?@color/O_50:@color/O_Deactivation}"
                     android:textSize="16sp" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -73,11 +83,12 @@
             android:gravity="top|start"
             android:hint="@string/txt_exampleOfNickname"
             android:imeOptions="actionNext"
-            android:maxLines="1"
+            android:maxLength="10"
             android:paddingLeft="14dp"
             android:paddingTop="20dp"
             android:paddingRight="14dp"
             android:paddingBottom="20dp"
+            android:text="@={viewModel.nickname}"
             android:textColor="@color/sysblack1"
             android:textSize="14sp" />
 
@@ -89,9 +100,10 @@
             android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="@dimen/twenty"
             android:layout_marginTop="8dp"
-            android:text="@string/txt_limitOfNickNameLength"
+            android:text="@{@string/txt_limitOfNickNameLength(viewModel.nicknameLength)}"
             android:textColor="@color/sysblack1"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:text="%d/10" />
     </RelativeLayout>
 
 </layout>
