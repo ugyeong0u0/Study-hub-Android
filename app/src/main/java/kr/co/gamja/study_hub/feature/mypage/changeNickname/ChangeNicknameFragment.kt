@@ -1,10 +1,12 @@
 package kr.co.gamja.study_hub.feature.mypage.changeNickname
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -49,6 +51,7 @@ class ChangeNicknameFragment : Fragment() {
             viewModel.updateNicknameLength(it.length) // 닉네임 길이 업뎃
         }
         binding.btnComplete.setOnClickListener {
+            hideKeyboardForBtnComplete()
             viewModel.isDuplicationNickname(object : CallBackListener {
                 override fun isSuccess(result: Boolean) {
                     // 닉네임 중복 확인 후 수정
@@ -70,6 +73,14 @@ class ChangeNicknameFragment : Fragment() {
         }
 
 
+    }
+    private fun hideKeyboardForBtnComplete() {
+        val inputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val currentFocusView = requireActivity().currentFocus
+        if (currentFocusView != null) {
+            inputMethodManager.hideSoftInputFromWindow(currentFocusView.windowToken, 0)
+        }
     }
 
 }
