@@ -103,4 +103,9 @@
     <string name="txt_limitOfNickNameLength">%d/10</string>
     <string name="txt_dontUseThisNickname">이미 존재하는 닉네임이에요</string>
     <string name="txt_successChangeNickname">닉네임이 변경되었어요</string>
+<!--    학과 변경-->
+    <string name="txt_changeMajor">학과변경</string>
+    <string name="txt_tellNewMajor">변경할 학과를 알려주세요</string>
+    <string name="businesAdministration">경영학부</string>
+
 </resources>

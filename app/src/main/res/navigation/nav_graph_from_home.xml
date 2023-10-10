@@ -139,4 +139,9 @@
         android:name="kr.co.gamja.study_hub.feature.mypage.changeNickname.ChangeNicknameFragment"
         android:label="fragment_change_nickname"
         tools:layout="@layout/fragment_change_nickname" />
+    <fragment
+        android:id="@+id/changeMajorFragment"
+        android:name="kr.co.gamja.study_hub.ChangeMajorFragment"
+        android:label="fragment_change_major"
+        tools:layout="@layout/fragment_change_major" />
 </navigation>
