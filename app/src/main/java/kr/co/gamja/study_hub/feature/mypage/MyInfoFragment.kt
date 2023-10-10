@@ -74,6 +74,10 @@ class MyInfoFragment : Fragment() {
         binding.btnTxtNickname.setOnClickListener {
             findNavController().navigate(R.id.action_myInfoFragment_to_changeNicknameFragment, null)
         }
+        // 학과 변경페이지로 이동
+        binding.btnTxtMajor.setOnClickListener{
+            findNavController().navigate(R.id.action_myInfoFragment_to_changeMajorFragment,null)
+        }
     }
 
     fun goLogout() {

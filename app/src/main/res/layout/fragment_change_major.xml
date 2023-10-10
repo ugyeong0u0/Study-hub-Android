@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.mypage.changeMajor.ChangeMajorViewModel" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -37,8 +44,7 @@
                     android:text="@string/txt_changeMajor"
                     android:textColor="@color/syswhite"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_complete"
@@ -46,9 +52,11 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:backgroundTint="#00000000"
+                    android:enabled="@{viewModel.enableBtn?true:false}"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
                     android:text="@string/btn_complete"
+                    android:textColor="@{viewModel.enableBtn?@color/O_50:@color/O_Deactivation}"
                     android:textSize="16sp" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>

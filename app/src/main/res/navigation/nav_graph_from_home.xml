@@ -120,6 +120,9 @@
         <action
             android:id="@+id/action_myInfoFragment_to_changeNicknameFragment"
             app:destination="@id/changeNicknameFragment" />
+        <action
+            android:id="@+id/action_myInfoFragment_to_changeMajorFragment"
+            app:destination="@id/changeMajorFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_createStudyFragment"
@@ -141,7 +144,7 @@
         tools:layout="@layout/fragment_change_nickname" />
     <fragment
         android:id="@+id/changeMajorFragment"
-        android:name="kr.co.gamja.study_hub.ChangeMajorFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.changeMajor.ChangeMajorFragment"
         android:label="fragment_change_major"
         tools:layout="@layout/fragment_change_major" />
 </navigation>
