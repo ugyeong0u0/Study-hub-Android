@@ -62,7 +62,7 @@ class ChangeNickNameViewModel : ViewModel() {
     fun putChangedNickname(params: CallBackListener) {
         val req=ChangeNicknameRequest(nickname.value.toString())
         viewModelScope.launch {
-            val response=AuthRetrofitManager.api.postNewNickname(req)
+            val response=AuthRetrofitManager.api.putNewNickname(req)
             if (response.isSuccessful){
                 Log.d(tag, "닉네임 수정 성공 ${response.code()}")
                 params.isSuccess(true)

@@ -57,6 +57,12 @@ class ChangeMajorFragment : Fragment() {
                 binding.autoMajor.text.clear()
             }
         })
+        binding.btnComplete.setOnClickListener{
+            viewModel.changeMajor() // 학과 수정 api연결
+            val navcontroller = findNavController()
+            navcontroller.navigateUp() // 뒤로 가기
+            // TODO(" 기존학과랑 같을 경우 스낵바 -> api 수정되면하기", api성공여부 받고 뒤로가기 처리)
+        }
     }
 
     private fun selectMajor() {
@@ -72,7 +78,7 @@ class ChangeMajorFragment : Fragment() {
         }
         binding.autoMajor.setOnItemClickListener { parent, _, position, _ ->
             binding.autoMajor.isEnabled = true
-            var selectedItem = parent.adapter.getItem(position) as String
+            val selectedItem = parent.adapter.getItem(position) as String
             viewModel.setUserMajor(selectedItem)
 
         }

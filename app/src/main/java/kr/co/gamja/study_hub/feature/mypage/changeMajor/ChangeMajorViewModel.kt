@@ -4,13 +4,18 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import kr.co.gamja.study_hub.data.model.ChangeMajorRequest
+import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 
 class ChangeMajorViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
 
     // 통신시 사용 학과 설정
-    private val _Major = MutableLiveData<String>()
-    val Major: LiveData<String> get() = _Major
+    private val _major = MutableLiveData<String>()
+    val major: LiveData<String> get() = _major
 
     // 완료 버튼 활성화 여부
     private val _enableBtn = MutableLiveData<Boolean>(false)
@@ -21,10 +26,23 @@ class ChangeMajorViewModel : ViewModel() {
     }
 
     private fun setMajor(newMajor: String) {
-        _Major.value = newMajor
+        _major.value = newMajor
         setEnableBtn(true)
-        Log.d(tag, "학과 선택값" + Major.value.toString())
+        Log.d(tag, "학과 선택값" + major.value.toString())
     }
+
+    fun changeMajor(){
+        val req = ChangeMajorRequest(major = _major.value.toString())
+        viewModelScope.launch {
+            val response=AuthRetrofitManager.api.putNewMajor(req)
+            if (response.isSuccessful){
+                Log.d(tag, " 학과 수정 성공 ${response.code()}")
+            }else{
+                Log.e(tag, "학과 수정 api 에러 ${response.code()} ")
+            }
+        }
+    }
+
 
     fun setUserMajor(item: String) {
         when (item) {

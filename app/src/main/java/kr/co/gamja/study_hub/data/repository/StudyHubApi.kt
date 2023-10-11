@@ -63,6 +63,9 @@ interface StudyHubApi {
 
     // 닉네임 수정 - 인가0
     @PUT("/api/users/nickname")
-    suspend fun postNewNickname(@Body changeNicknameRequest:ChangeNicknameRequest):Response<Unit>
+    suspend fun putNewNickname(@Body changeNicknameRequest:ChangeNicknameRequest):Response<Unit>
 
+    // 학과 수정 - 인가 0
+    @PUT("/api/users/major")
+    suspend fun putNewMajor(@Body changeMajorRequest: ChangeMajorRequest):Response<Unit>
 }
