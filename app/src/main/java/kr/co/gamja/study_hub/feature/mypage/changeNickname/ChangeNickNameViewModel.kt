@@ -35,8 +35,6 @@ class ChangeNickNameViewModel : ViewModel() {
     private val _enableBtn = MutableLiveData<Boolean>()
     val enableBtn: LiveData<Boolean> get() = _enableBtn
 
-    // TODO("10자 넘으면 에러 메시지 띄우던가 조치")
-
     // 닉네임 중복 검사
     fun isDuplicationNickname(params: CallBackListener) {
         viewModelScope.launch {

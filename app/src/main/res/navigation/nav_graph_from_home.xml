@@ -123,6 +123,9 @@
         <action
             android:id="@+id/action_myInfoFragment_to_changeMajorFragment"
             app:destination="@id/changeMajorFragment" />
+        <action
+            android:id="@+id/action_myInfoFragment_to_currentPasswordFragment"
+            app:destination="@id/currentPasswordFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_createStudyFragment"
@@ -149,7 +152,7 @@
         tools:layout="@layout/fragment_change_major" />
     <fragment
         android:id="@+id/currentPasswordFragment"
-        android:name="kr.co.gamja.study_hub.CurrentPasswordFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.currentPassword.CurrentPasswordFragment"
         android:label="fragment_current_password"
         tools:layout="@layout/fragment_current_password" />
 </navigation>

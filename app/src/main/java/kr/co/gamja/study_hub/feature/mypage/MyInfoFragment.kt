@@ -78,6 +78,9 @@ class MyInfoFragment : Fragment() {
         binding.btnTxtMajor.setOnClickListener{
             findNavController().navigate(R.id.action_myInfoFragment_to_changeMajorFragment,null)
         }
+        binding.btnTxtPassword.setOnClickListener{
+            findNavController().navigate(R.id.action_myInfoFragment_to_currentPasswordFragment, null)
+        }
     }
 
     fun goLogout() {
