@@ -147,4 +147,9 @@
         android:name="kr.co.gamja.study_hub.feature.mypage.changeMajor.ChangeMajorFragment"
         android:label="fragment_change_major"
         tools:layout="@layout/fragment_change_major" />
+    <fragment
+        android:id="@+id/currentPasswordFragment"
+        android:name="kr.co.gamja.study_hub.CurrentPasswordFragment"
+        android:label="fragment_current_password"
+        tools:layout="@layout/fragment_current_password" />
 </navigation>

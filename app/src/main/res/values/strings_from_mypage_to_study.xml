@@ -107,5 +107,9 @@
     <string name="txt_changeMajor">학과변경</string>
     <string name="txt_tellNewMajor">변경할 학과를 알려주세요</string>
     <string name="businesAdministration">경영학부</string>
-
+<!--비번변경-->
+    <string name="txt_changePassword">비밀번호변경</string>
+    <string name="txt_tellCurrentPassword">현재 비밀번호를 입력해주세요</string>
+    <string name="txt_currentPassword">현재 비밀번호</string>
+    <string name="error_notMatchPassword">비밀번호가 일치하지 않아요. 다시 입력해주세요</string>
 </resources>
