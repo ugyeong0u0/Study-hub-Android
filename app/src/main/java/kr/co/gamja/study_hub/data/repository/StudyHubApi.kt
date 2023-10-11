@@ -73,4 +73,7 @@ interface StudyHubApi {
     @POST("/api/users/password/verify")
     suspend fun postCurrentPassword(@Body currentPasswordRequest: CurrentPasswordRequest):Response<Unit>
 
+    // 비번 수정 - 인가0
+    @PUT("/api/users/password")
+    suspend fun putNewPassword(@Body newPasswordRequest: NewPasswordRequest):Response<Unit>
 }

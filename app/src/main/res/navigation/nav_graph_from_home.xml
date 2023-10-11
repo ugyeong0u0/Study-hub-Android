@@ -99,7 +99,7 @@
         android:id="@+id/createStudyFragment"
         android:name="kr.co.gamja.study_hub.feature.studypage.createStudy.CreateStudyFragment"
         android:label="fragment_create_study"
-        tools:layout="@layout/fragment_create_study" >
+        tools:layout="@layout/fragment_create_study">
         <action
             android:id="@+id/action_createStudyFragment_to_relativeMajorFragment"
             app:destination="@id/relativeMajorFragment" />
@@ -154,7 +154,7 @@
         android:id="@+id/currentPasswordFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.currentPassword.CurrentPasswordFragment"
         android:label="fragment_current_password"
-        tools:layout="@layout/fragment_current_password" >
+        tools:layout="@layout/fragment_current_password">
         <action
             android:id="@+id/action_currentPasswordFragment_to_newPasswordFragment"
             app:destination="@id/newPasswordFragment" />
@@ -164,4 +164,7 @@
         android:name="kr.co.gamja.study_hub.feature.mypage.newPassword.NewPasswordFragment"
         android:label="fragment_new_password"
         tools:layout="@layout/fragment_new_password" />
+    <action
+        android:id="@+id/action_global_myInfoFragment"
+        app:destination="@id/myInfoFragment" />
 </navigation>

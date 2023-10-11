@@ -77,10 +77,12 @@ class CurrentPasswordFragment : Fragment() {
             viewModel.isCurrentPasswordValid(object : CallBackListener {
                 override fun isSuccess(result: Boolean) {
                     if (result) {
-                        sendAuth() // 비번 수정 페이지에 true값 보냄
+                        // 비번 수정 페이지에 true값 보냄
+                        val bundle = Bundle()
+                        bundle.putBoolean("auth", true)
                         findNavController().navigate(
                             R.id.action_currentPasswordFragment_to_newPasswordFragment,
-                            null
+                            bundle
                         )
                     } else {
                         CustomSnackBar.make(
@@ -97,13 +99,6 @@ class CurrentPasswordFragment : Fragment() {
         }
     }
 
-    // 비번 수정 페이지에 true값 보냄
-    fun sendAuth() {
-        val bundle = Bundle()
-        bundle.putBoolean("auth", true)
-        val newPasswordPage = NewPasswordFragment()
-        newPasswordPage.arguments = bundle
-    }
     private fun hideKeyboardForBtnComplete() {
         val inputMethodManager =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
