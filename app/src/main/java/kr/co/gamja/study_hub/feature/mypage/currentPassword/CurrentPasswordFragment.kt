@@ -1,5 +1,6 @@
 package kr.co.gamja.study_hub.feature.mypage.currentPassword
 
+import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -7,23 +8,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentCurrentPasswordBinding
+import kr.co.gamja.study_hub.feature.mypage.newPassword.NewPasswordFragment
+import kr.co.gamja.study_hub.global.CustomSnackBar
 
 class CurrentPasswordFragment : Fragment() {
-    private val tag=this.javaClass.simpleName
+    private val tag = this.javaClass.simpleName
     private lateinit var binding: FragmentCurrentPasswordBinding
-    private val viewModel : CurrentPasswordViewModel by viewModels()
+    private val viewModel: CurrentPasswordViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       binding=DataBindingUtil.inflate(inflater,
-           R.layout.fragment_current_password, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_current_password, container, false
+        )
         return binding.root
     }
 
@@ -59,15 +66,50 @@ class CurrentPasswordFragment : Fragment() {
             }
         })
         // 비번 관찰 후 그에 따른 다음 버튼 활성화
-        viewModel.currentPassword.observe(viewLifecycleOwner){
-            if(it.toString().length>1){
+        viewModel.currentPassword.observe(viewLifecycleOwner) {
+            if (it.toString().length > 1) {
                 viewModel.updateEnableBtn()
             }
         }
-        binding.btnComplete.setOnClickListener{
+        binding.btnComplete.setOnClickListener {
             Log.d(tag, "다음 눌림")
-            // TODO(임시로 패스워드 수정으로 넘어가게 함)
-            findNavController().navigate(R.id.action_currentPasswordFragment_to_newPasswordFragment,null)
+            hideKeyboardForBtnComplete()
+            viewModel.isCurrentPasswordValid(object : CallBackListener {
+                override fun isSuccess(result: Boolean) {
+                    if (result) {
+                        sendAuth() // 비번 수정 페이지에 true값 보냄
+                        findNavController().navigate(
+                            R.id.action_currentPasswordFragment_to_newPasswordFragment,
+                            null
+                        )
+                    } else {
+                        CustomSnackBar.make(
+                            binding.layoutRelative,
+                            getString(R.string.error_notMatchPassword),
+                            null,
+                            true,
+                            R.drawable.icon_warning_m_orange_8_12
+                        ).show()
+                    }
+                }
+            })
+
+        }
+    }
+
+    // 비번 수정 페이지에 true값 보냄
+    fun sendAuth() {
+        val bundle = Bundle()
+        bundle.putBoolean("auth", true)
+        val newPasswordPage = NewPasswordFragment()
+        newPasswordPage.arguments = bundle
+    }
+    private fun hideKeyboardForBtnComplete() {
+        val inputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val currentFocusView = requireActivity().currentFocus
+        if (currentFocusView != null) {
+            inputMethodManager.hideSoftInputFromWindow(currentFocusView.windowToken, 0)
         }
     }
 

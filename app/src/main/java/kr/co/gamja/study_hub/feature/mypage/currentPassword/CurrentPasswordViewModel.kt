@@ -1,8 +1,16 @@
 package kr.co.gamja.study_hub.feature.mypage.currentPassword
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
+import kotlinx.coroutines.launch
+import kr.co.gamja.study_hub.data.model.CurrentPasswordErrorResponse
+import kr.co.gamja.study_hub.data.model.CurrentPasswordRequest
+import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.feature.login.PASSWORD
 
 class CurrentPasswordViewModel: ViewModel() {
@@ -20,5 +28,24 @@ class CurrentPasswordViewModel: ViewModel() {
             _enableBtn.value = true
         }
     }
-    // TODO("현재 비번 확인 api 연동")
+    // 현재 비번 확인 api
+    fun isCurrentPasswordValid(params:CallBackListener){
+        val req = CurrentPasswordRequest(currentPassword.value.toString())
+        viewModelScope.launch {
+            val response= AuthRetrofitManager.api.postCurrentPassword(req)
+            if (response.isSuccessful){
+                params.isSuccess(true)
+            }else{
+                val errorResponse : CurrentPasswordErrorResponse? = response.errorBody()?.let {
+                    val gson= Gson()
+                    gson.fromJson(it.charStream(),CurrentPasswordErrorResponse::class.java)
+                }
+                if (errorResponse!=null){
+                    Log.e(tag,errorResponse.message)
+                    params.isSuccess(false)
+                }
+            }
+        }
+
+    }
 }

@@ -68,4 +68,9 @@ interface StudyHubApi {
     // 학과 수정 - 인가 0
     @PUT("/api/users/major")
     suspend fun putNewMajor(@Body changeMajorRequest: ChangeMajorRequest):Response<Unit>
+
+    // 현재 비번 검사- 인가0
+    @POST("/api/users/password/verify")
+    suspend fun postCurrentPassword(@Body currentPasswordRequest: CurrentPasswordRequest):Response<Unit>
+
 }
