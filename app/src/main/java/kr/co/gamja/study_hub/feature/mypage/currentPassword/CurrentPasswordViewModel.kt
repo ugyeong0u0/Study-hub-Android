@@ -20,5 +20,5 @@ class CurrentPasswordViewModel: ViewModel() {
             _enableBtn.value = true
         }
     }
-
+    // TODO("현재 비번 확인 api 연동")
 }

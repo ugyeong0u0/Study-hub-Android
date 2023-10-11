@@ -155,4 +155,9 @@
         android:name="kr.co.gamja.study_hub.feature.mypage.currentPassword.CurrentPasswordFragment"
         android:label="fragment_current_password"
         tools:layout="@layout/fragment_current_password" />
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="kr.co.gamja.study_hub.NewPasswordFragment"
+        android:label="fragment_new_password"
+        tools:layout="@layout/fragment_new_password" />
 </navigation>
