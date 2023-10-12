@@ -116,14 +116,15 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_background_mypage_bg_20"
-                android:drawableTop="@drawable/resized_icon_pencill_gray"
+                android:drawableBottom="@drawable/resized_txt_writing"
                 android:paddingLeft="21dp"
                 android:paddingTop="20dp"
                 android:paddingRight="21dp"
                 android:paddingBottom="20dp"
-                android:text="@string/btn_pastText"
-                android:textColor="@color/BG_90"
-                android:textSize="12sp" />
+                android:text="0"
+                android:textColor="@color/sysblack1"
+                android:textSize="18sp"
+                android:drawablePadding="3dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_userStudy"
@@ -132,14 +133,15 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_background_mypage_bg_20"
-                android:drawableTop="@drawable/resized_icon_document_gray"
+                android:drawableBottom="@drawable/resized_txt_participatedstudy"
                 android:paddingLeft="14dp"
                 android:paddingTop="20dp"
                 android:paddingRight="14dp"
                 android:paddingBottom="20dp"
-                android:text="@string/btn_pastText"
-                android:textColor="@color/BG_90"
-                android:textSize="12sp" />
+                android:text="0"
+                android:textColor="@color/sysblack1"
+                android:textSize="18sp"
+                android:drawablePadding="3dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_userBookmark"
@@ -148,14 +150,15 @@
                 android:layout_marginEnd="@dimen/twenty"
                 android:layout_weight="1"
                 android:background="@drawable/btn_background_mypage_bg_20"
-                android:drawableTop="@drawable/baseline_bookmark_border_24_bg_80"
+                android:drawableBottom="@drawable/resized_txt_bookmark"
                 android:paddingLeft="21dp"
                 android:paddingTop="20dp"
                 android:paddingRight="21dp"
                 android:paddingBottom="20dp"
-                android:text="@string/btn_pastText"
-                android:textColor="@color/BG_90"
-                android:textSize="12sp" />
+                android:text="0"
+                android:textColor="@color/sysblack1"
+                android:textSize="18sp"
+                android:drawablePadding="3dp"/>
         </LinearLayout>
 
         <View

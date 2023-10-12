@@ -51,7 +51,7 @@ class MypageMainFragment : Fragment() {
         // 회원 정보 보기 누를시
         binding.layoutUserInfo.setOnClickListener {
             findNavController().navigate(
-                R.id.action_mypageMainFragment_to_myInfoFragment,
+                R.id.action_global_myInfoFragment,
                 null
             )
         }
