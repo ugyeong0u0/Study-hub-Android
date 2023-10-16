@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -79,9 +78,17 @@ class MyInfoFragment : Fragment() {
         binding.btnTxtMajor.setOnClickListener {
             findNavController().navigate(R.id.action_myInfoFragment_to_changeMajorFragment, null)
         }
+        // 비번 변경 페이지로 이동
         binding.btnTxtPassword.setOnClickListener {
             findNavController().navigate(
                 R.id.action_myInfoFragment_to_currentPasswordFragment,
+                null
+            )
+        }
+        // 회원 탈퇴 페이지로 이동
+        binding.btnLeave.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_myInfoFragment_to_withdrawalFragment,
                 null
             )
         }

@@ -123,6 +123,9 @@
         <action
             android:id="@+id/action_myInfoFragment_to_currentPasswordFragment"
             app:destination="@id/currentPasswordFragment" />
+        <action
+            android:id="@+id/action_myInfoFragment_to_withdrawalFragment"
+            app:destination="@id/withdrawalFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_createStudyFragment"
@@ -166,7 +169,16 @@
         app:destination="@id/myInfoFragment" />
     <fragment
         android:id="@+id/withdrawalFragment"
-        android:name="kr.co.gamja.study_hub.WithdrawalFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.withdrawal.WithdrawalFragment"
         android:label="fragment_withdrawal"
-        tools:layout="@layout/fragment_withdrawal" />
+        tools:layout="@layout/fragment_withdrawal" >
+        <action
+            android:id="@+id/action_withdrawalFragment_to_confirmingWithdrawalFragment"
+            app:destination="@id/confirmingWithdrawalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmingWithdrawalFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.withdrawal.ConfirmingWithdrawalFragment"
+        android:label="fragment_confirming_withdrawal"
+        tools:layout="@layout/fragment_confirming_withdrawal" />
 </navigation>

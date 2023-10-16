@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/layout_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/syswhite">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/confirmingWithdrawal_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignBottom="@+id/txt_withdrawal"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
+
+                <TextView
+                    android:id="@+id/txt_withdrawal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/txt_withdrawal"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/txt_tellCurrentPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/confirmingWithdrawal_toolbar"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="@dimen/sixteen"
+            android:text="@string/hint_password"
+            android:textColor="@color/sysblack2"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_tellCurrentPassword"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:background="@drawable/edit_from_stroke_bg_50_to_stroke_black"
+            android:gravity="top|start"
+            android:hint="@string/txt_currentPassword"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:maxLength="30"
+            android:paddingStart="@dimen/fourteen"
+            android:paddingTop="13dp"
+            android:paddingEnd="@dimen/fourteen"
+            android:paddingBottom="13dp"
+            android:textColor="@color/sysblack1"
+            android:textColorHint="@color/BG_70"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:id="@+id/toggle_Password"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@+id/txt_tellCurrentPassword"
+            android:layout_alignEnd="@+id/edit_password"
+            android:layout_marginVertical="13dp"
+            android:layout_marginEnd="@dimen/fourteen"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_eye_close_gray"
+            android:tag="0" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_withdrawal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_password"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:background="@drawable/solid_o_50_corner_6"
+            android:text="@string/txt_withdrawal"
+            android:textColor="@color/syswhite"
+            android:textSize="14sp"
+            android:layout_marginTop="@dimen/thirty_two"/>
+    </RelativeLayout>
+
+</layout>
