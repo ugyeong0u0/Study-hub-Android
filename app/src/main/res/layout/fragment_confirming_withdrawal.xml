@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.mypage.withdrawal.ConfirmingWithdrawalViewModel" />
+    </data>
+
     <RelativeLayout
         android:id="@+id/layout_relative"
         android:layout_width="match_parent"
@@ -68,6 +75,7 @@
             android:paddingTop="13dp"
             android:paddingEnd="@dimen/fourteen"
             android:paddingBottom="13dp"
+            android:text="@={viewModel.currentPassword}"
             android:textColor="@color/sysblack1"
             android:textColorHint="@color/BG_70"
             android:textSize="14sp" />
@@ -91,11 +99,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_password"
             android:layout_marginHorizontal="@dimen/twenty"
-            android:background="@drawable/solid_o_50_corner_6"
+            android:layout_marginTop="@dimen/thirty_two"
+            android:background="@{viewModel.enableBtn?@drawable/solid_o_50_corner_6:@drawable/solid_o_20_corner_6}"
+            android:enabled="@{viewModel.enableBtn?true:false}"
             android:text="@string/txt_withdrawal"
             android:textColor="@color/syswhite"
             android:textSize="14sp"
-            android:layout_marginTop="@dimen/thirty_two"/>
+
+            />
     </RelativeLayout>
 
 </layout>
