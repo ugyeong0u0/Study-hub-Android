@@ -36,10 +36,13 @@ class MypageMainFragment : Fragment() {
         val toolbar = binding.myPageMainToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
+
         viewModel.getUsers()
         viewModel.setOnClickListener(object:MyInfoCallbackListener{
             override fun myInfoCallbackResult(isSuccess: Boolean) {
-                Log.d(tag, "MyInfoViewModel 통신 값$isSuccess")
+                if(!isSuccess){
+                    viewModel.init() // 비회원시 결과값 초기화
+                }
             }
         })
         binding.iconAlarm.setOnClickListener {

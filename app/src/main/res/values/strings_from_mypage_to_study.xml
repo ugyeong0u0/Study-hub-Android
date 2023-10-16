@@ -121,5 +121,10 @@
     <string name="error_fit_rePassword">비밀번호가 일치해요</string>
     <string name="txt_changePasswordSuccessfully">비밀번호가 변경되었어요</string>
 
-
+<!--    회원탈퇴-->
+    <string name="txt_withdrawal">탈퇴하기</string>
+    <string name="q_withdrawal">정말 탈퇴하시나요?</string>
+    <string name="a_withdrawal">회원님이 떠나신다니 너무 아쉬워요</string>
+    <string name="guide_withdrawal">스터디 허브를 탈퇴하시면,\n 수정시 변경 \n 수정시 변경 \n 수정시 변경 \n 재가입 다시, 다시 처음부터 인증해야해 임시 작성</string>
+    <string name="btn_next">계속</string>
 </resources>

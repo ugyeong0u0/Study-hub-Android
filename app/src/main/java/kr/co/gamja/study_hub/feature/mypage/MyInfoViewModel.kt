@@ -45,6 +45,12 @@ class MyInfoViewModel : ViewModel() {
     fun setOnClickListener(listener: MyInfoCallbackListener) {
         onClickListener = listener
     }
+    // 초기화
+    fun init(){
+        _isImgData.value=false
+        _isMajorData.value=false
+        _isNicknameData.value=false
+    }
 
     // 회원조회
     fun getUsers() {

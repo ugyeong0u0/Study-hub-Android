@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.datastore.App
 import kr.co.gamja.study_hub.databinding.FragmentMyInfoBinding
@@ -75,23 +76,30 @@ class MyInfoFragment : Fragment() {
             findNavController().navigate(R.id.action_myInfoFragment_to_changeNicknameFragment, null)
         }
         // 학과 변경페이지로 이동
-        binding.btnTxtMajor.setOnClickListener{
-            findNavController().navigate(R.id.action_myInfoFragment_to_changeMajorFragment,null)
+        binding.btnTxtMajor.setOnClickListener {
+            findNavController().navigate(R.id.action_myInfoFragment_to_changeMajorFragment, null)
         }
-        binding.btnTxtPassword.setOnClickListener{
-            findNavController().navigate(R.id.action_myInfoFragment_to_currentPasswordFragment, null)
+        binding.btnTxtPassword.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_myInfoFragment_to_currentPasswordFragment,
+                null
+            )
         }
     }
 
     fun goLogout() {
         // 데이터스토어 초기화
-        CoroutineScope(Dispatchers.Main).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             App.getInstance().getDataStore().clearDataStore()
+            Log.d(tag, "초기화")
+            withContext(Dispatchers.Main) {
+                findNavController().navigate(
+                    R.id.action_global_loginFragment,
+                    null
+                )
+            }
         }
-        findNavController().navigate(
-            R.id.action_global_loginFragment,
-            null
-        )
+
     }
 
 }

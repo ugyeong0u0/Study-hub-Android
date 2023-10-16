@@ -164,4 +164,9 @@
     <action
         android:id="@+id/action_global_myInfoFragment"
         app:destination="@id/myInfoFragment" />
+    <fragment
+        android:id="@+id/withdrawalFragment"
+        android:name="kr.co.gamja.study_hub.WithdrawalFragment"
+        android:label="fragment_withdrawal"
+        tools:layout="@layout/fragment_withdrawal" />
 </navigation>
