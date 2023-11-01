@@ -222,6 +222,34 @@ class CreateStudyViewModel : ViewModel() {
             return "" // 날짜 변환 실패 시 빈 문자열 반환
         }
     }
+    // 시작 날짜 < 종료 날짜 나타내기 위해 씀
+    fun convertYYYYMM(inputDate: String): String {
+        try {
+            // 입력된 날짜 형식 지정
+            val inputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
+            val date: Date = inputDateFormat.parse(inputDate)!!
+            // 원하는 날짜 형식 지정
+            val outputDateFormat = SimpleDateFormat("yyyyMM", Locale.KOREAN)
+            return outputDateFormat.format(date)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            return "" // 날짜 변환 실패 시 빈 문자열 반환
+        }
+    }
+    // 시작 날짜 < 종료 날짜 나타내기 위해 씀
+    fun convertDay(inputDate: String): String {
+        try {
+            // 입력된 날짜 형식 지정
+            val inputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
+            val date: Date = inputDateFormat.parse(inputDate)!!
+            // 원하는 날짜 형식 지정
+            val outputDateFormat = SimpleDateFormat("dd", Locale.KOREAN)
+            return outputDateFormat.format(date)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            return "" // 날짜 변환 실패 시 빈 문자열 반환
+        }
+    }
 
     // editText초기화
     fun setInit() {

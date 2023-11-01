@@ -35,6 +35,7 @@ class CalendarFragment : BottomSheetDialogFragment() {
     private lateinit var whatDay: String // 시작인지 끝날짜인지 구분 tag(스터디 생성에서 가져옴)
     private lateinit var changedYearMonth:String // 지난날짜 회색처리 위한 바뀐 날짜 yyyyMM
     var newSelectedYearMonth=InfoOfSelectedDay(null,null) // 선택된 날짜
+    private lateinit var newStartDate:StartDate// 시작 날짜 < 끝 날짜
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +44,6 @@ class CalendarFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    // TODO("선택한 날짜 뷰모델로 보내기")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
@@ -51,6 +51,9 @@ class CalendarFragment : BottomSheetDialogFragment() {
         val receiveBundle = arguments
         if (receiveBundle != null) {
             val value = receiveBundle.getString("whatDayKey")
+            val startYearMonth=receiveBundle.getString("startYearMonth")
+            val startDay=receiveBundle.getString("startDay")
+            newStartDate=StartDate(startYearMonth,startDay)
             if (value != null) whatDay = value
             else Log.e(tag, "시작날짜인지 끝인지 못받아옴")
         }
@@ -58,7 +61,7 @@ class CalendarFragment : BottomSheetDialogFragment() {
         today = LocalDate.now().dayOfMonth.toString()
         currentYearMonth = toYearMonth(LocalDate.now())
         setMonthView() // 상단 월
-        // 다음 달 보기
+        // 이전 달 보기
         binding.btnLeft.setOnClickListener {
             selectedDate = selectedDate.minusMonths(1)
             setMonthView() // 월 업데이트
@@ -71,24 +74,75 @@ class CalendarFragment : BottomSheetDialogFragment() {
         //
         binding.btnOk.setOnClickListener {
             if (whatDay == "0") {
+                Log.e(tag,"whatDay"+formattedDate)
                 viewModel.setStartDay(formattedDate) // 2023년 11월 1일 표시 및 api통신 날짜(2023-11-01) 설정
+
             } else {
                 viewModel.setEndDay(formattedDate)
             }
             dismiss()
         }
+
     }
 
+    fun setMonthView() {
+        binding.txtMonth.setText(monthYearFromDate(selectedDate)) // "yyyy-MM" 달력 상단 년도 월 표시
+        val newDayList = daysInMonthArray(selectedDate) // 달력 리턴
+        val adapter = CalendarAdapter(requireContext()).apply {
+            setOnCalendarItemClickListener(object:OnCalendarItemClickListener{
+                override fun onItemClick(item: InfoOfDays, position: Int) {
+                    newSelectedYearMonth=InfoOfSelectedDay(item.yearMonthDay,item.infoDay) // 선택된 날짜
+                    formattedDate = "${changedYear}년 ${changedMonth}월 ${item.infoDay}일" // 화면 표시용 날짜
+                    binding.btnOk.isEnabled = true
+                    binding.btnOk.setTextColor(ContextCompat.getColor(requireContext(), R.color.O_50))
+                }
+            })
+        }
+        val infoOfDaysList:ArrayList<InfoOfDays> =ArrayList()
+        for(day in newDayList){ // day 는 1,2 ~
+            val info = InfoOfDays(yearMonthDay = changedYearMonth, infoDay =day, isSelected = false)
+            infoOfDaysList.add(info)
+        }
+        adapter.daysInfo=infoOfDaysList
+        adapter.currentYearMonth=currentYearMonth // yyyyMM
+        adapter.currentDay=today // today
+        adapter.selectedYearMonthDay=newSelectedYearMonth // 선택된 년도 달
+        adapter.startDate=newStartDate // 시작 날짜
+        binding.recyclerDay.adapter = adapter
+        binding.recyclerDay.layoutManager = GridLayoutManager(requireContext(), 7)
+    }
+    // 달력 만듦
+    fun daysInMonthArray(newDate: LocalDate): ArrayList<String> {
+        val newDayList = ArrayList<String>()
+        val newYearWithMonth = toYearMonth(newDate) // yyyyMM
+        changedYear=getOnlyYear(newDate) // yyyy
+        changedMonth=getOnlyMonth(newDate) //MM
+        changedYearMonth=toYearMonth(newDate) // yyyyMM
+        val newMonth = YearMonth.from(newDate) // 2023-10
+        val firstDayOfMonth = selectedDate.withDayOfMonth(1)
+        val lastDayOfMonth = newMonth.lengthOfMonth()
+        val dayOfWeek = firstDayOfMonth.dayOfWeek.value
 
+        // 지난달 조회 불가 < 화살표 예) 202310>202409
+        if (newYearWithMonth.toInt() > currentYearMonth.toInt()) {
+            binding.btnLeft.isEnabled = true
+            binding.btnLeft.setBackgroundResource(R.drawable.icon_arrow_left_l_black)
+        } else {
+            binding.btnLeft.isEnabled = false
+            binding.btnLeft.setBackgroundResource(R.drawable.icon_arrow_left_l_gray)
+        }
+        // 7*6
+        for (i in 1 until 42) {
+            if (i <= dayOfWeek || i > lastDayOfMonth + dayOfWeek)
+                newDayList.add("")
+            else newDayList.add((i - dayOfWeek).toString())
+        }
+        return newDayList
+    }
     // month 포멧 변경
     fun monthYearFromDate(date: LocalDate): String {
         val dateAsDate: Date = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant())
         val outputDateFormat = SimpleDateFormat("yyyy-MM", Locale.KOREAN)
-        return outputDateFormat.format(dateAsDate)
-    }
-    fun toYearMonthDay(date: LocalDate): String {
-        val dateAsDate: Date = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant())
-        val outputDateFormat = SimpleDateFormat("yyyyMMdd", Locale.KOREAN)
         return outputDateFormat.format(dateAsDate)
     }
     fun toYearMonth(date: LocalDate): String {
@@ -105,60 +159,5 @@ class CalendarFragment : BottomSheetDialogFragment() {
         val dateAsDate: Date = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant())
         val outputDateFormat = SimpleDateFormat("MM", Locale.KOREAN)
         return outputDateFormat.format(dateAsDate)
-    }
-    // 달력 날짜 표시
-    fun daysInMonthArray(newDate: LocalDate): ArrayList<String> {
-        val newDayList = ArrayList<String>()
-        val newYearWithMonth = toYearMonth(newDate) // yyyyMM
-        changedYear=getOnlyYear(newDate) // yyyy
-        changedMonth=getOnlyMonth(newDate)
-        changedYearMonth=toYearMonth(newDate)
-        val newMonth = YearMonth.from(newDate) // 2023-10
-        val firstDayOfMonth = selectedDate.withDayOfMonth(1)
-        val lastDayOfMonth = newMonth.lengthOfMonth()
-        val dayOfWeek = firstDayOfMonth.dayOfWeek.value
-        // 202310>202409
-        if (newYearWithMonth.toInt() > currentYearMonth.toInt()) {
-            binding.btnLeft.isEnabled = true
-            binding.btnLeft.setBackgroundResource(R.drawable.icon_arrow_left_l_black)
-        } else {
-            binding.btnLeft.isEnabled = false
-            binding.btnLeft.setBackgroundResource(R.drawable.icon_arrow_left_l_gray)
-        }
-
-
-        // 7*6
-        for (i in 1 until 42) {
-            if (i <= dayOfWeek || i > lastDayOfMonth + dayOfWeek)
-                newDayList.add("")
-            else newDayList.add((i - dayOfWeek).toString())
-        }
-        return newDayList
-    }
-
-    fun setMonthView() {
-        binding.txtMonth.setText(monthYearFromDate(selectedDate))
-        val newDayList = daysInMonthArray(selectedDate)
-        val adapter = CalendarAdapter(requireContext()).apply {
-            setOnCalendarItemClickListener(object:OnCalendarItemClickListener{
-                override fun onItemClick(item: InfoOfDays, position: Int) {
-                    newSelectedYearMonth=InfoOfSelectedDay(item.yearMonthDay,item.infoDay) // 선택된 날짜
-                    formattedDate = "${changedYear}년 ${changedMonth}월 ${item.infoDay}일"
-                    binding.btnOk.isEnabled = true
-                    binding.btnOk.setTextColor(ContextCompat.getColor(requireContext(), R.color.O_50))
-                }
-            })
-        }
-        val infoOfDaysList:ArrayList<InfoOfDays> =ArrayList()
-        for(day in newDayList){ // day 는 1,2 ~
-            val info = InfoOfDays(yearMonthDay = changedYearMonth, infoDay =day, isSelected = false)
-            infoOfDaysList.add(info)
-        }
-        adapter.daysInfo=infoOfDaysList
-        adapter.currentYearMonth=currentYearMonth // yyyyMM
-        adapter.currentDay=today
-        adapter.selectedYearMonthDay=newSelectedYearMonth
-        binding.recyclerDay.adapter = adapter
-        binding.recyclerDay.layoutManager = GridLayoutManager(requireContext(), 7)
     }
 }

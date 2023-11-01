@@ -21,9 +21,10 @@ import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 
 class CreateStudyFragment : Fragment() {
+    private val tag = this.javaClass.simpleName
     private lateinit var binding: FragmentCreateStudyBinding
     private val viewModel: CreateStudyViewModel by activityViewModels()
-    private val tag = this.javaClass.simpleName
+    var newStartDate=StartDate(null,null) // 시작 날짜 < 끝 날짜
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -118,12 +119,11 @@ class CreateStudyFragment : Fragment() {
         binding.btnOnline.setOnClickListener {
             viewModel.setOnline(true)
         }
-        // TODO("날짜 입력 및 선택/ 달력 커스텀")
+
         // 시작 날짜 선택하기
         val black = ContextCompat.getColor(requireContext(), R.color.sysblack1)
         binding.btnStartDay.setOnClickListener {
             getModalsheet("0")
-
         }
         // 종료 날짜 선택하기
         binding.btnEndDay.setOnClickListener {
@@ -170,6 +170,11 @@ class CreateStudyFragment : Fragment() {
             // TODO("벌금종류")
             editStartDay.observe(viewLifecycleOwner) {
                 viewModel.setButtonEnable()
+                if(!it.isNullOrEmpty()){
+                    val startYearMonth=viewModel.convertYYYYMM(it)
+                    val startday= viewModel.convertDay(it)
+                    newStartDate=StartDate(startYearMonth,startday)
+                }
             }
             editEndDay.observe(viewLifecycleOwner) {
                 viewModel.setButtonEnable()
@@ -186,6 +191,8 @@ class CreateStudyFragment : Fragment() {
     fun getModalsheet(whatDay: String) {
         val bundle = Bundle()
         bundle.putString("whatDayKey", whatDay)
+        bundle.putString("startYearMonth",newStartDate.selectedYearMonth) // 시작 날짜 캘린터fr로
+        bundle.putString("startDay",newStartDate.selectedDay)
         val modal = CalendarFragment()
         modal.arguments = bundle
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
