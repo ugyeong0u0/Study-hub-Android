@@ -20,22 +20,26 @@ class NewPasswordViewModel : ViewModel() {
     val password = MutableLiveData<String>()
 
     // 첫번째 비번 error
-    private val _errorPassword = MutableLiveData<Boolean>()
-    val errorPassword: LiveData<Boolean> get() = _errorPassword
+    private val _errorPassword = MutableLiveData<Boolean?>()
+    val errorPassword: LiveData<Boolean?> get() = _errorPassword
 
     // 두 번째 비번값
     val rePassword = MutableLiveData<String>()
 
     // 두 번째 비번 error - true: 초록, false : 빨강, 다음 버튼 활성화에도 쓰임
-    private val _errorRePassword = MutableLiveData<Boolean>()
-    val errorRePassword: LiveData<Boolean> get() = _errorRePassword
+    private val _errorRePassword = MutableLiveData<Boolean?>()
+    val errorRePassword: LiveData<Boolean?> get() = _errorRePassword
 
 
     // 완료 버튼 enable
     fun updateEnableBtn() {
-        if (password.value.toString().matches(PASSWORD.toRegex())) {
+        if (password.value.toString().matches(PASSWORD.toRegex())) { // 1번 비번부터 입력된 경우
             _errorPassword.value = true
-            _errorRePassword.value = password.value.toString() == rePassword.value.toString()
+            if (rePassword.value.isNullOrEmpty()) _errorRePassword.value = null // 2번 비번이 빈 경우
+            else _errorRePassword.value = password.value.toString() == rePassword.value.toString()
+        } else if (password.value.isNullOrEmpty() && rePassword.value.isNullOrEmpty()) { // 1번 2번 둘다 빈 경우(초기)
+            _errorPassword.value = null
+            _errorRePassword.value = null
         } else {
             _errorPassword.value = false
             _errorRePassword.value = false
