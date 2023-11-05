@@ -35,6 +35,9 @@ class NicknameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         // 에딧텍스트 자판 내리기
         binding.root.setOnTouchListener { v, event ->
             when (event.action) {
@@ -108,7 +111,14 @@ class NicknameFragment : Fragment() {
             Log.d("회원가입 - User.nickname 학과로", User.nickname.toString())
             Log.d("회원가입 - User.gender 학과로", User.gender.toString())
         }
-
+        // 닉네임 중복 api
+        binding.btnNicknameOverlapCheck.setOnClickListener{
+            viewModel.isDuplicationNickname()
+        }
+        // 닉네임 길이 표시
+        viewModel.nickname.observe(viewLifecycleOwner) {
+            viewModel.setNicknameLength(it.length) // 닉네임 길이 업뎃
+        }
     }
 
 }

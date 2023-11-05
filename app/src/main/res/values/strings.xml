@@ -45,6 +45,7 @@
     <string name="hint_nickname">닉네임을 입력해주세요</string>
     <string name="txtok_nickname">사용 가능한 닉네임이예요</string>
     <string name="texterror_nickname">이미 존재하는 닉네임이예요. 다시 설정해주세요</string>
+    <string name="txt_overlapCheck">중복 확인</string>
     <string name="btn_female">여자</string>
     <string name="btn_male">남자</string>
 
