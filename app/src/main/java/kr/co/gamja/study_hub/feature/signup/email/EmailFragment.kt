@@ -20,6 +20,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentEmailBinding
 import kr.co.gamja.study_hub.feature.signup.major.User
 import kr.co.gamja.study_hub.global.CustomSnackBar
@@ -106,29 +107,8 @@ class EmailFragment : Fragment() {
         // 이메일 인증 버튼 누름
         binding.btnAuth.setOnClickListener {
             Log.d("회원가입 btnAuth눌렀을때", "")
-            viewModel.emailSend(object : EmailValidCallback {
-                override fun onEmailValidResult(isValid: Boolean, status: String?) {
-                    if (!isValid) {
-                        if (status.equals("BAD_REQUEST")) {
-                            //TODO("이메일 중복시로 변경")
-                            binding.errorEmail.apply {
-                                text = "이멜중복"
-                                setTextColor(redColor)
-                                isVisible = true
-                            }
-                            binding.editEmail.backgroundTintList = redStateList
-                        }
-                    } else {
-                        // 이메일 인증 보냈을 때
-                        binding.errorEmail.apply {
-                            text = getString(R.string.txt_sendedemail)
-                            setTextColor(grayColor)
-                            isVisible = true
-                        }
-                        binding.editEmail.backgroundTintList = grayStateList
-                    }
-                }
-            })
+
+            sendEmail(false)
 
             binding.btnAuth.isVisible = false
             binding.btnResend.isVisible = true
@@ -137,46 +117,20 @@ class EmailFragment : Fragment() {
         }
         // 인증번호 재전송
         binding.btnResend.setOnClickListener {
-            viewModel.emailSend(object : EmailValidCallback {
-                override fun onEmailValidResult(isValid: Boolean, status: String?) {
-                    if (!isValid) {
-                        if (status.equals("BAD_REQUEST")) {
-                            //TODO("이메일 중복시로 변경")
-                            binding.errorEmail.apply {
-                                text = "이멜중복"
-                                setTextColor(redColor)
-                                isVisible = true
-                            }
-                            binding.editEmail.backgroundTintList = redStateList
-                        }
-                    } else {
-                        // 이메일 인증 보냈을 때
-                        binding.errorEmail.apply {
-                            text = getString(R.string.txt_sendedemail)
-                            setTextColor(grayColor)
-                            isVisible = true
-                        }
-                        binding.editEmail.backgroundTintList = grayStateList
 
-                    }
+            sendEmail(true)
 
-                }
-            })
             hideKeyboardForResend()
-            CustomSnackBar.make(
-                binding.layoutRelative,
-                getString(R.string.txt_resendAlarm),
-                binding.btnNext
-            ).show()
+
         }
 
         // 인증코드확인
         binding.btnNext.setOnClickListener {
             val txt_email = binding.editEmail.text.toString()
-            viewModel.emailAuthcheck(object : EmailCodeValidCallback {
-                override fun onEmailCodeValidResult(isValid: Boolean) {
-                    Log.d("회원가입 - 이메일인증 콜백오버라이드", isValid.toString())
-                    if (isValid == true) {
+            viewModel.emailAuthcheck(object : CallBackListener {
+                override fun isSuccess(result: Boolean) {
+                    Log.d("회원가입 - 이메일인증 콜백오버라이드", result.toString())
+                    if (result) {
                         User.email = txt_email
                         findNavController().navigate(
                             R.id.action_createAccountFragment01_to_createAccountFragment02,
@@ -239,6 +193,53 @@ class EmailFragment : Fragment() {
             if (it) binding.editAuthCode.backgroundTintList = greenStateList
             else binding.editAuthCode.backgroundTintList = grayStateList
         }
+    }
+    private fun sendEmail(customDialogNeed:Boolean){
+        viewModel.checkEmail(object : CallBackListener {
+            override fun isSuccess(result: Boolean) {
+                if (result) {
+                    Log.e("이메일중복x","")
+                    viewModel.emailSend(object : CallBackListener {
+                        override fun isSuccess(result: Boolean) {
+                            if (result) {
+                                Log.e("이메일인증코드 보냄","")
+                                // 이메일 인증 보냈을 때
+                                binding.errorEmail.apply {
+                                    text = getString(R.string.txt_sendedemail)
+                                    setTextColor(grayColor)
+                                    isVisible = true
+                                }
+                                binding.editEmail.backgroundTintList = grayStateList
+                                if(customDialogNeed){
+                                    CustomSnackBar.make(
+                                        binding.layoutRelative,
+                                        getString(R.string.txt_resendAlarm),
+                                        binding.btnNext
+                                    ).show()
+                                }
+                            } else {
+                                Log.e("이메일인증코드 x","")
+                                binding.errorEmail.apply {
+                                    text = "이메일 안보내짐, 코드확인"
+                                    setTextColor(redColor)
+                                    isVisible = true
+                                }
+                                binding.editEmail.backgroundTintList = redStateList
+                            }
+                        }
+                    })
+                } else {
+                    Log.e("이메일중복0","")
+                    // 이메일 중복
+                    binding.errorEmail.apply {
+                        text = getString(R.string.txterror2_email)
+                        setTextColor(redColor)
+                        isVisible = true
+                    }
+                    binding.editEmail.backgroundTintList = redStateList
+                }
+            }
+        })
     }
 
 

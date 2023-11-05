@@ -27,9 +27,13 @@ interface StudyHubApi {
     @POST("/api/users/signup")
     suspend fun signup(@Body signupRequest: SignupRequest): Response<Unit>
 
-    // 회원가입 닉네임 중복 확인 api
+    // 회원가입 -닉네임 중복 확인 api
     @GET("/api/users/duplication-nickname")
     suspend fun checkNicknameDuplication(@Query("nickname") nickname:String):Response<Unit>
+
+    // 회원가입 - 이메일 중복 확인 api
+    @POST("/api/email/duplication")
+    suspend fun checkEmailDuplication(@Body emailRequest: EmailRequest) :Response<Unit>
 
     // 액세스 토큰 만료시, 리프레쉬 토큰으로 액세스, 리프레시 재발급
     @POST("/api/jwt/accessToken")

@@ -11,6 +11,7 @@ import kr.co.gamja.study_hub.data.model.EmailErrorResponse
 import kr.co.gamja.study_hub.data.model.EmailRequest
 import kr.co.gamja.study_hub.data.model.EmailValidRequest
 import kr.co.gamja.study_hub.data.model.EmailValidResponse
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 import kr.co.gamja.study_hub.feature.login.EMAIL
 
@@ -42,8 +43,29 @@ class EmailViewModel : ViewModel() {
     private val _validAuthNumber = MutableLiveData<Boolean>()
     val validAuthNumber: LiveData<Boolean> get() = _validAuthNumber
 
+    // 이메일 중복확인
+    fun checkEmail(params: CallBackListener){
+        val emailReq = EmailRequest(email.value.toString())
+        viewModelScope.launch {
+            val response=RetrofitManager.api.checkEmailDuplication(emailReq)
+            if(response.isSuccessful){
+                params.isSuccess(true)
+            }else{
+                val errorResponse: EmailErrorResponse?=response.errorBody()?.let {
+                    val gson = Gson()
+                    gson.fromJson(it.charStream(), EmailErrorResponse::class.java)
+                }
+                if(errorResponse!=null){
+                    val status= errorResponse.status
+                    Log.d(tag,status)
+                    params.isSuccess(false)
+                }
+            }
+        }
+    }
+
     // 이메일 인증번호 보내기
-    fun emailSend(params: EmailValidCallback) {
+    fun emailSend(params: CallBackListener) {
         val emailReq = EmailRequest(email.value.toString())
         Log.d(tag, "회원가입 $emailReq")
 
@@ -52,7 +74,7 @@ class EmailViewModel : ViewModel() {
                 val response = RetrofitManager.api.email(emailReq)
                 if (response.isSuccessful) {
                     Log.d(tag, "회원가입 인증번호 보내기 성공")
-                    params.onEmailValidResult(true, null)
+                    params.isSuccess(true)
                 } else {
                     Log.e(tag, "회원가입 인증번호 보내기 실패")
                     val errorResponse: EmailErrorResponse?=response.errorBody()?.let {
@@ -62,7 +84,7 @@ class EmailViewModel : ViewModel() {
                     if(errorResponse!=null){
                         val status= errorResponse.status
                         Log.d(tag,status)
-                        params.onEmailValidResult(false, status)
+                        params.isSuccess(false)
                     }
 
                 }
@@ -74,9 +96,9 @@ class EmailViewModel : ViewModel() {
     }
 
     // 이메일 인증번호 인증
-    fun emailAuthcheck(params: EmailCodeValidCallback) {
+    fun emailAuthcheck(params: CallBackListener) {
         val authNumberReq =
-            EmailValidRequest(authNumber.value.toString(), email.value.toString()!!)
+            EmailValidRequest(authNumber.value.toString(), email.value.toString())
         viewModelScope.launch {
             try {
                 val response = RetrofitManager.api.emailValid(authNumberReq)
@@ -84,10 +106,10 @@ class EmailViewModel : ViewModel() {
                     val result = response.body() as EmailValidResponse
                     Log.d(tag, "회원가입-이메일 인증 성공" + response.code().toString())
                     Log.d(tag, "회원가입 result.validResult" + result.validResult.toString())
-                    params.onEmailCodeValidResult(result.validResult)
+                    params.isSuccess(result.validResult)
                 } else {
                     Log.e(tag, "회원가입-이메일 인증코드 에러")
-                    params.onEmailCodeValidResult(false)
+                    params.isSuccess(false)
                 }
             } catch (e: Exception) {
                 Log.e(tag, "회원가입 Exception: ${e.message}")
@@ -96,15 +118,5 @@ class EmailViewModel : ViewModel() {
         }
     }
 
-}
-
-// 이메일 체크 콜백
-interface EmailValidCallback {
-    fun onEmailValidResult(isValid: Boolean, status: String?)
-}
-
-// 이메일 인증코드 체크 callback
-interface EmailCodeValidCallback {
-    fun onEmailCodeValidResult(isValid: Boolean)
 }
 

@@ -7,9 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import kr.co.gamja.study_hub.data.model.DuplicationNicknameErrorResponse
-import kr.co.gamja.study_hub.data.model.EmailRequest
-import kr.co.gamja.study_hub.data.repository.CallBackListener
+import kr.co.gamja.study_hub.data.model.ErrorResponse
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
 class NicknameViewModel :ViewModel(){
@@ -38,9 +36,9 @@ class NicknameViewModel :ViewModel(){
                 _nicknameError.value=false
             } else {
 
-                val errorResponse: DuplicationNicknameErrorResponse? = response.errorBody()?.let {
+                val errorResponse: ErrorResponse? = response.errorBody()?.let {
                     val gson = Gson()
-                    gson.fromJson(it.charStream(), DuplicationNicknameErrorResponse::class.java)
+                    gson.fromJson(it.charStream(), ErrorResponse::class.java)
                 }
                 if (errorResponse != null) {
                     Log.d(tag, errorResponse.status)
