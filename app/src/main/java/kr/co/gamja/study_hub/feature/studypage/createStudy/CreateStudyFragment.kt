@@ -175,10 +175,10 @@ class CreateStudyFragment : Fragment() {
                     val startYearMonth = viewModel.convertYYYYMM(it)
                     val startday = viewModel.convertDay(it)
                     newStartDate = StartDate(startYearMonth, startday)
-                    binding.btnEndDay.isEnabled=true // 시작날짜 선택o면 끝날짜 선택가능
+                    binding.btnEndDay.isEnabled = true // 시작날짜 선택o면 끝날짜 선택가능
                 } else {
                     newStartDate = StartDate(null, null)
-                    binding.btnEndDay.isEnabled=false // 시작날짜 선택x면 끝날짜 선택불가
+                    binding.btnEndDay.isEnabled = false // 시작날짜 선택x면 끝날짜 선택불가
                 }
             }
             editEndDay.observe(viewLifecycleOwner) {
@@ -187,8 +187,10 @@ class CreateStudyFragment : Fragment() {
         }
         binding.btnComplete.setOnClickListener {
             viewModel.createStudy()
-            val navcontroller = findNavController()
-            navcontroller.navigateUp() // TODO("스터디 글 상세 보기 페이지로 넘어가는걸로 수정 필요")
+            findNavController().navigate(
+                R.id.action_createStudyFragment_to_studyContentFragment,
+                null
+            )
         }
 
     }

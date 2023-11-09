@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentContentBinding
@@ -36,12 +37,13 @@ class ContentFragment : Fragment() {
         }
     // TODO("작성자인지 확인하는 API")
         binding.iconThreeDot.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_studyContentFragment_to_bottomSheetFragment,
-                null
-            )
+            getModal()
         }
     }
-
+    fun getModal(){
+        val modal =BottomSheetFragment()
+        modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
+        modal.show(parentFragmentManager, modal.tag)
+    }
 
 }

@@ -13,7 +13,7 @@
     <string name="txt_people_number">%d\/%d명</string>
 
     <!--    스터디_세부내용-->
-    <string name="fsd_txt_introduce">세부내용</string>
+    <string name="fsd_txt_introduce">소개</string>
     <string name="fsd_txt_period">기간</string>
     <string name="fsd_txt_meet">대면여부</string>
     <string name="fsd_txt_major1">관련학과</string>

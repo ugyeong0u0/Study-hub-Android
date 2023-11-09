@@ -82,9 +82,7 @@
         android:name="kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragment"
         android:label="fragment_study_detail"
         tools:layout="@layout/fragment_content">
-        <action
-            android:id="@+id/action_studyContentFragment_to_bottomSheetFragment"
-            app:destination="@id/bottomSheetFragment" />
+
     </fragment>
     <action
         android:id="@+id/action_global_mainAlarmFragment"
@@ -103,6 +101,9 @@
         <action
             android:id="@+id/action_createStudyFragment_to_calendarFragment"
             app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_createStudyFragment_to_studyContentFragment"
+            app:destination="@id/studyContentFragment" />
     </fragment>
     <fragment
         android:id="@+id/bottomSheetFragment"
