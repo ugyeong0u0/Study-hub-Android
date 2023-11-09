@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
@@ -24,7 +23,7 @@ class CreateStudyFragment : Fragment() {
     private val tag = this.javaClass.simpleName
     private lateinit var binding: FragmentCreateStudyBinding
     private val viewModel: CreateStudyViewModel by activityViewModels()
-    var newStartDate=StartDate(null,null) // 시작 날짜 < 끝 날짜
+    var newStartDate = StartDate(null, null) // 시작 날짜 < 끝 날짜
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,7 +62,7 @@ class CreateStudyFragment : Fragment() {
                         navcontroller.navigateUp() // 뒤로 가기
                     }
                 })
-            }else{ // 입력된게 없는 경우
+            } else { // 입력된게 없는 경우
                 viewModel.setInit() // 초기화
                 val navcontroller = findNavController()
                 navcontroller.navigateUp() // 뒤로 가기
@@ -121,8 +120,10 @@ class CreateStudyFragment : Fragment() {
         }
 
         // 시작 날짜 선택하기
-        val black = ContextCompat.getColor(requireContext(), R.color.sysblack1)
         binding.btnStartDay.setOnClickListener {
+            if (!newStartDate.selectedYearMonth.isNullOrEmpty() && !newStartDate.selectedDay.isNullOrEmpty()) {
+                viewModel.initDay()
+            }
             getModalsheet("0")
         }
         // 종료 날짜 선택하기
@@ -170,10 +171,14 @@ class CreateStudyFragment : Fragment() {
             // TODO("벌금종류")
             editStartDay.observe(viewLifecycleOwner) {
                 viewModel.setButtonEnable()
-                if(!it.isNullOrEmpty()){
-                    val startYearMonth=viewModel.convertYYYYMM(it)
-                    val startday= viewModel.convertDay(it)
-                    newStartDate=StartDate(startYearMonth,startday)
+                if (!it.isNullOrEmpty()) {
+                    val startYearMonth = viewModel.convertYYYYMM(it)
+                    val startday = viewModel.convertDay(it)
+                    newStartDate = StartDate(startYearMonth, startday)
+                    binding.btnEndDay.isEnabled=true // 시작날짜 선택o면 끝날짜 선택가능
+                } else {
+                    newStartDate = StartDate(null, null)
+                    binding.btnEndDay.isEnabled=false // 시작날짜 선택x면 끝날짜 선택불가
                 }
             }
             editEndDay.observe(viewLifecycleOwner) {
@@ -191,8 +196,8 @@ class CreateStudyFragment : Fragment() {
     fun getModalsheet(whatDay: String) {
         val bundle = Bundle()
         bundle.putString("whatDayKey", whatDay)
-        bundle.putString("startYearMonth",newStartDate.selectedYearMonth) // 시작 날짜 캘린터fr로
-        bundle.putString("startDay",newStartDate.selectedDay)
+        bundle.putString("startYearMonth", newStartDate.selectedYearMonth) // 시작 날짜 캘린터fr로
+        bundle.putString("startDay", newStartDate.selectedDay)
         val modal = CalendarFragment()
         modal.arguments = bundle
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)

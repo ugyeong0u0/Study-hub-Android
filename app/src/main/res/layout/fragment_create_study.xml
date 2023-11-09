@@ -695,7 +695,8 @@
                     android:textAlignment="textStart"
                     android:textColor="@{viewModel.endDayColor?@color/sysblack1:@color/BG_70}"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:enabled="false"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/img_endArrow"
