@@ -142,7 +142,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/item01_fee"
+                        android:text="@string/txt_detailedFee"
                         android:textColor="@color/syswhite"
                         android:textSize="14sp"
                         android:textStyle="bold"

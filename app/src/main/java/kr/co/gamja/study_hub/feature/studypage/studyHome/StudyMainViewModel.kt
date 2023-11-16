@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.FindStudyResponse
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
 class StudyMainViewModel : ViewModel() {
     val tag = this.javaClass.simpleName
@@ -19,7 +20,7 @@ class StudyMainViewModel : ViewModel() {
     fun getStudyPosts(adapter: StudyMainAdapter, page: Int, params: getStudyCallback) {
         viewModelScope.launch {
             try {
-                val response = AuthRetrofitManager.api.getStudyPostAll(page, 10)
+                val response =RetrofitManager.api.getStudyPostAll(page, 10)
                 if (response.isSuccessful) {
                     val result = response.body() as FindStudyResponse
                     params.isLastPage(result.last)

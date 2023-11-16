@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/item01_fee"
+                    android:text="@string/txt_detailedFee"
                     android:textColor="@color/BG_90"
                     android:textSize="14sp"
                     app:drawableTopCompat="@drawable/resized_icon_coin_gray_24" />

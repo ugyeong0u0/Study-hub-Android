@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.home.HomeViewModel" />
+    </data>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -137,9 +142,11 @@
                     android:id="@+id/recycler_onGoing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/twenty_four"
                     android:layout_below="@+id/txt_onGoingStudy"
                     android:layout_marginHorizontal="@dimen/twenty"
-                    tools:listitem="@layout/home_item_on_recruiting" />
+                    tools:listitem="@layout/home_item_on_recruiting"
+                    android:layout_marginBottom="48dp"/>
 
 
                 <TextView
@@ -158,6 +165,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_approachingStudy"
+                    android:layout_marginBottom="40dp"
                     android:layout_marginHorizontal="@dimen/twenty"
                     tools:listitem="@layout/home_item_close_deadline" />
 

@@ -43,7 +43,7 @@
             android:layout_toEndOf="@+id/item01_icon_profile"
             android:drawablePadding="4dp"
             android:padding="8dp"
-            android:text="@string/item01_people"
+            android:text="@string/txt_people"
             android:textColor="@color/BG_90"
             android:textSize="14sp"
             app:drawableLeftCompat="@drawable/resized_icon_person_gray" />

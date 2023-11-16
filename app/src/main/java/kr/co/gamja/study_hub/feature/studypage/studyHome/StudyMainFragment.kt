@@ -38,6 +38,8 @@ class StudyMainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         // 툴바 설정
         val toolbar = binding.studyMainToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)

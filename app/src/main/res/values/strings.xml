@@ -143,11 +143,10 @@
     <string name="txt_banner3">이 스터디는 어떠세요?</string>
     <string name="btn_txt">전체 > </string>
 
-    <!--    리사이클러뷰01 아이템01-->
-    <string name="item01_title">관심사</string>
-    <string name="item01_people">%d/10명</string>
-    <string name="item01_fee">%n원</string>
-    <string name="item01_dueDate">마감 %d일 전</string>
+    <!--    home_item_on_recruiting.xml-->
+    <string name="txt_people">%d/%d명</string>
+    <string name="txt_detailedFee">%n원</string>
+    <string name="txt_RemainingSeats">잔여 %d자리</string>
     <string name="txt_recentsearch">최근 검색어</string>
     <string name="txt_recomsearch">추천 검색어</string>
     <string name="btn_delete">삭제</string>

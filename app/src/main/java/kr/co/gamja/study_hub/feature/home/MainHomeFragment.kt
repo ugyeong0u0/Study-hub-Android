@@ -9,14 +9,20 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentMainHomeBinding
+import kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkViewModel
+import kr.co.gamja.study_hub.feature.toolbar.bookmark.OnItemClickListener
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
 
 class MainHomeFragment : Fragment() {
     private lateinit var binding: FragmentMainHomeBinding
+    private val viewModel : HomeViewModel by activityViewModels()
+    private val bookmarkViewModel: BookmarkViewModel by activityViewModels()
     private var doubleBackPressed = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +60,8 @@ class MainHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         // 툴바 설정
         val toolbar = binding.mainToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -91,7 +99,19 @@ class MainHomeFragment : Fragment() {
         binding.btnGoGuide.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment01_to_mainFragment03, null)
         }
+        // 모집중 스터디 어댑터 연결
+        val onRecruitingAdapter =ItemOnRecruitingAdapter(requireContext())
+        binding.recyclerOnGoing.adapter=onRecruitingAdapter
+        binding.recyclerOnGoing.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
 
+        viewModel.getStudyPosts(onRecruitingAdapter)
+
+        // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
+        onRecruitingAdapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(tagId: String, postId: Int?) {
+                bookmarkViewModel.saveDeleteBookmarkItem(postId)
+            }
+        })
     }
 
 
