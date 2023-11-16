@@ -6,11 +6,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/syswhite"
+        android:background="@drawable/btn_bg_white_stroke_bg_50"
         android:paddingStart="16dp"
         android:paddingTop="14dp"
         android:paddingEnd="16dp"
-        android:paddingBottom="14dp">
+        android:paddingBottom="14dp"
+        android:layout_marginBottom="@dimen/sixteen">
 
         <ImageView
             android:id="@+id/icon_profile"
@@ -62,6 +63,7 @@
 
         <Button
             android:id="@+id/btn_bookmark"
+            android:tag="0"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"

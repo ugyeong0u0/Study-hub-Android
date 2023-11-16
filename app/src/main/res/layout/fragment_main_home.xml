@@ -1,176 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="kr.co.gamja.study_hub.feature.home.HomeViewModel" />
     </data>
-    <androidx.core.widget.NestedScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/syswhite"
-        android:fillViewport="true"
-        android:scrollbars="vertical">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/main_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/main_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/sysblack2">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp">
-
-                    <ImageButton
-                        android:id="@+id/icon_h"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_alignParentStart="true"
-                        android:background="@drawable/icon_h" />
-
-                    <ImageButton
-                        android:id="@+id/icon_studyHub"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/icon_h"
-                        android:background="@drawable/resized_txt_logo_strudyhub" />
-
-                    <ImageButton
-                        android:id="@+id/icon_bookmark"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_toStartOf="@+id/icon_alarm"
-                        android:background="@drawable/baseline_bookmark_border_24_ffffff" />
-
-                    <ImageButton
-                        android:id="@+id/icon_alarm"
-                        android:layout_width="@dimen/resized_item"
-                        android:layout_height="@dimen/resized_item"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/icon_bell_orange" />
-
-                </RelativeLayout>
-
-
-            </androidx.appcompat.widget.Toolbar>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
 
             <RelativeLayout
-                android:id="@+id/layout_relative"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
 
-                <ImageView
-                    android:id="@+id/img_studyHub"
-                    android:layout_width="match_parent"
-                    android:layout_height="234dp"
-                    android:src="@drawable/main_banner"
-                    android:background="@color/sysblack2"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_goGuide"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/img_studyHub"
+                <ImageButton
+                    android:id="@+id/icon_h"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginBottom="30dp"
-                    android:background="@drawable/btn_next_orange"
-                    android:paddingLeft="32dp"
-                    android:paddingTop="12dp"
-                    android:paddingRight="32dp"
-                    android:paddingBottom="12dp"
-                    android:text="@string/btn_goDetail"
-                    android:textColor="@color/syswhite"
-                    android:textSize="14sp" />
+                    android:background="@drawable/icon_h" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_studyHub"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="40dp"
-                    android:background="@drawable/btn_background_search"
-                    android:drawableEnd="@drawable/baseline_search_24_black"
-                    android:paddingStart="14dp"
-                    android:paddingEnd="14dp"
-                    android:text="@string/btn_searchBar"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/BG_70"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_onGoingStudy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/btn_search"
-                    android:layout_marginStart="@dimen/twenty"
-                    android:text="@string/txt_banner1"
-                    android:textColor="@color/sysblack1"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <Button
+                <ImageButton
+                    android:id="@+id/icon_studyHub"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/txt_onGoingStudy"
-                    android:layout_below="@+id/btn_search"
-                    android:layout_alignBaseline="@+id/txt_onGoingStudy"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/icon_h"
+                    android:background="@drawable/resized_txt_logo_strudyhub" />
+
+                <ImageButton
+                    android:id="@+id/icon_bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/icon_alarm"
+                    android:background="@drawable/baseline_bookmark_border_24_ffffff" />
+
+                <ImageButton
+                    android:id="@+id/icon_alarm"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/twenty"
-                    android:background="#00000000"
-                    android:text="@string/btn_txt"
-                    android:textColor="@color/G_60" />
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_onGoing"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/twenty_four"
-                    android:layout_below="@+id/txt_onGoingStudy"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    tools:listitem="@layout/home_item_on_recruiting"
-                    android:layout_marginBottom="48dp"/>
-
-
-                <TextView
-                    android:id="@+id/txt_approachingStudy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/recycler_onGoing"
-                    android:layout_marginStart="@dimen/twenty"
-                    android:text="@string/txt_banner2"
-                    android:textColor="@color/sysblack1"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_approaching"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_approachingStudy"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    tools:listitem="@layout/home_item_close_deadline" />
-
+                    android:background="@drawable/icon_bell_orange" />
 
             </RelativeLayout>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/syswhite"
+            android:fillViewport="true"
+            android:scrollbars="vertical">
+
+
+                <RelativeLayout
+                    android:id="@+id/layout_relative"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_studyHub"
+                        android:layout_width="match_parent"
+                        android:layout_height="234dp"
+                        android:background="@color/sysblack2"
+                        android:src="@drawable/main_banner" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_goGuide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/img_studyHub"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginBottom="30dp"
+                        android:background="@drawable/btn_next_orange"
+                        android:paddingLeft="32dp"
+                        android:paddingTop="12dp"
+                        android:paddingRight="32dp"
+                        android:paddingBottom="12dp"
+                        android:text="@string/btn_goDetail"
+                        android:textColor="@color/syswhite"
+                        android:textSize="14sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_studyHub"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="40dp"
+                        android:background="@drawable/btn_background_search"
+                        android:drawableEnd="@drawable/baseline_search_24_black"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp"
+                        android:text="@string/btn_searchBar"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/BG_70"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_onGoingStudy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/btn_search"
+                        android:layout_marginStart="@dimen/twenty"
+                        android:text="@string/txt_banner1"
+                        android:textColor="@color/sysblack1"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/txt_onGoingStudy"
+                        android:layout_below="@+id/btn_search"
+                        android:layout_alignBaseline="@+id/txt_onGoingStudy"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/twenty"
+                        android:background="#00000000"
+                        android:text="@string/btn_txt"
+                        android:textColor="@color/G_60" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_onGoing"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_onGoingStudy"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginTop="@dimen/twenty_four"
+                        android:layout_marginBottom="48dp"
+                        android:orientation="horizontal"
+                        tools:listitem="@layout/home_item_on_recruiting" />
+
+
+                    <TextView
+                        android:id="@+id/txt_approachingStudy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/recycler_onGoing"
+                        android:layout_marginStart="@dimen/twenty"
+                        android:layout_marginBottom="@dimen/twenty_four"
+                        android:text="@string/txt_banner2"
+                        android:textColor="@color/sysblack1"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_approaching"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_approachingStudy"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginBottom="40dp"
+                        android:orientation="vertical"
+                        tools:listitem="@layout/home_item_close_deadline" />
+
+
+                </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 </layout>
