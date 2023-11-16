@@ -13,7 +13,7 @@
         android:paddingBottom="14dp">
 
         <ImageView
-            android:id="@+id/item01_icon_profile"
+            android:id="@+id/icon_profile"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
@@ -21,12 +21,12 @@
             android:src="@drawable/icon_profile_60" />
 
         <TextView
-            android:id="@+id/item01_head"
+            android:id="@+id/txt_head"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_marginTop="6dp"
-            android:layout_toEndOf="@+id/item01_icon_profile"
+            android:layout_toEndOf="@+id/icon_profile"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/sysblack1"
@@ -36,11 +36,11 @@
             />
 
         <TextView
-            android:id="@+id/item02_txt_people"
+            android:id="@+id/txt_people"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/item01_head"
-            android:layout_toEndOf="@+id/item01_icon_profile"
+            android:layout_below="@+id/txt_head"
+            android:layout_toEndOf="@+id/icon_profile"
             android:drawablePadding="4dp"
             android:padding="8dp"
             android:text="@string/txt_people"
@@ -49,19 +49,19 @@
             app:drawableLeftCompat="@drawable/resized_icon_person_gray" />
 
         <TextView
-            android:id="@+id/item01_txt_people"
+            android:id="@+id/sentence_people"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/item01_head"
-            android:layout_marginLeft="4dp"
-            android:layout_toEndOf="@+id/item02_txt_people"
+            android:layout_below="@+id/txt_head"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/txt_people"
             android:padding="8dp"
-            android:text="@string/item02_people"
+            android:text="@string/sentence_people"
             android:textColor="@color/O_50"
             android:textSize="14sp" />
 
         <Button
-            android:id="@+id/item02_bookmark"
+            android:id="@+id/btn_bookmark"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"

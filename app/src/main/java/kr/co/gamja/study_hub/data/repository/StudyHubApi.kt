@@ -29,11 +29,11 @@ interface StudyHubApi {
 
     // 회원가입 -닉네임 중복 확인 api
     @GET("/api/users/duplication-nickname")
-    suspend fun checkNicknameDuplication(@Query("nickname") nickname:String):Response<Unit>
+    suspend fun checkNicknameDuplication(@Query("nickname") nickname: String): Response<Unit>
 
     // 회원가입 - 이메일 중복 확인 api
     @POST("/api/email/duplication")
-    suspend fun checkEmailDuplication(@Body emailRequest: EmailRequest) :Response<Unit>
+    suspend fun checkEmailDuplication(@Body emailRequest: EmailRequest): Response<Unit>
 
     // 액세스 토큰 만료시, 리프레쉬 토큰으로 액세스, 리프레시 재발급
     @POST("/api/jwt/accessToken")
@@ -67,21 +67,28 @@ interface StudyHubApi {
 
     // 닉네임 중복 조회 - 인가x
     @GET("/api/users/duplication-nickname")
-    suspend fun getIsDuplicationNickname(@Query("nickname") nickname:String):Response<Unit>
+    suspend fun getIsDuplicationNickname(@Query("nickname") nickname: String): Response<Unit>
 
     // 닉네임 수정 - 인가0
     @PUT("/api/users/nickname")
-    suspend fun putNewNickname(@Body changeNicknameRequest:ChangeNicknameRequest):Response<Unit>
+    suspend fun putNewNickname(@Body changeNicknameRequest: ChangeNicknameRequest): Response<Unit>
 
     // 학과 수정 - 인가 0
     @PUT("/api/users/major")
-    suspend fun putNewMajor(@Body changeMajorRequest: ChangeMajorRequest):Response<Unit>
+    suspend fun putNewMajor(@Body changeMajorRequest: ChangeMajorRequest): Response<Unit>
 
     // 현재 비번 검사- 인가0
     @POST("/api/users/password/verify")
-    suspend fun postCurrentPassword(@Body currentPasswordRequest: CurrentPasswordRequest):Response<Unit>
+    suspend fun postCurrentPassword(@Body currentPasswordRequest: CurrentPasswordRequest): Response<Unit>
 
     // 비번 수정 - 인가0
     @PUT("/api/users/password")
-    suspend fun putNewPassword(@Body newPasswordRequest: NewPasswordRequest):Response<Unit>
+    suspend fun putNewPassword(@Body newPasswordRequest: NewPasswordRequest): Response<Unit>
+
+    // 게시글 인기순 조회
+    @GET("/api/study-posts/find/hot")
+    suspend fun getHotStudyPostAll(
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Response<HotStudyPostResponse>
 }

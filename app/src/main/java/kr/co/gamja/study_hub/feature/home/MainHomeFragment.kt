@@ -112,6 +112,16 @@ class MainHomeFragment : Fragment() {
                 bookmarkViewModel.saveDeleteBookmarkItem(postId)
             }
         })
+
+        val deadlineAdapter=ItemCloseDeadlineAdapter(requireContext())
+        binding.recyclerApproaching.adapter=deadlineAdapter
+        binding.recyclerApproaching.layoutManager= LinearLayoutManager(requireContext())
+        viewModel.getHotStudyPosts(deadlineAdapter)
+        deadlineAdapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(tagId: String, postId: Int?) {
+                bookmarkViewModel.saveDeleteBookmarkItem(postId)
+            }
+        })
     }
 
 

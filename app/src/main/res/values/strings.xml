@@ -151,7 +151,7 @@
     <string name="txt_recomsearch">추천 검색어</string>
     <string name="btn_delete">삭제</string>
     <!--    리사이클러뷰01 아이템02-->
-    <string name="item02_people">%d자리 남았어요!</string>
+    <string name="sentence_people">%d자리 남았어요!</string>
     <!--마이페이지-->
     <string name="btn_pastText">작성한 글</string>
     <string name="btn_pastStudy">참여한 스터디</string>
