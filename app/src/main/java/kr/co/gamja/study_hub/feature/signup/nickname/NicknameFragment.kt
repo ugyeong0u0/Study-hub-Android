@@ -81,7 +81,7 @@ class NicknameFragment : Fragment() {
             User.gender = "FEMALE"
             Log.d("회원가입 - 여자", User.gender.toString())
 
-            if (User.nickname != null && User.gender != null) {
+            if (User.nickname != null && User.gender != null && viewModel.nicknameError.value==false) {
                 binding.btnNext.isEnabled = true
             } else {
                 Log.d("회원가입 - 닉네임이나 성별 null", User.gender.toString() + User.nickname.toString())
@@ -96,7 +96,7 @@ class NicknameFragment : Fragment() {
             Log.d("회원가입 - User.nickname 성별클릭", User.nickname.toString())
             User.gender = "MALE"
             Log.d("회원가입 - 남자", User.gender.toString())
-            if (User.nickname != null && User.gender != null) {
+            if (User.nickname != null && User.gender != null && viewModel.nicknameError.value==false) {
                 binding.btnNext.isEnabled = true
             } else {
                 Log.d("회원가입 - 닉네임이나 성별 null", User.gender.toString() + User.nickname.toString())

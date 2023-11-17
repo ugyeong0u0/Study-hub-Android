@@ -3,8 +3,7 @@
     <string name="btn_latestOrder">최신순</string>
     <string name="btn_popularOrder">인기순</string>
     <string name="txt_list_number">%d개</string>
-    <string name="txt_no_Text01">관련 스터디가 없어요</string>
-    <string name="txt_no_Text02">지금 스터디를 만들어\n팀원을 구해보세요!</string>
+    <string name="txt_noText">\t\t관련된 스터디가 없어요\n지금 스터디를 만들어 보세요!</string>
     <string name="txt_fs_modal_category">카테고리</string>
     <string name="txt_fs_modal_interesting">내 관심사</string>
 

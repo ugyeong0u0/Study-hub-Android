@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.home.search.SearchViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,9 +58,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/searchMain_toolbar"
             android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="@dimen/sixteen"
             android:background="@drawable/btn_background_search"
             android:completionThreshold="1"
-            android:drawableEnd="@drawable/baseline_search_24_black"
             android:hint="@string/btn_searchBar"
             android:imeOptions="actionNext"
             android:inputType="text"
@@ -59,70 +68,115 @@
             android:paddingTop="13dp"
             android:paddingRight="14dp"
             android:paddingBottom="13dp"
+            android:text="@={viewModel.searchWord}"
             android:textColor="@color/sysblack1"
             android:textColorHint="@color/BG_70"
-            android:textSize="16sp"
-            android:layout_marginTop="@dimen/sixteen"/>
+            android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/txt_recentSearch"
+        <ImageView
+            android:id="@+id/icon_search"
+            android:layout_width="@dimen/twenty_four"
+            android:layout_height="@dimen/twenty_four"
+            android:layout_below="@id/searchMain_toolbar"
+            android:layout_alignEnd="@+id/edit_search"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="@dimen/fourteen"
+            android:src="@drawable/icon_search_l_black"
+            android:visibility="@{viewModel.searchImg?View.VISIBLE:View.GONE}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_textDelete"
+            android:layout_width="@dimen/twenty_four"
+            android:layout_height="@dimen/twenty_four"
+            android:layout_below="@id/searchMain_toolbar"
+            android:layout_alignEnd="@+id/edit_search"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="@dimen/fourteen"
+            android:background="@drawable/icon_circle_delete_bright"
+            android:visibility="@{viewModel.searchImg?View.GONE:View.VISIBLE}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_latestOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edit_search"
-            android:layout_marginStart="@dimen/twenty"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/txt_recentsearch"
-            android:textColor="@color/sysblack1"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/btn_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/txt_recentSearch"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/twenty"
             android:background="#00000000"
-            android:text="@string/btn_delete"
-            android:textAlignment="textEnd"
-            android:textColor="@color/G_80"
-            android:textSize="12sp" />
-
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup_recent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_recentSearch"
-            android:layout_marginHorizontal="@dimen/twenty"
-            android:layout_marginBottom="24dp" />
+            android:padding="10dp"
+            android:text="@string/btn_latestOrder"
+            android:textColor="@color/sysblack1"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/btn_textDelete"/>
 
         <View
-            android:id="@+id/line_from_chip_to_recommend"
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_below="@id/chipGroup_recent"
-            android:background="@color/BG_30" />
+            android:id="@+id/view_line"
+            android:layout_width="2dp"
+            android:layout_height="12dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="28dp"
+            android:layout_toEndOf="@+id/btn_latestOrder"
+            android:background="@color/BG_50"
+            android:layout_below="@+id/btn_textDelete"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_popularOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/view_line"
+            android:background="#00000000"
+            android:padding="10dp"
+            android:text="@string/btn_popularOrder"
+            android:textColor="@color/sysblack1"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/btn_textDelete"/>
+
 
         <TextView
-            android:id="@+id/txt_recommend"
+            android:id="@+id/txt_numberOfList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line_from_chip_to_recommend"
+            android:layout_alignBaseline="@+id/btn_latestOrder"
+            android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="@dimen/twenty"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:text="@string/txt_recomsearch"
-            android:textColor="@color/sysblack1"
-            android:textSize="14sp" />
+            android:text="@string/txt_list_number"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/BG_80"
+            android:textSize="14sp"
+            android:layout_below="@+id/btn_textDelete"/>
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup_recommend"
+        <View
+            android:id="@+id/view_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/btn_latestOrder"
+            android:background="@color/BG_30" />
+        <ImageView
+            android:id="@+id/image_empty_post"
+            android:layout_width="210dp"
+            android:layout_height="210dp"
+            android:src="@drawable/image_empty_post"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/view_horizontal"
+            />
+        <TextView
+            android:id="@+id/txt_noText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_recommend"
-            android:layout_marginHorizontal="@dimen/twenty" />
-
+            android:layout_below="@+id/image_empty_post"
+            android:layout_centerHorizontal="true"
+            android:text="@string/txt_noText"
+            android:textColor="@color/BG_80"
+            android:textSize="14sp"
+            />
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_study"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_horizontal"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="@dimen/twenty"
+            android:layout_marginBottom="40dp"/>
     </RelativeLayout>
 </layout>

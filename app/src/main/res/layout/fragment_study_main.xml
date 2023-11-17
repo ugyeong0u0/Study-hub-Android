@@ -112,11 +112,11 @@
 
                 <ImageView
                     android:id="@+id/img_noList"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
+                    android:layout_width="210dp"
+                    android:layout_height="210dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/resized_img_non_study" />
+                    android:src="@drawable/image_empty_post" />
 
                 <TextView
                     android:id="@+id/txt_noText01"
@@ -124,19 +124,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/img_noList"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/txt_no_Text01"
+                    android:text="@string/txt_noText"
                     android:textColor="@color/BG_80"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    />
 
-                <TextView
-                    android:id="@+id/txt_noText02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_noText01"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/txt_no_Text02"
-                    android:textColor="@color/O_40"
-                    android:textSize="14sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_studyMain"
