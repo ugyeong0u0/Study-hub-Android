@@ -3,428 +3,451 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.studypage.studyContent.ContentViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/content_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/content_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/sysblack2">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/twenty"
-                    android:layout_marginEnd="@dimen/twenty">
-
-                    <ImageButton
-                        android:id="@+id/icon_back"
-                        android:layout_width="@dimen/resized_item"
-                        android:layout_height="@dimen/resized_item"
-                        android:layout_alignParentStart="true"
-                        android:background="@drawable/icon_arrow_left_l_white" />
-
-                    <ImageButton
-                        android:id="@+id/icon_threeDot"
-                        android:layout_width="@dimen/resized_item"
-                        android:layout_height="@dimen/resized_item"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/icon_vertical_threedot_white" />
-                </RelativeLayout>
-
-
-            </androidx.appcompat.widget.Toolbar>
-
-            <TextView
-                android:id="@+id/txt_postingDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="32dp"
-                android:textColor="@color/G_70"
-                android:textSize="12sp"
-                tools:text="2023.8.14 작성" />
-
-            <TextView
-                android:id="@+id/txt_subject"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/background_o_deactivation_corner_4"
-                android:padding="8dp"
-                android:textColor="@color/O_30"
-                android:textSize="14sp"
-                tools:text="컴퓨터 활용 능력" />
-
-            <TextView
-                android:id="@+id/txt_head"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="32dp"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textColor="@color/syswhite"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="컴활2급 스터디원 구해요!" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:layout_marginHorizontal="@dimen/twenty"
-                android:background="@drawable/background_fill_1a1a1a_stroke_262626"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:paddingTop="14dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="14dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txt_teamNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/txt_peopleNumber"
-                        android:textColor="@color/BG_60"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/imgTxt_peopleNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/txt_people_number"
-                        android:textColor="@color/syswhite"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:drawableTopCompat="@drawable/resized_icon_person_24" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txt_fee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/txt_fee"
-                        android:textColor="@color/BG_60"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/imgTxt_fee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/txt_detailedFee"
-                        android:textColor="@color/syswhite"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        app:drawableTopCompat="@drawable/resized_icon_coin_gray_24" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txt_gender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/txt_gender"
-                        android:textColor="@color/BG_60"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/imgTxt_gender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/txt_gender"
-                        android:textColor="@color/syswhite"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        app:drawableTopCompat="@drawable/resized_icon_gender_gray_24" />
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/syswhite">
+                android:layout_marginStart="@dimen/twenty"
+                android:layout_marginEnd="@dimen/twenty">
 
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
 
-                <TextView
-                    android:id="@+id/head_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginTop="40dp"
-                    android:text="@string/fsd_txt_introduce"
-                    android:textColor="@color/BG_90"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/txt_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/head_detail"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="32dp"
-                    android:textColor="@color/BG_80"
-                    android:textSize="14sp"
-                    tools:text="스터디에 대한 내용" />
-
-                <View
-                    android:id="@+id/view_divideDetail"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/txt_detail"
-                    android:background="@color/BG_40"
-                    android:layout_marginHorizontal="@dimen/twenty"/>
-
-                <TextView
-                    android:id="@+id/head_period"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/view_divideDetail"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginBottom="14dp"
-                    android:text="@string/fsd_txt_period"
-                    android:textColor="@color/BG_90"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/txt_period"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/head_period"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginBottom="40dp"
-                    android:drawablePadding="8dp"
-                    android:gravity="center"
-                    android:textColor="@color/BG_80"
-                    android:textSize="14sp"
-                    app:drawableLeftCompat="@drawable/resized_icon_calender_m_bg_60_24"
-                    tools:text="2023.8.10 ~ 2023.8.23" />
-
-                <TextView
-                    android:id="@+id/head_fee"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_period"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginBottom="14dp"
-                    android:text="@string/txt_fee"
-                    android:textColor="@color/BG_90"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/txt_won"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/head_fee"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginBottom="40dp"
-                    android:drawablePadding="8dp"
-                    android:gravity="center"
-                    android:text="@string/fsd_txt_sub_fee"
-                    android:textColor="@color/BG_80"
-                    android:textSize="14sp"
-                    app:drawableLeftCompat="@drawable/resized_icon_coin_gray_24" />
-
-                <TextView
-                    android:id="@+id/head_meet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_won"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginBottom="14dp"
-                    android:text="@string/fsd_txt_meet"
-                    android:textColor="@color/BG_90"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/txt_meet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/head_meet"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginBottom="40dp"
-                    android:drawablePadding="8dp"
-                    android:gravity="center"
-                    android:textColor="@color/BG_80"
-                    android:textSize="14sp"
-                    app:drawableLeftCompat="@drawable/resized_icon_mix_m_bg60_24"
-                    tools:text="혼합" />
-
-                <TextView
-                    android:id="@+id/head_major"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_meet"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="14dp"
-                    android:text="@string/fsd_txt_major1"
-                    android:textColor="@color/BG_90"
-                    android:textSize="14sp" />
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chipGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/head_major"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginHorizontal="@dimen/twenty" />
-
-                <View
-                    android:id="@+id/view_divideChipGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:layout_below="@+id/chipGroup"
-                    android:background="@color/BG_30" />
-
-
-                <TextView
-                    android:id="@+id/head_writer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/view_divideChipGroup"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="@string/fsd_head_writer"
-                    android:textColor="@color/sysblack1"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:id="@+id/icon_profile"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_below="@+id/head_writer"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:src="@drawable/icon_profile_60" />
-
-                <TextView
-                    android:id="@+id/txt_major2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/head_writer"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_toEndOf="@+id/icon_profile"
-                    android:textColor="@color/BG_80"
-                    android:textSize="14sp"
-                    tools:text="컴퓨터 공학부" />
-
-                <TextView
-                    android:id="@+id/txt_nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_major2"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="40dp"
-                    android:layout_toEndOf="@+id/icon_profile"
-                    android:textColor="@color/sysblack1"
-                    android:textSize="16sp"
-                    tools:text="닉네임" />
-
-
-                <View
-                    android:id="@+id/view_divideWriter"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:layout_below="@+id/txt_nickname"
-                    android:background="@color/BG_30" />
-
-                <TextView
-                    android:id="@+id/head_recommend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/view_divideWriter"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="@string/fsd_head_recommend"
-                    android:textColor="@color/sysblack1"
-                    android:textSize="16sp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_recommend"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/head_recommend"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginBottom="40dp" />
-
-                <Button
-                    android:id="@+id/bookmark"
-                    android:layout_width="40dp"
-                    android:layout_height="55dp"
-                    android:layout_below="@+id/recycler_recommend"
-                    android:layout_marginStart="@dimen/twenty"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/baseline_bookmark_border_24_unselected" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_next"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/recycler_recommend"
-                    android:layout_marginEnd="@dimen/twenty"
-                    android:layout_toEndOf="@+id/bookmark"
-                    android:background="@drawable/btn_background_o_50_corner_6"
-                    android:paddingLeft="113dp"
-                    android:paddingTop="23dp"
-                    android:paddingRight="113dp"
-                    android:paddingBottom="23dp"
-                    android:text="@string/fsd_btn_next"
-                    android:textColor="@color/syswhite"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="21dp"/>
-
+                <ImageButton
+                    android:id="@+id/icon_threeDot"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/icon_vertical_threedot_white" />
             </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/txt_postingDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginRight="20dp"
+                    android:text="@{viewModel.writingDate}"
+                    android:textColor="@color/G_70"
+                    android:textSize="12sp"
+                    tools:text="2023.8.14 작성" />
+
+                <TextView
+                    android:id="@+id/txt_subject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/background_o_deactivation_corner_4"
+                    android:padding="8dp"
+                    android:text="@{viewModel.majorData}"
+                    android:textColor="@color/O_30"
+                    android:textSize="14sp"
+                    tools:text="컴퓨터 활용 능력" />
+
+                <TextView
+                    android:id="@+id/txt_head"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="32dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@{viewModel.headData}"
+                    android:textColor="@color/syswhite"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="컴활2급 스터디원 구해요!" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/twenty"
+                    android:layout_marginBottom="32dp"
+                    android:background="@drawable/background_fill_1a1a1a_stroke_262626"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="14dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="14dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt_teamNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="@string/txt_peopleNumber"
+                            android:textColor="@color/BG_60"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/imgTxt_peopleNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/txt_people_number"
+                            android:textColor="@color/syswhite"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:drawableTopCompat="@drawable/resized_icon_person_24" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt_fee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="@string/txt_fee"
+                            android:textColor="@color/BG_60"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/imgTxt_fee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/txt_detailedFee"
+                            android:textColor="@color/syswhite"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:drawableTopCompat="@drawable/resized_icon_coin_gray_24" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt_gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="@string/txt_gender"
+                            android:textColor="@color/BG_60"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/imgTxt_gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@{viewModel.gender}"
+                            android:textColor="@color/syswhite"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:drawableTopCompat="@drawable/resized_icon_gender_gray_24" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/syswhite">
+
+
+                    <TextView
+                        android:id="@+id/head_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginTop="40dp"
+                        android:text="@string/fsd_txt_introduce"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/txt_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/head_detail"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="32dp"
+                        android:text="@{viewModel.studyExplanation}"
+                        android:textColor="@color/BG_80"
+                        android:textSize="14sp"
+                        tools:text="스터디에 대한 내용" />
+
+                    <View
+                        android:id="@+id/view_divideDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/txt_detail"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:background="@color/BG_40" />
+
+                    <TextView
+                        android:id="@+id/head_period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view_divideDetail"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginBottom="14dp"
+                        android:text="@string/fsd_txt_period"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/txt_period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/head_period"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginBottom="40dp"
+                        android:drawablePadding="8dp"
+                        android:gravity="center"
+                        android:text="@{viewModel.period}"
+                        android:textColor="@color/BG_80"
+                        android:textSize="14sp"
+                        app:drawableLeftCompat="@drawable/resized_icon_calender_m_bg_60_24"
+                        tools:text="2023.8.10 ~ 2023.8.23" />
+
+                    <TextView
+                        android:id="@+id/head_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_period"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginBottom="14dp"
+                        android:text="@string/txt_fee"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/txt_won"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/head_fee"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginBottom="40dp"
+                        android:drawablePadding="8dp"
+                        android:gravity="center"
+                        android:text="@string/fsd_txt_sub_fee"
+                        android:textColor="@color/BG_80"
+                        android:textSize="14sp"
+                        app:drawableLeftCompat="@drawable/resized_icon_coin_gray_24" />
+
+                    <TextView
+                        android:id="@+id/head_meet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_won"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginBottom="14dp"
+                        android:text="@string/fsd_txt_meet"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/txt_meet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/head_meet"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginBottom="40dp"
+                        android:drawablePadding="8dp"
+                        android:gravity="center"
+                        android:text="@{viewModel.meetMethod}"
+                        android:textColor="@color/BG_80"
+                        android:textSize="14sp"
+                        app:drawableLeftCompat="@drawable/resized_icon_mix_m_bg60_24"
+                        tools:text="혼합" />
+
+                    <TextView
+                        android:id="@+id/head_major"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_meet"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="14dp"
+                        android:text="@string/fsd_txt_major1"
+                        android:textColor="@color/BG_90"
+                        android:textSize="14sp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/head_major"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginBottom="40dp"
+                        android:text="@{viewModel.relativeMajor}" />
+
+                    <View
+                        android:id="@+id/view_divideChipGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_below="@+id/chip"
+                        android:background="@color/BG_30" />
+
+
+                    <TextView
+                        android:id="@+id/head_writer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view_divideChipGroup"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="@string/fsd_head_writer"
+                        android:textColor="@color/sysblack1"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/icon_profile"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_below="@+id/head_writer"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:src="@drawable/icon_profile_60" />
+
+                    <TextView
+                        android:id="@+id/txt_major2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/head_writer"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_toEndOf="@+id/icon_profile"
+                        android:text="@{viewModel.writerMajor}"
+                        android:textColor="@color/BG_80"
+                        android:textSize="14sp"
+                        tools:text="컴퓨터 공학부" />
+
+                    <TextView
+                        android:id="@+id/txt_nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_major2"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="40dp"
+                        android:layout_toEndOf="@+id/icon_profile"
+                        android:text="@{viewModel.writerName}"
+                        android:textColor="@color/sysblack1"
+                        android:textSize="16sp"
+                        tools:text="닉네임" />
+
+
+                    <View
+                        android:id="@+id/view_divideWriter"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_below="@+id/txt_nickname"
+                        android:background="@color/BG_30" />
+
+                    <TextView
+                        android:id="@+id/head_recommend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view_divideWriter"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="@string/fsd_head_recommend"
+                        android:textColor="@color/sysblack1"
+                        android:textSize="16sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_recommend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/head_recommend"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:layout_marginBottom="40dp" />
+
+                    <Button
+                        android:id="@+id/bookmark"
+                        android:layout_width="40dp"
+                        android:layout_height="55dp"
+                        android:layout_below="@+id/recycler_recommend"
+                        android:layout_marginStart="@dimen/twenty"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/baseline_bookmark_border_24_unselected" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_next"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/recycler_recommend"
+                        android:layout_marginEnd="@dimen/twenty"
+                        android:layout_marginBottom="21dp"
+                        android:layout_toEndOf="@+id/bookmark"
+                        android:background="@drawable/btn_background_o_50_corner_6"
+                        android:paddingLeft="113dp"
+                        android:paddingTop="23dp"
+                        android:paddingRight="113dp"
+                        android:paddingBottom="23dp"
+                        android:text="@string/fsd_btn_next"
+                        android:textColor="@color/syswhite"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </layout>

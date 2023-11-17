@@ -13,7 +13,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentMainHomeBinding
+import kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragmentDirections
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkViewModel
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.OnItemClickListener
 import kr.co.gamja.study_hub.global.CustomSnackBar
@@ -108,18 +110,35 @@ class MainHomeFragment : Fragment() {
 
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         onRecruitingAdapter.setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(tagId: String, postId: Int?) {
+            override fun onItemClick(tagId: String?, postId: Int?) {
                 bookmarkViewModel.saveDeleteBookmarkItem(postId)
             }
         })
+        // 뷰클릭시
+        onRecruitingAdapter.setViewClickListener(object : OnViewClickListener{
+            override fun onViewClick(postId: Int?) {
+                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(postId!!)
+                findNavController().navigate(action)
+            }
+        })
 
+        // 마감임박 스터디 어댑터 연결
         val deadlineAdapter=ItemCloseDeadlineAdapter(requireContext())
         binding.recyclerApproaching.adapter=deadlineAdapter
         binding.recyclerApproaching.layoutManager= LinearLayoutManager(requireContext())
+
         viewModel.getHotStudyPosts(deadlineAdapter)
+
         deadlineAdapter.setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(tagId: String, postId: Int?) {
+            override fun onItemClick(tagId: String?, postId: Int?) {
                 bookmarkViewModel.saveDeleteBookmarkItem(postId)
+            }
+        })
+        // 뷰자체 클릭시 스터디 컨텐츠 글로 이동
+        deadlineAdapter.setViewClickListener(object: OnViewClickListener{
+            override fun onViewClick(postId: Int?) {
+                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(postId!!)
+                findNavController().navigate(action)
             }
         })
     }

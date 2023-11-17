@@ -80,7 +80,7 @@ class BookmarkFragment : Fragment() {
 
         // 북마크 삭제 저장 api 연결
         adapter.setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(tagId: String, postId: Int?) {
+            override fun onItemClick(tagId: String?, postId: Int?) {
                 viewModel.saveDeleteBookmarkItem(postId)
             }
         })

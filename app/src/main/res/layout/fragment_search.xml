@@ -99,51 +99,50 @@
             android:id="@+id/btn_latestOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/icon_search"
+            android:layout_marginTop="10dp"
             android:background="#00000000"
             android:padding="10dp"
             android:text="@string/btn_latestOrder"
             android:textColor="@color/sysblack1"
-            android:textSize="14sp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/btn_textDelete"/>
+            android:textSize="14sp" />
 
         <View
             android:id="@+id/view_line"
             android:layout_width="2dp"
             android:layout_height="12dp"
+            android:layout_below="@+id/icon_search"
             android:layout_gravity="center"
             android:layout_marginTop="28dp"
             android:layout_toEndOf="@+id/btn_latestOrder"
-            android:background="@color/BG_50"
-            android:layout_below="@+id/btn_textDelete"
-            />
+            android:background="@color/BG_50" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_popularOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/icon_search"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/view_line"
             android:background="#00000000"
             android:padding="10dp"
             android:text="@string/btn_popularOrder"
             android:textColor="@color/sysblack1"
-            android:textSize="14sp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/btn_textDelete"/>
+            android:textSize="14sp" />
 
 
         <TextView
             android:id="@+id/txt_numberOfList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_textDelete"
             android:layout_alignBaseline="@+id/btn_latestOrder"
             android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="@dimen/twenty"
-            android:text="@string/txt_list_number"
             android:layout_marginTop="10dp"
+            android:text="@string/txt_list_number"
             android:textColor="@color/BG_80"
-            android:textSize="14sp"
-            android:layout_below="@+id/btn_textDelete"/>
+            android:textSize="14sp" />
 
         <View
             android:id="@+id/view_horizontal"
@@ -151,14 +150,15 @@
             android:layout_height="1dp"
             android:layout_below="@+id/btn_latestOrder"
             android:background="@color/BG_30" />
+
         <ImageView
             android:id="@+id/image_empty_post"
             android:layout_width="210dp"
             android:layout_height="210dp"
-            android:src="@drawable/image_empty_post"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/view_horizontal"
-            />
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/image_empty_post" />
+
         <TextView
             android:id="@+id/txt_noText"
             android:layout_width="wrap_content"
@@ -167,9 +167,8 @@
             android:layout_centerHorizontal="true"
             android:text="@string/txt_noText"
             android:textColor="@color/BG_80"
-            android:textSize="14sp"
-            />
-        
+            android:textSize="14sp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_study"
             android:layout_width="match_parent"
@@ -177,6 +176,6 @@
             android:layout_below="@+id/view_horizontal"
             android:layout_marginHorizontal="@dimen/twenty"
             android:layout_marginTop="@dimen/twenty"
-            android:layout_marginBottom="40dp"/>
+            android:layout_marginBottom="40dp" />
     </RelativeLayout>
 </layout>

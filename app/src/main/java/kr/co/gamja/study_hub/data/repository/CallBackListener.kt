@@ -4,3 +4,7 @@ package kr.co.gamja.study_hub.data.repository
 interface CallBackListener {
     fun isSuccess(result:Boolean)
 }
+// 아이템 뷰 클릭
+interface OnViewClickListener {
+    fun onViewClick(postId: Int?)
+}

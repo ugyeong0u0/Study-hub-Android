@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.feature.studypage.studyContent
 
 import android.os.Bundle
+import android.security.ConfirmationCallback
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +9,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentContentBinding
 
 
 class ContentFragment : Fragment() {
     private lateinit var binding:FragmentContentBinding
-
+    private val args: ContentFragmentArgs by navArgs()
+    private val viewModel : ContentViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,6 +31,9 @@ class ContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        getContent(args.postId)
         // 툴바 설정
         val toolbar = binding.contentToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -39,6 +46,9 @@ class ContentFragment : Fragment() {
         binding.iconThreeDot.setOnClickListener {
             getModal()
         }
+    }
+    fun getContent(postId :Int){
+        viewModel.getStudyContent(postId)
     }
     fun getModal(){
         val modal =BottomSheetFragment()

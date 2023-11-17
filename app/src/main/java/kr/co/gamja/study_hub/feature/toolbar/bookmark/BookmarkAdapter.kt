@@ -68,5 +68,5 @@ class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
 
 
 interface OnItemClickListener {
-    fun onItemClick( tagId: String, postId: Int?=0)
+    fun onItemClick(tagId: String?, postId: Int?=0)
 }

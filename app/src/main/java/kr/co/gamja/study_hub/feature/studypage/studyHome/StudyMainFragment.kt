@@ -95,7 +95,7 @@ class StudyMainFragment : Fragment() {
         })
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         adapter.setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(tagId: String, postId: Int?) {
+            override fun onItemClick(tagId: String?, postId: Int?) {
                 bookmarkViewModel.saveDeleteBookmarkItem(postId)
             }
         })

@@ -82,7 +82,9 @@
         android:name="kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragment"
         android:label="fragment_study_detail"
         tools:layout="@layout/fragment_content">
-
+        <argument
+            android:name="postId"
+            app:argType="integer"/>
     </fragment>
     <action
         android:id="@+id/action_global_mainAlarmFragment"
@@ -182,4 +184,5 @@
         android:name="kr.co.gamja.study_hub.feature.mypage.withdrawal.ConfirmingWithdrawalFragment"
         android:label="fragment_confirming_withdrawal"
         tools:layout="@layout/fragment_confirming_withdrawal" />
+    <action android:id="@+id/action_global_studyContentFragment" app:destination="@id/studyContentFragment" />
 </navigation>
