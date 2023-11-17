@@ -49,7 +49,7 @@ class MyInfoFragment : Fragment() {
         viewModel.setOnClickListener(object : MyInfoCallbackListener {
             override fun myInfoCallbackResult(isSuccess: Boolean) {
                 if (!isSuccess)
-                    goLogout()
+                    deleteLoginData(true)
             }
         })
 
@@ -66,7 +66,7 @@ class MyInfoFragment : Fragment() {
             dialog.showDialog()
             dialog.setOnClickListener(object : OnDialogClickListener {
                 override fun onclickResult() { // 로그아웃 "네" 누르면
-                    goLogout() // 로그인 요청 페이지로 이동
+                    deleteLoginData(true) // 로그인 요청 페이지로 이동
                 }
             })
         }
@@ -94,17 +94,20 @@ class MyInfoFragment : Fragment() {
         }
     }
 
-    fun goLogout() {
+    fun deleteLoginData(goLogin: Boolean) {
         // 데이터스토어 초기화
         CoroutineScope(Dispatchers.IO).launch {
             App.getInstance().getDataStore().clearDataStore()
             Log.d(tag, "초기화")
-            withContext(Dispatchers.Main) {
-                findNavController().navigate(
-                    R.id.action_global_loginFragment,
-                    null
-                )
+            if (goLogin) {
+                withContext(Dispatchers.Main) {
+                    findNavController().navigate(
+                        R.id.action_global_loginFragment,
+                        null
+                    )
+                }
             }
+
         }
 
     }

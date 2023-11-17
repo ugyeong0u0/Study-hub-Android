@@ -13,8 +13,9 @@ import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.feature.login.PASSWORD
 
-class CurrentPasswordViewModel: ViewModel() {
+class CurrentPasswordViewModel : ViewModel() {
     val tag = this.javaClass.simpleName
+
     // 통신- 현재 비번 값
     val currentPassword = MutableLiveData<String>()
 
@@ -28,20 +29,21 @@ class CurrentPasswordViewModel: ViewModel() {
             _enableBtn.value = true
         }
     }
+
     // 현재 비번 확인 api
-    fun isCurrentPasswordValid(params:CallBackListener){
-        val req = CurrentPasswordRequest(currentPassword.value.toString())
+    fun isCurrentPasswordValid(currentPass: String, params: CallBackListener) {
+        val req = CurrentPasswordRequest(currentPass)
         viewModelScope.launch {
-            val response= AuthRetrofitManager.api.postCurrentPassword(req)
-            if (response.isSuccessful){
+            val response = AuthRetrofitManager.api.postCurrentPassword(req)
+            if (response.isSuccessful) {
                 params.isSuccess(true)
-            }else{
-                val errorResponse : CurrentPasswordErrorResponse? = response.errorBody()?.let {
-                    val gson= Gson()
-                    gson.fromJson(it.charStream(),CurrentPasswordErrorResponse::class.java)
+            } else {
+                val errorResponse: CurrentPasswordErrorResponse? = response.errorBody()?.let {
+                    val gson = Gson()
+                    gson.fromJson(it.charStream(), CurrentPasswordErrorResponse::class.java)
                 }
-                if (errorResponse!=null){
-                    Log.e(tag,errorResponse.message)
+                if (errorResponse != null) {
+                    Log.e(tag, errorResponse.message)
                     params.isSuccess(false)
                 }
             }

@@ -21,7 +21,7 @@ class CustomSnackBar(
         fun make(
             view: View,
             message: String,
-            anchorview: View?=null,
+            anchorview: View? = null,
             checkImg: Boolean = true,
             imgRes: Int = okImg
         ) =

@@ -4,25 +4,24 @@ import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentCurrentPasswordBinding
-import kr.co.gamja.study_hub.feature.mypage.newPassword.NewPasswordFragment
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
 class CurrentPasswordFragment : Fragment() {
     private val tag = this.javaClass.simpleName
     private lateinit var binding: FragmentCurrentPasswordBinding
-    private val viewModel: CurrentPasswordViewModel by viewModels()
+    private val viewModel: CurrentPasswordViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,27 +73,28 @@ class CurrentPasswordFragment : Fragment() {
         binding.btnComplete.setOnClickListener {
             Log.d(tag, "다음 눌림")
             hideKeyboardForBtnComplete()
-            viewModel.isCurrentPasswordValid(object : CallBackListener {
-                override fun isSuccess(result: Boolean) {
-                    if (result) {
-                        // 비번 수정 페이지에 true값 보냄
-                        val bundle = Bundle()
-                        bundle.putBoolean("auth", true)
-                        findNavController().navigate(
-                            R.id.action_currentPasswordFragment_to_newPasswordFragment,
-                            bundle
-                        )
-                    } else {
-                        CustomSnackBar.make(
-                            binding.layoutRelative,
-                            getString(R.string.error_notMatchPassword),
-                            null,
-                            true,
-                            R.drawable.icon_warning_m_orange_8_12
-                        ).show()
+            viewModel.isCurrentPasswordValid(viewModel.currentPassword.value.toString(),
+                object : CallBackListener {
+                    override fun isSuccess(result: Boolean) {
+                        if (result) {
+                            // 비번 수정 페이지에 true값 보냄
+                            val bundle = Bundle()
+                            bundle.putBoolean("auth", true)
+                            findNavController().navigate(
+                                R.id.action_currentPasswordFragment_to_newPasswordFragment,
+                                bundle
+                            )
+                        } else {
+                            CustomSnackBar.make(
+                                binding.layoutRelative,
+                                getString(R.string.error_notMatchPassword),
+                                null,
+                                true,
+                                R.drawable.icon_warning_m_orange_8_12
+                            ).show()
+                        }
                     }
-                }
-            })
+                })
 
         }
     }

@@ -126,4 +126,7 @@
     <string name="a_withdrawal">회원님이 떠나신다니 너무 아쉬워요</string>
     <string name="guide_withdrawal">스터디 허브를 탈퇴하시면,\n 수정시 변경 \n 수정시 변경 \n 수정시 변경 \n 재가입 다시, 다시 처음부터 인증해야해 임시 작성</string>
     <string name="btn_next">계속</string>
+    <string name="txt_withdrawalCompletion">탈퇴가 완료되었어요</string>
+    <string name="txt_subwithdrawalCompletion">지금까지 스터디 허브를 이용해 주셔서\n\t\t감사합니다.</string>
+    <string name="btn_exit">종료</string>
 </resources>

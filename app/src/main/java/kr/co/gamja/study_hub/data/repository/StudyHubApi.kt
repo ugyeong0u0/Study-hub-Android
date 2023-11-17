@@ -91,4 +91,8 @@ interface StudyHubApi {
         @Query("page") page: Int,
         @Query("size") size: Int
     ): Response<HotStudyPostResponse>
+
+    // 회원 탈퇴
+    @DELETE("/api/users")
+    suspend fun deleteUser():Response<Unit>
 }

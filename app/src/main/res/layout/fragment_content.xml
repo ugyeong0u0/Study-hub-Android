@@ -333,7 +333,7 @@
                     android:layout_marginBottom="24dp"
                     android:text="@string/fsd_head_writer"
                     android:textColor="@color/sysblack1"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:id="@+id/icon_profile"
@@ -388,7 +388,7 @@
                     android:layout_marginBottom="24dp"
                     android:text="@string/fsd_head_recommend"
                     android:textColor="@color/sysblack1"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_recommend"
