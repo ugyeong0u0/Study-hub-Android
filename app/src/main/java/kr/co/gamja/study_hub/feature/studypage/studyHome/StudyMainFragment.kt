@@ -1,23 +1,23 @@
 package kr.co.gamja.study_hub.feature.studypage.studyHome
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentStudyMainBinding
-import kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkCallback
+import kr.co.gamja.study_hub.feature.home.MainHomeFragmentDirections
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkViewModel
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.OnItemClickListener
 
@@ -99,9 +99,15 @@ class StudyMainFragment : Fragment() {
                 bookmarkViewModel.saveDeleteBookmarkItem(postId)
             }
         })
+        // 리스트 아이템 자체 클릭
+        adapter.setViewClickListener(object : OnViewClickListener {
+            override fun onViewClick(postId: Int?) {
+                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(postId!!)
+                findNavController().navigate(action)
+            }
+        })
 
     }
-
 
 
 }

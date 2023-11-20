@@ -14,13 +14,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.CallBackIntegerListener
 import kr.co.gamja.study_hub.databinding.FragmentCreateStudyBinding
+import kr.co.gamja.study_hub.feature.home.MainHomeFragmentDirections
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 
 class CreateStudyFragment : Fragment() {
-    private val tag = this.javaClass.simpleName
+    private val tagMessage = this.javaClass.simpleName
     private lateinit var binding: FragmentCreateStudyBinding
     private val viewModel: CreateStudyViewModel by activityViewModels()
     var newStartDate = StartDate(null, null) // 시작 날짜 < 끝 날짜
@@ -91,7 +93,10 @@ class CreateStudyFragment : Fragment() {
         binding.chipMajor.setOnCloseIconClickListener {
             viewModel.setUserMajor("else로 빠짐") // 통신시 값 "null"로
             viewModel.setIsRelativeMajor(false) // chip 안보이게
-            Log.d(tag, "chip 보이는지 isRelativeMajor" + viewModel.isRelativeMajor.value.toString())
+            Log.d(
+                tagMessage,
+                "chip 보이는지 isRelativeMajor" + viewModel.isRelativeMajor.value.toString()
+            )
         }
         viewModel.isRelativeMajor.observe(viewLifecycleOwner) {
             if (it == true) {
@@ -133,7 +138,7 @@ class CreateStudyFragment : Fragment() {
         binding.radioGroup.setOnCheckedChangeListener { _, p1 ->
             if (p1 == R.id.radio_yes) {
                 viewModel.setSelectedFee(true)
-                Log.d(tag, viewModel.selectedFee.value.toString())
+                Log.d(tagMessage, viewModel.selectedFee.value.toString())
             } else viewModel.setSelectedFee(false)
         }
 
@@ -186,11 +191,13 @@ class CreateStudyFragment : Fragment() {
             }
         }
         binding.btnComplete.setOnClickListener {
-            viewModel.createStudy()
-            findNavController().navigate(
-                R.id.action_createStudyFragment_to_studyContentFragment,
-                null
-            )
+            viewModel.createStudy(object : CallBackIntegerListener {
+                override fun isSuccess(result: Int) {
+                    val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(result)
+                    findNavController().navigate(action)
+                }
+            })
+
         }
 
     }

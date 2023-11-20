@@ -8,12 +8,18 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.ContentX
 import kr.co.gamja.study_hub.data.model.FindStudyResponse
+import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.StudyItemOnRecruitingBinding
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.OnItemClickListener
+import kr.co.gamja.study_hub.global.Functions
 
 class StudyMainAdapter(private val context:Context) : RecyclerView.Adapter<StudyMainAdapter.StudyMainHolder>() {
     var studyPosts: FindStudyResponse? = null
     private lateinit var mOnItemClickListener: OnItemClickListener // 북마크 viewModel에 interface 선언
+    private lateinit var mOnViewClickListener: OnViewClickListener // 뷰 자체 클릭
+    fun setViewClickListener(listener: OnViewClickListener){
+        mOnViewClickListener=listener
+    }
     fun setOnItemClickListener(listener: OnItemClickListener) {
         mOnItemClickListener = listener
     }
@@ -37,10 +43,23 @@ class StudyMainAdapter(private val context:Context) : RecyclerView.Adapter<Study
 
     inner class StudyMainHolder(val binding: StudyItemOnRecruitingBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        init{
+            itemView.setOnClickListener{
+                val itemPosition = bindingAdapterPosition
+                if(itemPosition!=RecyclerView.NO_POSITION) {
+                    studyPosts?.content?.get(itemPosition).let {
+                        val bindingPostId=it?.postId
+                        mOnViewClickListener.onViewClick(bindingPostId)
+                    }
+                }
+            }
+        }
         fun setPosts(studyItem: ContentX?) {
             val postId:Int? = studyItem?.postId
             studyItem?.let {
-                binding.txtCategory.text=it.major
+                val functions = Functions()
+                val koreanMajor = functions.convertToKoreanMajor(it.major)
+                binding.txtCategory.text=koreanMajor
                 binding.txtTitle.text=it.title
                 binding.txtAvailable.text=context.getString(R.string.txt_left_number,it.leftover)
                 //TODO("기간")

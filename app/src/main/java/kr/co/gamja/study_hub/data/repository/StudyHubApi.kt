@@ -54,9 +54,9 @@ interface StudyHubApi {
     @POST("/api/study-posts/{postId}/bookmark")
     suspend fun saveDeleteBookmark(@Path("postId") postId: Int?): Response<BookmarkSaveDeleteResponse>
 
-    // 스더디 생성
+    // 스터디 생성
     @POST("/api/study-posts")
-    suspend fun setCreateStudy(@Body createStudyRequest: CreateStudyRequest): Response<Unit>
+    suspend fun setCreateStudy(@Body createStudyRequest: CreateStudyRequest): Response<CreateStudyResponse>
 
     // 스터디 게시글 전체 조회
     @GET("/api/study-posts/find/all")

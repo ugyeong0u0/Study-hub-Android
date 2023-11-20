@@ -14,14 +14,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentBookmarkBinding
+import kr.co.gamja.study_hub.feature.home.MainHomeFragmentDirections
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 class BookmarkFragment : Fragment() {
+    private val logMessage = this.javaClass.simpleName
     private lateinit var binding: FragmentBookmarkBinding
     private val viewModel: BookmarkViewModel by activityViewModels()
-    private val tag = this.javaClass.simpleName
     private var page = 0 // 북마크 조회 시작 페이지
     private var isLastPage = false // 북마크 조회 마지막 페이지인지
     override fun onCreateView(
@@ -84,7 +86,13 @@ class BookmarkFragment : Fragment() {
                 viewModel.saveDeleteBookmarkItem(postId)
             }
         })
-
+        // 스터디 컨텐츠 자세히 보기
+        adapter.setViewClickListener(object : OnViewClickListener {
+            override fun onViewClick(postId: Int?) {
+                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(postId!!)
+                findNavController().navigate(action)
+            }
+        })
 
 
         binding.iconBack.setOnClickListener {

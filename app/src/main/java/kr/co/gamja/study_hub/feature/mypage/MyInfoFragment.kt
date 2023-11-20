@@ -21,7 +21,6 @@ import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 class MyInfoFragment : Fragment() {
-    private val tag = this.javaClass.simpleName
     private lateinit var binding: FragmentMyInfoBinding
     private val viewModel: MyInfoViewModel by activityViewModels()
     override fun onCreateView(

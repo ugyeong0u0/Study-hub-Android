@@ -3,40 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_bg_white_stroke_bg_50"
         android:layout_marginEnd="@dimen/sixteen"
-        >
+        android:background="@drawable/btn_bg_white_stroke_bg_50"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txt_major"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/sixteen"
-            android:layout_marginTop="@dimen/sixteen"
-            android:background="@drawable/backgroundword_o_10"
-            android:padding="8dp"
-            android:textColor="@color/O_50"
-            android:textSize="12sp"
-            tools:text="학과" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btn_bookmark"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginHorizontal="@dimen/sixteen"
-            android:layout_marginTop="@dimen/sixteen"
-            android:tag="0"
-            android:background="@drawable/baseline_bookmark_border_24_unselected" />
+            <TextView
+                android:id="@+id/txt_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen"
+                android:layout_marginTop="@dimen/sixteen"
+                android:background="@drawable/backgroundword_o_10"
+                android:padding="8dp"
+                android:textColor="@color/O_50"
+                android:textSize="12sp"
+                tools:text="학과" />
+
+            <Button
+                android:id="@+id/btn_bookmark"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginHorizontal="@dimen/sixteen"
+                android:layout_marginTop="@dimen/sixteen"
+                android:background="@drawable/baseline_bookmark_border_24_unselected"
+                android:tag="0" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/txt_head"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_major"
             android:layout_marginHorizontal="@dimen/sixteen"
             android:ellipsize="end"
             android:maxLines="2"
@@ -45,50 +49,49 @@
             android:textSize="18sp"
             tools:text="제목(최대 두줄)" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_constraint"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_head"
             android:layout_marginHorizontal="@dimen/sixteen"
             android:layout_marginTop="@dimen/sixteen"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/txt_people"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:drawablePadding="4dp"
                 android:padding="8dp"
                 android:text="@string/txt_people"
                 android:textColor="@color/BG_90"
                 android:textSize="14sp"
                 app:drawableLeftCompat="@drawable/resized_icon_person_gray"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txt_fee"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:drawablePadding="4dp"
                 android:text="@string/txt_detailedFee"
                 android:textColor="@color/BG_90"
                 android:textSize="14sp"
                 app:drawableLeftCompat="@drawable/resized_icon_coin_gray"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/txt_people"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/txt_people" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txt_RemainingSeats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_constraint"
             android:layout_marginHorizontal="@dimen/sixteen"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="@dimen/eighteen"
@@ -99,5 +102,5 @@
             android:textSize="12sp"
             tools:text="@string/txt_RemainingSeats" />
 
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

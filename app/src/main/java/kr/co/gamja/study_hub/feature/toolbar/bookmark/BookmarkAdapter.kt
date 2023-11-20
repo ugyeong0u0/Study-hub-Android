@@ -5,14 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Recycler
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.ContentXX
 import kr.co.gamja.study_hub.data.model.GetBookmarkResponse
+import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.BookmarkItemBinding
+import kr.co.gamja.study_hub.global.Functions
 
 class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
     var bookmarkList: GetBookmarkResponse? = null
     private lateinit var mOnItemClickListener: OnItemClickListener
+    private lateinit var mOnViewClickListener: OnViewClickListener // 뷰 자체 클릭
+
+    fun setViewClickListener(listener: OnViewClickListener){
+        mOnViewClickListener=listener
+    }
     // 리사이클러뷰 재활용 문제
     override fun getItemViewType(position: Int): Int {
         return position
@@ -35,10 +43,23 @@ class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
         return bookmarkList?.getBookmarkedPostsData?.content?.size ?: 0
     }
     inner class BookmarkHolder(val binding: BookmarkItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            itemView.setOnClickListener{
+                val itemPositon=bindingAdapterPosition
+                if(itemPositon!=RecyclerView.NO_POSITION){
+                    bookmarkList?.getBookmarkedPostsData?.content?.get(itemPositon).let {
+                        val bindingPostId =it?.postId
+                        mOnViewClickListener.onViewClick(bindingPostId)
+                    }
+                }
+            }
+        }
         fun setBookmarkList(bookmarkItem: ContentXX?) {
             val postId: Int? = bookmarkItem?.postId
             bookmarkItem?.let {
-                binding.txtRelativeMajor.text=it.major
+                val functions = Functions()
+                val koreanMajor = functions.convertToKoreanMajor(it.major)
+                binding.txtRelativeMajor.text=koreanMajor
                 binding.txtTitle.text = it.title
                 binding.txtSubTitle.text = it.content
                 binding.txtAvailable.text = it.remainingSeat.toString()

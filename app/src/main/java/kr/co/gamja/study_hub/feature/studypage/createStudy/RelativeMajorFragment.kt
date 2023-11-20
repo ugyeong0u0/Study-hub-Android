@@ -18,7 +18,7 @@ import kr.co.gamja.study_hub.databinding.FragmentRelativeMajorBinding
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
 class RelativeMajorFragment : Fragment() {
-    private val tag = this.javaClass.simpleName
+    private val tagMessage = this.javaClass.simpleName
     private lateinit var binding: FragmentRelativeMajorBinding
     private val viewModel: CreateStudyViewModel by activityViewModels()
     override fun onCreateView(
@@ -87,7 +87,7 @@ class RelativeMajorFragment : Fragment() {
         binding.chipMajor.setOnCloseIconClickListener {
             viewModel.setUserMajor("else로 빠짐") // 통신시 값 "null"로
             viewModel.setIsRelativeMajor(false) // chip 안보이게
-            Log.d(tag, "chip 보이는지 isRelativeMajor" + viewModel.isRelativeMajor.value.toString())
+            Log.d(tagMessage, "chip 보이는지 isRelativeMajor" + viewModel.isRelativeMajor.value.toString())
         }
         binding.autoMajor.setOnItemClickListener { parent, _, position, _ ->
             binding.autoMajor.isEnabled = true // 추가로 텍스트 변경 가능

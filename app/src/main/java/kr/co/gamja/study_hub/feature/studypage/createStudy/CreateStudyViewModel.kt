@@ -7,7 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.CreateStudyRequest
+import kr.co.gamja.study_hub.data.model.CreateStudyResponse
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.data.repository.CallBackIntegerListener
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -339,7 +342,7 @@ class CreateStudyViewModel : ViewModel() {
     }
 
     // 스터디 생성 api
-    fun createStudy() {
+    fun createStudy(params: CallBackIntegerListener) {
         val req = CreateStudyRequest(
             urlEditText.value.toString(),
             false,
@@ -359,6 +362,8 @@ class CreateStudyViewModel : ViewModel() {
                 val response = AuthRetrofitManager.api.setCreateStudy(req)
                 if (response.isSuccessful) {
                     Log.d(tag, "스터디 생성 code" + response.code().toString())
+                    val result = response.body() as CreateStudyResponse
+                    params.isSuccess(result.postId)
                     setInit()
                 } else {
                     Log.e(tag, "스터디 생성 실패 code" + response.code().toString())

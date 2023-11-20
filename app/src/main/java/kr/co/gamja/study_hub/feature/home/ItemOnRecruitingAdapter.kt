@@ -11,6 +11,7 @@ import kr.co.gamja.study_hub.data.model.FindStudyResponse
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.HomeItemOnRecruitingBinding
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.OnItemClickListener
+import kr.co.gamja.study_hub.global.Functions
 
 class ItemOnRecruitingAdapter(private val context: Context) :
     RecyclerView.Adapter<ItemOnRecruitingAdapter.MainHolder>() {
@@ -21,9 +22,11 @@ class ItemOnRecruitingAdapter(private val context: Context) :
     fun setOnItemClickListener(listener: OnItemClickListener) {
         mOnItemClickListener = listener
     }
+
     fun setViewClickListener(listener: OnViewClickListener) {
         mOnViewClickListener = listener
     }
+
     override fun getItemViewType(position: Int): Int {
         return position
     }
@@ -46,20 +49,23 @@ class ItemOnRecruitingAdapter(private val context: Context) :
     inner class MainHolder(val binding: HomeItemOnRecruitingBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 val itemPosition = bindingAdapterPosition
-                if (itemPosition != RecyclerView.NO_POSITION){
-                    studyPosts?.content?.get(itemPosition).let{
-                        val bindingPostId=it?.postId
+                if (itemPosition != RecyclerView.NO_POSITION) {
+                    studyPosts?.content?.get(itemPosition).let {
+                        val bindingPostId = it?.postId
                         mOnViewClickListener.onViewClick(bindingPostId)
                     }
                 }
             }
         }
+
         fun setPosts(studyItem: ContentX?) {
             val postId: Int? = studyItem?.postId
             studyItem?.let {
-                binding.txtMajor.text = it.major
+                val functions = Functions()
+                val koreanMajor = functions.convertToKoreanMajor(it.major)
+                binding.txtMajor.text = koreanMajor
                 binding.txtHead.text = it.title
                 binding.txtRemainingSeats.text =
                     context.getString(R.string.txt_RemainingSeats, it.leftover)

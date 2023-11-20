@@ -10,10 +10,11 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.UsersErrorResponse
 import kr.co.gamja.study_hub.data.model.UsersResponse
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.global.Functions
 
 class MyInfoViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
-
+    private val functions =Functions()
     private val _emailData = MutableLiveData<String>()
     val emailData: LiveData<String> get() = _emailData
 
@@ -63,9 +64,11 @@ class MyInfoViewModel : ViewModel() {
                     _emailData.value = result.email
                     _nicknameData.value = result.nickname
                     _isNicknameData.value = true
-                    _majorData.value = result.major
+                    val koreanMajor=functions.convertToKoreanMajor(result.major)
+                    _majorData.value = koreanMajor
                     _isMajorData.value = true
-                    _genderData.value = result.gender
+                    val koreanGender = functions.convertToKoreanGender(result.gender)
+                    _genderData.value = koreanGender
                     _imgData.value = result.imageUrl // TODO("이미지처리")
                     _isImgData.value = true
                     onClickListener.myInfoCallbackResult(true)

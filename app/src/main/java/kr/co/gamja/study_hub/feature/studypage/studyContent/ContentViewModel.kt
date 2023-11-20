@@ -8,10 +8,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.StudyContentResponse
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
+import kr.co.gamja.study_hub.global.Functions
 
 class ContentViewModel : ViewModel() {
     val tag = this.javaClass.simpleName
-
+    val functions = Functions()
     // 작성 날짜
     private val _writingDate = MutableLiveData<String>()
     val writingDate: LiveData<String> get() = _writingDate
@@ -68,7 +69,9 @@ class ContentViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponse
                     // 상단 관련학과
-                    _majorData.value = result.major
+
+                    val koreanRelativeMajor = functions.convertToKoreanMajor(result.major)
+                    _majorData.value = koreanRelativeMajor
                     // 제목
                     _headData.value = result.title
                     // 생성날짜
@@ -77,8 +80,9 @@ class ContentViewModel : ViewModel() {
                     val day = result.createdDate.get(2)
                     val date = "$year\\.$month\\.$day 작성"
                     _writingDate.value = date
-                    // 성별 todo("한글 변환")
-                    _gender.value = result.filteredGender
+                    // 성별
+                    val koreanGender= functions.convertToKoreanGender(result.filteredGender)
+                    _gender.value = koreanGender
                     // 스터디 내용
                     _studyExplanation.value = result.content
                     // 기간
@@ -88,12 +92,14 @@ class ContentViewModel : ViewModel() {
                             "." + result.studyEndDate[2]
                     _period.value = "$startDate~$endDate"
                     // todo("지각비")
-                    // 대면여부 todo("한글로변경")
-                    _meetMethod.value = result.studyWay
+                    // 대면여부
+                    val meetingMethod=functions.convertToKoreanMeetMethod(result.studyWay)
+                    _meetMethod.value = meetingMethod
                     // 관련학과
-                    _relativeMajor.value = result.major
+                    _relativeMajor.value = koreanRelativeMajor
                     // 작성자 학부
-                    _writerMajor.value = result.postedUser.major
+                    val koreanWriterMajor = functions.convertToKoreanMajor(result.postedUser.major)
+                    _writerMajor.value = koreanWriterMajor
                     // 작성자 이름
                     _writerName.value = result.postedUser.nickname
                     // todo("작성자사진")

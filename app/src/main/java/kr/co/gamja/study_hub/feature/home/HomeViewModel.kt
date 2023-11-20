@@ -9,7 +9,7 @@ import kr.co.gamja.study_hub.data.model.HotStudyPostResponse
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 // TODO("스터디 메인 뷰모델 합치기")
 class HomeViewModel:ViewModel() {
-    val tag = this.javaClass.simpleName
+    val tag: String = this.javaClass.simpleName
     fun getStudyPosts(adapter:ItemOnRecruitingAdapter){
         viewModelScope.launch {
             try {
