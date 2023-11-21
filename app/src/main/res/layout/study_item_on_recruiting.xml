@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_title"
                 android:layout_alignParentEnd="true"
-                android:text="@string/txt_left_number"
+                android:text="@string/txt_leftNumber"
                 android:textColor="@color/O_50"
                 android:textSize="14sp" />
 

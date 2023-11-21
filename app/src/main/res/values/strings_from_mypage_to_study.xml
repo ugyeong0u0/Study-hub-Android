@@ -8,7 +8,7 @@
     <string name="txt_fs_modal_interesting">내 관심사</string>
 
     <!--    리사이클러뷰 아이템-->
-    <string name="txt_left_number">%d자리 남았어요</string>
+    <string name="txt_leftNumber">%d자리 남았어요</string>
     <string name="txt_people_number">%d\/%d명</string>
 
     <!--    스터디_세부내용-->
@@ -19,7 +19,6 @@
     <string name="fsd_head_writer">작성자</string>
     <string name="fsd_head_recommend">이 글과 비슷한 스터디예요</string>
     <string name="fsd_btn_next">참여하기</string>
-    <string name="fsd_txt_sub_fee">지각비 %d원</string>
     <string name="txt_study">스터디</string>
 
     <!--    스터디 만들기-->

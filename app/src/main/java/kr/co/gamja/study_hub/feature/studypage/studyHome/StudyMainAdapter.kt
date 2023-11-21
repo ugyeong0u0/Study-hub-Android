@@ -61,7 +61,7 @@ class StudyMainAdapter(private val context:Context) : RecyclerView.Adapter<Study
                 val koreanMajor = functions.convertToKoreanMajor(it.major)
                 binding.txtCategory.text=koreanMajor
                 binding.txtTitle.text=it.title
-                binding.txtAvailable.text=context.getString(R.string.txt_left_number,it.leftover)
+                binding.txtAvailable.text=context.getString(R.string.txt_leftNumber,it.leftover)
                 //TODO("기간")
                 val available=it.studyPerson-it.leftover
                 binding.txtPeopleNumber.text=context.getString(R.string.txt_people_number,available,it.studyPerson)

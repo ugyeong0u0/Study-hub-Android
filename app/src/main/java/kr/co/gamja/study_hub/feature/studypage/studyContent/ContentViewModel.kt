@@ -24,11 +24,18 @@ class ContentViewModel : ViewModel() {
     // 제목
     private val _headData = MutableLiveData<String>()
     val headData: LiveData<String> get() = _headData
-    // todo("인원수")
 
-    // 벌금 todo("연결하기")
-    private val _fee = MutableLiveData<Int>(0)
-    val fee: LiveData<Int> get() = _fee
+    // 총 인원수
+    private val _totalPeople = MutableLiveData<Int>()
+    val totalPeople: LiveData<Int> get() = _totalPeople
+
+    // 인원 수
+    private val _participatingPeople = MutableLiveData<Int>()
+    val participatingPeople: LiveData<Int> get() = _participatingPeople
+
+    // 벌금
+    private val _fee = MutableLiveData<String>()
+    val fee: LiveData<String> get() = _fee
 
     // 성별
     private val _gender = MutableLiveData<String>()
@@ -41,8 +48,6 @@ class ContentViewModel : ViewModel() {
     // 기간
     private val _period = MutableLiveData<String>()
     val period: LiveData<String> get() = _period
-
-    // todo("지각비")
 
     // 대면여부
     private val _meetMethod = MutableLiveData<String>()
@@ -62,52 +67,68 @@ class ContentViewModel : ViewModel() {
     private val _writerName = MutableLiveData<String>()
     val writerName: LiveData<String> get() = _writerName
 
-    fun getStudyContent(postId: Int) {
+    fun getStudyContent(adapter: ContentAdapter,postId: Int) {
         viewModelScope.launch {
             try {
                 val response = RetrofitManager.api.getStudyContent(postId)
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponse
-                    // 상단 관련학과
-
-                    val koreanRelativeMajor = functions.convertToKoreanMajor(result.major)
-                    _majorData.value = koreanRelativeMajor
-                    // 제목
-                    _headData.value = result.title
-                    // 생성날짜
-                    val year = result.createdDate.get(0)
-                    val month = result.createdDate.get(1)
-                    val day = result.createdDate.get(2)
-                    val date = "$year\\.$month\\.$day 작성"
-                    _writingDate.value = date
-                    // 성별
-                    val koreanGender= functions.convertToKoreanGender(result.filteredGender)
-                    _gender.value = koreanGender
-                    // 스터디 내용
-                    _studyExplanation.value = result.content
-                    // 기간
-                    val startDate = "" + result.studyStartDate[0] + "." + result.studyStartDate[1] +
-                            "." + result.studyStartDate[2]
-                    val endDate = "" + result.studyEndDate[0] + "." + result.studyEndDate[1] +
-                            "." + result.studyEndDate[2]
-                    _period.value = "$startDate~$endDate"
-                    // todo("지각비")
-                    // 대면여부
-                    val meetingMethod=functions.convertToKoreanMeetMethod(result.studyWay)
-                    _meetMethod.value = meetingMethod
-                    // 관련학과
-                    _relativeMajor.value = koreanRelativeMajor
-                    // 작성자 학부
-                    val koreanWriterMajor = functions.convertToKoreanMajor(result.postedUser.major)
-                    _writerMajor.value = koreanWriterMajor
-                    // 작성자 이름
-                    _writerName.value = result.postedUser.nickname
-                    // todo("작성자사진")
+                    getInformationOfStudy(result)
+                    getRecommendList(adapter,result)
                 }
             } catch (e: Exception) {
                 Log.e(tag, "스터디 content조회 Exception: ${e.message}")
             }
         }
+    }
+    private fun getInformationOfStudy(result: StudyContentResponse){
+        // 상단 관련학과
+        val koreanRelativeMajor = functions.convertToKoreanMajor(result.major)
+        _majorData.value = koreanRelativeMajor
+        // 제목
+        _headData.value = result.title
+        // 생성날짜
+        val year = result.createdDate.get(0)
+        val month = result.createdDate.get(1)
+        val day = result.createdDate.get(2)
+        val date = "$year\\.$month\\.$day 작성"
+        _writingDate.value = date
+        // 총 인원수
+        _totalPeople.value=result.studyPerson
+        // 참여 인원
+        _participatingPeople.value=result.studyPerson-result.remainingSeat
+        // 성별
+        val koreanGender= functions.convertToKoreanGender(result.filteredGender)
+        _gender.value = koreanGender
+        // 스터디 내용
+        _studyExplanation.value = result.content
+        // 기간
+        val startDate = "" + result.studyStartDate[0] + "." + result.studyStartDate[1] +
+                "." + result.studyStartDate[2]
+        val endDate = "" + result.studyEndDate[0] + "." + result.studyEndDate[1] +
+                "." + result.studyEndDate[2]
+        _period.value = "$startDate~$endDate"
+        // 지각비
+        when(result.penalty){
+            0->_fee.value="없어요"
+            else->_fee.value=result.penaltyWay.toString()+" "+result.penalty.toString()+"원"
+        }
+        // 대면여부
+        val meetingMethod=functions.convertToKoreanMeetMethod(result.studyWay)
+        _meetMethod.value = meetingMethod
+        // 관련학과
+        _relativeMajor.value = koreanRelativeMajor
+        // 작성자 학부
+        val koreanWriterMajor = functions.convertToKoreanMajor(result.postedUser.major)
+        _writerMajor.value = koreanWriterMajor
+        // 작성자 이름
+        _writerName.value = result.postedUser.nickname
+        // todo("작성자사진")
+    }
+    // 추천리스트 반영 함수
+    private fun getRecommendList(adapter: ContentAdapter, result: StudyContentResponse){
+        adapter.studyPosts=result.relatedPost
+        adapter.notifyDataSetChanged()
     }
 
 }

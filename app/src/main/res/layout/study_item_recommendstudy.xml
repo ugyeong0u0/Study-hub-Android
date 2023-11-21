@@ -13,17 +13,17 @@
         android:background="@drawable/background_stroke_40_corner_6">
 
         <TextView
-            android:id="@+id/fsd_item_title"
+            android:id="@+id/txt_major"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_o_10_corner_4_62"
             android:padding="8dp"
             android:textColor="@color/O_50"
             android:textSize="12sp"
-            tools:text="컴퓨터 활용 능력 1급" />
+            tools:text="학과" />
 
         <TextView
-            android:id="@+id/fsd_item_head"
+            android:id="@+id/txt_head"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/sysblack1"
@@ -32,12 +32,12 @@
             android:layout_marginTop="16dp"/>
 
         <TextView
-            android:id="@+id/fsd_item_subhead"
+            android:id="@+id/txt_leftNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/BG_80"
             android:textSize="14sp"
-            android:text="@string/txt_left_number"
+            android:text="@string/txt_leftNumber"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="20dp"
             />
@@ -48,18 +48,18 @@
             >
 
             <ImageView
-                android:id="@+id/fsd_item_profile"
+                android:id="@+id/img_profile"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/icon_profile_60" />
 
             <TextView
-                android:id="@+id/fsd_item_major"
+                android:id="@+id/userMajor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
-                android:layout_toEndOf="@+id/fsd_item_profile"
+                android:layout_toEndOf="@+id/img_profile"
                 android:background="@drawable/background_bg_30_corner99"
                 android:paddingLeft="10dp"
                 android:paddingTop="8dp"
@@ -70,12 +70,12 @@
                 tools:text="컴퓨터 공학부" />
 
             <TextView
-                android:id="@+id/fsd_item_nickname"
+                android:id="@+id/userNickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/fsd_item_major"
+                android:layout_below="@+id/userMajor"
                 android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/fsd_item_profile"
+                android:layout_toEndOf="@+id/img_profile"
                 android:paddingStart="10dp"
                 android:textColor="@color/BG_70"
                 android:textSize="16sp"

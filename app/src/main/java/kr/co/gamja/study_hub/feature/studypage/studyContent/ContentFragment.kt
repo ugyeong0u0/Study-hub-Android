@@ -12,7 +12,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentContentBinding
 
 
@@ -33,7 +35,8 @@ class ContentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        getContent(args.postId)
+        val contentAdapter = ContentAdapter(requireContext())
+        getContent(contentAdapter,args.postId)
         // 툴바 설정
         val toolbar = binding.contentToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -46,11 +49,21 @@ class ContentFragment : Fragment() {
         binding.iconThreeDot.setOnClickListener {
             getModal()
         }
+
+        binding.recyclerRecommend.adapter=contentAdapter
+        binding.recyclerRecommend.layoutManager=LinearLayoutManager(requireContext())
+        contentAdapter.setViewClickListener(object: OnViewClickListener{
+            override fun onViewClick(postId: Int?) {
+                val action = ContentFragmentDirections.actionGlobalStudyContentFragment(postId!!)
+                findNavController().navigate(action)
+            }
+        })
     }
-    fun getContent(postId :Int){
-        viewModel.getStudyContent(postId)
+
+    private fun getContent(adapter : ContentAdapter, postId :Int){
+        viewModel.getStudyContent(adapter, postId)
     }
-    fun getModal(){
+    private fun getModal(){
         val modal =BottomSheetFragment()
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         modal.show(parentFragmentManager, modal.tag)

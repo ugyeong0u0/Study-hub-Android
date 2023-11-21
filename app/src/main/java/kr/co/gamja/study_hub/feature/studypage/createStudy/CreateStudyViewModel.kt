@@ -114,7 +114,7 @@ class CreateStudyViewModel : ViewModel() {
     }
 
     // 벌금 종류
-    val whatFee = MutableLiveData<String>() // TODO("스웨거에 없음 ")
+    val whatFee = MutableLiveData<String>()
 
     // 벌금 얼마인지
     val howMuch = MutableLiveData<String>("0")
@@ -350,6 +350,7 @@ class CreateStudyViewModel : ViewModel() {
             gender.value.toString(),
             relativeMajor.value.toString(),
             howMuch.value.toString().toInt(),
+            whatFee.value.toString(),
             editEndDay.value.toString(),
             persons.value.toString().toInt(),
             editStartDay.value.toString(),

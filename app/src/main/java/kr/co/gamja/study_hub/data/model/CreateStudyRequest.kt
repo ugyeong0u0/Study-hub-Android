@@ -7,6 +7,7 @@ data class CreateStudyRequest(
     val gender: String,
     val major: String,
     val penalty: Int,
+    val penaltyWay:String,
     val studyEndDate: String,
     val studyPerson: Int,
     val studyStartDate: String,
