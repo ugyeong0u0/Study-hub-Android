@@ -63,7 +63,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/icon_profile_60"
+                android:src="@drawable/avatar_s"
                 android:visibility="@{viewModel.isImgData?View.VISIBLE:View.GONE}" />
 
             <TextView

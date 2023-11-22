@@ -51,7 +51,7 @@ class ContentFragment : Fragment() {
         }
 
         binding.recyclerRecommend.adapter=contentAdapter
-        binding.recyclerRecommend.layoutManager=LinearLayoutManager(requireContext())
+        binding.recyclerRecommend.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
         contentAdapter.setViewClickListener(object: OnViewClickListener{
             override fun onViewClick(postId: Int?) {
                 val action = ContentFragmentDirections.actionGlobalStudyContentFragment(postId!!)

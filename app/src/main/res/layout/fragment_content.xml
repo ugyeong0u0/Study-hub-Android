@@ -158,7 +158,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="@{@string/txt_detailedFee(viewModel.fee)}"
+                            android:text="@{viewModel.fee}"
                             android:textColor="@color/syswhite"
                             android:textSize="14sp"
                             android:textStyle="bold"
@@ -283,7 +283,7 @@
                         android:layout_marginBottom="40dp"
                         android:drawablePadding="8dp"
                         android:gravity="center"
-                        android:text="@{viewModel.fee}"
+                        android:text="@{viewModel.feeWithReason}"
                         android:textColor="@color/BG_80"
                         android:textSize="14sp"
                         app:drawableLeftCompat="@drawable/resized_icon_coin_gray_24" />
@@ -361,7 +361,7 @@
                         android:layout_height="60dp"
                         android:layout_below="@+id/head_writer"
                         android:layout_marginHorizontal="@dimen/twenty"
-                        android:src="@drawable/icon_profile_60" />
+                        android:src="@drawable/avatar_s" />
 
                     <TextView
                         android:id="@+id/txt_major2"
@@ -420,14 +420,20 @@
                         android:layout_marginHorizontal="@dimen/twenty"
                         android:layout_marginBottom="40dp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/bookmark"
                         android:layout_width="40dp"
                         android:layout_height="55dp"
                         android:layout_below="@+id/recycler_recommend"
                         android:layout_marginStart="@dimen/twenty"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="12dp"
-                        android:background="@drawable/baseline_bookmark_border_24_unselected" />
+                        android:layout_marginBottom="@dimen/twenty_four"
+                        android:background="@drawable/icon_bookmark_non_gray"
+                        android:paddingHorizontal="8dp"
+                        android:paddingTop="@dimen/sixteen"
+                        android:paddingBottom="15dp"
+                        android:tag="0" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_next"

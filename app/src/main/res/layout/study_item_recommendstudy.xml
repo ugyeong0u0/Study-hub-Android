@@ -10,7 +10,8 @@
         android:paddingEnd="18dp"
         android:paddingTop="18dp"
         android:paddingBottom="20dp"
-        android:background="@drawable/background_stroke_40_corner_6">
+        android:layout_marginEnd="@dimen/twenty_four"
+        android:background="@drawable/btn_bg_white_stroke_bg_50">
 
         <TextView
             android:id="@+id/txt_major"

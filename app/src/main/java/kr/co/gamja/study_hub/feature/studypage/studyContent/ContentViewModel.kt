@@ -33,7 +33,11 @@ class ContentViewModel : ViewModel() {
     private val _participatingPeople = MutableLiveData<Int>()
     val participatingPeople: LiveData<Int> get() = _participatingPeople
 
-    // 벌금
+    // "지각비 벌금" 구성
+    private val _feeWithReason = MutableLiveData<String>()
+    val feeWithReason: LiveData<String> get() = _feeWithReason
+
+    // 벌금만
     private val _fee = MutableLiveData<String>()
     val fee: LiveData<String> get() = _fee
 
@@ -110,8 +114,14 @@ class ContentViewModel : ViewModel() {
         _period.value = "$startDate~$endDate"
         // 지각비
         when(result.penalty){
-            0->_fee.value="없어요"
-            else->_fee.value=result.penaltyWay.toString()+" "+result.penalty.toString()+"원"
+            0-> {
+                _feeWithReason.value="없어요"
+                _fee.value="없어요"
+            }
+            else->{
+                _feeWithReason.value=result.penaltyWay.toString()+" "+result.penalty.toString()+"원"
+                _fee.value=result.penaltyWay.toString()+"원"
+            }
         }
         // 대면여부
         val meetingMethod=functions.convertToKoreanMeetMethod(result.studyWay)

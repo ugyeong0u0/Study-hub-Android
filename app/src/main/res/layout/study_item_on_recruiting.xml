@@ -115,10 +115,11 @@
 
             <ImageView
                 android:id="@+id/icon_profile"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_below="@+id/layout_linear"
-                android:src="@drawable/icon_profile_60" />
+                android:layout_marginTop="2dp"
+                android:src="@drawable/avatar_s" />
 
             <TextView
                 android:id="@+id/txt_nickname"

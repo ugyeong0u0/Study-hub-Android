@@ -8,6 +8,7 @@ import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.RelatedPost
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.StudyItemRecommendstudyBinding
+import kr.co.gamja.study_hub.global.Functions
 
 class ContentAdapter(private val context: Context) :
     RecyclerView.Adapter<ContentAdapter.ItemRecommendHolder>() {
@@ -55,13 +56,13 @@ class ContentAdapter(private val context: Context) :
         }
 
         fun setPosts(studyItem: RelatedPost?) {
-
+            val functions = Functions()
             studyItem?.let {
-                binding.txtMajor.text = it.major
+                binding.txtMajor.text = functions.convertToKoreanMajor(it.major)
                 binding.txtHead.text = it.title
                 binding.txtLeftNumber.text =
                     context.getString(R.string.sentence_people, it.remainingSeat)
-                binding.userMajor.text = it.postedUser.major
+                binding.userMajor.text =functions.convertToKoreanMajor(it.postedUser.major)
                 binding.userNickname.text = it.postedUser.nickname
                 //TODO("사진추가")
             }

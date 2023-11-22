@@ -64,7 +64,7 @@
                     android:layout_height="80dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/top_margin"
-                    android:src="@drawable/icon_profile_60" />
+                    android:src="@drawable/avatar_s" />
 
                 <LinearLayout
                     android:id="@+id/layout_button"
