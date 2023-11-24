@@ -67,8 +67,9 @@ class StudyMainFragment : Fragment() {
         binding.recyclerStudyMain.adapter = adapter
         binding.recyclerStudyMain.layoutManager = LinearLayoutManager(requireContext())
 
+
         // 스터디 조회 api통신
-        viewModel.getStudyPosts(adapter, page, object : getStudyCallback {
+        viewModel.getAllStudyPosts(adapter, page, object : getStudyCallback {
             override fun isLastPage(lastPage: Boolean) {
                 isLastPage = lastPage
                 Log.d(tag, "스터디조회 마지막 페이지?" + isLastPage)
@@ -83,7 +84,7 @@ class StudyMainFragment : Fragment() {
                 if (!isLastPage && lastVisibleItemPosition == 9) {
                     page++ // 페이지 +1
                     Log.d(tag, "라스트 페이지2-" + lastVisibleItemPosition.toString())
-                    viewModel.getStudyPosts(adapter, page, object : getStudyCallback {
+                    viewModel.getAllStudyPosts(adapter, page, object : getStudyCallback {
                         override fun isLastPage(lastPage: Boolean) {
                             //TODO("써야함?")
                         }

@@ -18,7 +18,7 @@ import kr.co.gamja.study_hub.databinding.FragmentChangeNicknameBinding
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
 class ChangeNicknameFragment : Fragment() {
-    private val tag = this.javaClass.simpleName
+
     private lateinit var binding: FragmentChangeNicknameBinding
     private val viewModel: ChangeNickNameViewModel by viewModels()
     override fun onCreateView(

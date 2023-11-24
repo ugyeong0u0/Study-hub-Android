@@ -129,6 +129,7 @@
         <action
             android:id="@+id/action_myInfoFragment_to_withdrawalFragment"
             app:destination="@id/withdrawalFragment" />
+
     </fragment>
     <action
         android:id="@+id/action_global_createStudyFragment"
@@ -185,4 +186,9 @@
         android:label="fragment_confirming_withdrawal"
         tools:layout="@layout/fragment_confirming_withdrawal" />
     <action android:id="@+id/action_global_studyContentFragment" app:destination="@id/studyContentFragment" />
+    <fragment
+        android:id="@+id/uploadImageFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.uploadImg.UploadImageFragment"
+        android:label="fragment_upload_image"
+        tools:layout="@layout/fragment_upload_image" />
 </navigation>

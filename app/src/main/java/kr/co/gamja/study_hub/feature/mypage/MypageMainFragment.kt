@@ -15,7 +15,6 @@ import kr.co.gamja.study_hub.databinding.FragmentMypageMainBinding
 
 
 class MypageMainFragment : Fragment() {
-    private val tag=this.javaClass.simpleName
     private lateinit var binding: FragmentMypageMainBinding
     private val viewModel: MyInfoViewModel by activityViewModels()
 

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="kr.co.gamja.study_hub.feature.studypage.studyHome.StudyMainViewModel" />
@@ -62,41 +63,34 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_latestOrder"
+                    android:id="@+id/btn_allStudy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:padding="10dp"
-                    android:text="@string/btn_latestOrder"
-                    android:textColor="@color/sysblack1"
+                    android:layout_marginVertical="13dp"
+                    android:layout_marginLeft="@dimen/twenty"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/bg_black_radius_20"
+                    android:text="@string/btn_allStudy"
+                    android:textColor="@color/syswhite"
                     android:textSize="14sp" />
-
-                <View
-                    android:id="@+id/view_line"
-                    android:layout_width="2dp"
-                    android:layout_height="12dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="18dp"
-                    android:layout_toEndOf="@+id/btn_latestOrder"
-                    android:background="@color/BG_50" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_popularOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/view_line"
-                    android:background="#00000000"
-                    android:padding="10dp"
+                    android:layout_marginVertical="13dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_toEndOf="@+id/btn_allStudy"
+                    android:background="@drawable/bg_30_radius_20"
                     android:text="@string/btn_popularOrder"
-                    android:textColor="@color/sysblack1"
+                    android:textColor="@color/BG_90"
                     android:textSize="14sp" />
-
 
                 <TextView
                     android:id="@+id/txt_numberOfList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/btn_latestOrder"
+                    android:layout_alignBaseline="@+id/btn_allStudy"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/twenty"
                     android:text="@string/txt_list_number"
@@ -107,27 +101,31 @@
                     android:id="@+id/view_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_below="@+id/btn_latestOrder"
+                    android:layout_below="@+id/btn_allStudy"
                     android:background="@color/BG_30" />
 
-                <ImageView
-                    android:id="@+id/img_noList"
-                    android:layout_width="210dp"
-                    android:layout_height="210dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/image_empty_post" />
-
-                <TextView
-                    android:id="@+id/txt_noText01"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_noList"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/txt_noText"
-                    android:textColor="@color/BG_80"
-                    android:textSize="14sp"
-                    />
+                    android:layout_below="@+id/view_horizontal"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginTop="50dp">
+
+                    <ImageView
+                        android:id="@+id/img_noList"
+                        android:layout_width="210dp"
+                        android:layout_height="210dp"
+                        android:src="@drawable/image_empty_post" />
+
+                    <TextView
+                        android:id="@+id/txt_noText01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_noText"
+                        android:textColor="@color/BG_80"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
 
                 <androidx.recyclerview.widget.RecyclerView

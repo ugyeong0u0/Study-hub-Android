@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.FindStudyResponse
-import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
 class StudyMainViewModel : ViewModel() {
@@ -17,7 +16,7 @@ class StudyMainViewModel : ViewModel() {
     private val _listSize = MutableLiveData<Int>()
     val listSize: LiveData<Int> get() = _listSize
     // TODO("api 변경")
-    fun getStudyPosts(adapter: StudyMainAdapter, page: Int, params: getStudyCallback) {
+    fun getAllStudyPosts(adapter: StudyMainAdapter, page: Int, params: getStudyCallback) {
         viewModelScope.launch {
             try {
                 val response =RetrofitManager.api.getStudyPostAll(page, 10)

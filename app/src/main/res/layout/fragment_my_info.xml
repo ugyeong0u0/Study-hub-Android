@@ -74,7 +74,7 @@
                     android:layout_below="@+id/img_profile">
 
                     <Button
-                        android:id="@+id/btn_delete"
+                        android:id="@+id/btn_deleteImg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
@@ -85,7 +85,7 @@
                         android:textSize="14sp" />
 
                     <Button
-                        android:id="@+id/btn_modify"
+                        android:id="@+id/btn_modifyImg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#00000000"

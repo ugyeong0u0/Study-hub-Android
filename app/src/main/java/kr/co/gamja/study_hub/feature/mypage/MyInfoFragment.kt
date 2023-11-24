@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,8 @@ import kotlinx.coroutines.withContext
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.datastore.App
 import kr.co.gamja.study_hub.databinding.FragmentMyInfoBinding
+import kr.co.gamja.study_hub.feature.mypage.uploadImg.UploadImageFragment
+import kr.co.gamja.study_hub.feature.studypage.studyContent.BottomSheetFragment
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 
@@ -91,6 +94,13 @@ class MyInfoFragment : Fragment() {
                 null
             )
         }
+        binding.btnModifyImg.setOnClickListener{
+            getModal()
+        }
+        // 사진 삭제 todo("삭제api연결하기")
+        binding.btnDeleteImg.setOnClickListener{
+            binding.imgProfile.setImageResource(R.drawable.avatar_s)
+        }
     }
 
     fun deleteLoginData(goLogin: Boolean) {
@@ -109,6 +119,11 @@ class MyInfoFragment : Fragment() {
 
         }
 
+    }
+    private fun getModal(){
+        val modal = UploadImageFragment()
+        modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
+        modal.show(parentFragmentManager, modal.tag)
     }
 
 }

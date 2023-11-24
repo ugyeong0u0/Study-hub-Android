@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="btn_latestOrder">최신순</string>
-    <string name="btn_popularOrder">인기순</string>
+    <string name="btn_allStudy">전체</string>
+    <string name="btn_popularOrder">인기</string>
+    <string name="btn_majorOrder">학과</string>
     <string name="txt_list_number">%d개</string>
     <string name="txt_noText">\t\t관련된 스터디가 없어요\n지금 스터디를 만들어 보세요!</string>
     <string name="txt_fs_modal_category">카테고리</string>
@@ -63,7 +64,7 @@
     <string name="btn_close">닫기</string>
     <string name="word_won">원</string>
     <string name="txt_warningMajor">관련학과는 1개만 선택이 가능해요</string>
-<!--    스터디 다이얼로그-->
+    <!--    스터디 다이얼로그-->
     <string name="q_cancelCreatingStudy">작성을 취소할까요?</string>\
     <string name="q_sub_cancelCreatingStudy">취소할 시 내용이 저장되지 않아요</string>
     <!--관련학과 선택하기-->
@@ -72,8 +73,8 @@
     <string name="txt_pNum_sub">최대 50명 참여 가능</string>
     <string name="txt_about_pNum">인원을 알려주세요</string>
     <string name="autoTxt_selectMajor">관련학과를 입력해주세요</string>
-   
-<!--    달력커스텀-->
+
+    <!--    달력커스텀-->
     <string name="sunday">일</string>
     <string name="monday">월</string>
     <string name="tuesday">화</string>
@@ -81,7 +82,9 @@
     <string name="Thursday">목</string>
     <string name="friday">금</string>
     <string name="Saturday">토</string>
-
+    <!--    사진 바텀시트-->
+    <string name="takingPhoto">사진 촬영하기</string>
+    <string name="pickPhoto">앨범에서 선택하기</string>
     <!--    마이페이지-->
     <string name="txt_mypage">마이페이지</string>
     <string name="txt_notLogin_major">나의 스터디 팀원을 만나보세요</string>
@@ -93,19 +96,19 @@
     <string name="btn_yes">네</string>
     <string name="q_logout">로그아웃 하시겠어요?</string>
     <string name="txt_sub_relativeMajor">-해당스터디와 관련된 학과를 선택해 주세요\n-관련학과는 1개만 선택할 수 있어요</string>
-    
-<!--    닉네임 변경-->
+
+    <!--    닉네임 변경-->
     <string name="txt_changeNickname">닉네임 변경</string>
     <string name="txt_tellNewNickname">새로운 닉네임을 알려주세요</string>
     <string name="txt_exampleOfNickname">라이언</string>
     <string name="txt_limitOfNickNameLength">%d/10</string>
     <string name="txt_dontUseThisNickname">이미 존재하는 닉네임이에요</string>
     <string name="txt_successChangeNickname">닉네임이 변경되었어요</string>
-<!--    학과 변경-->
+    <!--    학과 변경-->
     <string name="txt_changeMajor">학과변경</string>
     <string name="txt_tellNewMajor">변경할 학과를 알려주세요</string>
     <string name="businesAdministration">경영학부</string>
-<!--비번변경-->
+    <!--비번변경-->
     <string name="txt_changePassword">비밀번호변경</string>
     <string name="txt_tellCurrentPassword">현재 비밀번호를 입력해주세요</string>
     <string name="txt_currentPassword">현재 비밀번호</string>
@@ -119,7 +122,7 @@
     <string name="error_fit_rePassword">비밀번호가 일치해요</string>
     <string name="txt_changePasswordSuccessfully">비밀번호가 변경되었어요</string>
 
-<!--    회원탈퇴-->
+    <!--    회원탈퇴-->
     <string name="txt_withdrawal">탈퇴하기</string>
     <string name="q_withdrawal">정말 탈퇴하시나요?</string>
     <string name="a_withdrawal">회원님이 떠나신다니 너무 아쉬워요</string>

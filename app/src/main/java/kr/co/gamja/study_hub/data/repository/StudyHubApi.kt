@@ -98,4 +98,6 @@ interface StudyHubApi {
     // 스터디 컨텐츠 조회
     @GET("/api/study-posts/find/{postId}")
     suspend fun getStudyContent(@Path("postId") postId: Int):Response<StudyContentResponse>
+
+
 }
