@@ -8,39 +8,37 @@ import retrofit2.http.*
 interface StudyHubApi {
 
     //이메일 인증코드 전송
-    @Headers("Accept: application/json", "Content-type: application/json")
-    @POST("/api/email")
+    @POST("/api/v1/email")
     suspend fun email(@Body email: EmailRequest): Response<Unit>
 
     // 이메일 인증코드 검증
-    @Headers("Accept: application/json", "Content-type: application/json")
-    @POST("/api/email/valid")
+    @POST("/api/v1/email/verify")
     suspend fun emailValid(@Body emailValidRequest: EmailValidRequest): Response<EmailValidResponse>
 
-    // 로그인
-    @Headers("Accept: application/json", "Content-type: application/json")
-    @POST("/api/users/login")
+    // 로그인 TODO("반환값 확인" )
+    @POST("/api/v1/users/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 
     // 회원가입
-    @Headers("Accept: application/json", "Content-type: application/json")
-    @POST("/api/users/signup")
+    @POST("/api/v1/users/signup")
     suspend fun signup(@Body signupRequest: SignupRequest): Response<Unit>
 
     // 회원가입 -닉네임 중복 확인 api
-    @GET("/api/users/duplication-nickname")
+    @GET("/api/v1/users/duplication-nickname")
     suspend fun checkNicknameDuplication(@Query("nickname") nickname: String): Response<Unit>
 
     // 회원가입 - 이메일 중복 확인 api
-    @POST("/api/email/duplication")
+    @POST("/api/v1/email/duplication")
     suspend fun checkEmailDuplication(@Body emailRequest: EmailRequest): Response<Unit>
 
     // 액세스 토큰 만료시, 리프레쉬 토큰으로 액세스, 리프레시 재발급
-    @POST("/api/jwt/accessToken")
+    // Todo("확인필요")
+    @POST("/api/jwt/v1/accessToken")
     suspend fun accessTokenIssued(@Body accessTokenRequest: AccessTokenRequest): Response<AccessTokenResponse>
 
     // 회원 단건조회 : myPageInfo.kt
-    @GET("/api/users")
+    // Todo("확인필요, 아래꺼 토큰 필요한거 변경 불가했음")
+    @GET("/api/v1/users")
     suspend fun getUserInfo(): Response<UsersResponse>
 
     // new - 내가 북마크한 스터디 조회
