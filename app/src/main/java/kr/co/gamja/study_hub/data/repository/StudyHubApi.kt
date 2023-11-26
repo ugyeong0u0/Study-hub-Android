@@ -84,14 +84,7 @@ interface StudyHubApi {
     @PUT("/api/v1/users/password")
     suspend fun putNewPassword(@Body newPasswordRequest: NewPasswordRequest): Response<Unit>
 
-    // 게시글 인기순 조회 todo("빼야함")
-    @GET("/api/study-posts/find/hot")
-    suspend fun getHotStudyPostAll(
-        @Query("page") page: Int,
-        @Query("size") size: Int
-    ): Response<HotStudyPostResponse>
-
-    // 회원 탈퇴todo("해야함")
+    // 회원 탈퇴
     @DELETE("/api/v1/users")
     suspend fun deleteUser(): Response<Unit>
 
@@ -102,5 +95,5 @@ interface StudyHubApi {
     // 스터디 삭제
     @DELETE("/api/v1/study-posts/{postId}")
     suspend fun deleteMyStudy(@Path("postId") postId: Int) :Response<Unit>
-
+    
 }
