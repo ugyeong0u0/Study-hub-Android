@@ -19,7 +19,6 @@ import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.datastore.App
 import kr.co.gamja.study_hub.databinding.FragmentMyInfoBinding
 import kr.co.gamja.study_hub.feature.mypage.uploadImg.UploadImageFragment
-import kr.co.gamja.study_hub.feature.studypage.studyContent.BottomSheetFragment
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 

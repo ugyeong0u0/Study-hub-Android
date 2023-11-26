@@ -8,6 +8,8 @@
         <variable
             name="viewModel"
             type="kr.co.gamja.study_hub.feature.studypage.studyContent.ContentViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
@@ -39,7 +41,8 @@
                     android:layout_width="@dimen/resized_item"
                     android:layout_height="@dimen/resized_item"
                     android:layout_alignParentEnd="true"
-                    android:background="@drawable/icon_vertical_threedot_white" />
+                    android:background="@drawable/icon_vertical_threedot_white"
+                    android:visibility="@{viewModel.isWriter?View.VISIBLE:View.GONE}" />
             </RelativeLayout>
 
 

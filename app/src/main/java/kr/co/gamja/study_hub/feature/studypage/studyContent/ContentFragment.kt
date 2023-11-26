@@ -1,7 +1,6 @@
 package kr.co.gamja.study_hub.feature.studypage.studyContent
 
 import android.os.Bundle
-import android.security.ConfirmationCallback
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentContentBinding
+import kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment
 
 
 class ContentFragment : Fragment() {
@@ -41,13 +41,15 @@ class ContentFragment : Fragment() {
         val toolbar = binding.contentToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
+
         binding.iconBack.setOnClickListener {
             val navcontroller = findNavController()
             navcontroller.navigateUp() // 뒤로 가기
         }
-    // TODO("작성자인지 확인하는 API")
+
+
         binding.iconThreeDot.setOnClickListener {
-            getModal()
+            getModal(args.postId)
         }
 
         binding.recyclerRecommend.adapter=contentAdapter
@@ -63,8 +65,11 @@ class ContentFragment : Fragment() {
     private fun getContent(adapter : ContentAdapter, postId :Int){
         viewModel.getStudyContent(adapter, postId)
     }
-    private fun getModal(){
-        val modal =BottomSheetFragment()
+    private fun getModal(postId: Int){
+        val bundle = Bundle()
+        bundle.putInt("postId", postId)
+        val modal = BottomSheetFragment()
+        modal.arguments = bundle
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         modal.show(parentFragmentManager, modal.tag)
     }

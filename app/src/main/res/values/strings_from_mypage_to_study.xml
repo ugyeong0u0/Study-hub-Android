@@ -131,4 +131,11 @@
     <string name="txt_withdrawalCompletion">탈퇴가 완료되었어요</string>
     <string name="txt_subwithdrawalCompletion">지금까지 스터디 허브를 이용해 주셔서\n\t\t감사합니다.</string>
     <string name="btn_exit">종료</string>
+
+<!--    스터디 글 수정 삭제-->
+    <string name="q_deleteStudy">이 글을 삭제할까요?</string>
+    <string name="q_deleteStudySub">삭제한 글과 참여자는 다시 볼 수 없어요</string>
+
+
 </resources>
+

@@ -109,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/bottomSheetFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.studyContent.BottomSheetFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment"
         android:label="fragment_bottom_sheet"
         tools:layout="@layout/fragment_bottom_sheet" />
     <fragment

@@ -71,14 +71,20 @@ class ContentViewModel : ViewModel() {
     private val _writerName = MutableLiveData<String>()
     val writerName: LiveData<String> get() = _writerName
 
-    fun getStudyContent(adapter: ContentAdapter,postId: Int) {
+    // 작성자인지 확인
+    private val _isWriter = MutableLiveData<Boolean>()
+    val isWriter: LiveData<Boolean> get() = _isWriter
+
+    fun getStudyContent(adapter: ContentAdapter, postId: Int) {
         viewModelScope.launch {
             try {
                 val response = RetrofitManager.api.getStudyContent(postId)
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponse
+                    Log.d(tag+"작성자",result.usersPost.toString())
                     getInformationOfStudy(result)
                     getRecommendList(adapter,result)
+                    _isWriter.value=result.usersPost // todo("값 확인필요")
                 }
             } catch (e: Exception) {
                 Log.e(tag, "스터디 content조회 Exception: ${e.message}")

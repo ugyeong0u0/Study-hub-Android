@@ -99,5 +99,8 @@ interface StudyHubApi {
     @GET("/api/v1/study-posts/{postId}")
     suspend fun getStudyContent(@Path("postId") postId: Int): Response<StudyContentResponse>
 
+    // 스터디 삭제
+    @DELETE("/api/v1/study-posts/{postId}")
+    suspend fun deleteMyStudy(@Path("postId") postId: Int) :Response<Unit>
 
 }

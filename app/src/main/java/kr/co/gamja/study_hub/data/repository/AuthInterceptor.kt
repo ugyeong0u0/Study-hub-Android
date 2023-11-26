@@ -33,7 +33,7 @@ class AuthInterceptor() : Interceptor {
 
         Log.d(tag, "회원조회 인터셉트 시작")
 
-        if (response.code != 200 && response.code != 201) {
+        if (response.code != 200 && response.code != 201 && response.code != 204) {
             Log.e(tag, "회원조회 인터셉트 기존토큰 유효x " + response.code)
             val getNewToken =
                 RetrofitManager.api.accessTokenIssued(AccessTokenRequest(refreshToken))
