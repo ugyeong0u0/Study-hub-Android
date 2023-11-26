@@ -15,7 +15,7 @@ interface StudyHubApi {
     @POST("/api/v1/email/verify")
     suspend fun emailValid(@Body emailValidRequest: EmailValidRequest): Response<EmailValidResponse>
 
-    // 로그인 TODO("반환값 확인" )
+    // 로그인
     @POST("/api/v1/users/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 
@@ -32,70 +32,72 @@ interface StudyHubApi {
     suspend fun checkEmailDuplication(@Body emailRequest: EmailRequest): Response<Unit>
 
     // 액세스 토큰 만료시, 리프레쉬 토큰으로 액세스, 리프레시 재발급
-    // Todo("확인필요")
     @POST("/api/jwt/v1/accessToken")
     suspend fun accessTokenIssued(@Body accessTokenRequest: AccessTokenRequest): Response<AccessTokenResponse>
 
     // 회원 단건조회 : myPageInfo.kt
-    // Todo("확인필요, 아래꺼 토큰 필요한거 변경 불가했음")
     @GET("/api/v1/users")
     suspend fun getUserInfo(): Response<UsersResponse>
 
     // new - 내가 북마크한 스터디 조회
-    @GET("/api/study-posts/bookmarked")
+    @GET("/api/v1/study-posts/bookmarked")
     suspend fun getBookmark(
         @Query("page") page: Int,
         @Query("size") size: Int
     ): Response<GetBookmarkResponse>
 
     //new - 북마크 저장, 삭제
-    @POST("/api/study-posts/{postId}/bookmark")
+    @POST("/api/v1/bookmark/{postId}")
     suspend fun saveDeleteBookmark(@Path("postId") postId: Int?): Response<BookmarkSaveDeleteResponse>
 
     // 스터디 생성
-    @POST("/api/study-posts")
+    @POST("/api/v1/study-posts")
     suspend fun setCreateStudy(@Body createStudyRequest: CreateStudyRequest): Response<CreateStudyResponse>
 
-    // 스터디 게시글 전체 조회
-    @GET("/api/study-posts/find/all")
+    // 스터디 게시글 전체 조회 todo("매개변수 변경됨")
+    @GET("/api/v1/study-posts")
     suspend fun getStudyPostAll(
+        @Query("hot") hot: Boolean,
         @Query("page") page: Int,
-        @Query("size") size: Int
+        @Query("size") size: Int,
+        @Query("inquiryText") inquiryText: String?,
+        @Query("titleAndMajor") titleAndMajor: Boolean
     ): Response<FindStudyResponse>
 
     // 닉네임 중복 조회 - 인가x
-    @GET("/api/users/duplication-nickname")
+    @GET("/api/v1/users/duplication-nickname")
     suspend fun getIsDuplicationNickname(@Query("nickname") nickname: String): Response<Unit>
 
     // 닉네임 수정 - 인가0
-    @PUT("/api/users/nickname")
+    @PUT("/api/v1/users/nickname")
     suspend fun putNewNickname(@Body changeNicknameRequest: ChangeNicknameRequest): Response<Unit>
 
     // 학과 수정 - 인가 0
-    @PUT("/api/users/major")
+    @PUT("/api/v1/users/major")
     suspend fun putNewMajor(@Body changeMajorRequest: ChangeMajorRequest): Response<Unit>
 
     // 현재 비번 검사- 인가0
-    @POST("/api/users/password/verify")
+    @POST("/api/v1/users/password/verify")
     suspend fun postCurrentPassword(@Body currentPasswordRequest: CurrentPasswordRequest): Response<Unit>
 
     // 비번 수정 - 인가0
-    @PUT("/api/users/password")
+    @PUT("/api/v1/users/password")
     suspend fun putNewPassword(@Body newPasswordRequest: NewPasswordRequest): Response<Unit>
 
-    // 게시글 인기순 조회
+    // 게시글 인기순 조회 todo("빼야함")
     @GET("/api/study-posts/find/hot")
     suspend fun getHotStudyPostAll(
         @Query("page") page: Int,
         @Query("size") size: Int
     ): Response<HotStudyPostResponse>
 
-    // 회원 탈퇴
-    @DELETE("/api/users")
-    suspend fun deleteUser():Response<Unit>
+    // 회원 탈퇴todo("해야함")
+    @DELETE("/api/v1/users")
+    suspend fun deleteUser(): Response<Unit>
+
     // 스터디 컨텐츠 조회
-    @GET("/api/study-posts/find/{postId}")
-    suspend fun getStudyContent(@Path("postId") postId: Int):Response<StudyContentResponse>
+    @GET("/api/v1/study-posts/{postId}")
+    suspend fun getStudyContent(@Path("postId") postId: Int): Response<StudyContentResponse>
 
 
 }

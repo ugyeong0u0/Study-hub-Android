@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.Content
+import kr.co.gamja.study_hub.data.model.ContentX
+import kr.co.gamja.study_hub.data.model.FindStudyResponse
 import kr.co.gamja.study_hub.data.model.HotStudyPostResponse
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.HomeItemCloseDeadlineBinding
@@ -14,7 +16,7 @@ import kr.co.gamja.study_hub.feature.toolbar.bookmark.OnItemClickListener
 
 class ItemCloseDeadlineAdapter(private val context: Context) :
     RecyclerView.Adapter<ItemCloseDeadlineAdapter.ItemCloseDeadlineHolder>() {
-    var studyPosts: HotStudyPostResponse? = null
+    var studyPosts: FindStudyResponse? = null
     private lateinit var mOnItemClickListener: OnItemClickListener // 북마크 viewModel에 interface 선언
     private lateinit var mOnViewClickListener: OnViewClickListener // 뷰자체 클릭
     fun setOnItemClickListener(listener: OnItemClickListener) {
@@ -65,14 +67,15 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
             }
         }
 
-        fun setPosts(studyItem: Content?) {
+        fun setPosts(studyItem: ContentX?) {
             val postId: Int? = studyItem?.postId
             studyItem?.let {
                 binding.txtHead.text = it.title
-                binding.sentencePeople.text =
-                    context.getString(R.string.sentence_people, it.remainingSeat)
-                val full = it.person - it.remainingSeat
-                binding.txtPeople.text = context.getString(R.string.txt_people, full, it.person)
+                //TODO("인원수 표시 ")
+//                binding.sentencePeople.text =
+//                    context.getString(R.string.sentence_people, it.remainingSeat)
+//                val full = it.person - it.remainingSeat
+//                binding.txtPeople.text = context.getString(R.string.txt_people, full, it.person)
                 //TODO("사진추가")
 
 

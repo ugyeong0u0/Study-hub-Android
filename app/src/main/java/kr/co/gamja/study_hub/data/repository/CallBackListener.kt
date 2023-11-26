@@ -12,3 +12,8 @@ interface CallBackIntegerListener{
 interface OnViewClickListener {
     fun onViewClick(postId: Int?)
 }
+// 스터디 무한 스크롤 first/ last
+interface OnScrollCallBackListener{
+    fun isFirst(result: Boolean)
+    fun isLast(result: Boolean)
+}

@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.OnScrollCallBackListener
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentMainHomeBinding
 import kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragmentDirections
@@ -23,7 +24,7 @@ import kr.co.gamja.study_hub.global.CustomSnackBar
 
 class MainHomeFragment : Fragment() {
     private lateinit var binding: FragmentMainHomeBinding
-    private val viewModel : HomeViewModel by activityViewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
     private val bookmarkViewModel: BookmarkViewModel by activityViewModels()
     private var doubleBackPressed = false
     override fun onCreateView(
@@ -39,22 +40,22 @@ class MainHomeFragment : Fragment() {
         super.onAttach(context)
         requireActivity().onBackPressedDispatcher.addCallback(
             this,
-             object : OnBackPressedCallback(true) {
-                 override fun handleOnBackPressed() {
-                     if (doubleBackPressed) {
-                         requireActivity().finish()
-                     } else {
-                         doubleBackPressed = true
-                         val activity =requireActivity() as AppCompatActivity
-                         val bottomView =activity.findViewById<View>(R.id.bottom_nav)
-                         CustomSnackBar.make(
-                             binding.layoutRelative,
-                             getString(R.string.btnBack_login), bottomView,false
-                         ).show()
-                         view?.postDelayed({ doubleBackPressed = false }, 2000)
-                     }
-                 }
-             }
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (doubleBackPressed) {
+                        requireActivity().finish()
+                    } else {
+                        doubleBackPressed = true
+                        val activity = requireActivity() as AppCompatActivity
+                        val bottomView = activity.findViewById<View>(R.id.bottom_nav)
+                        CustomSnackBar.make(
+                            binding.layoutRelative,
+                            getString(R.string.btnBack_login), bottomView, false
+                        ).show()
+                        view?.postDelayed({ doubleBackPressed = false }, 2000)
+                    }
+                }
+            }
         )
     }
 
@@ -102,11 +103,20 @@ class MainHomeFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFragment01_to_mainFragment03, null)
         }
         // 모집중 스터디 어댑터 연결
-        val onRecruitingAdapter =ItemOnRecruitingAdapter(requireContext())
-        binding.recyclerOnGoing.adapter=onRecruitingAdapter
-        binding.recyclerOnGoing.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
+        val onRecruitingAdapter = ItemOnRecruitingAdapter(requireContext())
+        binding.recyclerOnGoing.adapter = onRecruitingAdapter
+        binding.recyclerOnGoing.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        viewModel.getStudyPosts(onRecruitingAdapter)
+        viewModel.getStudyPosts(
+            onRecruitingAdapter,
+            false,
+            0,
+            5,
+            null,
+            titleaAndMajor = false,
+            null
+        )
 
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         onRecruitingAdapter.setOnItemClickListener(object : OnItemClickListener {
@@ -115,7 +125,7 @@ class MainHomeFragment : Fragment() {
             }
         })
         // 뷰클릭시
-        onRecruitingAdapter.setViewClickListener(object : OnViewClickListener{
+        onRecruitingAdapter.setViewClickListener(object : OnViewClickListener {
             override fun onViewClick(postId: Int?) {
                 val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(postId!!)
                 findNavController().navigate(action)
@@ -123,11 +133,19 @@ class MainHomeFragment : Fragment() {
         })
 
         // 마감임박 스터디 어댑터 연결
-        val deadlineAdapter=ItemCloseDeadlineAdapter(requireContext())
-        binding.recyclerApproaching.adapter=deadlineAdapter
-        binding.recyclerApproaching.layoutManager= LinearLayoutManager(requireContext())
+        val deadlineAdapter = ItemCloseDeadlineAdapter(requireContext())
+        binding.recyclerApproaching.adapter = deadlineAdapter
+        binding.recyclerApproaching.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.getHotStudyPosts(deadlineAdapter)
+        viewModel.getStudyPosts(
+            deadlineAdapter,
+            isHot = true,
+            0,
+            4,
+            null,
+            titleaAndMajor = false,
+            null
+        )
 
         deadlineAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
@@ -135,7 +153,7 @@ class MainHomeFragment : Fragment() {
             }
         })
         // 뷰자체 클릭시 스터디 컨텐츠 글로 이동
-        deadlineAdapter.setViewClickListener(object: OnViewClickListener{
+        deadlineAdapter.setViewClickListener(object : OnViewClickListener {
             override fun onViewClick(postId: Int?) {
                 val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(postId!!)
                 findNavController().navigate(action)

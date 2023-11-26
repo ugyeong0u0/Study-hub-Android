@@ -67,13 +67,18 @@ class ItemOnRecruitingAdapter(private val context: Context) :
                 val koreanMajor = functions.convertToKoreanMajor(it.major)
                 binding.txtMajor.text = koreanMajor
                 binding.txtHead.text = it.title
-                binding.txtRemainingSeats.text =
+                //TODO("잔여자리")
+                /*binding.txtRemainingSeats.text =
                     context.getString(R.string.txt_RemainingSeats, it.leftover)
                 val full = it.studyPerson - it.leftover
                 binding.txtPeople.text =
-                    context.getString(R.string.txt_people, full, it.studyPerson)
+                    context.getString(R.string.txt_people, full, it.studyPerson)*/
                 //TODO("요금")
-
+                if (it.penalty == 0) {
+                    binding.txtFee.text = "없어요"
+                } else {
+                    binding.txtFee.text = it.penalty.toString()+"원"
+                }
 
                 //북마크 추가
                 binding.btnBookmark.setOnClickListener(object : View.OnClickListener {

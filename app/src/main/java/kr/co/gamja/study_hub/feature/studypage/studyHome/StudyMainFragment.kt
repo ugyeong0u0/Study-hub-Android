@@ -10,23 +10,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.OnScrollCallBackListener
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentStudyMainBinding
+import kr.co.gamja.study_hub.feature.home.HomeViewModel
 import kr.co.gamja.study_hub.feature.home.MainHomeFragmentDirections
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkViewModel
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.OnItemClickListener
 
 class StudyMainFragment : Fragment() {
     private lateinit var binding: FragmentStudyMainBinding
-    private val viewModel: StudyMainViewModel by viewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
     private val bookmarkViewModel: BookmarkViewModel by activityViewModels()
     private var page = 0 // 스터디 조회 시작 페이지
-    private var isLastPage = false // 스터디 조회 마지막 페이지인지
+    private var isLastPage = false // 스터디 조회 마지막 페이지
+    private var isFirstPage = false // 스터디 조회 첫번째 페이지
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,32 +70,72 @@ class StudyMainFragment : Fragment() {
         binding.recyclerStudyMain.layoutManager = LinearLayoutManager(requireContext())
 
 
-        // 스터디 조회 api통신
-        viewModel.getAllStudyPosts(adapter, page, object : getStudyCallback {
-            override fun isLastPage(lastPage: Boolean) {
-                isLastPage = lastPage
-                Log.d(tag, "스터디조회 마지막 페이지?" + isLastPage)
-            }
-        })
-        // 스터디 조회- 리사이클러뷰 페이지네이션
+        /*// 스터디 전체 조회 api통신
+        viewModel.getStudyPosts(
+            adapter,
+            false,
+            0,
+            3,
+            null,
+            true,
+            object : OnScrollCallBackListener {
+                override fun isFirst(result: Boolean) {
+                    isFirstPage = result
+                }
+
+                override fun isLast(result: Boolean) {
+                    isLastPage = result
+                }
+
+            })*/
+        /*// 스터디 조회- 리사이클러뷰 페이지네이션
         binding.recyclerStudyMain.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val lastVisibleItemPosition =
+                val visibleItemPosition =
                     (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
-                if (!isLastPage && lastVisibleItemPosition == 9) {
+                if (!isLastPage && visibleItemPosition == 2) { // 페이지 내릴 때
                     page++ // 페이지 +1
-                    Log.d(tag, "라스트 페이지2-" + lastVisibleItemPosition.toString())
-                    viewModel.getAllStudyPosts(adapter, page, object : getStudyCallback {
-                        override fun isLastPage(lastPage: Boolean) {
-                            //TODO("써야함?")
-                        }
-                    })
+                    Log.e(tag, "라스트페이지로" + visibleItemPosition.toString())
+                    Toast.makeText(requireContext(), "담페이지로", Toast.LENGTH_SHORT).show()
+                    // todo("널 넣을시?" )
+                    viewModel.getStudyPosts(
+                        adapter,
+                        false,
+                        page,
+                        3,
+                        null,
+                        true,
+                        object : OnScrollCallBackListener {
+                            override fun isFirst(result: Boolean) {
+                            }
+
+                            override fun isLast(result: Boolean) {
+                            }
+                        })
+                } else if (!isFirstPage && visibleItemPosition == 1) { // 페이지 올릴 때
+                    page--
+                    Log.e(tag, "앞페이지로" + visibleItemPosition.toString())
+                    Toast.makeText(requireContext(), "앞페이지로", Toast.LENGTH_SHORT).show()
+                    viewModel.getStudyPosts(
+                        adapter,
+                        false,
+                        page,
+                        3,
+                        null,
+                        true,
+                        object : OnScrollCallBackListener {
+                            override fun isFirst(result: Boolean) {
+                            }
+
+                            override fun isLast(result: Boolean) {
+                            }
+                        })
                 } else {
-                    Toast.makeText(requireContext(), "마지막 페이지임 ", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "앞도 뒤도 아님", Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        })*/
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         adapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {

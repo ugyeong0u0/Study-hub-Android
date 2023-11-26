@@ -53,7 +53,7 @@ class LoginViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val result = response.body() as LoginResponse
                     Log.d(tag, "로그인 성공 code" + response.code().toString())
-                    params.onSuccess(true, result.data.accessToken, result.data.refreshToken)
+                    params.onSuccess(true, result.accessToken, result.refreshToken)
                 } else {
                     Log.e(tag, "로그인 실패")
                     val errorResponse: LoginErrorResponse? = response.errorBody()?.let {

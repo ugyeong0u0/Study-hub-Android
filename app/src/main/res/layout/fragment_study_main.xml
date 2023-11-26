@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="kr.co.gamja.study_hub.feature.studypage.studyHome.StudyMainViewModel" />
+            type="kr.co.gamja.study_hub.feature.home.HomeViewModel" />
     </data>
 
     <LinearLayout

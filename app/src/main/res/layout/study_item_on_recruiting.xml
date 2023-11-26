@@ -133,7 +133,7 @@
                 tools:text="닉네임님 " />
 
             <TextView
-                android:id="@+id/fs01_item01_txt_date"
+                android:id="@+id/createdDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_nickname"
