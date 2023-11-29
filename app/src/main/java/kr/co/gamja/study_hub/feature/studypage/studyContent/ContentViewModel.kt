@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.StudyContentResponse
-import kr.co.gamja.study_hub.data.repository.RetrofitManager
+import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.global.Functions
 
 class ContentViewModel : ViewModel() {
     val tag = this.javaClass.simpleName
     val functions = Functions()
+
     // 작성 날짜
     private val _writingDate = MutableLiveData<String>()
     val writingDate: LiveData<String> get() = _writingDate
@@ -78,20 +79,21 @@ class ContentViewModel : ViewModel() {
     fun getStudyContent(adapter: ContentAdapter, postId: Int) {
         viewModelScope.launch {
             try {
-                val response = RetrofitManager.api.getStudyContent(postId)
+                val response = AuthRetrofitManager.api.getStudyContent(postId)
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponse
-                    Log.d(tag+"작성자",result.usersPost.toString())
+                    Log.d(tag + "작성자", result.usersPost.toString())
                     getInformationOfStudy(result)
-                    getRecommendList(adapter,result)
-                    _isWriter.value=result.usersPost // todo("값 확인필요")
+                    getRecommendList(adapter, result)
+                    _isWriter.value = result.usersPost // todo("값 확인필요")
                 }
             } catch (e: Exception) {
                 Log.e(tag, "스터디 content조회 Exception: ${e.message}")
             }
         }
     }
-    private fun getInformationOfStudy(result: StudyContentResponse){
+
+    private fun getInformationOfStudy(result: StudyContentResponse) {
         // 상단 관련학과
         val koreanRelativeMajor = functions.convertToKoreanMajor(result.major)
         _majorData.value = koreanRelativeMajor
@@ -104,11 +106,11 @@ class ContentViewModel : ViewModel() {
         val date = "$year\\.$month\\.$day 작성"
         _writingDate.value = date
         // 총 인원수
-        _totalPeople.value=result.studyPerson
+        _totalPeople.value = result.studyPerson
         // 참여 인원
-        _participatingPeople.value=result.studyPerson-result.remainingSeat
+        _participatingPeople.value = result.studyPerson - result.remainingSeat
         // 성별
-        val koreanGender= functions.convertToKoreanGender(result.filteredGender)
+        val koreanGender = functions.convertToKoreanGender(result.filteredGender)
         _gender.value = koreanGender
         // 스터디 내용
         _studyExplanation.value = result.content
@@ -119,18 +121,19 @@ class ContentViewModel : ViewModel() {
                 "." + result.studyEndDate[2]
         _period.value = "$startDate~$endDate"
         // 지각비
-        when(result.penalty){
-            0-> {
-                _feeWithReason.value="없어요"
-                _fee.value="없어요"
+        when (result.penalty) {
+            0 -> {
+                _feeWithReason.value = "없어요"
+                _fee.value = "없어요"
             }
-            else->{
-                _feeWithReason.value=result.penaltyWay.toString()+" "+result.penalty.toString()+"원"
-                _fee.value=result.penaltyWay.toString()+"원"
+            else -> {
+                _feeWithReason.value =
+                    result.penaltyWay.toString() + " " + result.penalty.toString() + "원"
+                _fee.value = result.penaltyWay.toString() + "원"
             }
         }
         // 대면여부
-        val meetingMethod=functions.convertToKoreanMeetMethod(result.studyWay)
+        val meetingMethod = functions.convertToKoreanMeetMethod(result.studyWay)
         _meetMethod.value = meetingMethod
         // 관련학과
         _relativeMajor.value = koreanRelativeMajor
@@ -141,9 +144,10 @@ class ContentViewModel : ViewModel() {
         _writerName.value = result.postedUser.nickname
         // todo("작성자사진")
     }
+
     // 추천리스트 반영 함수
-    private fun getRecommendList(adapter: ContentAdapter, result: StudyContentResponse){
-        adapter.studyPosts=result.relatedPost
+    private fun getRecommendList(adapter: ContentAdapter, result: StudyContentResponse) {
+        adapter.studyPosts = result.relatedPost
         adapter.notifyDataSetChanged()
     }
 

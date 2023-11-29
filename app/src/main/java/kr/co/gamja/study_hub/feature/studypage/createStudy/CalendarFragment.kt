@@ -22,7 +22,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class CalendarFragment : BottomSheetDialogFragment() {
-    private val tag =this.javaClass.simpleName
 
     private lateinit var binding: FragmentCalendarBinding
     private val viewModel: CreateStudyViewModel by activityViewModels()
