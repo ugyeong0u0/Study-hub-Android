@@ -19,7 +19,6 @@ import kr.co.gamja.study_hub.databinding.FragmentCurrentPasswordBinding
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
 class CurrentPasswordFragment : Fragment() {
-    private val tag = this.javaClass.simpleName
     private lateinit var binding: FragmentCurrentPasswordBinding
     private val viewModel: CurrentPasswordViewModel by activityViewModels()
     override fun onCreateView(

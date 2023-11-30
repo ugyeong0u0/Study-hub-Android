@@ -20,7 +20,6 @@ import kr.co.gamja.study_hub.global.CustomSnackBar
 
 
 class NewPasswordFragment : Fragment() {
-    private val tag = this.javaClass.simpleName
     private lateinit var binding: FragmentNewPasswordBinding
     private val viewModel: NewPasswordViewModel by viewModels()
     private var value = false

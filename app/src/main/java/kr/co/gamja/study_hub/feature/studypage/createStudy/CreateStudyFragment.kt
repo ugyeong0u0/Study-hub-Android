@@ -26,6 +26,7 @@ class CreateStudyFragment : Fragment() {
     private lateinit var binding: FragmentCreateStudyBinding
     private val viewModel: CreateStudyViewModel by activityViewModels()
     var newStartDate = StartDate(null, null) // 시작 날짜 < 끝 날짜
+    var isCorrectStudyRequest: Boolean = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +44,8 @@ class CreateStudyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
+        //*** 스터디 생성이나 수정이 완료될 때 viewModel 값 초기화 함
+        goToCorrectStudy() // 수정이라면 기존에 게시했던 글 가져옴
         // 툴바 설정
         val toolbar = binding.createStudyToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -191,15 +193,18 @@ class CreateStudyFragment : Fragment() {
             }
         }
         binding.btnComplete.setOnClickListener {
-            viewModel.createStudy(object : CallBackIntegerListener {
-                override fun isSuccess(result: Int) {
-                    val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(result)
-                    findNavController().navigate(action)
-                }
-            })
+            if (isCorrectStudyRequest) {
 
+            } else {
+                viewModel.createStudy(object : CallBackIntegerListener {
+                    override fun isSuccess(result: Int) {
+                        val action =
+                            MainHomeFragmentDirections.actionGlobalStudyContentFragment(result)
+                        findNavController().navigate(action)
+                    }
+                })
+            }
         }
-
     }
 
     fun getModalsheet(whatDay: String) {
@@ -213,5 +218,17 @@ class CreateStudyFragment : Fragment() {
         modal.show(parentFragmentManager, modal.tag)
     }
 
+    fun goToCorrectStudy() {
+        val receiveBundle = arguments
+        var postId = -1
+        if (receiveBundle != null) {
+            isCorrectStudyRequest = receiveBundle.getBoolean("isCorrectStudy")
+            postId = receiveBundle.getInt("postId")
+            Log.d(tag, " value: $isCorrectStudyRequest, postId: $postId")
+        } else Log.e(tag, "receiveBundle is Null")
+        if (isCorrectStudyRequest) {
+            viewModel.getMyCreatedStudy(postId)
+        }
+    }
 
 }

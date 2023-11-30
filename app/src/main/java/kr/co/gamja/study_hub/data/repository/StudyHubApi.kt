@@ -50,19 +50,6 @@ interface StudyHubApi {
     @POST("/api/v1/bookmark/{postId}")
     suspend fun saveDeleteBookmark(@Path("postId") postId: Int?): Response<BookmarkSaveDeleteResponse>
 
-    // 스터디 생성
-    @POST("/api/v1/study-posts")
-    suspend fun setCreateStudy(@Body createStudyRequest: CreateStudyRequest): Response<CreateStudyResponse>
-
-    // 스터디 게시글 전체 조회 todo("매개변수 변경됨")
-    @GET("/api/v1/study-posts")
-    suspend fun getStudyPostAll(
-        @Query("hot") hot: Boolean,
-        @Query("page") page: Int,
-        @Query("size") size: Int,
-        @Query("inquiryText") inquiryText: String?,
-        @Query("titleAndMajor") titleAndMajor: Boolean
-    ): Response<FindStudyResponse>
 
     // 닉네임 중복 조회 - 인가x
     @GET("/api/v1/users/duplication-nickname")
@@ -88,12 +75,34 @@ interface StudyHubApi {
     @DELETE("/api/v1/users")
     suspend fun deleteUser(): Response<Unit>
 
-    // 스터디 컨텐츠 조회
+    /*
+    스터디
+     */
+
+    // 스터디 컨텐츠 조회- 스터디 단건 조회 api
     @GET("/api/v1/study-posts/{postId}")
     suspend fun getStudyContent(@Path("postId") postId: Int): Response<StudyContentResponse>
 
     // 스터디 삭제
     @DELETE("/api/v1/study-posts/{postId}")
     suspend fun deleteMyStudy(@Path("postId") postId: Int) :Response<Unit>
-    
+
+    // 스터디 생성
+    @POST("/api/v1/study-posts")
+    suspend fun setCreateStudy(@Body createStudyRequest: CreateStudyRequest): Response<CreateStudyResponse>
+
+    // 스터디 게시글 전체 조회 todo("매개변수 변경됨")
+    @GET("/api/v1/study-posts")
+    suspend fun getStudyPostAll(
+        @Query("hot") hot: Boolean,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("inquiryText") inquiryText: String?,
+        @Query("titleAndMajor") titleAndMajor: Boolean
+    ): Response<FindStudyResponse>
+
+    // 스터디 수정
+    @PUT("/api/v1/study-posts")
+    suspend fun correctMyStudy(@Body correctStudyRequest: CorrectStudyRequest):Response<CreateStudyResponse>
+
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -21,7 +22,7 @@ import kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomS
 class ContentFragment : Fragment() {
     private lateinit var binding:FragmentContentBinding
     private val args: ContentFragmentArgs by navArgs()
-    private val viewModel : ContentViewModel by viewModels()
+    private val viewModel : ContentViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

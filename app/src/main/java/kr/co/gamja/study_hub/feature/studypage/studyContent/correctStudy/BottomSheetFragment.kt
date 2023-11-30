@@ -1,5 +1,6 @@
 package kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy
 
+import android.icu.util.BuddhistCalendar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -50,9 +51,12 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
                 }
             })
         }
-        // todo("스터디 글 수정 api연결")
+        // todo("nav컴포넌트로 보내는거 왜 안되는지")
         binding.btnModify.setOnClickListener {
-
+            val bundle = Bundle()
+            bundle.putBoolean("isCorrectStudy",true)
+            bundle.putInt("postId",nowPostId)
+            findNavController().navigate(R.id.action_global_createStudyFragment, bundle)
         }
 
         // 닫기 누를 시

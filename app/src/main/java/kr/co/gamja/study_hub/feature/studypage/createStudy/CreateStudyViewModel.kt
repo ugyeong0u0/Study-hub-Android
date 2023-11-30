@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import kr.co.gamja.study_hub.data.model.CorrectStudyRequest
 import kr.co.gamja.study_hub.data.model.CreateStudyRequest
 import kr.co.gamja.study_hub.data.model.CreateStudyResponse
+import kr.co.gamja.study_hub.data.model.StudyContentResponse
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackIntegerListener
 import kr.co.gamja.study_hub.data.repository.CallBackListener
@@ -254,6 +256,7 @@ class CreateStudyViewModel : ViewModel() {
         }
     }
 
+
     // editText초기화
     fun setInit() {
         urlEditText.value = ""
@@ -365,7 +368,7 @@ class CreateStudyViewModel : ViewModel() {
                     Log.d(tag, "스터디 생성 code" + response.code().toString())
                     val result = response.body() as CreateStudyResponse
                     params.isSuccess(result.postId)
-                    setInit()
+                    setInit() // 값 초기화 진행
                 } else {
                     Log.e(tag, "스터디 생성 실패 code" + response.code().toString())
                 }
@@ -374,6 +377,52 @@ class CreateStudyViewModel : ViewModel() {
             }
         }
     }
+    // 스터디 단건 조회 api연결 - 반환값 바로 반영하기 위해 contentviewModel 함수랑 중복
+    fun getMyCreatedStudy(postId: Int){
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.getStudyContent(postId)
+                if (response.isSuccessful) {
+                    val result = response.body() as StudyContentResponse
+
+                }
+            } catch (e: Exception) {
+                Log.e(tag, "스터디 수정 단건 조회 Exception: ${e.message}")
+            }
+        }
+    }
+    // 스터디 수정 api
+    // TODO("연결해야함")
+    fun correctStudy(postId:Int){
+        val correctStudyRequest=CorrectStudyRequest(
+            urlEditText.value.toString(),
+            studyContent.value.toString(),
+            gender.value.toString(),
+            relativeMajor.value.toString(),
+            howMuch.value.toString().toInt(),
+            whatFee.value.toString(),
+            postId,
+            editEndDay.value.toString(),
+            persons.value.toString().toInt(),
+            editStartDay.value.toString(),
+            meetMethod.value.toString(),
+            studyTitle.value.toString())
+        viewModelScope.launch {
+            try {
+                val response= AuthRetrofitManager.api.correctMyStudy(correctStudyRequest)
+                if(response.isSuccessful){
+                    val result = response.body() as CreateStudyResponse
+                    Log.d(tag,"postId"+result.postId)
+                }else{
+                    Log.e(tag,"스터디 수정 불가")
+                }
+            }catch (e: Exception){
+                e.stackTrace
+                Log.e(tag, "스터디 content 수정 Exception: ${e.message}")
+            }
+        }
+    }
+
     // 입력 확인 후 생성 버튼 가능 여부
     fun setButtonEnable() {
         Log.d(tag, "버튼 확인 호출됨")

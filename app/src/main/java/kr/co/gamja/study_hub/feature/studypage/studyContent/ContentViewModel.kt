@@ -6,13 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import kr.co.gamja.study_hub.data.model.CorrectStudyRequest
+import kr.co.gamja.study_hub.data.model.CreateStudyResponse
 import kr.co.gamja.study_hub.data.model.StudyContentResponse
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.global.Functions
 
 class ContentViewModel : ViewModel() {
-    val tag = this.javaClass.simpleName
-    val functions = Functions()
+    val tag: String = this.javaClass.simpleName
+    private val functions = Functions()
 
     // 작성 날짜
     private val _writingDate = MutableLiveData<String>()
@@ -82,10 +84,9 @@ class ContentViewModel : ViewModel() {
                 val response = AuthRetrofitManager.api.getStudyContent(postId)
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponse
-                    Log.d(tag + "작성자", result.usersPost.toString())
                     getInformationOfStudy(result)
                     getRecommendList(adapter, result)
-                    _isWriter.value = result.usersPost // todo("값 확인필요")
+                    _isWriter.value = result.usersPost
                 }
             } catch (e: Exception) {
                 Log.e(tag, "스터디 content조회 Exception: ${e.message}")
@@ -150,5 +151,4 @@ class ContentViewModel : ViewModel() {
         adapter.studyPosts = result.relatedPost
         adapter.notifyDataSetChanged()
     }
-
 }
