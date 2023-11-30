@@ -65,8 +65,9 @@
     <string name="word_won">원</string>
     <string name="txt_warningMajor">관련학과는 1개만 선택이 가능해요</string>
     <!--    스터디 다이얼로그-->
-    <string name="q_cancelCreatingStudy">작성을 취소할까요?</string>\
+    <string name="q_cancelCreatingStudy">작성을 취소할까요?</string>
     <string name="q_sub_cancelCreatingStudy">취소할 시 내용이 저장되지 않아요</string>
+    <string name="q_alterCreatingStudy">수정을 취소할까요?</string>
     <!--관련학과 선택하기-->
     <string name="txt_relativeMajor">관련학과</string>
     <string name="btn_button">버튼</string>
@@ -135,7 +136,8 @@
 <!--    스터디 글 수정 삭제-->
     <string name="q_deleteStudy">이 글을 삭제할까요?</string>
     <string name="q_deleteStudySub">삭제한 글과 참여자는 다시 볼 수 없어요</string>
-
+    <string name="alarm_completeAlter">글이 수정됐어요.</string>
+    <string name="alarm_completeCreateStudy">글 작성이 완료됐어요.</string>
 
 </resources>
 

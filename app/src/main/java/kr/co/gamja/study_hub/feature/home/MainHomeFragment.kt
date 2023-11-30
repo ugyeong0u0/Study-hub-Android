@@ -13,10 +13,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.repository.OnScrollCallBackListener
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentMainHomeBinding
-import kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragmentDirections
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkViewModel
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.OnItemClickListener
 import kr.co.gamja.study_hub.global.CustomSnackBar

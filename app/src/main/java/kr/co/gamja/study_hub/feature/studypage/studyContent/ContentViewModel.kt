@@ -6,8 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import kr.co.gamja.study_hub.data.model.CorrectStudyRequest
-import kr.co.gamja.study_hub.data.model.CreateStudyResponse
 import kr.co.gamja.study_hub.data.model.StudyContentResponse
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.global.Functions
@@ -101,11 +99,14 @@ class ContentViewModel : ViewModel() {
         // 제목
         _headData.value = result.title
         // 생성날짜
-        val year = result.createdDate.get(0)
-        val month = result.createdDate.get(1)
-        val day = result.createdDate.get(2)
-        val date = "$year\\.$month\\.$day 작성"
-        _writingDate.value = date
+        val createdDate = StringBuilder()
+        createdDate.append(result.createdDate[0])
+            .append(".")
+            .append(result.createdDate[1])
+            .append(".")
+            .append(result.createdDate[2])
+            .append("작성")
+        _writingDate.value = createdDate.toString()
         // 총 인원수
         _totalPeople.value = result.studyPerson
         // 참여 인원
@@ -116,11 +117,20 @@ class ContentViewModel : ViewModel() {
         // 스터디 내용
         _studyExplanation.value = result.content
         // 기간
-        val startDate = "" + result.studyStartDate[0] + "." + result.studyStartDate[1] +
-                "." + result.studyStartDate[2]
-        val endDate = "" + result.studyEndDate[0] + "." + result.studyEndDate[1] +
-                "." + result.studyEndDate[2]
-        _period.value = "$startDate~$endDate"
+        val DateBuilder = StringBuilder()
+        DateBuilder.append(result.studyStartDate[0])
+            .append(".")
+            .append(result.studyStartDate[1])
+            .append(".")
+            .append(result.studyStartDate[2])
+            .append("~")
+            .append(result.studyEndDate[0])
+            .append(".")
+            .append(result.studyEndDate[1])
+            .append(".")
+            .append(result.studyEndDate[2])
+        _period.value = DateBuilder.toString()
+
         // 지각비
         when (result.penalty) {
             0 -> {

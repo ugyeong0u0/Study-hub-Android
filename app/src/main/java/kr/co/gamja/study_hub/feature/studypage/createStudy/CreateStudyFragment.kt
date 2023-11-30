@@ -18,6 +18,7 @@ import kr.co.gamja.study_hub.data.repository.CallBackIntegerListener
 import kr.co.gamja.study_hub.databinding.FragmentCreateStudyBinding
 import kr.co.gamja.study_hub.feature.home.MainHomeFragmentDirections
 import kr.co.gamja.study_hub.global.CustomDialog
+import kr.co.gamja.study_hub.global.CustomSnackBar
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 
@@ -27,7 +28,7 @@ class CreateStudyFragment : Fragment() {
     private val viewModel: CreateStudyViewModel by activityViewModels()
     var newStartDate = StartDate(null, null) // 시작 날짜 < 끝 날짜
     var isCorrectStudyRequest: Boolean = false // true - 스터디 수정페이지에서 넘어옴, false - 스터디 생성
-    var currentPostId :Int =-1
+    var currentPostId: Int = -1
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,7 +55,12 @@ class CreateStudyFragment : Fragment() {
         // 뒤로가기 아이콘 누를 시 알림 메시지
         binding.iconBack.setOnClickListener {
             if (viewModel.goBack()) { // 하나라도 입력 된 경우 뒤로가기 시 알림띄움
-                val head = requireContext().resources.getString(R.string.q_cancelCreatingStudy)
+                val head: String
+                if (!isCorrectStudyRequest) {
+                    head = requireContext().resources.getString(R.string.q_cancelCreatingStudy)
+                } else {
+                    head = requireContext().resources.getString(R.string.q_alterCreatingStudy)
+                }
                 val sub = requireContext().resources.getString(R.string.q_sub_cancelCreatingStudy)
                 val no = requireContext().resources.getString(R.string.btn_no)
                 val yes = requireContext().resources.getString(R.string.btn_yes)
@@ -195,7 +201,7 @@ class CreateStudyFragment : Fragment() {
         }
         binding.btnComplete.setOnClickListener {
             if (isCorrectStudyRequest) { // 스터디 수정 api 호출
-                viewModel.correctStudy(currentPostId,object: CallBackIntegerListener{
+                viewModel.correctStudy(currentPostId, object : CallBackIntegerListener {
                     override fun isSuccess(result: Int) {
                         val action =
                             MainHomeFragmentDirections.actionGlobalStudyContentFragment(result)
@@ -205,6 +211,19 @@ class CreateStudyFragment : Fragment() {
             } else { // 스터디 생성 api 호출
                 viewModel.createStudy(object : CallBackIntegerListener {
                     override fun isSuccess(result: Int) {
+                        if(isCorrectStudyRequest){
+                            CustomSnackBar.make(
+                                binding.layoutLinear,
+                                getString(R.string.alarm_completeAlter),
+                                binding.btnComplete
+                            ).show()
+                        }else{
+                            CustomSnackBar.make(
+                                binding.layoutLinear,
+                                getString(R.string.alarm_completeCreateStudy),
+                                binding.btnComplete
+                            ).show()
+                        }
                         val action =
                             MainHomeFragmentDirections.actionGlobalStudyContentFragment(result)
                         findNavController().navigate(action)

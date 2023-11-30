@@ -24,7 +24,7 @@ import kr.co.gamja.study_hub.global.CustomSnackBar
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 class ConfirmingWithdrawalFragment : Fragment() {
-    private val tag = this.javaClass.simpleName
+
     private lateinit var binding: FragmentConfirmingWithdrawalBinding
     private val viewModel: ConfirmingWithdrawalViewModel by viewModels()
     private val currentPasswordViewModel: CurrentPasswordViewModel by activityViewModels()

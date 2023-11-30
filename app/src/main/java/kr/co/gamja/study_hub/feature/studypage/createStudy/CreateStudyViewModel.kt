@@ -12,7 +12,6 @@ import kr.co.gamja.study_hub.data.model.CreateStudyResponse
 import kr.co.gamja.study_hub.data.model.StudyContentResponse
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackIntegerListener
-import kr.co.gamja.study_hub.data.repository.CallBackListener
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -227,6 +226,7 @@ class CreateStudyViewModel : ViewModel() {
             return "" // 날짜 변환 실패 시 빈 문자열 반환
         }
     }
+
     // 시작 날짜 < 종료 날짜 나타내기 위해 씀
     fun convertYYYYMM(inputDate: String): String {
         try {
@@ -241,6 +241,7 @@ class CreateStudyViewModel : ViewModel() {
             return "" // 날짜 변환 실패 시 빈 문자열 반환
         }
     }
+
     // 시작 날짜 < 종료 날짜 나타내기 위해 씀
     fun convertDay(inputDate: String): String {
         try {
@@ -377,38 +378,52 @@ class CreateStudyViewModel : ViewModel() {
             }
         }
     }
+
     // 스터디 단건 조회 api연결 - 반환값 바로 반영하기 위해 contentviewModel 함수랑 중복
     // todo("기존 작성 값 ui표시")
-    fun getMyCreatedStudy(postId: Int){
+    fun getMyCreatedStudy(postId: Int) {
         viewModelScope.launch {
             try {
                 val response = AuthRetrofitManager.api.getStudyContent(postId)
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponse
 //                    urlEditText.value=result. todo("url 추가 ")
-                    val startdateBuilder :StringBuilder
+                    val startDateBuilder: StringBuilder = StringBuilder()
+                    val endDateBuilder: StringBuilder = StringBuilder()
 
-                    studyContent.value= result.content
-                    gender.value= result.filteredGender
-                    _relativeMajor.value=result.major
-                    howMuch.value=result.penalty.toString()
-                    whatFee.value=result.penaltyWay.toString()
-//                    editEndDay.value=
-//                    persons.value=result.
-//                    editStartDay.value.toString(),
-//                    meetMethod.value.toString(),
-//                    studyTitle.value.toString()
-
-
+                    startDateBuilder.append(result.createdDate[0])
+                        .append("년 ")
+                        .append(result.createdDate[1])
+                        .append("월 ")
+                        .append(result.createdDate[2])
+                        .append("일 ")
+                    endDateBuilder.append(result.studyEndDate[0])
+                        .append("년 ")
+                        .append(result.studyEndDate[1])
+                        .append("월 ")
+                        .append(result.studyEndDate[2])
+                        .append("일 ")
+                    studyContent.value = result.content
+                    gender.value = result.filteredGender
+                    _relativeMajor.value = result.major
+                    howMuch.value = result.penalty.toString()
+                    whatFee.value = result.penaltyWay.toString()
+                    setEndDay(endDateBuilder.toString())
+                    setStartDay(startDateBuilder.toString())
+                    editStartDay.value
+                    persons.value = result.studyPerson.toString()
+                    meetMethod.value = result.studyWay
+                    studyTitle.value = result.title
                 }
             } catch (e: Exception) {
                 Log.e(tag, "스터디 수정 단건 조회 Exception: ${e.message}")
             }
         }
     }
+
     // 스터디 수정 api
-    fun correctStudy(postId:Int, prams:CallBackIntegerListener){
-        val correctStudyRequest=CorrectStudyRequest(
+    fun correctStudy(postId: Int, prams: CallBackIntegerListener) {
+        val correctStudyRequest = CorrectStudyRequest(
             urlEditText.value.toString(),
             studyContent.value.toString(),
             gender.value.toString(),
@@ -420,18 +435,19 @@ class CreateStudyViewModel : ViewModel() {
             persons.value.toString().toInt(),
             editStartDay.value.toString(),
             meetMethod.value.toString(),
-            studyTitle.value.toString())
+            studyTitle.value.toString()
+        )
         viewModelScope.launch {
             try {
-                val response= AuthRetrofitManager.api.correctMyStudy(correctStudyRequest)
-                if(response.isSuccessful){
+                val response = AuthRetrofitManager.api.correctMyStudy(correctStudyRequest)
+                if (response.isSuccessful) {
                     val result = response.body() as CreateStudyResponse
-                    Log.d(tag,"postId"+result.postId)
+                    Log.d(tag, "postId" + result.postId)
                     prams.isSuccess(result.postId)
-                }else{
-                    Log.e(tag,"스터디 수정 불가")
+                } else {
+                    Log.e(tag, "스터디 수정 불가")
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 e.stackTrace
                 Log.e(tag, "스터디 content 수정 Exception: ${e.message}")
             }
