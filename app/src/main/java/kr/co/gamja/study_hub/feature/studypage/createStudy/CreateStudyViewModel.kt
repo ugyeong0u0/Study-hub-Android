@@ -378,12 +378,27 @@ class CreateStudyViewModel : ViewModel() {
         }
     }
     // 스터디 단건 조회 api연결 - 반환값 바로 반영하기 위해 contentviewModel 함수랑 중복
+    // todo("기존 작성 값 ui표시")
     fun getMyCreatedStudy(postId: Int){
         viewModelScope.launch {
             try {
                 val response = AuthRetrofitManager.api.getStudyContent(postId)
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponse
+//                    urlEditText.value=result. todo("url 추가 ")
+                    val startdateBuilder :StringBuilder
+
+                    studyContent.value= result.content
+                    gender.value= result.filteredGender
+                    _relativeMajor.value=result.major
+                    howMuch.value=result.penalty.toString()
+                    whatFee.value=result.penaltyWay.toString()
+//                    editEndDay.value=
+//                    persons.value=result.
+//                    editStartDay.value.toString(),
+//                    meetMethod.value.toString(),
+//                    studyTitle.value.toString()
+
 
                 }
             } catch (e: Exception) {
@@ -392,8 +407,7 @@ class CreateStudyViewModel : ViewModel() {
         }
     }
     // 스터디 수정 api
-    // TODO("연결해야함")
-    fun correctStudy(postId:Int){
+    fun correctStudy(postId:Int, prams:CallBackIntegerListener){
         val correctStudyRequest=CorrectStudyRequest(
             urlEditText.value.toString(),
             studyContent.value.toString(),
@@ -413,6 +427,7 @@ class CreateStudyViewModel : ViewModel() {
                 if(response.isSuccessful){
                     val result = response.body() as CreateStudyResponse
                     Log.d(tag,"postId"+result.postId)
+                    prams.isSuccess(result.postId)
                 }else{
                     Log.e(tag,"스터디 수정 불가")
                 }

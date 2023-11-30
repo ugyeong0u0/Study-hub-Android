@@ -26,7 +26,8 @@ class CreateStudyFragment : Fragment() {
     private lateinit var binding: FragmentCreateStudyBinding
     private val viewModel: CreateStudyViewModel by activityViewModels()
     var newStartDate = StartDate(null, null) // 시작 날짜 < 끝 날짜
-    var isCorrectStudyRequest: Boolean = false
+    var isCorrectStudyRequest: Boolean = false // true - 스터디 수정페이지에서 넘어옴, false - 스터디 생성
+    var currentPostId :Int =-1
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -193,9 +194,15 @@ class CreateStudyFragment : Fragment() {
             }
         }
         binding.btnComplete.setOnClickListener {
-            if (isCorrectStudyRequest) {
-
-            } else {
+            if (isCorrectStudyRequest) { // 스터디 수정 api 호출
+                viewModel.correctStudy(currentPostId,object: CallBackIntegerListener{
+                    override fun isSuccess(result: Int) {
+                        val action =
+                            MainHomeFragmentDirections.actionGlobalStudyContentFragment(result)
+                        findNavController().navigate(action)
+                    }
+                })
+            } else { // 스터디 생성 api 호출
                 viewModel.createStudy(object : CallBackIntegerListener {
                     override fun isSuccess(result: Int) {
                         val action =
@@ -220,14 +227,13 @@ class CreateStudyFragment : Fragment() {
 
     fun goToCorrectStudy() {
         val receiveBundle = arguments
-        var postId = -1
         if (receiveBundle != null) {
             isCorrectStudyRequest = receiveBundle.getBoolean("isCorrectStudy")
-            postId = receiveBundle.getInt("postId")
-            Log.d(tag, " value: $isCorrectStudyRequest, postId: $postId")
+            currentPostId = receiveBundle.getInt("postId")
+            Log.d(tag, " value: $isCorrectStudyRequest, postId: $currentPostId")
         } else Log.e(tag, "receiveBundle is Null")
         if (isCorrectStudyRequest) {
-            viewModel.getMyCreatedStudy(postId)
+            viewModel.getMyCreatedStudy(currentPostId)
         }
     }
 
