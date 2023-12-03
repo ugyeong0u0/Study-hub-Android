@@ -122,6 +122,7 @@ class CreateStudyFragment : Fragment() {
         binding.btnGenderFemale.setOnClickListener {
             viewModel.setFemale(true)
         }
+
         // 스터디방식 : 혼합/대면/비대면
         binding.btnMix.setOnClickListener {
             viewModel.setMix(true)
@@ -144,11 +145,19 @@ class CreateStudyFragment : Fragment() {
         binding.btnEndDay.setOnClickListener {
             getModalsheet("1")
         }
+        // 벌금 여부 라디오 그룹
         binding.radioGroup.setOnCheckedChangeListener { _, p1 ->
             if (p1 == R.id.radio_yes) {
                 viewModel.setSelectedFee(true)
-                Log.d(tagMessage, viewModel.selectedFee.value.toString())
             } else viewModel.setSelectedFee(false)
+        }
+        // 스터디 수정시 라디오 버튼 -기준 fee가 0인지 관찰
+        viewModel.selectedFee.observe(viewLifecycleOwner){
+            if(it){
+                binding.radioGroup.check(R.id.radio_yes)
+            }else{
+                binding.radioGroup.check(R.id.radio_no)
+            }
         }
 
         with(viewModel) {
@@ -182,7 +191,9 @@ class CreateStudyFragment : Fragment() {
             howMuch.observe(viewLifecycleOwner) {
                 viewModel.setButtonEnable()
             }
-            // TODO("벌금종류")
+            whatFee.observe(viewLifecycleOwner){
+                viewModel.setButtonEnable()
+            }
             editStartDay.observe(viewLifecycleOwner) {
                 viewModel.setButtonEnable()
                 if (!it.isNullOrEmpty()) {
@@ -211,13 +222,13 @@ class CreateStudyFragment : Fragment() {
             } else { // 스터디 생성 api 호출
                 viewModel.createStudy(object : CallBackIntegerListener {
                     override fun isSuccess(result: Int) {
-                        if(isCorrectStudyRequest){
+                        if (isCorrectStudyRequest) {
                             CustomSnackBar.make(
                                 binding.layoutLinear,
                                 getString(R.string.alarm_completeAlter),
                                 binding.btnComplete
                             ).show()
-                        }else{
+                        } else {
                             CustomSnackBar.make(
                                 binding.layoutLinear,
                                 getString(R.string.alarm_completeCreateStudy),
@@ -244,7 +255,7 @@ class CreateStudyFragment : Fragment() {
         modal.show(parentFragmentManager, modal.tag)
     }
 
-    fun goToCorrectStudy() {
+    private fun goToCorrectStudy() {
         val receiveBundle = arguments
         if (receiveBundle != null) {
             isCorrectStudyRequest = receiveBundle.getBoolean("isCorrectStudy")

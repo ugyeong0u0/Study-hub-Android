@@ -105,10 +105,8 @@ class RelativeMajorFragment : Fragment() {
                 setChipBackgroundColorResource(R.color.BG_30)
             }
             var selectedItem = parent.adapter.getItem(position) as String
-            viewModel.setUserMajor(selectedItem) // 통신시 값으로
-            viewModel.setPostRelativeMajor(selectedItem) // 포스트 값
-
-
+            viewModel.setUserMajor(selectedItem) // 통신시 값 및 화면 표시 여부 boolean
+            viewModel.setPostRelativeMajor(selectedItem) // 화면 표시 학과 글자
         }
     }
 }

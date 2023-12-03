@@ -57,6 +57,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             bundle.putBoolean("isCorrectStudy",true)
             bundle.putInt("postId",nowPostId)
             findNavController().navigate(R.id.action_global_createStudyFragment, bundle)
+            dismiss()
         }
 
         // 닫기 누를 시

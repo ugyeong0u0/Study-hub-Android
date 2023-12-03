@@ -12,14 +12,16 @@ import kr.co.gamja.study_hub.data.model.CreateStudyResponse
 import kr.co.gamja.study_hub.data.model.StudyContentResponse
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackIntegerListener
+import kr.co.gamja.study_hub.global.Functions
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateStudyViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
+    val function = Functions()
 
-    // 학과 표시 여부
+    // 화면 표시 여부 Boolean - 학과 chip
     private val _isRelativeMajor = MutableLiveData<Boolean>(false)
     val isRelativeMajor: LiveData<Boolean> get() = _isRelativeMajor
 
@@ -27,7 +29,7 @@ class CreateStudyViewModel : ViewModel() {
         _isRelativeMajor.value = new
     }
 
-    // 화면 표시용 학과 (relativeMajorFragment->CreateStudy)
+    // 화면 표시 글자(chip) 학과 (relativeMajorFragment->CreateStudy)
     private val _postRelativeMajor = MutableLiveData<String>()
     val postRelativeMajor: LiveData<String> get() = _postRelativeMajor
 
@@ -36,8 +38,8 @@ class CreateStudyViewModel : ViewModel() {
     }
 
     // 성별
-    private val _RegardlessOfGender = MutableLiveData<Boolean>()
-    val RegardlessOfGender: LiveData<Boolean> get() = _RegardlessOfGender
+    private val _regardlessOfGender = MutableLiveData<Boolean>()
+    val regardlessOfGender: LiveData<Boolean> get() = _regardlessOfGender
 
     private val _male = MutableLiveData<Boolean>()
     val male: LiveData<Boolean> get() = _male
@@ -84,6 +86,7 @@ class CreateStudyViewModel : ViewModel() {
     private val _relativeMajor = MutableLiveData<String>()
     val relativeMajor: LiveData<String> get() = _relativeMajor
 
+    // 학과 정함
     fun setRelativeMajor(new: String) {
         _relativeMajor.value = new
         setIsRelativeMajor(true)
@@ -114,11 +117,11 @@ class CreateStudyViewModel : ViewModel() {
         _selectedFee.value = options
     }
 
-    // 벌금 종류
+    // 벌금 종류(통신)
     val whatFee = MutableLiveData<String>()
 
     // 벌금 얼마인지
-    val howMuch = MutableLiveData<String>("0")
+    val howMuch = MutableLiveData<Int>(0)
 
     // 시작날짜 2023-10-04
     val editStartDay = MutableLiveData<String>()
@@ -134,28 +137,28 @@ class CreateStudyViewModel : ViewModel() {
     }
 
     fun setRegardlessOfGender(new: Boolean) {
-        _RegardlessOfGender.value = true
+        _regardlessOfGender.value = true
         _male.value = false
         _female.value = false
         gender.value = "NULL"
     }
 
     fun setMale(new: Boolean) {
-        _RegardlessOfGender.value = false
+        _regardlessOfGender.value = false
         _male.value = true
         _female.value = false
         gender.value = "MALE"
     }
 
     fun setFemale(new: Boolean) {
-        _RegardlessOfGender.value = false
+        _regardlessOfGender.value = false
         _male.value = false
         _female.value = true
         gender.value = "FEMALE"
     }
 
     fun initGender(new: Boolean) {
-        _RegardlessOfGender.value = false
+        _regardlessOfGender.value = false
         _male.value = false
         _female.value = false
         gender.value = ""
@@ -167,7 +170,7 @@ class CreateStudyViewModel : ViewModel() {
         _mix.value = true
         _offline.value = false
         _online.value = false
-        meetMethod.value = "MIX"
+        meetMethod.value = "MIX" // 통신 값
     }
 
     fun setOffline(new: Boolean) {
@@ -268,7 +271,7 @@ class CreateStudyViewModel : ViewModel() {
         setIsRelativeMajor(false)
         setSelectedFee(false)
         whatFee.value = ""
-        howMuch.value = "0"
+        howMuch.value = 0
         initDay()
         persons.value = ""
         initMeet(false)
@@ -387,7 +390,8 @@ class CreateStudyViewModel : ViewModel() {
                 val response = AuthRetrofitManager.api.getStudyContent(postId)
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponse
-//                    urlEditText.value=result. todo("url 추가 ")
+                    urlEditText.value = result.chatUrl
+                    studyTitle.value = result.title
                     val startDateBuilder: StringBuilder = StringBuilder()
                     val endDateBuilder: StringBuilder = StringBuilder()
 
@@ -404,16 +408,32 @@ class CreateStudyViewModel : ViewModel() {
                         .append(result.studyEndDate[2])
                         .append("일 ")
                     studyContent.value = result.content
-                    gender.value = result.filteredGender
-                    _relativeMajor.value = result.major
-                    howMuch.value = result.penalty.toString()
-                    whatFee.value = result.penaltyWay.toString()
+                    when (result.filteredGender) {
+                        "FEMALE" -> setFemale(true)
+                        "MALE" -> setMale(true)
+                        "NULL" -> setRegardlessOfGender(true)
+                    }
+                    setRelativeMajor(result.major) // 통신용
+                    val koreanMajor = function.convertToKoreanMajor(result.major)
+                    setPostRelativeMajor(koreanMajor) // 화면 chip표시용
+
+                    if (result.penalty == 0) {
+                        setSelectedFee(false)
+                    } else {
+                        setSelectedFee(true)
+                        howMuch.value = result.penalty
+                        whatFee.value = result.penaltyWay
+                    }
+
                     setEndDay(endDateBuilder.toString())
                     setStartDay(startDateBuilder.toString())
-                    editStartDay.value
                     persons.value = result.studyPerson.toString()
-                    meetMethod.value = result.studyWay
-                    studyTitle.value = result.title
+
+                    when (result.studyWay) {
+                        "CONTACT" -> setOffline(true)
+                        "UNTACT" -> setOnline(true)
+                        "MIX" -> setMix(true)
+                    }
                 }
             } catch (e: Exception) {
                 Log.e(tag, "스터디 수정 단건 조회 Exception: ${e.message}")

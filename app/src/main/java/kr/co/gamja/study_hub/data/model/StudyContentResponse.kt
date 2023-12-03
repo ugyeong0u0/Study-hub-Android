@@ -2,12 +2,13 @@ package kr.co.gamja.study_hub.data.model
 
 data class StudyContentResponse(
     val bookmarked: Boolean,
+    val chatUrl: String,
     val content: String,
     val createdDate: List<Int>,
     val filteredGender: String,
     val major: String,
     val penalty: Int,
-    val penaltyWay: Any,
+    val penaltyWay: String,
     val postId: Int,
     val postedUser: PostedUser,
     val relatedPost: List<RelatedPost>,

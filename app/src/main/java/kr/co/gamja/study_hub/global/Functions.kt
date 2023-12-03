@@ -1,5 +1,7 @@
 package kr.co.gamja.study_hub.global
 
+import kr.co.gamja.study_hub.feature.studypage.createStudy.CreateStudyViewModel
+
 class Functions {
     // 전공이넘값 한글로 변경
     fun convertToKoreanMajor(majorValue: String): String {
@@ -76,6 +78,7 @@ class Functions {
         when (gender) {
             "FEMALE" -> return "여성"
             "MALE" -> return "남성"
+            "NULL" -> return "무관"
             else -> return "error"
         }
     }
