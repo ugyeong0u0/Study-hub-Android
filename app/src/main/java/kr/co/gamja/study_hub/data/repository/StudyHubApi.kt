@@ -89,7 +89,7 @@ interface StudyHubApi {
 
     // 스터디 생성
     @POST("/api/v1/study-posts")
-    suspend fun setCreateStudy(@Body createStudyRequest: CreateStudyRequest): Response<CreateStudyResponse>
+    suspend fun setCreateStudy(@Body createStudyRequest: CreateStudyRequest): Response<Int>
 
     // 스터디 게시글 전체 조회 todo("매개변수 변경됨")
     @GET("/api/v1/study-posts")
@@ -103,6 +103,6 @@ interface StudyHubApi {
 
     // 스터디 수정
     @PUT("/api/v1/study-posts")
-    suspend fun correctMyStudy(@Body correctStudyRequest: CorrectStudyRequest):Response<CreateStudyResponse>
+    suspend fun correctMyStudy(@Body correctStudyRequest: CorrectStudyRequest):Response<Int>
 
 }

@@ -44,11 +44,8 @@ class ContentFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
         binding.iconBack.setOnClickListener {
-            val navcontroller = findNavController()
-            navcontroller.navigateUp() // 뒤로 가기
+            findNavController().navigateUp() // 뒤로 가기
         }
-
-
         binding.iconThreeDot.setOnClickListener {
             getModal(args.postId)
         }

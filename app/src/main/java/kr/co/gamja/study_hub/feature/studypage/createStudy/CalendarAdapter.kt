@@ -85,11 +85,13 @@ class CalendarAdapter(private val context: Context) :
                         binding.txtDay.isEnabled = true
                     }
                 }
+
             } else {
-                // 날짜 선택 o 경우 - 시작날짜 포함 전 날짜들은 회색 처리
+                // 날짜 선택 o 경우 - 시작날짜 포함 전 날짜들은 회색 처리 +todo("현재날짜보다 전날인경우 회색")
                 if (item.infoDay.isNotEmpty()) {
-                    if (item.yearMonthDay == startDate.selectedYearMonth.toString()) {
-                        val itemDay = String.format("%02d", item.infoDay.toInt())
+                    // 선택한 해당 월
+                    if (item.yearMonthDay == startDate.selectedYearMonth.toString()) { // yyyyMM
+                        val itemDay = String.format("%02d", item.infoDay.toInt()) // dd
                         val startDay = String.format("%02d", startDate.selectedDay?.toInt())
                         if (itemDay < startDay) {
                             binding.txtDay.setTextColor(
@@ -106,9 +108,35 @@ class CalendarAdapter(private val context: Context) :
                             binding.txtDay.isEnabled = false
                         }
                     }
+                    // 달이 서로 다를 때 날짜 비교 해야 해서 필요
                     if (item.yearMonthDay < startDate.selectedYearMonth.toString()) {
                         binding.txtDay.setTextColor(ContextCompat.getColor(context, R.color.BG_40))
                         binding.txtDay.isEnabled = false
+                    }
+
+                    // 스터디 수정시 - 마지막날짜 변경시, 달이 서로 다를 때 날(day)끼리 비교할 때 필요
+                    if (item.yearMonthDay > startDate.selectedYearMonth.toString()) {
+                        val itemDate =
+                            item.yearMonthDay + String.format("%02d", item.infoDay.toInt())
+                        val currentDate =
+                            currentYearMonth + String.format("%02d", currentDay.toInt())
+                        if (itemDate < currentDate) {
+                            binding.txtDay.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.BG_40
+                                )
+                            )
+                            binding.txtDay.isEnabled = false
+                        } else {
+                            binding.txtDay.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.sysblack1
+                                )
+                            )
+                            binding.txtDay.isEnabled = true
+                        }
                     }
                 }
             }

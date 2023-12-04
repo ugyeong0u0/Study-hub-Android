@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.CallBackIntegerListener
@@ -52,6 +53,7 @@ class CreateStudyFragment : Fragment() {
         val toolbar = binding.createStudyToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
+
         // 뒤로가기 아이콘 누를 시 알림 메시지
         binding.iconBack.setOnClickListener {
             if (viewModel.goBack()) { // 하나라도 입력 된 경우 뒤로가기 시 알림띄움
@@ -152,10 +154,10 @@ class CreateStudyFragment : Fragment() {
             } else viewModel.setSelectedFee(false)
         }
         // 스터디 수정시 라디오 버튼 -기준 fee가 0인지 관찰
-        viewModel.selectedFee.observe(viewLifecycleOwner){
-            if(it){
+        viewModel.selectedFee.observe(viewLifecycleOwner) {
+            if (it) {
                 binding.radioGroup.check(R.id.radio_yes)
-            }else{
+            } else {
                 binding.radioGroup.check(R.id.radio_no)
             }
         }
@@ -191,7 +193,7 @@ class CreateStudyFragment : Fragment() {
             howMuch.observe(viewLifecycleOwner) {
                 viewModel.setButtonEnable()
             }
-            whatFee.observe(viewLifecycleOwner){
+            whatFee.observe(viewLifecycleOwner) {
                 viewModel.setButtonEnable()
             }
             editStartDay.observe(viewLifecycleOwner) {
@@ -211,36 +213,35 @@ class CreateStudyFragment : Fragment() {
             }
         }
         binding.btnComplete.setOnClickListener {
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.createStudyFragment, true)
+                .build()
             if (isCorrectStudyRequest) { // 스터디 수정 api 호출
                 viewModel.correctStudy(currentPostId, object : CallBackIntegerListener {
                     override fun isSuccess(result: Int) {
+                        CustomSnackBar.make(
+                            binding.layoutLinear,
+                            getString(R.string.alarm_completeAlter)
+                        ).show()
                         val action =
                             MainHomeFragmentDirections.actionGlobalStudyContentFragment(result)
-                        findNavController().navigate(action)
+                        findNavController().navigate(action, navOptions) // 백스택에서 생성 페이지 제거
                     }
                 })
             } else { // 스터디 생성 api 호출
                 viewModel.createStudy(object : CallBackIntegerListener {
                     override fun isSuccess(result: Int) {
-                        if (isCorrectStudyRequest) {
-                            CustomSnackBar.make(
-                                binding.layoutLinear,
-                                getString(R.string.alarm_completeAlter),
-                                binding.btnComplete
-                            ).show()
-                        } else {
-                            CustomSnackBar.make(
-                                binding.layoutLinear,
-                                getString(R.string.alarm_completeCreateStudy),
-                                binding.btnComplete
-                            ).show()
-                        }
+                        CustomSnackBar.make(
+                            binding.layoutLinear,
+                            getString(R.string.alarm_completeCreateStudy)
+                        ).show()
                         val action =
                             MainHomeFragmentDirections.actionGlobalStudyContentFragment(result)
-                        findNavController().navigate(action)
+                        findNavController().navigate(action, navOptions) // 백스택에서 생성 페이지 제거
                     }
                 })
             }
+
         }
     }
 
@@ -263,6 +264,7 @@ class CreateStudyFragment : Fragment() {
             Log.d(tag, " value: $isCorrectStudyRequest, postId: $currentPostId")
         } else Log.e(tag, "receiveBundle is Null")
         if (isCorrectStudyRequest) {
+            binding.txtCreateStudy.text = getString(R.string.txt_alterStudy)
             viewModel.getMyCreatedStudy(currentPostId)
         }
     }

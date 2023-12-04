@@ -121,7 +121,7 @@ class CreateStudyViewModel : ViewModel() {
     val whatFee = MutableLiveData<String>()
 
     // 벌금 얼마인지
-    val howMuch = MutableLiveData<Int>(0)
+    val howMuch = MutableLiveData<String>("0")
 
     // 시작날짜 2023-10-04
     val editStartDay = MutableLiveData<String>()
@@ -271,7 +271,7 @@ class CreateStudyViewModel : ViewModel() {
         setIsRelativeMajor(false)
         setSelectedFee(false)
         whatFee.value = ""
-        howMuch.value = 0
+        howMuch.value = "0"
         initDay()
         persons.value = ""
         initMeet(false)
@@ -370,8 +370,8 @@ class CreateStudyViewModel : ViewModel() {
                 val response = AuthRetrofitManager.api.setCreateStudy(req)
                 if (response.isSuccessful) {
                     Log.d(tag, "스터디 생성 code" + response.code().toString())
-                    val result = response.body() as CreateStudyResponse
-                    params.isSuccess(result.postId)
+                    val result = response.body()
+                    params.isSuccess(result!!)
                     setInit() // 값 초기화 진행
                 } else {
                     Log.e(tag, "스터디 생성 실패 code" + response.code().toString())
@@ -383,15 +383,16 @@ class CreateStudyViewModel : ViewModel() {
     }
 
     // 스터디 단건 조회 api연결 - 반환값 바로 반영하기 위해 contentviewModel 함수랑 중복
-    // todo("기존 작성 값 ui표시")
     fun getMyCreatedStudy(postId: Int) {
         viewModelScope.launch {
             try {
                 val response = AuthRetrofitManager.api.getStudyContent(postId)
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponse
+
                     urlEditText.value = result.chatUrl
                     studyTitle.value = result.title
+                    Log.e("스터디 타이틀", studyTitle.value.toString())
                     val startDateBuilder: StringBuilder = StringBuilder()
                     val endDateBuilder: StringBuilder = StringBuilder()
 
@@ -421,7 +422,7 @@ class CreateStudyViewModel : ViewModel() {
                         setSelectedFee(false)
                     } else {
                         setSelectedFee(true)
-                        howMuch.value = result.penalty
+                        howMuch.value = result.penalty.toString()
                         whatFee.value = result.penaltyWay
                     }
 
@@ -457,13 +458,14 @@ class CreateStudyViewModel : ViewModel() {
             meetMethod.value.toString(),
             studyTitle.value.toString()
         )
+        Log.e("스터디 수정값 ", correctStudyRequest.toString()+"_endDay: "+_endDay.value.toString())
         viewModelScope.launch {
             try {
                 val response = AuthRetrofitManager.api.correctMyStudy(correctStudyRequest)
                 if (response.isSuccessful) {
-                    val result = response.body() as CreateStudyResponse
-                    Log.d(tag, "postId" + result.postId)
-                    prams.isSuccess(result.postId)
+                    val result = response.body()
+                    Log.d(tag, "postId$result")
+                    prams.isSuccess(result!!)
                 } else {
                     Log.e(tag, "스터디 수정 불가")
                 }

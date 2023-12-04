@@ -24,6 +24,7 @@
 
     <!--    스터디 만들기-->
     <string name="txt_createStudy">스터디 만들기</string>
+    <string name="txt_alterStudy">수정하기</string>
     <string name="txt_chatLink">채팅방 링크</string>
     <string name="txt_chatLink_sub">참여 코드가 없는 카카오톡 오픈 채팅방 링크</string>
     <string name="txt_Edit_chatLink">채팅방 링크를 첨부해 주세요</string>
