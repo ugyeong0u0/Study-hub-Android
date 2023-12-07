@@ -89,6 +89,22 @@ class MyInfoViewModel : ViewModel() {
             }
         }
     }
+    // 유저 사진 삭제
+    fun deleteImg(){
+        viewModelScope.launch {
+            try {
+                val response =AuthRetrofitManager.api.deleteUserImg()
+                if(response.isSuccessful){
+                    Log.d(tag, "유저 사진 삭제 성공 code : " + response.code().toString())
+                }else{
+                    Log.e(tag, "유저 사진 삭제 실패 code : " + response.code().toString())
+                }
+            }catch (e :Exception){
+                Log.e(tag, "유저 사진 삭제 Excep: ${e.message}")
+            }
+        }
+    }
+
 }
 
 interface MyInfoCallbackListener {

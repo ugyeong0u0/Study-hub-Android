@@ -96,9 +96,9 @@ class MyInfoFragment : Fragment() {
         binding.btnModifyImg.setOnClickListener{
             getModal()
         }
-        // 사진 삭제 todo("삭제api연결하기")
+        // 사진 삭제 
         binding.btnDeleteImg.setOnClickListener{
-            binding.imgProfile.setImageResource(R.drawable.avatar_s)
+          viewModel.deleteImg()
         }
     }
 

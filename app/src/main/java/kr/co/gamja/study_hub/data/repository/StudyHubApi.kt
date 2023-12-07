@@ -106,10 +106,13 @@ interface StudyHubApi {
     @PUT("/api/v1/study-posts")
     suspend fun correctMyStudy(@Body correctStudyRequest: CorrectStudyRequest):Response<Int>
 
-    // 사진 수정
+    // 유저 사진 수정
     @Multipart
     @POST("/api/v1/users/image")
     suspend fun setUserImg(@Part photo:MultipartBody.Part):Response<Unit>
 
+    // 유저 사진 삭제
+    @DELETE("/api/v1/users/image")
+    suspend fun deleteUserImg():Response<Unit>
 
 }
