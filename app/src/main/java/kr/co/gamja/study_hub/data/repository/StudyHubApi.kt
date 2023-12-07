@@ -2,6 +2,7 @@ package kr.co.gamja.study_hub.data.repository
 
 import kr.co.gamja.study_hub.data.*
 import kr.co.gamja.study_hub.data.model.*
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -104,5 +105,11 @@ interface StudyHubApi {
     // 스터디 수정
     @PUT("/api/v1/study-posts")
     suspend fun correctMyStudy(@Body correctStudyRequest: CorrectStudyRequest):Response<Int>
+
+    // 사진 수정
+    @Multipart
+    @POST("/api/v1/users/image")
+    suspend fun setUserImg(@Part photo:MultipartBody.Part):Response<Unit>
+
 
 }
