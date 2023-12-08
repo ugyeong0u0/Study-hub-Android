@@ -32,7 +32,7 @@ import kotlin.properties.Delegates
 
 
 class LoginFragment : Fragment() {
-    private val tag = this.javaClass.simpleName
+    private val msgTag = this.javaClass.simpleName
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
     private var grayColor by Delegates.notNull<Int>() // G_80 : 에딧텍스트 값 정답

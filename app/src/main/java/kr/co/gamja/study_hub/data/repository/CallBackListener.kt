@@ -8,6 +8,10 @@ interface CallBackListener {
 interface CallBackIntegerListener{
     fun isSuccess(result :Int)
 }
+// 리스너 안에 리스너 호출로 인해 Boolean 반환 callBack 하나 더 만듦
+interface SecondCallBackListener{
+    fun isSuccess(result:Boolean)
+}
 // 아이템 뷰 클릭
 interface OnViewClickListener {
     fun onViewClick(postId: Int?)

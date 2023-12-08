@@ -10,20 +10,35 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.datastore.App
+import kr.co.gamja.study_hub.data.repository.SecondCallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentMyInfoBinding
 import kr.co.gamja.study_hub.feature.mypage.uploadImg.UploadImageFragment
 import kr.co.gamja.study_hub.global.CustomDialog
+import kr.co.gamja.study_hub.global.CustomSnackBar
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 
-class MyInfoFragment : Fragment() {
+class MyInfoFragment : Fragment(), SecondCallBackListener {
     private lateinit var binding: FragmentMyInfoBinding
+    private val msgTag=this.javaClass.simpleName
+    override fun isSuccess(result: Boolean) { // 사진 변경 완료시 snackBar띄움
+        if(result){
+            CustomSnackBar.make(
+                binding.layoutLinear,
+                getString(R.string.txt_changeUserImg)
+            ).show()
+        }
+    }
+
     private val viewModel: MyInfoViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +47,6 @@ class MyInfoFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_my_info, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,6 +61,21 @@ class MyInfoFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
         viewModel.getUsers()
+        viewModel.imgData.observe(viewLifecycleOwner, Observer { img ->
+            if (img != null) {
+                Glide.with(this).load(viewModel.imgData.value)
+                    .apply(
+                        RequestOptions().override(
+                            binding.imgProfile.width,
+                            binding.imgProfile.height
+                        )
+                    )
+                    .into(binding.imgProfile)
+            } else {
+                binding.imgProfile.setImageResource(R.drawable.avatar_s)
+            }
+        })
+
         viewModel.setOnClickListener(object : MyInfoCallbackListener {
             override fun myInfoCallbackResult(isSuccess: Boolean) {
                 if (!isSuccess)
@@ -93,13 +122,19 @@ class MyInfoFragment : Fragment() {
                 null
             )
         }
-        binding.btnModifyImg.setOnClickListener{
+        // 사진 수정 프레그먼트로
+        binding.btnModifyImg.setOnClickListener {
             getModal()
         }
-        // 사진 삭제 
-        binding.btnDeleteImg.setOnClickListener{
-          viewModel.deleteImg()
+        // 사진 삭제
+        binding.btnDeleteImg.setOnClickListener {
+            viewModel.deleteImg()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getUsers() // 데이터 변경 시
     }
 
     fun deleteLoginData(goLogin: Boolean) {
@@ -117,10 +152,11 @@ class MyInfoFragment : Fragment() {
             }
 
         }
-
     }
-    private fun getModal(){
+
+    private fun getModal() {
         val modal = UploadImageFragment()
+        modal.snackBarListener=this
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         modal.show(parentFragmentManager, modal.tag)
     }

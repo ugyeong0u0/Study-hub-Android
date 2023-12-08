@@ -23,7 +23,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.CallBackListener
+import kr.co.gamja.study_hub.data.repository.SecondCallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentUploadImageBinding
+import kr.co.gamja.study_hub.global.CustomSnackBar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -44,7 +47,11 @@ class UploadImageFragment : BottomSheetDialogFragment() {
     private lateinit var galleryPermissionLauncher: ActivityResultLauncher<Array<String>> // 갤러리 권한 반환값
     private lateinit var getGalleryLauncher: ActivityResultLauncher<Intent> // 갤러리에서 선택한 사진 반환
     private val viewModel: UploadImgViewModel by viewModels()
-
+//    private lateinit var snackBarListener :SecondCallBackListener
+    var snackBarListener :SecondCallBackListener?=null
+    /*fun setOnSnackBarListener(listener: SecondCallBackListener){
+        snackBarListener =listener
+    }*/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -225,8 +232,12 @@ class UploadImageFragment : BottomSheetDialogFragment() {
         val requestFile = file.asRequestBody(contentType)
         val requestBody = MultipartBody.Part.createFormData("image", file.name, requestFile)
         // 업로딩 api 연결
-        viewModel.uploadImg(requestBody)
-        dismiss() // 바텀 싯 종료
+        viewModel.uploadImg(requestBody, object : CallBackListener {
+            override fun isSuccess(result: Boolean) {
+               snackBarListener?.isSuccess(result) // snackBar 개인정보 페이지에 띄우기위한 리스너
+                dismiss() // 바텀 싯 종료
+            }
+        })
     }
 
     private fun openGallery() {

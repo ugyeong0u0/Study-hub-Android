@@ -7,6 +7,7 @@
             type="kr.co.gamja.study_hub.feature.mypage.uploadImg.UploadImgViewModel" />
     </data>
     <LinearLayout
+        android:id="@+id/layout_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/modal_shape"

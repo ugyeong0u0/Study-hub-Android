@@ -1,7 +1,6 @@
 package kr.co.gamja.study_hub.feature.mypage
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentMypageMainBinding
 
@@ -37,9 +39,23 @@ class MypageMainFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
         viewModel.getUsers()
-        viewModel.setOnClickListener(object:MyInfoCallbackListener{
+        viewModel.imgData.observe(viewLifecycleOwner, Observer { img ->
+            if (img != null) {
+                Glide.with(this).load(viewModel.imgData.value)
+                    .apply(
+                        RequestOptions().override(
+                            binding.iconProfile.width,
+                            binding.iconProfile.height
+                        )
+                    )
+                    .into(binding.iconProfile)
+            } else {
+                binding.iconProfile.setImageResource(R.drawable.avatar_s)
+            }
+        })
+        viewModel.setOnClickListener(object : MyInfoCallbackListener {
             override fun myInfoCallbackResult(isSuccess: Boolean) {
-                if(!isSuccess){
+                if (!isSuccess) {
                     viewModel.init() // 비회원시 결과값 초기화
                 }
             }

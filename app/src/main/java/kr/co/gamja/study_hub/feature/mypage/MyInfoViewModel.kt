@@ -14,7 +14,7 @@ import kr.co.gamja.study_hub.global.Functions
 
 class MyInfoViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
-    private val functions =Functions()
+    private val functions = Functions()
     private val _emailData = MutableLiveData<String>()
     val emailData: LiveData<String> get() = _emailData
 
@@ -35,8 +35,8 @@ class MyInfoViewModel : ViewModel() {
     private val _genderData = MutableLiveData<String>()
     val genderData: LiveData<String> get() = _genderData
 
-    private val _imgData = MutableLiveData<Any>()
-    val imgData: LiveData<Any> get() = _imgData
+    private val _imgData = MutableLiveData<Any?>()
+    val imgData: LiveData<Any?> get() = _imgData
 
     // 회원 비회원 여부
     private val _isImgData = MutableLiveData<Boolean>()
@@ -46,11 +46,13 @@ class MyInfoViewModel : ViewModel() {
     fun setOnClickListener(listener: MyInfoCallbackListener) {
         onClickListener = listener
     }
+
     // 초기화
-    fun init(){
-        _isImgData.value=false
-        _isMajorData.value=false
-        _isNicknameData.value=false
+    fun init() {
+        _isImgData.value = false
+        _isMajorData.value = false
+        _isNicknameData.value = false
+        _imgData.value = null
     }
 
     // 회원조회
@@ -64,12 +66,12 @@ class MyInfoViewModel : ViewModel() {
                     _emailData.value = result.email
                     _nicknameData.value = result.nickname
                     _isNicknameData.value = true
-                    val koreanMajor=functions.convertToKoreanMajor(result.major)
+                    val koreanMajor = functions.convertToKoreanMajor(result.major)
                     _majorData.value = koreanMajor
                     _isMajorData.value = true
                     val koreanGender = functions.convertToKoreanGender(result.gender)
                     _genderData.value = koreanGender
-                    _imgData.value = result.imageUrl // TODO("이미지처리")
+                    _imgData.value = result.imageUrl
                     _isImgData.value = true
                     onClickListener.myInfoCallbackResult(true)
                 } else {
@@ -89,17 +91,19 @@ class MyInfoViewModel : ViewModel() {
             }
         }
     }
+
     // 유저 사진 삭제
-    fun deleteImg(){
+    fun deleteImg() {
         viewModelScope.launch {
             try {
-                val response =AuthRetrofitManager.api.deleteUserImg()
-                if(response.isSuccessful){
+                val response = AuthRetrofitManager.api.deleteUserImg()
+                if (response.isSuccessful) {
+                    _imgData.value = null
                     Log.d(tag, "유저 사진 삭제 성공 code : " + response.code().toString())
-                }else{
+                } else {
                     Log.e(tag, "유저 사진 삭제 실패 code : " + response.code().toString())
                 }
-            }catch (e :Exception){
+            } catch (e: Exception) {
                 Log.e(tag, "유저 사진 삭제 Excep: ${e.message}")
             }
         }

@@ -98,7 +98,7 @@
     <string name="btn_yes">네</string>
     <string name="q_logout">로그아웃 하시겠어요?</string>
     <string name="txt_sub_relativeMajor">-해당스터디와 관련된 학과를 선택해 주세요\n-관련학과는 1개만 선택할 수 있어요</string>
-
+    <string name="txt_changeUserImg">사진이 변경됐어요.</string>
     <!--    닉네임 변경-->
     <string name="txt_changeNickname">닉네임 변경</string>
     <string name="txt_tellNewNickname">새로운 닉네임을 알려주세요</string>
@@ -139,6 +139,7 @@
     <string name="q_deleteStudySub">삭제한 글과 참여자는 다시 볼 수 없어요</string>
     <string name="alarm_completeAlter">글이 수정됐어요.</string>
     <string name="alarm_completeCreateStudy">글 작성이 완료됐어요.</string>
+    
 
 </resources>
 

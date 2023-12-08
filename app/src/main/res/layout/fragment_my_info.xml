@@ -18,6 +18,7 @@
 
 
         <LinearLayout
+            android:id="@+id/layout_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -73,24 +74,23 @@
                     android:gravity="center"
                     android:layout_below="@+id/img_profile">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_deleteImg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="#00000000"
                         android:text="@string/btn_delete"
-                        android:textAlignment="textEnd"
                         android:textColor="@color/BG_70"
                         android:textSize="14sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_modifyImg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#00000000"
                         android:text="@string/btn_modify"
-                        android:textAlignment="textStart"
+
                         android:textColor="@color/O_50"
                         android:textSize="14sp" />
                 </LinearLayout>
