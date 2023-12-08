@@ -73,5 +73,12 @@ class MypageMainFragment : Fragment() {
                 null
             )
         }
+        // 작성한 글 누를 시
+        binding.btnUserContent.setOnClickListener{
+            findNavController().navigate(
+                R.id.action_mypageMainFragment_to_writtenStudyFragment,
+                null
+            )
+        }
     }
 }

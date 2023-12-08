@@ -3,8 +3,8 @@
     <data>
         <variable
             name="viewModel"
-            type="kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkViewModel" />
-        <import type="android.view.View" />
+            type="kr.co.gamja.study_hub.feature.mypage.myStudy.WrittenStudyViewModel" />
+    <import type="android.view.View"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:background="@color/BG_30">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/bookMark_toolbar"
+            android:id="@+id/writtenPage_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/sysblack2">
@@ -31,12 +31,12 @@
                     android:background="@drawable/icon_arrow_left_l_white" />
 
                 <TextView
-                    android:id="@+id/word_bookmark"
+                    android:id="@+id/word_writtenPage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/icon_back"
                     android:gravity="center"
-                    android:text="@string/txt_bookMark"
+                    android:text="@string/txt_writtenPage"
                     android:textColor="@color/syswhite"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -47,18 +47,18 @@
             android:id="@+id/txt_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bookMark_toolbar"
+            android:layout_below="@+id/writtenPage_toolbar"
             android:layout_marginStart="@dimen/twenty"
             android:layout_marginTop="16dp"
-            android:text="@string/txt_all"
+            android:text="@{@string/txt_all(viewModel.listSize)}"
             android:textColor="@color/BG_80"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/txt_numberOfBookmark"
+            android:id="@+id/txt_numberOfWrittenStudy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bookMark_toolbar"
+            android:layout_below="@+id/writtenPage_toolbar"
             android:layout_marginStart="6dp"
             android:layout_marginTop="16dp"
             android:layout_toEndOf="@+id/txt_all"
@@ -70,8 +70,8 @@
             android:id="@+id/btn_deleteAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bookMark_toolbar"
-            android:layout_alignBaseline="@+id/txt_numberOfBookmark"
+            android:layout_below="@+id/writtenPage_toolbar"
+            android:layout_alignBaseline="@+id/txt_numberOfWrittenStudy"
             android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="@dimen/twenty"
             android:background="#00000000"
@@ -81,10 +81,10 @@
 
         <ImageView
             android:id="@+id/img_empty_bookmark"
-            android:layout_width="@dimen/ninety"
-            android:layout_height="@dimen/ninety"
+            android:layout_width="@dimen/twoHundred_ten"
+            android:layout_height="@dimen/twoHundred_ten"
             android:layout_centerInParent="true"
-            android:src="@drawable/empty_bookmark"
+            android:src="@drawable/image_empty_write"
             android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
 
         <TextView
@@ -94,9 +94,9 @@
             android:layout_below="@+id/img_empty_bookmark"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/twenty_four"
-            android:text="@string/txt_binBookmark"
-            android:textColor="@color/BG_80"
-            android:textSize="14sp"
+            android:text="@string/txt_noWritten"
+            android:textColor="@color/BG_70"
+            android:textSize="16sp"
             android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}"/>
 
         <TextView
@@ -106,13 +106,13 @@
             android:layout_below="@+id/txt_binBookmark"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/sixteen"
-            android:text="@string/txt_sub_binBookmark"
-            android:textColor="@color/O_40"
-            android:textSize="14sp"
-            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}"/>
+            android:text="@string/txt_sub_noWritten"
+            android:textColor="@color/BG_60"
+            android:textSize="16sp"
+            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyler_bookmark"
+            android:id="@+id/recyler_writtenList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_deleteAll"
@@ -121,4 +121,5 @@
 
 
     </RelativeLayout>
+
 </layout>

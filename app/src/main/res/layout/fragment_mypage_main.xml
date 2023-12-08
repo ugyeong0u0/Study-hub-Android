@@ -121,7 +121,7 @@
                 android:paddingTop="20dp"
                 android:paddingRight="21dp"
                 android:paddingBottom="20dp"
-                android:text="0"
+                android:text="@{viewModel.writtenData}"
                 android:textColor="@color/sysblack1"
                 android:textSize="18sp"
                 android:drawablePadding="3dp"/>
@@ -138,7 +138,7 @@
                 android:paddingTop="20dp"
                 android:paddingRight="14dp"
                 android:paddingBottom="20dp"
-                android:text="0"
+                android:text="@{viewModel.participantData}"
                 android:textColor="@color/sysblack1"
                 android:textSize="18sp"
                 android:drawablePadding="3dp"/>
@@ -155,7 +155,7 @@
                 android:paddingTop="20dp"
                 android:paddingRight="21dp"
                 android:paddingBottom="20dp"
-                android:text="0"
+                android:text="@{viewModel.bookmarkData}"
                 android:textColor="@color/sysblack1"
                 android:textSize="18sp"
                 android:drawablePadding="3dp"/>

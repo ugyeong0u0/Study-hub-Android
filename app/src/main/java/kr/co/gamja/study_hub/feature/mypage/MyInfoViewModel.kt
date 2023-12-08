@@ -42,17 +42,30 @@ class MyInfoViewModel : ViewModel() {
     private val _isImgData = MutableLiveData<Boolean>()
     val isImgData: LiveData<Boolean> get() = _isImgData
 
+    // 마이페이지 게시글 수
+    private val _writtenData = MutableLiveData<Int>()
+    val writtenData: LiveData<Int> get() = _writtenData
+    // 참여자 수
+    private val _participantData = MutableLiveData<Int>()
+    val participantData: LiveData<Int> get() = _participantData
+    // 북마크 수
+    private val _bookmarkData = MutableLiveData<Int>()
+    val bookmarkData: LiveData<Int> get() = _bookmarkData
+
     private lateinit var onClickListener: MyInfoCallbackListener
     fun setOnClickListener(listener: MyInfoCallbackListener) {
         onClickListener = listener
     }
 
-    // 초기화
+    // 비회원일 시 초기화
     fun init() {
         _isImgData.value = false
         _isMajorData.value = false
         _isNicknameData.value = false
         _imgData.value = null
+        _writtenData.value=0 // 게시글 수
+        _participantData.value=0 // 참여자 수
+        _bookmarkData.value=0 // 북마크 수
     }
 
     // 회원조회
@@ -73,6 +86,9 @@ class MyInfoViewModel : ViewModel() {
                     _genderData.value = koreanGender
                     _imgData.value = result.imageUrl
                     _isImgData.value = true
+                    _writtenData.value=result.postCount
+                    _bookmarkData.value=result.bookmarkCount
+                    _participantData.value=result.participateCount
                     onClickListener.myInfoCallbackResult(true)
                 } else {
                     Log.e(tag, "회원조회 실패")

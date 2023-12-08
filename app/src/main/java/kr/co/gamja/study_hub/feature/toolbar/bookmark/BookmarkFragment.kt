@@ -110,7 +110,6 @@ class BookmarkFragment : Fragment() {
             dialog.setOnClickListener(object : OnDialogClickListener {
                 override fun onclickResult() {
                     // TODO("삭제 누를 시 통신")
-
                 }
             })
         }

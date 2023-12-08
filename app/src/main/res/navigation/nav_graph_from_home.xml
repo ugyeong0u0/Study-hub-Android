@@ -57,6 +57,9 @@
         <argument
             android:name="showBottomNav"
             android:defaultValue="true" />
+        <action
+            android:id="@+id/action_mypageMainFragment_to_writtenStudyFragment"
+            app:destination="@id/writtenStudyFragment" />
     </fragment>
     <fragment
         android:id="@+id/manualFragment"
@@ -191,4 +194,9 @@
         android:name="kr.co.gamja.study_hub.feature.mypage.uploadImg.UploadImageFragment"
         android:label="fragment_upload_image"
         tools:layout="@layout/fragment_upload_image" />
+    <fragment
+        android:id="@+id/writtenStudyFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.myStudy.WrittenStudyFragment"
+        android:label="fragment_written_study"
+        tools:layout="@layout/fragment_written_study" />
 </navigation>

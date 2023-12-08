@@ -166,7 +166,8 @@
     <string name="btn_usingGuide">이용방법</string>
     <string name="btn_asking">문의하기</string>
     <string name="btn_terms">서비스 이용약관</string>
-
+    <string name="endStudy">마감</string>
+    <string name="participant">참여자</string>
 
     <!--    이용방법 페이지-->
     <string name="txt_guideToolBar">이용방법</string>
@@ -178,7 +179,7 @@
     <!--    북마크-->
     <string name="txt_bookMark">북마크</string>
     <string name="btn_allDelete">전체삭제</string>
-    <string name="txt_all">전체</string>
+    <string name="txt_all">전체 %d</string>
     <string name="txt_available">잔여%d자리</string>
     <string name="btn_join">신청하기</string>
     <string name="txt_binBookmark">북마크 글이 없어요</string>
@@ -186,7 +187,8 @@
     <string name="q_deleteBookmark">북마크를 모두 삭제할까요?</string>
     <string name="btn_cancel">취소</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <!--    작성한 글-->
+    <string name="txt_writtenPage">작성한글</string>
+    <string name="txt_noWritten">작성한 글이 없어요</string>
+    <string name="txt_sub_noWritten">새로운 스터디 활동을 시작해보세요!</string>
 </resources>
