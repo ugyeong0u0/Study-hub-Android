@@ -8,17 +8,21 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.data.repository.StudyHubApi
 import kr.co.gamja.study_hub.databinding.FragmentWrittenStudyBinding
 
 class WrittenStudyFragment : Fragment() {
     private lateinit var binding:FragmentWrittenStudyBinding
-    private val viewModel : WrittenStudyViewModel by viewModels()
+    private lateinit var viewModel : WrittenStudyViewModel
     private lateinit var writtenStudyAdapter:WrittenStudyAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +34,8 @@ class WrittenStudyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val factory =WrittenStudyViewModelFactory(AuthRetrofitManager.api)
+        viewModel = ViewModelProvider(this, factory)[WrittenStudyViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -53,5 +59,14 @@ class WrittenStudyFragment : Fragment() {
                 pagingData->writtenStudyAdapter.submitData(pagingData) // 데이터 업데이트
             }
         }
+    }
+}
+// 생성자 있는 뷰모델 인스턴스 생성
+class WrittenStudyViewModelFactory(private val studyHubApi: StudyHubApi) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(WrittenStudyViewModel::class.java)) { // 타입 확인
+            return WrittenStudyViewModel(studyHubApi) as T
+        }
+        throw IllegalArgumentException("ViewModel class 모름")
     }
 }
