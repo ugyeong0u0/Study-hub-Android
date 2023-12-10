@@ -1,2 +1,18 @@
-# Study-hub-Android
-## 스터디 매칭 앱입니다~🥰
+# STUDY HUB (Android)
+
+![1_](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/8a219ccd-c992-4300-a3a7-1a926171bfa1)
+![2_Overview](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/2c9973d6-bc43-4701-be41-4a4309656612)
+![3_Background](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/93fd5c1d-aa59-4f18-8cec-554f3945df4d)
+![4_Target_userJourney_map](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/9bc8768f-6977-477e-b1ff-87a1c4a08ae7)
+![5_Solution](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/36c4f0e6-2c36-410a-8879-e54d0f01618a)
+![6_IA](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/4e1bef80-e822-4d0d-a929-037a21c2718d)
+![7_Brand_Concept](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/744bb86f-2f52-454c-a810-b739d38b4248)
+![8_Design_system](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/b2e0cfd7-2c2d-4afd-b044-9421fd1d7a9c)
+![9_Whats_a_STUDY_HUB](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/191773c7-d629-44ea-99bb-8d38ad8e7a00)
+![10_Choose](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/627478ba-c6fe-4ea2-bdd8-4a60f15792aa)
+![11_Post](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/aef08970-c2f5-4c4a-bec1-795a36933177)
+![12_Join](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/83c41f1a-d6c5-479d-be5d-a4a3e3b369df)
+![13_Recruit](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/95032a3c-879d-4152-9da3-35ec6b8cc8d5)
+![14_Manage](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/4c039daf-7d9f-48e5-9b14-bab7f2f07a73)
+![15_Alarm](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/eceee9a3-5d39-490c-a0c9-0509b14f917d)
+![16_End](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/7b5f416b-6976-43bc-9598-a4eaac90812b)
