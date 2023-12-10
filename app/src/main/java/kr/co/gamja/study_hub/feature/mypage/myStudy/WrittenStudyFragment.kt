@@ -19,7 +19,7 @@ import kr.co.gamja.study_hub.databinding.FragmentWrittenStudyBinding
 class WrittenStudyFragment : Fragment() {
     private lateinit var binding:FragmentWrittenStudyBinding
     private val viewModel : WrittenStudyViewModel by viewModels()
-    private val writtenStudyAdapter=WrittenStudyAdapter(requireContext())
+    private lateinit var writtenStudyAdapter:WrittenStudyAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,7 +37,7 @@ class WrittenStudyFragment : Fragment() {
         val toolbar = binding.writtenPageToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
-
+        writtenStudyAdapter=WrittenStudyAdapter(requireContext())
         setUpRecyclerView()
         observeData()
     }

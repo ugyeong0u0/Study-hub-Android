@@ -62,7 +62,6 @@ class MyInfoFragment : Fragment(), SecondCallBackListener {
 
         viewModel.getUsers()
         viewModel.imgData.observe(viewLifecycleOwner, Observer { img ->
-            if (img != null) {
                 Glide.with(this).load(viewModel.imgData.value)
                     .apply(
                         RequestOptions().override(
@@ -71,9 +70,6 @@ class MyInfoFragment : Fragment(), SecondCallBackListener {
                         )
                     )
                     .into(binding.imgProfile)
-            } else {
-                binding.imgProfile.setImageResource(R.drawable.avatar_s)
-            }
         })
 
         viewModel.setOnClickListener(object : MyInfoCallbackListener {

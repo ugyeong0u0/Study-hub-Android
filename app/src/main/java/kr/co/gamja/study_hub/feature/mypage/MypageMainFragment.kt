@@ -40,7 +40,6 @@ class MypageMainFragment : Fragment() {
 
         viewModel.getUsers()
         viewModel.imgData.observe(viewLifecycleOwner, Observer { img ->
-            if (img != null) {
                 Glide.with(this).load(viewModel.imgData.value)
                     .apply(
                         RequestOptions().override(
@@ -49,9 +48,7 @@ class MypageMainFragment : Fragment() {
                         )
                     )
                     .into(binding.iconProfile)
-            } else {
-                binding.iconProfile.setImageResource(R.drawable.avatar_s)
-            }
+
         })
         viewModel.setOnClickListener(object : MyInfoCallbackListener {
             override fun myInfoCallbackResult(isSuccess: Boolean) {

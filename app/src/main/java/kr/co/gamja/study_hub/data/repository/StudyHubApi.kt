@@ -108,7 +108,7 @@ interface StudyHubApi {
 
     // 유저 사진 수정
     @Multipart
-    @POST("/api/v1/users/image")
+    @PUT("/api/v1/users/image")
     suspend fun setUserImg(@Part photo:MultipartBody.Part):Response<Unit>
 
     // 유저 사진 삭제
@@ -116,7 +116,6 @@ interface StudyHubApi {
     suspend fun deleteUserImg():Response<Unit>
 
     // 내가 쓴 스터디 조회
-    // todo ("연결하기")
     @GET("/api/v1/study-posts/mypost")
     suspend fun getMyStudy(@Query("page")page: Int, @Query("size") size: Int):Response<MyStudyListResponse>
 }

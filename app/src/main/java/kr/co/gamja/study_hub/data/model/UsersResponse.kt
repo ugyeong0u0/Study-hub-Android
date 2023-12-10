@@ -4,7 +4,7 @@ data class UsersResponse(
     val bookmarkCount: Int,
     val email: String,
     val gender: String,
-    val imageUrl: Any,
+    val imageUrl: String,
     val major: String,
     val nickname: String,
     val participateCount: Int,

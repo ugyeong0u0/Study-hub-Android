@@ -35,22 +35,22 @@ class MyInfoViewModel : ViewModel() {
     private val _genderData = MutableLiveData<String>()
     val genderData: LiveData<String> get() = _genderData
 
-    private val _imgData = MutableLiveData<Any?>()
-    val imgData: LiveData<Any?> get() = _imgData
+    private val _imgData = MutableLiveData<String>()
+    val imgData: LiveData<String> get() = _imgData
 
     // 회원 비회원 여부
     private val _isImgData = MutableLiveData<Boolean>()
     val isImgData: LiveData<Boolean> get() = _isImgData
 
     // 마이페이지 게시글 수
-    private val _writtenData = MutableLiveData<Int>()
-    val writtenData: LiveData<Int> get() = _writtenData
+    private val _writtenData = MutableLiveData<String>()
+    val writtenData: LiveData<String> get() = _writtenData
     // 참여자 수
-    private val _participantData = MutableLiveData<Int>()
-    val participantData: LiveData<Int> get() = _participantData
+    private val _participantData = MutableLiveData<String>()
+    val participantData: LiveData<String> get() = _participantData
     // 북마크 수
-    private val _bookmarkData = MutableLiveData<Int>()
-    val bookmarkData: LiveData<Int> get() = _bookmarkData
+    private val _bookmarkData = MutableLiveData<String>()
+    val bookmarkData: LiveData<String> get() = _bookmarkData
 
     private lateinit var onClickListener: MyInfoCallbackListener
     fun setOnClickListener(listener: MyInfoCallbackListener) {
@@ -62,10 +62,9 @@ class MyInfoViewModel : ViewModel() {
         _isImgData.value = false
         _isMajorData.value = false
         _isNicknameData.value = false
-        _imgData.value = null
-        _writtenData.value=0 // 게시글 수
-        _participantData.value=0 // 참여자 수
-        _bookmarkData.value=0 // 북마크 수
+        _writtenData.value="0" // 게시글 수
+        _participantData.value="0"// 참여자 수
+        _bookmarkData.value="0" // 북마크 수
     }
 
     // 회원조회
@@ -86,9 +85,9 @@ class MyInfoViewModel : ViewModel() {
                     _genderData.value = koreanGender
                     _imgData.value = result.imageUrl
                     _isImgData.value = true
-                    _writtenData.value=result.postCount
-                    _bookmarkData.value=result.bookmarkCount
-                    _participantData.value=result.participateCount
+                    _writtenData.value=result.postCount.toString()
+                    _bookmarkData.value=result.bookmarkCount.toString()
+                    _participantData.value=result.participateCount.toString()
                     onClickListener.myInfoCallbackResult(true)
                 } else {
                     Log.e(tag, "회원조회 실패")
@@ -114,7 +113,6 @@ class MyInfoViewModel : ViewModel() {
             try {
                 val response = AuthRetrofitManager.api.deleteUserImg()
                 if (response.isSuccessful) {
-                    _imgData.value = null
                     Log.d(tag, "유저 사진 삭제 성공 code : " + response.code().toString())
                 } else {
                     Log.e(tag, "유저 사진 삭제 실패 code : " + response.code().toString())
