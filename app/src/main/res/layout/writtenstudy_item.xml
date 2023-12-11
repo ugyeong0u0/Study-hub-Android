@@ -4,8 +4,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="201dp"
-        android:background="@drawable/bg_30_corner_6"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bg_white_corner_6"
         android:paddingTop="@dimen/sixteen">
 
 
@@ -36,6 +36,7 @@
             android:layout_marginHorizontal="@dimen/sixteen"
             android:layout_marginBottom="@dimen/fourteen"
             android:textSize="16sp"
+            android:textColor="@color/sysblack1"
             tools:text="제목" />
 
         <TextView
@@ -68,6 +69,7 @@
             android:background="@color/BG_70" />
 
         <LinearLayout
+            android:id="@+id/layout_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view"
@@ -93,7 +95,11 @@
                 android:text="@string/participant"
                 android:textColor="@color/BG_80" />
         </LinearLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/twenty"
+            android:background="@color/BG_30"
+            android:layout_below="@+id/layout_linear"/>
 
     </RelativeLayout>
 </layout>

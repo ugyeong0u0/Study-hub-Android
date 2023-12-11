@@ -24,6 +24,7 @@
             android:background="@color/syswhite"
             app:itemIconTint="@color/bottomnav_color"
             app:itemTextColor="@color/bottomnav_color"
+            app:itemBackground="@color/syswhite"
             app:menu="@menu/bottom_navigation" />
     </LinearLayout>
 </layout>
