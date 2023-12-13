@@ -2,17 +2,25 @@ package kr.co.gamja.study_hub.feature.mypage.myStudy
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.ContentXXX
+import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
 import kr.co.gamja.study_hub.databinding.WrittenstudyItemBinding
 import kr.co.gamja.study_hub.global.Functions
 
 class WrittenStudyAdapter(private val context: Context) :
     PagingDataAdapter<ContentXXX, WrittenStudyAdapter.WrittenStudyHolder>(DIFF_CALLBACK) {
+    private lateinit var mOnItemClickListener: OnItemsClickListener// item 내부요소 구별 클릭리스너
+    val whatItem = mapOf("shutdownStudy" to 1, "goParticipant" to 2, "goStudyPage" to 3)
+    fun setOnItemClickListener(listener: OnItemsClickListener) {
+        mOnItemClickListener = listener
+    }
+
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContentXXX>() {
             // 리스트 아이템이 같은지
@@ -42,11 +50,30 @@ class WrittenStudyAdapter(private val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(content: ContentXXX) {
             val functions = Functions()
+            val postId: Int = content.postId
             binding.txtMajor.text = functions.convertToKoreanMajor(content.major)
             binding.txtTitle.text = content.title
             binding.txtSub.text = content.content
             binding.txtRemainingSeats.text =
                 context.getString(R.string.txt_RemainingSeats, content.remainingSeat)
+            binding.btnSetEnd.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View?) {
+                    // 마감 클릭시
+                    mOnItemClickListener.getItemValue(whatItem["shutdownStudy"]!!, postId)
+                }
+            })
+            binding.btnParticipant.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View?) {
+                    // 참여자 클릭시
+                    mOnItemClickListener.getItemValue(whatItem["goParticipant"]!!, postId)
+                }
+            })
+            binding.btnThreeDot.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View?) {
+                    // 스터디 수정 클릭시
+                    mOnItemClickListener.getItemValue(whatItem["goStudyPage"]!!, postId)
+                }
+            })
         }
     }
 }

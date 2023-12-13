@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.ContentXX
 import kr.co.gamja.study_hub.data.model.GetBookmarkResponse
@@ -15,19 +14,22 @@ import kr.co.gamja.study_hub.global.Functions
 
 class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
     var bookmarkList: GetBookmarkResponse? = null
-    private lateinit var mOnItemClickListener: OnItemClickListener
+    private lateinit var mOnItemClickListener: OnItemClickListener // 북마크 클릭
     private lateinit var mOnViewClickListener: OnViewClickListener // 뷰 자체 클릭
 
-    fun setViewClickListener(listener: OnViewClickListener){
-        mOnViewClickListener=listener
+    fun setViewClickListener(listener: OnViewClickListener) {
+        mOnViewClickListener = listener
     }
+
     // 리사이클러뷰 재활용 문제
     override fun getItemViewType(position: Int): Int {
         return position
     }
+    // 북마크 이미지 클릭용
     fun setOnItemClickListener(listener: OnItemClickListener) {
         mOnItemClickListener = listener
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkHolder {
         val binding =
             BookmarkItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -42,24 +44,27 @@ class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
     override fun getItemCount(): Int {
         return bookmarkList?.getBookmarkedPostsData?.content?.size ?: 0
     }
-    inner class BookmarkHolder(val binding: BookmarkItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    inner class BookmarkHolder(val binding: BookmarkItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
-            itemView.setOnClickListener{
-                val itemPositon=bindingAdapterPosition
-                if(itemPositon!=RecyclerView.NO_POSITION){
+            itemView.setOnClickListener {
+                val itemPositon = bindingAdapterPosition
+                if (itemPositon != RecyclerView.NO_POSITION) {
                     bookmarkList?.getBookmarkedPostsData?.content?.get(itemPositon).let {
-                        val bindingPostId =it?.postId
+                        val bindingPostId = it?.postId
                         mOnViewClickListener.onViewClick(bindingPostId)
                     }
                 }
             }
         }
+
         fun setBookmarkList(bookmarkItem: ContentXX?) {
             val postId: Int? = bookmarkItem?.postId
             bookmarkItem?.let {
                 val functions = Functions()
                 val koreanMajor = functions.convertToKoreanMajor(it.major)
-                binding.txtRelativeMajor.text=koreanMajor
+                binding.txtRelativeMajor.text = koreanMajor
                 binding.txtTitle.text = it.title
                 binding.txtSubTitle.text = it.content
                 binding.txtAvailable.text = it.remainingSeat.toString()
@@ -69,16 +74,16 @@ class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
                         if (binding.btnBookmark.tag.toString() == "0") {
                             binding.btnBookmark.tag = "1"
                             binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
-                            Log.d("북마크 그림 채워진걸로 바뀜",it.title )
-                            val tagId =binding.btnBookmark.tag.toString()
-                            mOnItemClickListener.onItemClick(tagId,postId)
+                            Log.d("북마크 그림 채워진걸로 바뀜", it.title)
+                            val tagId = binding.btnBookmark.tag.toString()
+                            mOnItemClickListener.onItemClick(tagId, postId)
 
                         } else { // 북마크 삭제
                             binding.btnBookmark.setTag("0")
                             binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
-                            Log.d("북마크 그림 빈걸로 바뀜",it.title )
-                            val tagId =binding.btnBookmark.tag.toString()
-                            mOnItemClickListener.onItemClick(tagId,postId)
+                            Log.d("북마크 그림 빈걸로 바뀜", it.title)
+                            val tagId = binding.btnBookmark.tag.toString()
+                            mOnItemClickListener.onItemClick(tagId, postId)
                         }
                     }
                 })
@@ -89,5 +94,5 @@ class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkHolder>() {
 
 
 interface OnItemClickListener {
-    fun onItemClick(tagId: String?, postId: Int?=0)
+    fun onItemClick(tagId: String?, postId: Int? = 0)
 }
