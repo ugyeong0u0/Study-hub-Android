@@ -5,16 +5,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.repository.OnViewClickListener
+import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
+import kr.co.gamja.study_hub.data.repository.StudyHubApi
 import kr.co.gamja.study_hub.databinding.FragmentBookmarkBinding
 import kr.co.gamja.study_hub.feature.home.MainHomeFragmentDirections
 import kr.co.gamja.study_hub.global.CustomDialog
@@ -23,9 +28,8 @@ import kr.co.gamja.study_hub.global.OnDialogClickListener
 class BookmarkFragment : Fragment() {
     private val logMessage = this.javaClass.simpleName
     private lateinit var binding: FragmentBookmarkBinding
-    private val viewModel: BookmarkViewModel by activityViewModels()
-    private var page = 0 // 북마크 조회 시작 페이지
-    private var isLastPage = false // 북마크 조회 마지막 페이지인지
+    private lateinit var viewModel: BookmarkViewModel
+    private lateinit var adapter: BookmarkAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +42,8 @@ class BookmarkFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val factory = BookmarkViewModelFactory(AuthRetrofitManager.api)
+        viewModel = ViewModelProvider(this, factory = factory)[BookmarkViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         // 툴바 설정
@@ -45,40 +51,15 @@ class BookmarkFragment : Fragment() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
+        binding.iconBack.setOnClickListener {
+            val navcontroller = findNavController()
+            navcontroller.navigateUp() // 뒤로 가기
+        }
         // 북마크 조회 리사이클러뷰 연결
-        val adapter = BookmarkAdapter()
+        adapter = BookmarkAdapter(requireContext())
+
         binding.recylerBookmark.adapter = adapter
         binding.recylerBookmark.layoutManager = LinearLayoutManager(requireContext())
-        // 1. 북마크 조회- api통신, page:0부터 설정
-        viewModel.getBookmarkList(adapter, page, object : BookmarkCallback {
-            override fun isLastPage(lastPage: Boolean) {
-                isLastPage = lastPage
-                Log.d(tag, "북마크 마지막 페이지?" + isLastPage)
-            }
-        })
-
-        // 2. 북마크 조회- 리사이클러뷰 페이지네이션
-        binding.recylerBookmark.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val lastVisibleItemPosition =
-                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
-                Log.d(tag, "라스트 페이지1-" + lastVisibleItemPosition.toString())
-                Log.d(tag, "두번째 api 이즈 라스트 페이지?" + isLastPage)
-                // TODO("라스트 페이지 수정 후 확인해봐야함+ 스크롤 처음으로 올라가는지 확인하기")
-                if (!isLastPage && lastVisibleItemPosition == 9) {
-                    page++ // 페이지 +1
-                    Log.d(tag, "라스트 페이지2-" + lastVisibleItemPosition.toString())
-                    viewModel.getBookmarkList(adapter, page, object : BookmarkCallback {
-                        override fun isLastPage(lastPage: Boolean) {
-                            isLastPage = lastPage
-                        }
-                    })
-                } else {
-                    Toast.makeText(requireContext(), "마지막 페이지임 ", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
 
         // 북마크 삭제 저장 api 연결
         adapter.setOnItemClickListener(object : OnItemClickListener {
@@ -87,20 +68,27 @@ class BookmarkFragment : Fragment() {
             }
         })
         // 스터디 컨텐츠 자세히 보기
-        adapter.setViewClickListener(object : OnViewClickListener {
-            override fun onViewClick(postId: Int?) {
-                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(postId!!)
-                findNavController().navigate(action)
+        adapter.setOnItemsClickListener(object : OnItemsClickListener {
+            override fun getItemValue(whatItem: Int, itemValue: Int) {
+                when (whatItem) {
+                    1 -> {
+                        val action =
+                            MainHomeFragmentDirections.actionGlobalStudyContentFragment(itemValue)
+                        findNavController().navigate(action)
+                    }
+                    2 -> {
+                        // todo("신청하기 api 연결")
+                        Log.d(logMessage, "신청하기")
+                    }
+                }
             }
         })
 
+        observeData() // 페이징 데이터 업데이트
+        viewModel.getBookmarkList() // 북마크 총 개수 업데이트
 
-        binding.iconBack.setOnClickListener {
-            val navcontroller = findNavController()
-            navcontroller.navigateUp() // 뒤로 가기
-        }
         // 전체 삭제
-        // TODO("리스트 값이 있을 때만 삭제 버튼 가능하게")
+        // TODO("리스트 값이 있을 때만 삭제 버튼 가능하게 기능 추가 ")
         binding.btnDeleteAll.setOnClickListener {
             val head = requireContext().resources.getString(R.string.q_deleteBookmark)
             val no = requireContext().resources.getString(R.string.btn_cancel)
@@ -114,5 +102,24 @@ class BookmarkFragment : Fragment() {
             })
         }
 
+    }
+
+    private fun observeData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.myBookmarkFlow.collectLatest { pagingData ->
+                adapter.submitData(pagingData)
+            }
+        }
+    }
+}
+
+
+class BookmarkViewModelFactory(private val studyHubApi: StudyHubApi) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(BookmarkViewModel::class.java)) {
+            return BookmarkViewModel(studyHubApi) as T
+        }
+        throw IllegalArgumentException("ViewModel class 모름")
     }
 }

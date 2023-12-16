@@ -168,6 +168,7 @@
     <string name="btn_terms">서비스 이용약관</string>
     <string name="endStudy">마감</string>
     <string name="participant">참여자</string>
+    <string name="btn_end">마감되었어요</string>
 
     <!--    이용방법 페이지-->
     <string name="txt_guideToolBar">이용방법</string>
@@ -183,9 +184,10 @@
     <string name="txt_available">잔여%d자리</string>
     <string name="btn_join">신청하기</string>
     <string name="txt_binBookmark">북마크 글이 없어요</string>
-    <string name="txt_sub_binBookmark">관심있는 스터디를 저장하여\n  빠르게 확인하세요!</string>
+    <string name="txt_sub_binBookmark">관심있는 스터디를 저장해 보세요!</string>
     <string name="q_deleteBookmark">북마크를 모두 삭제할까요?</string>
     <string name="btn_cancel">취소</string>
+
 
     <!--    작성한 글-->
     <string name="txt_writtenPage">작성한글</string>

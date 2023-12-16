@@ -15,10 +15,10 @@ import kr.co.gamja.study_hub.global.Functions
 
 class WrittenStudyAdapter(private val context: Context) :
     PagingDataAdapter<ContentXXX, WrittenStudyAdapter.WrittenStudyHolder>(DIFF_CALLBACK) {
-    private lateinit var mOnItemClickListener: OnItemsClickListener// item 내부요소 구별 클릭리스너
+    private lateinit var mOnItemsClickListener: OnItemsClickListener// item 내부요소 구별 클릭리스너
     val whatItem = mapOf("shutdownStudy" to 1, "goParticipant" to 2, "goStudyPage" to 3)
     fun setOnItemClickListener(listener: OnItemsClickListener) {
-        mOnItemClickListener = listener
+        mOnItemsClickListener = listener
     }
 
     companion object {
@@ -59,19 +59,19 @@ class WrittenStudyAdapter(private val context: Context) :
             binding.btnSetEnd.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
                     // 마감 클릭시
-                    mOnItemClickListener.getItemValue(whatItem["shutdownStudy"]!!, postId)
+                    mOnItemsClickListener.getItemValue(whatItem["shutdownStudy"]!!, postId)
                 }
             })
             binding.btnParticipant.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
                     // 참여자 클릭시
-                    mOnItemClickListener.getItemValue(whatItem["goParticipant"]!!, postId)
+                    mOnItemsClickListener.getItemValue(whatItem["goParticipant"]!!, postId)
                 }
             })
             binding.btnThreeDot.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
                     // 스터디 수정 클릭시
-                    mOnItemClickListener.getItemValue(whatItem["goStudyPage"]!!, postId)
+                    mOnItemsClickListener.getItemValue(whatItem["goStudyPage"]!!, postId)
                 }
             })
         }
