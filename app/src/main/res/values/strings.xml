@@ -193,4 +193,11 @@
     <string name="txt_writtenPage">작성한글</string>
     <string name="txt_noWritten">작성한 글이 없어요</string>
     <string name="txt_sub_noWritten">새로운 스터디 활동을 시작해보세요!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    참여자  페이지-->
+    <string name="waiting">대기</string>
+    <string name="participation">참여</string>
+    <string name="refusal">거절</string>
 </resources>

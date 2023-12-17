@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/participant_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
+
+                <TextView
+                    android:id="@+id/word_participant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/icon_back"
+                    android:gravity="center"
+                    android:text="@string/participant"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/syswhite"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/sysblack1"
+            app:tabIndicatorFullWidth="false"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/sysblack1"
+            app:tabTextAppearance="@style/tabTextSize"
+            app:tabTextColor="@color/BG_70" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</layout>
