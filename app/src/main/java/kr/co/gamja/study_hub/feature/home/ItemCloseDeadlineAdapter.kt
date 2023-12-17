@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.model.Content
 import kr.co.gamja.study_hub.data.model.ContentX
 import kr.co.gamja.study_hub.data.model.FindStudyResponse
-import kr.co.gamja.study_hub.data.model.HotStudyPostResponse
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.HomeItemCloseDeadlineBinding
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.OnItemClickListener
@@ -71,13 +71,27 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
             val postId: Int? = studyItem?.postId
             studyItem?.let {
                 binding.txtHead.text = it.title
-                //TODO("인원수 표시 ")
-//                binding.sentencePeople.text =
-//                    context.getString(R.string.sentence_people, it.remainingSeat)
-//                val full = it.person - it.remainingSeat
-//                binding.txtPeople.text = context.getString(R.string.txt_people, full, it.person)
-                //TODO("사진추가")
-
+                // 남은 자리
+                binding.sentencePeople.text =
+                    context.getString(R.string.sentence_people, it.remainingSeat)
+                binding.txtPeople.text =
+                    context.getString(R.string.txt_people, it.remainingSeat, it.studyPerson)
+                // 스터디 생성한 사람 프로필 이미지
+                Glide.with(context)
+                    .load(it.userData.imageUrl)
+                    .apply(
+                        RequestOptions().override(
+                            binding.iconProfile.width,
+                            binding.iconProfile.height
+                        )
+                    )
+                    .into(binding.iconProfile)
+                // 북마크 여부에 따른 색 변경
+                if (it.bookmarked) {
+                    binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
+                } else {
+                    binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
+                }
 
                 //북마크 추가
                 binding.btnBookmark.setOnClickListener(object : View.OnClickListener {

@@ -64,23 +64,30 @@ class ItemOnRecruitingAdapter(private val context: Context) :
             val postId: Int? = studyItem?.postId
             studyItem?.let {
                 val functions = Functions()
-                val koreanMajor = functions.convertToKoreanMajor(it.major)
+                val koreanMajor = functions.convertToKoreanMajor(it.major) // 학과명 한글로 변경
                 binding.txtMajor.text = koreanMajor
-                binding.txtHead.text = it.title
-                //TODO("잔여자리")
-                /*binding.txtRemainingSeats.text =
-                    context.getString(R.string.txt_RemainingSeats, it.leftover)
-                val full = it.studyPerson - it.leftover
-                binding.txtPeople.text =
-                    context.getString(R.string.txt_people, full, it.studyPerson)*/
-                //TODO("요금")
+                binding.txtHead.text = it.title // 제목
+                binding.txtPeople.text=context.getString(R.string.txt_people, it.remainingSeat, it.studyPerson) // 참여인원/참여최대인원
+                binding.txtRemainingSeats.text=context.getString(R.string.txt_RemainingSeats,it.remainingSeat ) // %d자리 남았어요
+                // 요금
+                val feeStBuilder=StringBuilder()
                 if (it.penalty == 0) {
-                    binding.txtFee.text = "없어요"
+                    feeStBuilder.clear()
+                    feeStBuilder.append("없어요")
+                    binding.txtFee.text = feeStBuilder.toString()
                 } else {
-                    binding.txtFee.text = it.penalty.toString()+"원"
+                    feeStBuilder.clear()
+                    feeStBuilder.append(it.penalty)
+                        .append("원")
+                    binding.txtFee.text = feeStBuilder.toString()
                 }
-
-                //북마크 추가
+                // 북마크 여부
+                if (it.bookmarked) {
+                    binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
+                } else {
+                    binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
+                }
+                //북마크 추가 버튼 클릭 리스너
                 binding.btnBookmark.setOnClickListener(object : View.OnClickListener {
                     override fun onClick(p0: View?) {
                         // 북마크 추가

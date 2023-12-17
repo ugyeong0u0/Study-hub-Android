@@ -69,6 +69,7 @@ class StudyMainAdapter(private val context: Context) :
                 binding.txtTitle.text = it.title
 //                binding.txtAvailable.text=context.getString(R.string.txt_leftNumber,it.leftover)
                 //TODO("남은 인원")
+                // todo("StringBuilder로 변경")
                 val startDate =
                     it.studyStartDate[1].toString() + "월 " + it.studyStartDate[2] + "일 ~ "
                 val endDate = it.studyEndDate[1].toString() + "월 " + it.studyEndDate[2] + "일"

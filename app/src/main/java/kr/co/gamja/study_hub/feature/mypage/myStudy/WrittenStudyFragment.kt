@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.feature.mypage.myStudy
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
 import kr.co.gamja.study_hub.databinding.FragmentWrittenStudyBinding
 
@@ -49,10 +52,33 @@ class WrittenStudyFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
+        val writtenAdapter = this@WrittenStudyFragment.writtenStudyAdapter
         binding.recylerWrittenList.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = this@WrittenStudyFragment.writtenStudyAdapter
+            adapter = writtenAdapter
         }
+        writtenAdapter.setOnItemClickListener(object : OnItemsClickListener {
+            override fun getItemValue(whatItem: Int, itemValue: Int) {
+                val navController =findNavController()
+                when (whatItem) {
+                    // todo("api 연결 혹은 페이지 변경 연결")
+                    // 마감 클릭시
+                    1 -> {
+                        navController.navigate(R.id.action_writtenStudyFragment_to_participantFragment)
+                        Log.d(tag, "마감 버튼 눌림")
+                    }
+                    // 참여자 클릭시
+                    2 -> {
+                        Log.d(tag, "참여자 버튼 눌림")
+                        navController.navigate(R.id.action_writtenStudyFragment_to_participantFragment)
+                    }
+                    // 스터디 수정 클릭시
+                    3 -> {
+                        Log.d(tag, "스터디 수정 버튼 눌림")
+                    }
+                }
+            }
+        })
     }
 
     private fun observeData() {

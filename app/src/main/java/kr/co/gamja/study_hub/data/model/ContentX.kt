@@ -13,5 +13,6 @@ data class ContentX(
     val studyPerson: Int,
     val studyStartDate: List<Int>,
     val title: String,
-    val userData: UserData
+    val userData: UserData,
+    val remainingSeat: Int
 )

@@ -13,9 +13,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentMainHomeBinding
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkViewModel
+import kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkViewModelFactory
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.OnItemClickListener
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
@@ -23,8 +25,9 @@ import kr.co.gamja.study_hub.global.CustomSnackBar
 class MainHomeFragment : Fragment() {
     private lateinit var binding: FragmentMainHomeBinding
     private val viewModel: HomeViewModel by activityViewModels()
-    private val bookmarkViewModel: BookmarkViewModel by activityViewModels()
     private var doubleBackPressed = false
+    private lateinit var deadlineAdapter: ItemCloseDeadlineAdapter
+    private lateinit var onRecruitingAdapter: ItemOnRecruitingAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -101,25 +104,16 @@ class MainHomeFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFragment01_to_mainFragment03, null)
         }
         // 모집중 스터디 어댑터 연결
-        val onRecruitingAdapter = ItemOnRecruitingAdapter(requireContext())
+        onRecruitingAdapter = ItemOnRecruitingAdapter(requireContext())
         binding.recyclerOnGoing.adapter = onRecruitingAdapter
         binding.recyclerOnGoing.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        viewModel.getStudyPosts(
-            onRecruitingAdapter,
-            false,
-            0,
-            5,
-            null,
-            titleaAndMajor = false,
-            null
-        )
 
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         onRecruitingAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
-                bookmarkViewModel.saveDeleteBookmarkItem(postId)
+                viewModel.saveDeleteBookmarkItem(postId)
             }
         })
         // 뷰클릭시
@@ -131,9 +125,42 @@ class MainHomeFragment : Fragment() {
         })
 
         // 마감임박 스터디 어댑터 연결
-        val deadlineAdapter = ItemCloseDeadlineAdapter(requireContext())
+        deadlineAdapter = ItemCloseDeadlineAdapter(requireContext())
         binding.recyclerApproaching.adapter = deadlineAdapter
         binding.recyclerApproaching.layoutManager = LinearLayoutManager(requireContext())
+
+        initList() // 리스트 업데이트
+
+        deadlineAdapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(tagId: String?, postId: Int?) {
+                viewModel.saveDeleteBookmarkItem(postId)
+            }
+        })
+        // 뷰자체 클릭시 스터디 컨텐츠 글로 이동
+        deadlineAdapter.setViewClickListener(object : OnViewClickListener {
+            override fun onViewClick(postId: Int?) {
+                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(postId!!)
+                findNavController().navigate(action)
+            }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initList() // 뒤로 가기 될 시 list 값들 새로 가져오기
+    }
+
+    // 뒤로가기 누를 시 혹은 뷰 생성시 리스트 데이터 업데이트
+    fun initList() {
+        viewModel.getStudyPosts(
+            onRecruitingAdapter,
+            false,
+            0,
+            5,
+            null,
+            titleaAndMajor = false,
+            null
+        )
 
         viewModel.getStudyPosts(
             deadlineAdapter,
@@ -144,19 +171,6 @@ class MainHomeFragment : Fragment() {
             titleaAndMajor = false,
             null
         )
-
-        deadlineAdapter.setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(tagId: String?, postId: Int?) {
-                bookmarkViewModel.saveDeleteBookmarkItem(postId)
-            }
-        })
-        // 뷰자체 클릭시 스터디 컨텐츠 글로 이동
-        deadlineAdapter.setViewClickListener(object : OnViewClickListener {
-            override fun onViewClick(postId: Int?) {
-                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(postId!!)
-                findNavController().navigate(action)
-            }
-        })
     }
 
 
