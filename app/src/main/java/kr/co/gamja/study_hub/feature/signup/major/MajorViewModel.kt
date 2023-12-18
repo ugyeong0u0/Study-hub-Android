@@ -9,7 +9,7 @@ import kr.co.gamja.study_hub.data.model.RegisterErrorResponse
 import kr.co.gamja.study_hub.data.model.SignupRequest
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
-class SignupViewModel : ViewModel() {
+class MajorViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
 
     fun requestSignup(params: RegisterCallback) {
