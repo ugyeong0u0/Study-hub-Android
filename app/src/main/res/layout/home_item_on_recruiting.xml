@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="185dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/sixteen"
         android:background="@drawable/btn_bg_white_stroke_bg_50"
         android:orientation="vertical">
@@ -100,7 +100,7 @@
             android:padding="6dp"
             android:textColor="@color/BG_80"
             android:textSize="12sp"
-            tools:text="@string/txt_RemainingSeats" />
+            tools:text="잔여 %d자리" />
 
     </LinearLayout>
 </layout>

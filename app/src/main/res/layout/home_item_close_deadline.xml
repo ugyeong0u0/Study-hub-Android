@@ -57,6 +57,7 @@
             android:layout_marginStart="4dp"
             android:layout_toEndOf="@+id/txt_people"
             android:padding="8dp"
+            android:textColor="@color/O_50"
             android:text="@string/sentence_people"
             android:textSize="14sp" />
 

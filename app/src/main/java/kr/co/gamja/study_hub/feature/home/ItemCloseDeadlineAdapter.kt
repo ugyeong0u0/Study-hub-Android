@@ -72,10 +72,11 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
             studyItem?.let {
                 binding.txtHead.text = it.title
                 // 남은 자리
+                val full = it.studyPerson-it.remainingSeat // 채워진 인원
                 binding.sentencePeople.text =
-                    context.getString(R.string.sentence_people, it.remainingSeat)
+                    context.getString(R.string.sentence_people, it.remainingSeat) // %d 자리 남았어요
                 binding.txtPeople.text =
-                    context.getString(R.string.txt_people, it.remainingSeat, it.studyPerson)
+                    context.getString(R.string.txt_people, full, it.studyPerson) // 채워진자리/전체인원
                 // 스터디 생성한 사람 프로필 이미지
                 Glide.with(context)
                     .load(it.userData.imageUrl)

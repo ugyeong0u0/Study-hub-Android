@@ -67,8 +67,9 @@ class ItemOnRecruitingAdapter(private val context: Context) :
                 val koreanMajor = functions.convertToKoreanMajor(it.major) // 학과명 한글로 변경
                 binding.txtMajor.text = koreanMajor
                 binding.txtHead.text = it.title // 제목
-                binding.txtPeople.text=context.getString(R.string.txt_people, it.remainingSeat, it.studyPerson) // 참여인원/참여최대인원
-                binding.txtRemainingSeats.text=context.getString(R.string.txt_RemainingSeats,it.remainingSeat ) // %d자리 남았어요
+                val vacancy = it.studyPerson-it.remainingSeat // 공석자리
+                binding.txtPeople.text=context.getString(R.string.txt_people, vacancy, it.studyPerson) // 참여인원/참여최대인원
+                binding.txtRemainingSeats.text=context.getString(R.string.txt_RemainingSeats,vacancy ) // %d자리 남았어요
                 // 요금
                 val feeStBuilder=StringBuilder()
                 if (it.penalty == 0) {
