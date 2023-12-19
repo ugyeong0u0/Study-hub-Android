@@ -203,4 +203,5 @@
     
     <!--    대기페이지-->
     <string name="empty_participation">참여 중인 팀원이 없어요</string>
+    <string name="empty_refusal">회원님이 거절한 참여자가 없어요</string>
 </resources>

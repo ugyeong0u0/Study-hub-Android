@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bg_white_corner_6">
+
+        <ImageView
+            android:id="@+id/img_profile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="@dimen/sixteen"
+            android:layout_marginTop="@dimen/eighteen"
+            android:src="@drawable/avatar_s" />
+
+        <TextView
+            android:id="@+id/userMajor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fourteen"
+            android:layout_marginTop="@dimen/eighteen"
+            android:layout_toEndOf="@+id/img_profile"
+            android:textColor="@color/BG_80"
+            android:textSize="14sp"
+            tools:text="컴퓨터 공학부" />
+
+        <TextView
+            android:id="@+id/userNickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userMajor"
+            android:layout_marginStart="@dimen/fourteen"
+            android:layout_toEndOf="@+id/img_profile"
+            android:textColor="@color/sysblack1"
+            android:textSize="14sp"
+            tools:text="닉네임" />
+
+        <TextView
+            android:id="@+id/createdDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userNickname"
+            android:layout_marginStart="@dimen/fourteen"
+            android:layout_marginBottom="@dimen/eighteen"
+            android:layout_toEndOf="@+id/img_profile"
+            android:textColor="@color/BG_70"
+            android:textSize="12sp"
+            tools:text="생성날짜 " />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createdDate"
+            android:layout_marginHorizontal="@dimen/sixteen"
+            android:layout_marginBottom="@dimen/eighteen"
+            android:background="@drawable/background_bg_20_corner_6"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/fourteen"
+            android:paddingVertical="@dimen/twenty">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/BG_60"
+                android:textSize="12sp"
+                tools:text="거절 사유" />
+
+            <TextView
+                android:id="@+id/reasonOfRefusal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/BG_80"
+                tools:text="이 스터디의 목표와 맞지 않아요"/>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>
