@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/BG_40">
+        android:background="@color/BG_30">
         <ImageView
             android:id="@+id/img_emptyParticipation"
             android:layout_width="@dimen/twoHundred_ten"

@@ -49,31 +49,60 @@
             android:textSize="12sp"
             tools:text="생성날짜 " />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/application"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/createdDate"
             android:layout_marginHorizontal="@dimen/sixteen"
             android:layout_marginBottom="@dimen/eighteen"
             android:background="@drawable/background_bg_20_corner_6"
-            android:orientation="vertical"
             android:paddingHorizontal="@dimen/fourteen"
-            android:paddingVertical="@dimen/twenty">
+            android:paddingVertical="@dimen/twenty"
+            android:textColor="@color/BG_80"
+            android:textSize="14sp"
+            tools:text="안녕하세요!! 스터디 열심히 참여하겠습니다. 잘 부탁드립니다~" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/BG_60"
-                android:textSize="12sp"
-                tools:text="거절 사유" />
+        <View
+            android:id="@+id/view_belowOfapplication"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/application"
+            android:background="@color/BG_20" />
 
-            <TextView
-                android:id="@+id/reasonOfRefusal"
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_belowOfapplication"
+            android:layout_marginHorizontal="@dimen/sixteen"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_refusal"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:text="@string/refusal"
                 android:textColor="@color/BG_80"
-                tools:text="이 스터디의 목표와 맞지 않아요"/>
+                android:textSize="14sp" />
+
+            <View
+                android:id="@+id/view_leftOfRefusal"
+                android:layout_width="1dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:background="@color/BG_20" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:text="@string/acceptance"
+                android:textColor="@color/GN_10"
+                android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>
 </layout>
