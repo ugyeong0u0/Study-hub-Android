@@ -14,7 +14,7 @@ import kr.co.gamja.study_hub.feature.studypage.studyHome.StudyMainAdapter
 class HomeViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
 
-    fun <T> getStudyPosts(adapter :T, isHot:Boolean, page:Int, size:Int,inquiryText:String?, titleaAndMajor:Boolean,params:OnScrollCallBackListener?){
+    fun <T> getStudyPosts(adapter :T, isHot:Boolean, page:Int, size:Int,inquiryText:String?, titleaAndMajor:Boolean){
         viewModelScope.launch {
             try {
                 val response =AuthRetrofitManager.api.getStudyPostAll(isHot,page,size,inquiryText,titleaAndMajor)
@@ -26,11 +26,6 @@ class HomeViewModel : ViewModel() {
                     }else if(adapter is ItemCloseDeadlineAdapter){
                         adapter.studyPosts = result
                         adapter.notifyDataSetChanged()
-                    }else if(adapter is StudyMainAdapter){
-                        adapter.studyPosts=result
-                        adapter.notifyDataSetChanged()
-                        params?.isFirst(result.first)
-                        params?.isLast(result.last)
                     }
                 }
 

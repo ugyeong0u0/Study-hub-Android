@@ -10,21 +10,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.data.repository.OnBookmarkClickListener
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentMainHomeBinding
-import kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkViewModel
-import kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkViewModelFactory
-import kr.co.gamja.study_hub.feature.toolbar.bookmark.OnItemClickListener
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
 
 class MainHomeFragment : Fragment() {
     private lateinit var binding: FragmentMainHomeBinding
-    private val viewModel: HomeViewModel by activityViewModels()
+    private val viewModel: HomeViewModel by viewModels()
     private var doubleBackPressed = false
     private lateinit var deadlineAdapter: ItemCloseDeadlineAdapter
     private lateinit var onRecruitingAdapter: ItemOnRecruitingAdapter
@@ -111,7 +109,7 @@ class MainHomeFragment : Fragment() {
 
 
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
-        onRecruitingAdapter.setOnItemClickListener(object : OnItemClickListener {
+        onRecruitingAdapter.setOnItemClickListener(object : OnBookmarkClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
                 viewModel.saveDeleteBookmarkItem(postId)
             }
@@ -131,7 +129,7 @@ class MainHomeFragment : Fragment() {
 
         initList() // 리스트 업데이트
 
-        deadlineAdapter.setOnItemClickListener(object : OnItemClickListener {
+        deadlineAdapter.setOnItemClickListener(object : OnBookmarkClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
                 viewModel.saveDeleteBookmarkItem(postId)
             }
@@ -158,8 +156,7 @@ class MainHomeFragment : Fragment() {
             0,
             5,
             null,
-            titleaAndMajor = false,
-            null
+            titleaAndMajor = false
         )
 
         viewModel.getStudyPosts(
@@ -168,8 +165,7 @@ class MainHomeFragment : Fragment() {
             0,
             4,
             null,
-            titleaAndMajor = false,
-            null
+            titleaAndMajor = false
         )
     }
 

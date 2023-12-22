@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +17,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.data.repository.OnBookmarkClickListener
 import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
 import kr.co.gamja.study_hub.databinding.FragmentBookmarkBinding
@@ -62,7 +62,7 @@ class BookmarkFragment : Fragment() {
         binding.recylerBookmark.layoutManager = LinearLayoutManager(requireContext())
 
         // 북마크 삭제 저장 api 연결
-        adapter.setOnItemClickListener(object : OnItemClickListener {
+        adapter.setOnBookmarkClickListener(object : OnBookmarkClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
                 viewModel.saveDeleteBookmarkItem(postId)
             }

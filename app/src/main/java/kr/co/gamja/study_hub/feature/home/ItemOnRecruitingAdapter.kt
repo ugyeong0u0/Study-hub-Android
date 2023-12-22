@@ -8,19 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.ContentX
 import kr.co.gamja.study_hub.data.model.FindStudyResponse
+import kr.co.gamja.study_hub.data.repository.OnBookmarkClickListener
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.HomeItemOnRecruitingBinding
-import kr.co.gamja.study_hub.feature.toolbar.bookmark.OnItemClickListener
 import kr.co.gamja.study_hub.global.Functions
 
 class ItemOnRecruitingAdapter(private val context: Context) :
     RecyclerView.Adapter<ItemOnRecruitingAdapter.MainHolder>() {
     var studyPosts: FindStudyResponse? = null
-    private lateinit var mOnItemClickListener: OnItemClickListener // 북마크 viewModel에 interface 선언
+    private lateinit var mOnBookmarkClickListener: OnBookmarkClickListener // 북마크 viewModel에 interface 선언
     private lateinit var mOnViewClickListener: OnViewClickListener // 뷰자체 클릭
 
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        mOnItemClickListener = listener
+    fun setOnItemClickListener(listener: OnBookmarkClickListener) {
+        mOnBookmarkClickListener = listener
     }
 
     fun setViewClickListener(listener: OnViewClickListener) {
@@ -67,11 +67,13 @@ class ItemOnRecruitingAdapter(private val context: Context) :
                 val koreanMajor = functions.convertToKoreanMajor(it.major) // 학과명 한글로 변경
                 binding.txtMajor.text = koreanMajor
                 binding.txtHead.text = it.title // 제목
-                val vacancy = it.studyPerson-it.remainingSeat // 공석자리
-                binding.txtPeople.text=context.getString(R.string.txt_people, vacancy, it.studyPerson) // 참여인원/참여최대인원
-                binding.txtRemainingSeats.text=context.getString(R.string.txt_RemainingSeats,vacancy ) // %d자리 남았어요
+                val vacancy = it.studyPerson - it.remainingSeat // 공석자리
+                binding.txtPeople.text =
+                    context.getString(R.string.txt_people, vacancy, it.studyPerson) // 참여인원/참여최대인원
+                binding.txtRemainingSeats.text =
+                    context.getString(R.string.txt_RemainingSeats, vacancy) // %d자리 남았어요
                 // 요금
-                val feeStBuilder=StringBuilder()
+                val feeStBuilder = StringBuilder()
                 if (it.penalty == 0) {
                     feeStBuilder.clear()
                     feeStBuilder.append("없어요")
@@ -96,13 +98,13 @@ class ItemOnRecruitingAdapter(private val context: Context) :
                             binding.btnBookmark.tag = "1"
                             binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
                             val tagId = binding.btnBookmark.tag.toString()
-                            mOnItemClickListener.onItemClick(tagId, postId)
+                            mOnBookmarkClickListener.onItemClick(tagId, postId)
 
                         } else { // 북마크 삭제
                             binding.btnBookmark.setTag("0")
                             binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
                             val tagId = binding.btnBookmark.tag.toString()
-                            mOnItemClickListener.onItemClick(tagId, postId)
+                            mOnBookmarkClickListener.onItemClick(tagId, postId)
                         }
                     }
                 })
