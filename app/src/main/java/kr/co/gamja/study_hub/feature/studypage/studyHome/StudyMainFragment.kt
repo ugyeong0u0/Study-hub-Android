@@ -1,11 +1,14 @@
 package kr.co.gamja.study_hub.feature.studypage.studyHome
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
@@ -19,12 +22,19 @@ import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.*
 import kr.co.gamja.study_hub.databinding.FragmentStudyMainBinding
 import kr.co.gamja.study_hub.feature.home.MainHomeFragmentDirections
+import kotlin.properties.Delegates
 
 class StudyMainFragment : Fragment() {
     private val msgTag = this.javaClass.simpleName
     private lateinit var binding: FragmentStudyMainBinding
     private lateinit var viewModel: StudyMainViewModel
     private lateinit var adapter: StudyMainAdapter
+
+    // 전체 / 인기 선택 버튼 색
+    private lateinit var selectedDrawable: Drawable
+    private lateinit var nonSelectedDrawable: Drawable
+    private var selectedTextColor by Delegates.notNull<Int>()
+    private var nonSelectedTextColor by Delegates.notNull<Int>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +49,12 @@ class StudyMainFragment : Fragment() {
         viewModel = ViewModelProvider(this,factory)[StudyMainViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        selectedDrawable=ResourcesCompat.getDrawable(resources,R.drawable.bg_black_radius_20,null)!!
+        nonSelectedDrawable=ResourcesCompat.getDrawable(resources,R.drawable.bg_30_radius_20,null)!!
+        selectedTextColor=ContextCompat.getColor(requireContext(),R.color.syswhite)
+        nonSelectedTextColor=ContextCompat.getColor(requireContext(),R.color.BG_90)
+
+
         // 스터디 조회 리사이클러뷰 연결
         adapter = StudyMainAdapter(requireContext())
         binding.recyclerStudyMain.adapter = adapter
@@ -69,6 +85,20 @@ class StudyMainFragment : Fragment() {
             findNavController().navigate(R.id.action_StudyFragment01_to_createStudyFragment, null)
         }
 
+        // 스터디 전체 조회 버튼
+        binding.btnAllStudy.setOnClickListener{
+            setButtonOption(false) // 버튼 색, 글자색 변경
+            viewModel.setIsHot(false)
+            observeData() // paging 데이터 업데이트
+            viewModel.getStudyList() // 스터디 게시글 총 개수 업데이트
+        }
+        // 스터디 인기 조회 버튼
+        binding.btnPopularOrder.setOnClickListener{
+            setButtonOption(true) // 버튼 색, 글자색 변경
+            viewModel.setIsHot(true)
+            observeData() // paging 데이터 업데이트
+            viewModel.getStudyList() // 스터디 게시글 총 개수 업데이트
+        }
 
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         adapter.setOnBookmarkClickListener(object : OnBookmarkClickListener {
@@ -90,6 +120,29 @@ class StudyMainFragment : Fragment() {
                 findNavController().navigate(action)
             }
         })
+
+    }
+    // 버튼색 글자색 변경
+    private fun setButtonOption(isHot:Boolean){
+        if (isHot) {
+            binding.btnAllStudy.apply {
+                background = nonSelectedDrawable
+                setTextColor(nonSelectedTextColor)
+            }
+            binding.btnPopularOrder.apply {
+                background = selectedDrawable
+                setTextColor(selectedTextColor)
+            }
+        } else {
+            binding.btnAllStudy.apply {
+                background = selectedDrawable
+                setTextColor(selectedTextColor)
+            }
+            binding.btnPopularOrder.apply {
+                background = nonSelectedDrawable
+                setTextColor(nonSelectedTextColor)
+            }
+        }
 
     }
 private fun observeData(){
