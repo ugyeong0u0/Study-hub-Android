@@ -29,7 +29,6 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_alignParentEnd="true"
-                android:background="@drawable/baseline_bookmark_border_24_unselected"
                 android:tag="0" />
 
             <TextView

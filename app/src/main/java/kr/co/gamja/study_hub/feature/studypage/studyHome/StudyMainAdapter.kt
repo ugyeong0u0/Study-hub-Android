@@ -109,6 +109,14 @@ class StudyMainAdapter(private val context: Context) :
                         )
                     ).into(binding.iconProfile)
 
+               // 북마크인지 아닌지 표시
+                if (it.bookmarked) {
+                    binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
+                } else {
+                    binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
+                }
+
+
             }
             //북마크 추가
             binding.btnBookmark.setOnClickListener {
@@ -124,8 +132,6 @@ class StudyMainAdapter(private val context: Context) :
             }
             itemView.setOnClickListener {
                 mOnViewClickListener.onViewClick(postId)
-
-
             }
         }
 

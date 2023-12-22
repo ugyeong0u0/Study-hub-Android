@@ -95,23 +95,21 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
                 }
 
                 //북마크 추가
-                binding.btnBookmark.setOnClickListener(object : View.OnClickListener {
-                    override fun onClick(p0: View?) {
-                        // 북마크 추가
-                        if (binding.btnBookmark.tag.toString() == "0") {
-                            binding.btnBookmark.tag = "1"
-                            binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
-                            val tagId = binding.btnBookmark.tag.toString()
-                            mOnBookmarkClickListener.onItemClick(tagId, postId)
+                binding.btnBookmark.setOnClickListener {
+                    // 북마크 추가
+                    if (binding.btnBookmark.tag.toString() == "0") {
+                        binding.btnBookmark.tag = "1"
+                        binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
+                        val tagId = binding.btnBookmark.tag.toString()
+                        mOnBookmarkClickListener.onItemClick(tagId, postId)
 
-                        } else { // 북마크 삭제
-                            binding.btnBookmark.setTag("0")
-                            binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
-                            val tagId = binding.btnBookmark.tag.toString()
-                            mOnBookmarkClickListener.onItemClick(tagId, postId)
-                        }
+                    } else { // 북마크 삭제
+                        binding.btnBookmark.tag = "0"
+                        binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
+                        val tagId = binding.btnBookmark.tag.toString()
+                        mOnBookmarkClickListener.onItemClick(tagId, postId)
                     }
-                })
+                }
             }
         }
     }

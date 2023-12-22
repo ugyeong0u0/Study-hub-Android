@@ -9,7 +9,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -112,6 +111,7 @@ class MainHomeFragment : Fragment() {
         onRecruitingAdapter.setOnItemClickListener(object : OnBookmarkClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
                 viewModel.saveDeleteBookmarkItem(postId)
+                updateDeadlineList()
             }
         })
         // 뷰클릭시
@@ -127,11 +127,14 @@ class MainHomeFragment : Fragment() {
         binding.recyclerApproaching.adapter = deadlineAdapter
         binding.recyclerApproaching.layoutManager = LinearLayoutManager(requireContext())
 
-        initList() // 리스트 업데이트
+         // 리스트 업데이트
+        updateRecruitingList()
+        updateDeadlineList()
 
         deadlineAdapter.setOnItemClickListener(object : OnBookmarkClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
                 viewModel.saveDeleteBookmarkItem(postId)
+                updateRecruitingList()
             }
         })
         // 뷰자체 클릭시 스터디 컨텐츠 글로 이동
@@ -145,11 +148,13 @@ class MainHomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        initList() // 뒤로 가기 될 시 list 값들 새로 가져오기
+        // 뒤로 가기 될 시 list 값들 새로 가져오기
+        updateRecruitingList()
+        updateDeadlineList()
     }
 
     // 뒤로가기 누를 시 혹은 뷰 생성시 리스트 데이터 업데이트
-    fun initList() {
+    private fun updateRecruitingList(){
         viewModel.getStudyPosts(
             onRecruitingAdapter,
             false,
@@ -158,7 +163,8 @@ class MainHomeFragment : Fragment() {
             null,
             titleaAndMajor = false
         )
-
+    }
+    private fun updateDeadlineList(){
         viewModel.getStudyPosts(
             deadlineAdapter,
             isHot = true,
@@ -168,6 +174,4 @@ class MainHomeFragment : Fragment() {
             titleaAndMajor = false
         )
     }
-
-
 }

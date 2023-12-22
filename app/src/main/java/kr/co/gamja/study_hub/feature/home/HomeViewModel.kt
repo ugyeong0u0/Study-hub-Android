@@ -7,8 +7,7 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
 import kr.co.gamja.study_hub.data.model.FindStudyResponse
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
-import kr.co.gamja.study_hub.data.repository.OnScrollCallBackListener
-import kr.co.gamja.study_hub.feature.studypage.studyHome.StudyMainAdapter
+import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
 // TODO("스터디 메인 뷰모델 합치기")
 class HomeViewModel : ViewModel() {
@@ -17,7 +16,8 @@ class HomeViewModel : ViewModel() {
     fun <T> getStudyPosts(adapter :T, isHot:Boolean, page:Int, size:Int,inquiryText:String?, titleaAndMajor:Boolean){
         viewModelScope.launch {
             try {
-                val response =AuthRetrofitManager.api.getStudyPostAll(isHot,page,size,inquiryText,titleaAndMajor)
+                val response =
+                    AuthRetrofitManager.api.getStudyPostAll(isHot,page,size,inquiryText,titleaAndMajor)
                 if(response.isSuccessful){
                     val result =response.body() as FindStudyResponse
                     if(adapter is ItemOnRecruitingAdapter){

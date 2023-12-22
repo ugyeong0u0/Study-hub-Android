@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.feature.toolbar.bookmark
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -14,13 +15,14 @@ import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
 import kr.co.gamja.study_hub.databinding.BookmarkItemBinding
 import kr.co.gamja.study_hub.global.Functions
 
-class BookmarkAdapter(val context:Context) : PagingDataAdapter<ContentXX, BookmarkAdapter.BookmarkHolder>(DIFF_CALLBACK) {
+class BookmarkAdapter(val context: Context) :
+    PagingDataAdapter<ContentXX, BookmarkAdapter.BookmarkHolder>(DIFF_CALLBACK) {
     val whatItem = mapOf("detailStudyContent" to 1, "participating" to 2)
     private lateinit var mOnBookmarkClickListener: OnBookmarkClickListener // 북마크 클릭
     private lateinit var mOnItemsClickListener: OnItemsClickListener // 1: 뷰 클릭, 2. 신청하기
 
-    companion object{
-        private val DIFF_CALLBACK = object :DiffUtil.ItemCallback<ContentXX>(){
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContentXX>() {
             override fun areItemsTheSame(oldItem: ContentXX, newItem: ContentXX): Boolean {
                 return oldItem.postId == newItem.postId
             }
@@ -30,10 +32,12 @@ class BookmarkAdapter(val context:Context) : PagingDataAdapter<ContentXX, Bookma
             }
         }
     }
+
     // 스터디 자세히 보기 및 신청하기 Listener
     fun setOnItemsClickListener(listener: OnItemsClickListener) {
         mOnItemsClickListener = listener
     }
+
     /*// 리사이클러뷰 재활용 문제
     override fun getItemViewType(position: Int): Int {
         return position
@@ -58,8 +62,8 @@ class BookmarkAdapter(val context:Context) : PagingDataAdapter<ContentXX, Bookma
         RecyclerView.ViewHolder(binding.root) {
 
         fun setBookmarkList(bookmarkItem: ContentXX?) {
-            val postId: Int? = bookmarkItem?.postId
             bookmarkItem?.let {
+            val postId: Int = it.postId
                 val functions = Functions()
                 val koreanMajor = functions.convertToKoreanMajor(it.major)
                 binding.txtRelativeMajor.text = koreanMajor
@@ -67,32 +71,37 @@ class BookmarkAdapter(val context:Context) : PagingDataAdapter<ContentXX, Bookma
                 binding.txtSubTitle.text = it.content
                 binding.txtAvailable.text = it.remainingSeat.toString()
                 // 스터디 마감 여부 todo("테스트 해보기 ")
-                if(it.close){
-                    binding.btnJoin.setBackgroundColor(ContextCompat.getColor(context,R.color.BG_40))
-                    binding.btnJoin.text=context.getString(R.string.btn_end)
-                    binding.btnJoin.setTextColor(ContextCompat.getColor(context,R.color.BG_60))
-                }else{
-                    binding.btnJoin.setOnClickListener{
+                if (it.close) {
+                    binding.btnJoin.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.BG_40
+                        )
+                    )
+                    binding.btnJoin.text = context.getString(R.string.btn_end)
+                    binding.btnJoin.setTextColor(ContextCompat.getColor(context, R.color.BG_60))
+                } else {
+                    binding.btnJoin.setOnClickListener {
                         // 신청하기 클릭시
-                            mOnItemsClickListener.getItemValue(whatItem["participating"]!!, postId!!)
+                        mOnItemsClickListener.getItemValue(whatItem["participating"]!!, postId!!)
                     }
                 }
 
-            }
             binding.btnBookmark.setOnClickListener {
-                val isBookmarked = binding.btnBookmark.tag=="1"
-                binding.btnBookmark.tag=if(isBookmarked) "0" else "1"
-                val backgroundResource =if(isBookmarked){
-                    R.drawable.baseline_bookmark_border_24_unselected
-                }else{
+                val isBookmarked = binding.btnBookmark.tag == "1"
+                binding.btnBookmark.tag = if (isBookmarked) "0" else "1"
+                val backgroundResource = if (!isBookmarked) {
                     R.drawable.baseline_bookmark_24_selected
+                } else {
+                    R.drawable.baseline_bookmark_border_24_unselected
                 }
                 binding.btnBookmark.setBackgroundResource(backgroundResource)
-                mOnBookmarkClickListener.onItemClick(binding.btnBookmark.tag.toString(),postId)
+                mOnBookmarkClickListener.onItemClick(binding.btnBookmark.tag.toString(), postId)
             }
             // 뷰클릭이벤트
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 mOnItemsClickListener.getItemValue(whatItem["detailStudyContent"]!!, postId!!)
+            }
             }
         }
     }

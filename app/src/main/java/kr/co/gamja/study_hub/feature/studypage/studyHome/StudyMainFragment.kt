@@ -45,7 +45,7 @@ class StudyMainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val factory = StudyMainViewModelFactory(RetrofitManager.api)
+        val factory = StudyMainViewModelFactory(AuthRetrofitManager.api)
         viewModel = ViewModelProvider(this,factory)[StudyMainViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
