@@ -19,7 +19,7 @@ import kr.co.gamja.study_hub.global.ExtensionFragment.Companion.hideKeyboard
 
 class MajorFragment : Fragment() {
     private lateinit var binding: FragmentMajorBinding
-    private val viewModel: SignupViewModel by viewModels()
+    private val viewModel: MajorViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

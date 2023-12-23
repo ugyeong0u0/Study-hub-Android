@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="kr.co.gamja.study_hub.feature.signup.major.SignupViewModel" />
+            type="kr.co.gamja.study_hub.feature.signup.major.MajorViewModel" />
     </data>
 
     <RelativeLayout

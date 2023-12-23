@@ -200,4 +200,9 @@
     <string name="waiting">대기</string>
     <string name="participation">참여</string>
     <string name="refusal">거절</string>
+
+    <string name="empty_waiting">참여를 기다리는 대기자가 없어요</string>
+    <string name="empty_participation">참여 중인 팀원이 없어요</string>
+    <string name="empty_refusal">회원님이 거절한 참여자가 없어요</string>
+    <string name="acceptance">수락</string>
 </resources>
