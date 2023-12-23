@@ -10,46 +10,46 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
-import kr.co.gamja.study_hub.data.model.FindStudyResponse
+import kr.co.gamja.study_hub.data.model.FindStudyResponseM
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
 
-class StudyMainViewModel(studyHubApi: StudyHubApi): ViewModel(){
+class StudyMainViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     private val tag = this.javaClass.simpleName
 
     private val _listSize = MutableLiveData<Int>()
     val listSize: LiveData<Int> get() = _listSize
 
     // 스터디 전체 가져올지 인기 스터지 가져오는지
-    private var _isHotStudy=MutableLiveData<Boolean>(false) // false가 전체 스터디
+    private var _isHotStudy = MutableLiveData<Boolean>(false) // false가 전체 스터디
 
-    fun setIsHot(result:Boolean){
-        _isHotStudy.value=result
+    fun setIsHot(result: Boolean) {
+        _isHotStudy.value = result
     }
 
-    val studyMainFlow= Pager(
+    val studyMainFlow = Pager(
         PagingConfig(
             pageSize = 10,
             enablePlaceholders = false,
             initialLoadSize = 10
         )
-    ){
-        StudyMainPagingSource(studyHubApi,_isHotStudy.value?:false)
+    ) {
+        StudyMainPagingSource(studyHubApi, _isHotStudy.value ?: false)
     }.flow.cachedIn(viewModelScope)
 
     // 스터디 리스트 총개수
-    fun getStudyList(){
+    fun getStudyList() {
         viewModelScope.launch {
             try {
-                val response= RetrofitManager.api.getStudyPostAll(false,0, 10,null, false)
-                if(response.isSuccessful){
-                    val result = response.body() as FindStudyResponse
-                    _listSize.value=result.numberOfElements
+                val response = RetrofitManager.api.getStudyPostAll(false, 0, 10, null, false)
+                if (response.isSuccessful) {
+                    val result = response.body() as FindStudyResponseM
+                    _listSize.value = result.totalCount
                 }
 
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 Log.e(tag, "북마크조회 Exception: ${e.message}")
             }
         }
@@ -64,7 +64,7 @@ class StudyMainViewModel(studyHubApi: StudyHubApi): ViewModel(){
                     val result = response.body() as BookmarkSaveDeleteResponse
                     Log.d(tag, "저장인지 삭제인지 :" + result.created.toString())
                     params.isSuccess(true)
-                }else{
+                } else {
                     // todo("회원이아닌경우")
                     params.isSuccess(false) // 비회원인 경우
                 }

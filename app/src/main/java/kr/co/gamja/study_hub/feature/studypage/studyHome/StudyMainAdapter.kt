@@ -9,26 +9,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.model.ContentX
+import kr.co.gamja.study_hub.data.model.ContentXXXX
 import kr.co.gamja.study_hub.data.repository.OnBookmarkClickListener
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.StudyItemOnRecruitingBinding
 import kr.co.gamja.study_hub.global.Functions
 
 class StudyMainAdapter(private val context: Context) :
-    PagingDataAdapter<ContentX, StudyMainAdapter.StudyMainHolder>(
+    PagingDataAdapter<ContentXXXX, StudyMainAdapter.StudyMainHolder>(
         DIFF_CALLBACK
     ) {
     private lateinit var mOnBookmarkClickListener: OnBookmarkClickListener // 북마크 viewModel에 interface 선언
     private lateinit var mOnViewClickListener: OnViewClickListener // 뷰 자체 클릭
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContentX>() {
-            override fun areItemsTheSame(oldItem: ContentX, newItem: ContentX): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContentXXXX>() {
+            override fun areItemsTheSame(oldItem: ContentXXXX, newItem: ContentXXXX): Boolean {
                 return oldItem.postId == newItem.postId
             }
 
-            override fun areContentsTheSame(oldItem: ContentX, newItem: ContentX): Boolean {
+            override fun areContentsTheSame(oldItem: ContentXXXX, newItem: ContentXXXX): Boolean {
                 return oldItem == newItem
             }
         }
@@ -56,7 +56,7 @@ class StudyMainAdapter(private val context: Context) :
 
     inner class StudyMainHolder(val binding: StudyItemOnRecruitingBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun setPosts(studyItem: ContentX?) {
+        fun setPosts(studyItem: ContentXXXX?) {
             val postId: Int? = studyItem?.postId
             studyItem?.let {
                 val functions = Functions()
@@ -109,7 +109,7 @@ class StudyMainAdapter(private val context: Context) :
                         )
                     ).into(binding.iconProfile)
 
-               // 북마크인지 아닌지 표시
+                // 북마크인지 아닌지 표시
                 if (it.bookmarked) {
                     binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
                 } else {
@@ -128,7 +128,7 @@ class StudyMainAdapter(private val context: Context) :
                     R.drawable.baseline_bookmark_24_selected
                 }
                 binding.btnBookmark.setBackgroundResource(backgroundResource)
-                mOnBookmarkClickListener.onItemClick(binding.btnBookmark.tag.toString(),postId)
+                mOnBookmarkClickListener.onItemClick(binding.btnBookmark.tag.toString(), postId)
             }
             itemView.setOnClickListener {
                 mOnViewClickListener.onViewClick(postId)

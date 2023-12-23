@@ -12,9 +12,9 @@ class MyStudyPagingSource(private val studyHybApi: StudyHubApi) : PagingSource<I
             // 페이지부터 시작
             val currentPageNumber = params.key ?: 0
             val response = studyHybApi.getMyStudy(currentPageNumber, params.loadSize)
-            val responseData = response.body()?.getMyPostData?.content ?: emptyList()
+            val responseData = response.body()?.posts?.content ?: emptyList()
             val nextPageNumber =
-                if (response.body()?.getMyPostData?.last == true) {
+                if (response.body()?.posts?.last == true) {
                     null
                 } else {
                     currentPageNumber + 1
@@ -27,7 +27,7 @@ class MyStudyPagingSource(private val studyHybApi: StudyHubApi) : PagingSource<I
             )
         } catch (e: Exception) {
             LoadResult.Error(e) // 오류 paging에 전달
-        }catch (e:HttpException){
+        } catch (e: HttpException) {
             LoadResult.Error(e)
         }
     }

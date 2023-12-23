@@ -1,6 +1,6 @@
 package kr.co.gamja.study_hub.data.model
 
-data class ContentX(
+data class ContentXXXX(
     val bookmarked: Boolean,
     val close: Boolean,
     val createdDate: List<Int>,
@@ -9,10 +9,10 @@ data class ContentX(
     val penalty: Int,
     val penaltyWay: String,
     val postId: Int,
+    val remainingSeat: Int,
     val studyEndDate: List<Int>,
     val studyPerson: Int,
     val studyStartDate: List<Int>,
     val title: String,
-    val userData: UserData,
-    val remainingSeat: Int
+    val userData: UserDataX
 )

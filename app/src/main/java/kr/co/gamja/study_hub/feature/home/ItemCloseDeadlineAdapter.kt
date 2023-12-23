@@ -2,21 +2,20 @@ package kr.co.gamja.study_hub.feature.home
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.model.ContentX
-import kr.co.gamja.study_hub.data.model.FindStudyResponse
+import kr.co.gamja.study_hub.data.model.ContentXXXX
+import kr.co.gamja.study_hub.data.model.FindStudyResponseM
 import kr.co.gamja.study_hub.data.repository.OnBookmarkClickListener
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.HomeItemCloseDeadlineBinding
 
 class ItemCloseDeadlineAdapter(private val context: Context) :
     RecyclerView.Adapter<ItemCloseDeadlineAdapter.ItemCloseDeadlineHolder>() {
-    var studyPosts: FindStudyResponse? = null
+    var studyPosts: FindStudyResponseM? = null
     private lateinit var mOnBookmarkClickListener: OnBookmarkClickListener // 북마크 viewModel에 interface 선언
     private lateinit var mOnViewClickListener: OnViewClickListener // 뷰자체 클릭
     fun setOnItemClickListener(listener: OnBookmarkClickListener) {
@@ -44,12 +43,12 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
         holder: ItemCloseDeadlineAdapter.ItemCloseDeadlineHolder,
         position: Int
     ) {
-        val studyPostsItem = studyPosts?.content?.get(position)
+        val studyPostsItem = studyPosts?.postDataByInquiries?.content?.get(position)
         holder.setPosts(studyPostsItem)
     }
 
     override fun getItemCount(): Int {
-        return studyPosts?.content?.size ?: 0
+        return studyPosts?.postDataByInquiries?.content?.size ?: 0
     }
 
     inner class ItemCloseDeadlineHolder(val binding: HomeItemCloseDeadlineBinding) :
@@ -59,7 +58,7 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
             itemView.setOnClickListener {
                 val itemPosition = bindingAdapterPosition
                 if (itemPosition != RecyclerView.NO_POSITION) {
-                    studyPosts?.content?.get(itemPosition).let {
+                    studyPosts?.postDataByInquiries?.content?.get(itemPosition).let {
                         val bindingPostId = it?.postId
                         mOnViewClickListener.onViewClick(bindingPostId)
                     }
@@ -67,7 +66,7 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
             }
         }
 
-        fun setPosts(studyItem: ContentX?) {
+        fun setPosts(studyItem: ContentXXXX?) {
             val postId: Int? = studyItem?.postId
             studyItem?.let {
                 binding.txtHead.text = it.title
@@ -101,7 +100,7 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
                         binding.btnBookmark.tag = "1"
                         binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
                         val tagId = binding.btnBookmark.tag.toString()
-                        mOnBookmarkClickListener.onItemClick(tagId, postId)
+                        mOnBookmarkClickListener.onItemClick(tagId, postId) // fragment로 callback부분
 
                     } else { // 북마크 삭제
                         binding.btnBookmark.tag = "0"
