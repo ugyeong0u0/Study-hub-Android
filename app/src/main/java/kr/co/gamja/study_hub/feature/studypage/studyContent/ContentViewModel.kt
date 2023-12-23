@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
 import kr.co.gamja.study_hub.data.model.StudyContentResponseM
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.global.Functions
 
 class ContentViewModel : ViewModel() {
@@ -77,7 +79,14 @@ class ContentViewModel : ViewModel() {
     private val _isWriter = MutableLiveData<Boolean>()
     val isWriter: LiveData<Boolean> get() = _isWriter
 
-    fun getStudyContent(adapter: ContentAdapter, postId: Int) {
+    // 현재 보고있는 포스트 id
+    private val _postId = MutableLiveData<Int>()
+
+    // 북마크 현황
+    private val _isBookmarked = MutableLiveData<Boolean>()
+    val isBookmarked: LiveData<Boolean> get() = _isBookmarked
+
+    fun getStudyContent(adapter: ContentAdapter, postId: Int, params: CallBackListener) {
         viewModelScope.launch {
             try {
                 val response = AuthRetrofitManager.api.getStudyContent(postId)
@@ -86,6 +95,7 @@ class ContentViewModel : ViewModel() {
                     getInformationOfStudy(result)
                     getRecommendList(adapter, result)
                     _isWriter.value = result.usersPost
+                    params.isSuccess(true)
                 }
             } catch (e: Exception) {
                 Log.e(tag, "스터디 content조회 Exception: ${e.message}")
@@ -160,12 +170,35 @@ class ContentViewModel : ViewModel() {
         _writerName.value = result.postedUser.nickname
         // 작성자 이미지
         _userImg.value = result.postedUser.imageUrl
+        _postId.value = result.postId
+        // 북마크 여부
+        _isBookmarked.value = result.bookmarked
+        Log.e("북마크드", result.bookmarked.toString() + _isBookmarked.value.toString())
+
     }
 
     // 추천리스트 반영 함수
     private fun getRecommendList(adapter: ContentAdapter, result: StudyContentResponseM) {
         adapter.studyPosts = result.relatedPost
-        Log.d(tag+": 추천리스트",result.postId.toString()+":"+result.relatedPost.toString())
+        Log.d(tag + ": 추천리스트", result.postId.toString() + ":" + result.relatedPost.toString())
         adapter.notifyDataSetChanged()
+    }
+
+    // 북마크 저장/삭제
+    fun saveBookmark() {
+        Log.d(tag, _postId.value.toString())
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.saveDeleteBookmark(_postId.value)
+                if (response.isSuccessful) {
+                    Log.d(tag, "북마크 저장 코드 code" + response.code().toString())
+                    val result = response.body() as BookmarkSaveDeleteResponse
+                    Log.d(tag, "저장인지 삭제인지 :" + result.created.toString())
+
+                }
+            } catch (e: Exception) {
+                Log.e(tag, "북마크 저장삭제 Exception: ${e.message}")
+            }
+        }
     }
 }
