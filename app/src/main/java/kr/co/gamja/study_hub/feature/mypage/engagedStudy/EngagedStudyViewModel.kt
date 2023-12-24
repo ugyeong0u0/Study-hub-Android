@@ -11,7 +11,7 @@ class EngagedStudyViewModel :ViewModel() {
     private val _listSize = MutableLiveData<Int>()
     val listSize: LiveData<Int> get() = _listSize
 
-    // 참여 스터디 리스트 총 개수 가져오기
+    // todo("참여 스터디 리스트 총 개수 가져오기")
     fun getEngagedStudy(){
 
     }
