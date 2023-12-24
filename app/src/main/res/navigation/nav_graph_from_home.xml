@@ -60,6 +60,9 @@
         <action
             android:id="@+id/action_mypageMainFragment_to_writtenStudyFragment"
             app:destination="@id/writtenStudyFragment" />
+        <action
+            android:id="@+id/action_mypageMainFragment_to_engagedStudyFragment"
+            app:destination="@id/engagedStudyFragment" />
     </fragment>
     <fragment
         android:id="@+id/manualFragment"
@@ -233,4 +236,9 @@
     <action
         android:id="@+id/action_global_applicationFragment"
         app:destination="@id/applicationFragment" />
+    <fragment
+        android:id="@+id/engagedStudyFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.engagedStudy.EngagedStudyFragment"
+        android:label="fragment_engaged_study"
+        tools:layout="@layout/fragment_engaged_study" />
 </navigation>
