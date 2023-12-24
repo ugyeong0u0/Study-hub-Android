@@ -8,8 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.CorrectStudyRequest
 import kr.co.gamja.study_hub.data.model.CreateStudyRequest
-import kr.co.gamja.study_hub.data.model.CreateStudyResponse
-import kr.co.gamja.study_hub.data.model.StudyContentResponse
+import kr.co.gamja.study_hub.data.model.StudyContentResponseM
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackIntegerListener
 import kr.co.gamja.study_hub.global.Functions
@@ -382,13 +381,13 @@ class CreateStudyViewModel : ViewModel() {
         }
     }
 
-    // 스터디 단건 조회 api연결 - 반환값 바로 반영하기 위해 contentviewModel 함수랑 중복
+    // 수정하기 - 스터디 단건 조회 api연결 - 반환값 바로 반영하기 위해 contentviewModel 함수랑 중복
     fun getMyCreatedStudy(postId: Int) {
         viewModelScope.launch {
             try {
                 val response = AuthRetrofitManager.api.getStudyContent(postId)
                 if (response.isSuccessful) {
-                    val result = response.body() as StudyContentResponse
+                    val result = response.body() as StudyContentResponseM
 
                     urlEditText.value = result.chatUrl
                     studyTitle.value = result.title
@@ -420,10 +419,11 @@ class CreateStudyViewModel : ViewModel() {
 
                     if (result.penalty == 0) {
                         setSelectedFee(false)
+                        whatFee.value = ""
                     } else {
                         setSelectedFee(true)
                         howMuch.value = result.penalty.toString()
-                        whatFee.value = result.penaltyWay
+                        whatFee.value = result.penaltyWay.toString()
                     }
 
                     setEndDay(endDateBuilder.toString())
@@ -458,7 +458,7 @@ class CreateStudyViewModel : ViewModel() {
             meetMethod.value.toString(),
             studyTitle.value.toString()
         )
-        Log.e("스터디 수정값 ", correctStudyRequest.toString()+"_endDay: "+_endDay.value.toString())
+        Log.e("스터디 수정값 ", correctStudyRequest.toString() + "_endDay: " + _endDay.value.toString())
         viewModelScope.launch {
             try {
                 val response = AuthRetrofitManager.api.correctMyStudy(correctStudyRequest)

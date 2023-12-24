@@ -425,8 +425,8 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/bookmark"
-                        android:layout_width="40dp"
-                        android:layout_height="55dp"
+                        android:layout_width="@dimen/thirty_two"
+                        android:layout_height="@dimen/thirty_two"
                         android:layout_below="@+id/recycler_recommend"
                         android:layout_marginStart="@dimen/twenty"
                         android:layout_marginTop="8dp"
@@ -447,10 +447,6 @@
                         android:layout_marginBottom="21dp"
                         android:layout_toEndOf="@+id/bookmark"
                         android:background="@drawable/btn_background_o_50_corner_6"
-                        android:paddingLeft="113dp"
-                        android:paddingTop="23dp"
-                        android:paddingRight="113dp"
-                        android:paddingBottom="23dp"
                         android:text="@string/fsd_btn_next"
                         android:textColor="@color/syswhite"
                         android:textSize="16sp" />

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="kr.co.gamja.study_hub.feature.home.HomeViewModel" />
+            type="kr.co.gamja.study_hub.feature.studypage.studyHome.StudyMainViewModel" />
     </data>
 
     <LinearLayout
@@ -93,7 +93,7 @@
                     android:layout_alignBaseline="@+id/btn_allStudy"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/twenty"
-                    android:text="@string/txt_list_number"
+                    android:text="@{@string/txt_list_number(viewModel.listSize)}"
                     android:textColor="@color/BG_80"
                     android:textSize="14sp" />
 

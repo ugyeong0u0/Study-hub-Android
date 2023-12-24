@@ -60,6 +60,9 @@
         <action
             android:id="@+id/action_mypageMainFragment_to_writtenStudyFragment"
             app:destination="@id/writtenStudyFragment" />
+        <action
+            android:id="@+id/action_mypageMainFragment_to_engagedStudyFragment"
+            app:destination="@id/engagedStudyFragment" />
     </fragment>
     <fragment
         android:id="@+id/manualFragment"
@@ -87,7 +90,7 @@
         tools:layout="@layout/fragment_content">
         <argument
             android:name="postId"
-            app:argType="integer"/>
+            app:argType="integer" />
     </fragment>
     <action
         android:id="@+id/action_global_mainAlarmFragment"
@@ -178,7 +181,7 @@
         android:id="@+id/withdrawalFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.withdrawal.WithdrawalFragment"
         android:label="fragment_withdrawal"
-        tools:layout="@layout/fragment_withdrawal" >
+        tools:layout="@layout/fragment_withdrawal">
         <action
             android:id="@+id/action_withdrawalFragment_to_confirmingWithdrawalFragment"
             app:destination="@id/confirmingWithdrawalFragment" />
@@ -188,7 +191,9 @@
         android:name="kr.co.gamja.study_hub.feature.mypage.withdrawal.ConfirmingWithdrawalFragment"
         android:label="fragment_confirming_withdrawal"
         tools:layout="@layout/fragment_confirming_withdrawal" />
-    <action android:id="@+id/action_global_studyContentFragment" app:destination="@id/studyContentFragment" />
+    <action
+        android:id="@+id/action_global_studyContentFragment"
+        app:destination="@id/studyContentFragment" />
     <fragment
         android:id="@+id/uploadImageFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.uploadImg.UploadImageFragment"
@@ -198,7 +203,7 @@
         android:id="@+id/writtenStudyFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.myStudy.WrittenStudyFragment"
         android:label="fragment_written_study"
-        tools:layout="@layout/fragment_written_study" >
+        tools:layout="@layout/fragment_written_study">
         <action
             android:id="@+id/action_writtenStudyFragment_to_participantFragment"
             app:destination="@id/participantFragment" />
@@ -207,8 +212,7 @@
         android:id="@+id/participantFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.ParticipantFragment"
         android:label="fragment_participant"
-        tools:layout="@layout/fragment_participant" >
-    </fragment>
+        tools:layout="@layout/fragment_participant"></fragment>
     <fragment
         android:id="@+id/waitingFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingFragment"
@@ -224,4 +228,17 @@
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.refusal.RefusalFragment"
         android:label="fragment_refusal"
         tools:layout="@layout/fragment_refusal" />
+    <fragment
+        android:id="@+id/applicationFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.apply.ApplicationFragment"
+        android:label="fragment_application"
+        tools:layout="@layout/fragment_application" />
+    <action
+        android:id="@+id/action_global_applicationFragment"
+        app:destination="@id/applicationFragment" />
+    <fragment
+        android:id="@+id/engagedStudyFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.engagedStudy.EngagedStudyFragment"
+        android:label="fragment_engaged_study"
+        tools:layout="@layout/fragment_engaged_study" />
 </navigation>

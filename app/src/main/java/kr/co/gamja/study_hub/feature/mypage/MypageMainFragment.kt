@@ -77,5 +77,19 @@ class MypageMainFragment : Fragment() {
                 null
             )
         }
+        // 북마크 페이지로 이동
+        binding.btnUserBookmark.setOnClickListener{
+            findNavController().navigate(
+                R.id.action_global_mainBookmarkFragment,
+                null
+            )
+        }
+        // 참여한 스터디 페이지로 이동
+        binding.btnUserStudy.setOnClickListener{
+            findNavController().navigate(
+                R.id.action_mypageMainFragment_to_engagedStudyFragment,
+                null
+            )
+        }
     }
 }

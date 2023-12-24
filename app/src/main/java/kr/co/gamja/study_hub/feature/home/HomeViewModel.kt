@@ -5,36 +5,43 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
-import kr.co.gamja.study_hub.data.model.FindStudyResponse
+import kr.co.gamja.study_hub.data.model.FindStudyResponseM
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
-import kr.co.gamja.study_hub.data.repository.OnScrollCallBackListener
-import kr.co.gamja.study_hub.feature.studypage.studyHome.StudyMainAdapter
 
 // TODO("스터디 메인 뷰모델 합치기")
 class HomeViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
 
-    fun <T> getStudyPosts(adapter :T, isHot:Boolean, page:Int, size:Int,inquiryText:String?, titleaAndMajor:Boolean,params:OnScrollCallBackListener?){
+    fun <T> getStudyPosts(
+        adapter: T,
+        isHot: Boolean,
+        page: Int,
+        size: Int,
+        inquiryText: String?,
+        titleaAndMajor: Boolean
+    ) {
         viewModelScope.launch {
             try {
-                val response =AuthRetrofitManager.api.getStudyPostAll(isHot,page,size,inquiryText,titleaAndMajor)
-                if(response.isSuccessful){
-                    val result =response.body() as FindStudyResponse
-                    if(adapter is ItemOnRecruitingAdapter){
+                val response =
+                    AuthRetrofitManager.api.getStudyPostAll(
+                        isHot,
+                        page,
+                        size,
+                        inquiryText,
+                        titleaAndMajor
+                    )
+                if (response.isSuccessful) {
+                    val result = response.body() as FindStudyResponseM
+                    if (adapter is ItemOnRecruitingAdapter) {
                         adapter.studyPosts = result
                         adapter.notifyDataSetChanged()
-                    }else if(adapter is ItemCloseDeadlineAdapter){
+                    } else if (adapter is ItemCloseDeadlineAdapter) {
                         adapter.studyPosts = result
                         adapter.notifyDataSetChanged()
-                    }else if(adapter is StudyMainAdapter){
-                        adapter.studyPosts=result
-                        adapter.notifyDataSetChanged()
-                        params?.isFirst(result.first)
-                        params?.isLast(result.last)
                     }
                 }
 
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 Log.e(tag, "스터디 글 조회 Exception: ${e.message}")
             }
         }

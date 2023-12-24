@@ -12,7 +12,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/syswhite"
-            android:elevation="@dimen/twenty_four"
             android:padding="@dimen/twenty">
 
             <TextView
@@ -30,7 +29,6 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_alignParentEnd="true"
-                android:background="@drawable/baseline_bookmark_border_24_unselected"
                 android:tag="0" />
 
             <TextView
@@ -83,6 +81,7 @@
                     android:id="@+id/txt_peopleNumber"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/fourteen"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/txt_people_number"

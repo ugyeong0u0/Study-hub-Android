@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -10,7 +11,7 @@
         <import type="android.view.View" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/syswhite">
@@ -20,7 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentTop="true"
-            android:background="@color/sysblack2">
+            android:background="@color/sysblack2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -56,7 +59,6 @@
             android:id="@+id/edit_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/searchMain_toolbar"
             android:layout_marginHorizontal="@dimen/twenty"
             android:layout_marginTop="@dimen/sixteen"
             android:background="@drawable/btn_background_search"
@@ -72,112 +74,129 @@
             android:textColor="@color/sysblack1"
             android:textColorHint="@color/BG_70"
             android:textSize="16sp"
-            />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchMain_toolbar" />
 
         <ImageView
             android:id="@+id/icon_search"
             android:layout_width="@dimen/twenty_four"
             android:layout_height="@dimen/twenty_four"
-            android:layout_below="@id/searchMain_toolbar"
-            android:layout_alignEnd="@+id/edit_search"
             android:layout_marginTop="29dp"
             android:layout_marginEnd="@dimen/fourteen"
             android:src="@drawable/icon_search_l_black"
-            android:visibility="@{viewModel.searchImg?View.VISIBLE:View.GONE}" />
+            android:visibility="@{viewModel.searchImg?View.VISIBLE:View.GONE}"
+            app:layout_constraintRight_toRightOf="@+id/edit_search"
+            app:layout_constraintTop_toBottomOf="@+id/searchMain_toolbar" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_textDelete"
             android:layout_width="@dimen/twenty_four"
             android:layout_height="@dimen/twenty_four"
-            android:layout_below="@id/searchMain_toolbar"
-            android:layout_alignEnd="@+id/edit_search"
             android:layout_marginTop="29dp"
             android:layout_marginEnd="@dimen/fourteen"
             android:background="@drawable/icon_circle_delete_bright"
-            android:visibility="@{viewModel.searchImg?View.GONE:View.VISIBLE}" />
+            android:visibility="@{viewModel.searchImg?View.GONE:View.VISIBLE}"
+            app:layout_constraintRight_toRightOf="@+id/edit_search"
+            app:layout_constraintTop_toBottomOf="@+id/searchMain_toolbar" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_allStudy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/icon_search"
             android:layout_marginVertical="13dp"
-            android:layout_marginLeft="@dimen/twenty"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="@dimen/twenty"
             android:background="@drawable/bg_black_radius_20"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="10dp"
             android:text="@string/btn_allStudy"
             android:textColor="@color/syswhite"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_search" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_popularOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/icon_search"
             android:layout_marginVertical="13dp"
-            android:layout_marginRight="8dp"
-            android:layout_toEndOf="@+id/btn_allStudy"
+            android:layout_marginStart="@dimen/eight"
             android:background="@drawable/bg_30_radius_20"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="10dp"
             android:text="@string/btn_popularOrder"
             android:textColor="@color/BG_90"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/btn_allStudy"
+            app:layout_constraintTop_toBottomOf="@+id/edit_search" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_majorOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/icon_search"
             android:layout_marginVertical="13dp"
-            android:layout_toEndOf="@+id/btn_popularOrder"
+            android:layout_marginStart="@dimen/eight"
             android:background="@drawable/bg_30_radius_20"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="10dp"
             android:text="@string/btn_majorOrder"
             android:textColor="@color/BG_90"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/btn_popularOrder"
+            app:layout_constraintTop_toBottomOf="@+id/edit_search" />
 
         <TextView
             android:id="@+id/txt_numberOfList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_textDelete"
-            android:layout_alignBaseline="@+id/btn_allStudy"
-            android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="@dimen/twenty"
             android:layout_marginTop="10dp"
             android:text="@string/txt_list_number"
             android:textColor="@color/BG_80"
-            android:textSize="14sp" />
-
-        <View
-            android:id="@+id/view_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/btn_allStudy"
-            android:background="@color/BG_30" />
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/btn_allStudy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_search" />
 
         <ImageView
             android:id="@+id/image_empty_post"
             android:layout_width="210dp"
             android:layout_height="210dp"
-            android:layout_below="@+id/view_horizontal"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/image_empty_post" />
+            android:src="@drawable/image_empty_post"
+            app:layout_constraintTop_toBottomOf="@+id/btn_majorOrder"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.2"
+            />
 
         <TextView
             android:id="@+id/txt_noText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/image_empty_post"
             android:layout_centerHorizontal="true"
             android:text="@string/txt_noText"
             android:textColor="@color/BG_80"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_empty_post" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_study"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/view_horizontal"
             android:layout_marginHorizontal="@dimen/twenty"
-            android:layout_marginTop="@dimen/twenty"
-            android:layout_marginBottom="40dp" />
-    </RelativeLayout>
+            android:layout_marginTop="@dimen/fourteen"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_allStudy" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
