@@ -20,11 +20,6 @@
             android:id="@+id/action_login_to_nav_graph02_main"
             app:destination="@id/nav_graph_from_home" />
 
-        <!-- test -->
-        <action
-            android:id="@+id/test"
-            app:destination="@id/nicknameFragment"/>
-
     </fragment>
     <fragment
         android:id="@+id/emailFragment"

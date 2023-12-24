@@ -147,8 +147,7 @@ class LoginFragment : Fragment() {
 
         // 회원가입페이지로 연결
         binding.btnRegistration.setOnClickListener {
-//            findNavController().navigate(R.id.action_login_to_createAccount, null)
-            findNavController().navigate(R.id.test, null)
+            findNavController().navigate(R.id.action_login_to_createAccount, null)
         }
 
     }

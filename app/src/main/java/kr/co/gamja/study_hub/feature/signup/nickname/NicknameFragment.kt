@@ -143,7 +143,6 @@ class NicknameFragment : Fragment() {
     private fun checkSpace(text : String) : Boolean{
         var result = false
         text.forEach{ ch ->
-            Log.d("AAAAAA","ch : ${ch}")
             if (ch == ' ') result = true
         }
         return result
