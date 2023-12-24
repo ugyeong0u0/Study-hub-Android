@@ -31,3 +31,7 @@ interface OnItemsClickListener {
     // 아이템 구분 map key에 맞는 int 값과 itemId
     fun getItemValue(whatItem: Int, itemValue: Int)
 }
+// 북마크용 리스너
+interface OnBookmarkClickListener {
+    fun onItemClick(tagId: String?, postId: Int? = 0)
+}

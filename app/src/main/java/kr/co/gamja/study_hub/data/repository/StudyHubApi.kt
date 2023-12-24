@@ -82,7 +82,7 @@ interface StudyHubApi {
 
     // 스터디 컨텐츠 조회- 스터디 단건 조회 api
     @GET("/api/v1/study-posts/{postId}")
-    suspend fun getStudyContent(@Path("postId") postId: Int): Response<StudyContentResponse>
+    suspend fun getStudyContent(@Path("postId") postId: Int): Response<StudyContentResponseM>
 
     // 스터디 삭제
     @DELETE("/api/v1/study-posts/{postId}")
@@ -100,7 +100,7 @@ interface StudyHubApi {
         @Query("size") size: Int,
         @Query("inquiryText") inquiryText: String?,
         @Query("titleAndMajor") titleAndMajor: Boolean
-    ): Response<FindStudyResponse>
+    ): Response<FindStudyResponseM>
 
     // 스터디 수정
     @PUT("/api/v1/study-posts")
