@@ -173,7 +173,10 @@ class ContentViewModel : ViewModel() {
         _postId.value = result.postId
         // 북마크 여부
         _isBookmarked.value = result.bookmarked
-        Log.e("북마크드", result.bookmarked.toString() + _isBookmarked.value.toString())
+        Log.d(
+            tag,
+            "북마크된지 통신값: " + result.bookmarked.toString() + "북마크된지 livedata 값" + _isBookmarked.value.toString()
+        )
 
     }
 

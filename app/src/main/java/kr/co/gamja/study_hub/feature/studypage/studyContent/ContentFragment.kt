@@ -52,23 +52,16 @@ class ContentFragment : Fragment() {
             getModal(args.postId)
         }
         // 스터디 생성한 사람 프로필 이미지
-        Glide.with(this)
-            .load(viewModel.userImg.value)
-            .apply(
-                RequestOptions().override(
-                    binding.iconProfile.width,
-                    binding.iconProfile.height
+        viewModel.userImg.observe(viewLifecycleOwner) {
+            Glide.with(this)
+                .load(it)
+                .apply(
+                    RequestOptions().override(
+                        binding.iconProfile.width,
+                        binding.iconProfile.height
+                    )
                 )
-            )
-            .into(binding.iconProfile)
-
-        // todo("api callback후로 변경하기 ")
-        if (viewModel.isBookmarked.value == true) {
-            binding.bookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
-            binding.bookmark.tag = "1"
-        } else {
-            binding.bookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
-            binding.bookmark.tag = "0"
+                .into(binding.iconProfile)
         }
 
 
@@ -102,10 +95,19 @@ class ContentFragment : Fragment() {
         })
     }
 
+    // 컨텐츠 내용 가져오기
     private fun getContent(adapter: ContentAdapter, postId: Int) {
         viewModel.getStudyContent(adapter, postId, object : CallBackListener {
             override fun isSuccess(result: Boolean) {
-                // todo(" 북마크 값 ")
+                if (result) {
+                    if (viewModel.isBookmarked.value == true) {
+                        binding.bookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
+                        binding.bookmark.tag = "1"
+                    } else {
+                        binding.bookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
+                        binding.bookmark.tag = "0"
+                    }
+                }
             }
         })
     }
