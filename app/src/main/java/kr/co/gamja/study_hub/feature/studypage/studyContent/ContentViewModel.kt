@@ -86,6 +86,9 @@ class ContentViewModel : ViewModel() {
     private val _isBookmarked = MutableLiveData<Boolean>()
     val isBookmarked: LiveData<Boolean> get() = _isBookmarked
 
+    // 댓글 양방향 데이터 todo("연결하기")
+    var studyCommtent = MutableLiveData<String>()
+
     fun getStudyContent(adapter: ContentAdapter, postId: Int, params: CallBackListener) {
         viewModelScope.launch {
             try {

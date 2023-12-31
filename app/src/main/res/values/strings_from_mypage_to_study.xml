@@ -21,6 +21,9 @@
     <string name="fsd_head_recommend">이 글과 비슷한 스터디예요</string>
     <string name="fsd_btn_next">참여하기</string>
     <string name="txt_study">스터디</string>
+    <string name="txt_allComment">댓글 %d</string>
+    <string name="inputComment">댓글을 입력해주세요</string>
+    <string name="enrollment">등록</string>
 
     <!--    스터디 만들기-->
     <string name="txt_createStudy">스터디 만들기</string>
