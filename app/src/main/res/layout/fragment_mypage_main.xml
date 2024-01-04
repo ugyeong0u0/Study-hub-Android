@@ -57,6 +57,7 @@
             android:clickable="true"
             android:focusable="true">
 
+            <!-- de.hdodenhof.circleimageview.CircleImageView feedback 후에 선택 -->
             <ImageView
                 android:id="@+id/icon_profile"
                 android:layout_width="60dp"
