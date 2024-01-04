@@ -29,9 +29,9 @@ import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 class MyInfoFragment : Fragment(), SecondCallBackListener {
     private lateinit var binding: FragmentMyInfoBinding
-    private val msgTag=this.javaClass.simpleName
+    private val msgTag = this.javaClass.simpleName
     override fun isSuccess(result: Boolean) { // 사진 변경 완료시 snackBar띄움
-        if(result){
+        if (result) {
             CustomSnackBar.make(
                 binding.layoutLinear,
                 getString(R.string.txt_changeUserImg)
@@ -62,14 +62,14 @@ class MyInfoFragment : Fragment(), SecondCallBackListener {
 
         viewModel.getUsers()
         viewModel.imgData.observe(viewLifecycleOwner, Observer { img ->
-                Glide.with(this).load(viewModel.imgData.value)
-                    .apply(
-                        RequestOptions().override(
-                            binding.imgProfile.width,
-                            binding.imgProfile.height
-                        )
+            Glide.with(this).load(viewModel.imgData.value)
+                .apply(
+                    RequestOptions().override(
+                        binding.imgProfile.width,
+                        binding.imgProfile.height
                     )
-                    .into(binding.imgProfile)
+                )
+                .into(binding.imgProfile)
         })
 
         viewModel.setOnClickListener(object : MyInfoCallbackListener {
@@ -152,7 +152,7 @@ class MyInfoFragment : Fragment(), SecondCallBackListener {
 
     private fun getModal() {
         val modal = UploadImageFragment()
-        modal.snackBarListener=this
+        modal.snackBarListener = this
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         modal.show(parentFragmentManager, modal.tag)
     }
