@@ -93,7 +93,7 @@ interface StudyHubApi {
     suspend fun setCreateStudy(@Body createStudyRequest: CreateStudyRequest): Response<Int>
 
     // 스터디 게시글 전체 조회 todo("매개변수 변경됨")
-    @GET("/api/v1/study-posts")
+    @GET("/api/v2/study-posts")
     suspend fun getStudyPostAll(
         @Query("hot") hot: Boolean,
         @Query("page") page: Int,

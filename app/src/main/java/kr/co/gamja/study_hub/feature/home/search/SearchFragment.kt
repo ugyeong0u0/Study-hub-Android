@@ -73,11 +73,7 @@ class SearchFragment : Fragment() {
             viewModel.updateSearchImg()
         }
         // editText 검색어 지우기
-        binding.btnTextDelete.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                binding.editSearch.text.clear()
-            }
-        })
+        binding.btnTextDelete.setOnClickListener { binding.editSearch.text.clear() }
 
 
     }
