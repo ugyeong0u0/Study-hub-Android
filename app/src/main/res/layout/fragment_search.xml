@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="kr.co.gamja.study_hub.feature.home.search.SearchViewModel" />
@@ -15,6 +14,9 @@
             type="Boolean"/>
         <variable
             name="isDepartment"
+            type="Boolean"/>
+        <variable
+            name="isEmpty"
             type="Boolean"/>
         <import type="android.view.View" />
     </data>
@@ -177,6 +179,7 @@
             android:layout_height="210dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/image_empty_post"
+            android:visibility="@{isEmpty ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toBottomOf="@+id/btn_majorOrder"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

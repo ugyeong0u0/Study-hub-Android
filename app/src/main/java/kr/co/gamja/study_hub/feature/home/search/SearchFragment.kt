@@ -13,15 +13,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.model.ContentXXXX
 import kr.co.gamja.study_hub.databinding.FragmentSearchBinding
+import kr.co.gamja.study_hub.feature.home.ItemOnRecruitingAdapter
 import kr.co.gamja.study_hub.global.ExtensionFragment.Companion.hideKeyboard
 
 class SearchFragment : Fragment() {
     private val msgTag = this.javaClass.simpleName
     private lateinit var binding: FragmentSearchBinding
     private val viewModel: SearchViewModel by viewModels()
+
+    private lateinit var searchItemAdapter: SearchItemAdapter
 
     //글자수 처리를 위한 변수
     private var lastLength = 0
@@ -38,6 +45,16 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        val itemList = MutableLiveData<List<ContentXXXX>>()
+
+        //검색 결과 리스트
+        viewModel.studys.observe(viewLifecycleOwner) { studys ->
+            itemList.postValue(studys)
+            searchItemAdapter.updateList(studys)
+            binding.isEmpty = studys.isEmpty()
+            Log.d(tag, "itemlist : ${itemList.value}")
+        }
 
         //버튼 확인
         binding.isAll = true
@@ -128,7 +145,10 @@ class SearchFragment : Fragment() {
         })
 
         //recyclerView 설정
-
+        // 모집중 스터디 어댑터 연결
+        searchItemAdapter = SearchItemAdapter(requireContext(), itemList.value?.toMutableList() ?: mutableListOf())
+        binding.recyclerStudy.adapter = searchItemAdapter
+        binding.recyclerStudy.layoutManager = LinearLayoutManager(requireContext())
     }
     fun onUpdateStudys(s : String, isHot: Boolean, isDepartment: Boolean){
         val searchContent = s.substring(0,s.length-1)

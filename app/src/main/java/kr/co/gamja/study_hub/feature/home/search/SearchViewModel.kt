@@ -22,8 +22,8 @@ class SearchViewModel: ViewModel() {
     val searchImg:LiveData<Boolean> get() =_searchImg
 
     //study 리스트
-    val _studys = MutableLiveData<List<ContentXXXX>>()
-    private val studys : LiveData<List<ContentXXXX>>
+    private val _studys = MutableLiveData<List<ContentXXXX>>()
+    val studys : LiveData<List<ContentXXXX>>
         get() = _studys
 
     // 텍스트 지우기 검색 이미지 활성화
