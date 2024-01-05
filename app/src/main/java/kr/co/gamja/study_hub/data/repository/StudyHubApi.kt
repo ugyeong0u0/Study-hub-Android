@@ -86,7 +86,7 @@ interface StudyHubApi {
 
     // 스터디 삭제
     @DELETE("/api/v1/study-posts/{postId}")
-    suspend fun deleteMyStudy(@Path("postId") postId: Int) :Response<Unit>
+    suspend fun deleteMyStudy(@Path("postId") postId: Int): Response<Unit>
 
     // 스터디 생성
     @POST("/api/v1/study-posts")
@@ -104,18 +104,29 @@ interface StudyHubApi {
 
     // 스터디 수정
     @PUT("/api/v1/study-posts")
-    suspend fun correctMyStudy(@Body correctStudyRequest: CorrectStudyRequest):Response<Int>
+    suspend fun correctMyStudy(@Body correctStudyRequest: CorrectStudyRequest): Response<Int>
 
     // 유저 사진 수정
     @Multipart
     @PUT("/api/v1/users/image")
-    suspend fun setUserImg(@Part photo:MultipartBody.Part):Response<Unit>
+    suspend fun setUserImg(@Part photo: MultipartBody.Part): Response<Unit>
 
     // 유저 사진 삭제
     @DELETE("/api/v1/users/image")
-    suspend fun deleteUserImg():Response<Unit>
+    suspend fun deleteUserImg(): Response<Unit>
 
     // 내가 쓴 스터디 조회
     @GET("/api/v1/study-posts/mypost")
-    suspend fun getMyStudy(@Query("page")page: Int, @Query("size") size: Int):Response<MyStudyListResponse>
+    suspend fun getMyStudy(
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Response<MyStudyListResponse>
+
+    // 댓글 조회
+    @GET("/api/v1/comments/{postId}")
+    suspend fun getComments(
+        @Path("postId") postId: Int?,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Response<CommentsListResponse>
 }

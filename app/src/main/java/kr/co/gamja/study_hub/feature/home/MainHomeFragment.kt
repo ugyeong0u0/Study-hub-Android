@@ -106,8 +106,9 @@ class MainHomeFragment : Fragment() {
         onRecruitingAdapter = ItemOnRecruitingAdapter(requireContext())
         binding.recyclerOnGoing.adapter = onRecruitingAdapter
         binding.recyclerOnGoing.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
+            LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        // 리스트 업데이트
+        updateRecruitingList()
 
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         onRecruitingAdapter.setOnItemClickListener(object : OnBookmarkClickListener {
@@ -130,7 +131,6 @@ class MainHomeFragment : Fragment() {
         binding.recyclerApproaching.layoutManager = LinearLayoutManager(requireContext())
 
          // 리스트 업데이트
-        updateRecruitingList()
         updateDeadlineList()
 
         deadlineAdapter.setOnItemClickListener(object : OnBookmarkClickListener {

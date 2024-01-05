@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
+import kr.co.gamja.study_hub.data.model.CommentsListResponse
 import kr.co.gamja.study_hub.data.model.StudyContentResponseM
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
@@ -87,7 +88,10 @@ class ContentViewModel : ViewModel() {
     val isBookmarked: LiveData<Boolean> get() = _isBookmarked
 
     // 댓글 양방향 데이터 todo("연결하기")
-    var studyCommtent = MutableLiveData<String>()
+    var studyComment = MutableLiveData<String>()
+
+    // 댓글 개수
+    var totalComment = MutableLiveData<Int>()
 
     fun getStudyContent(adapter: ContentAdapter, postId: Int, params: CallBackListener) {
         viewModelScope.launch {
@@ -204,6 +208,25 @@ class ContentViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 Log.e(tag, "북마크 저장삭제 Exception: ${e.message}")
+            }
+        }
+    }
+
+    // 댓글 리스트 조회
+    fun getCommentsList(adapter: CommentAdapter, postId: Int) {
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.getComments(postId, 0, 8)
+                Log.d(tag, "conmmentsList postID" + _postId.value.toString())
+                if (response.isSuccessful) {
+                    Log.d(tag, "conmmentsList 코드 code" + response.code().toString())
+                    val result = response.body() as CommentsListResponse
+                    adapter.commentsList = result.content
+                    adapter.notifyDataSetChanged()
+                    totalComment.value = result.numberOfElements
+                }
+            } catch (e: Exception) {
+                Log.e(tag, "conmmentsList 코드 Exception: ${e.message}")
             }
         }
     }
