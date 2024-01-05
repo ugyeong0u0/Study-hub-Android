@@ -7,7 +7,15 @@
         <variable
             name="viewModel"
             type="kr.co.gamja.study_hub.feature.home.search.SearchViewModel" />
-
+        <variable
+            name="isAll"
+            type="Boolean"/>
+        <variable
+            name="isHot"
+            type="Boolean"/>
+        <variable
+            name="isDepartment"
+            type="Boolean"/>
         <import type="android.view.View" />
     </data>
 
@@ -64,7 +72,7 @@
             android:background="@drawable/btn_background_search"
             android:completionThreshold="1"
             android:hint="@string/btn_searchBar"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionSearch"
             android:inputType="text"
             android:paddingLeft="14dp"
             android:paddingTop="13dp"
@@ -105,13 +113,13 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="13dp"
             android:layout_marginStart="@dimen/twenty"
-            android:background="@drawable/bg_black_radius_20"
+            android:background="@{isAll ? @drawable/bg_black_radius_20 : @drawable/bg_30_radius_20}"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:paddingHorizontal="12dp"
             android:paddingVertical="10dp"
             android:text="@string/btn_allStudy"
-            android:textColor="@color/syswhite"
+            android:textColor="@{isAll ? @color/syswhite : @color/BG_90}"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_search" />
@@ -122,13 +130,13 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="13dp"
             android:layout_marginStart="@dimen/eight"
-            android:background="@drawable/bg_30_radius_20"
+            android:background="@{isHot ? @drawable/bg_black_radius_20 : @drawable/bg_30_radius_20}"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:paddingHorizontal="12dp"
             android:paddingVertical="10dp"
             android:text="@string/btn_popularOrder"
-            android:textColor="@color/BG_90"
+            android:textColor="@{isHot ? @color/syswhite : @color/BG_90}"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/btn_allStudy"
             app:layout_constraintTop_toBottomOf="@+id/edit_search" />
@@ -139,13 +147,13 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="13dp"
             android:layout_marginStart="@dimen/eight"
-            android:background="@drawable/bg_30_radius_20"
+            android:background="@{isDepartment ? @drawable/bg_black_radius_20 : @drawable/bg_30_radius_20}"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:paddingHorizontal="12dp"
             android:paddingVertical="10dp"
             android:text="@string/btn_majorOrder"
-            android:textColor="@color/BG_90"
+            android:textColor="@{isDepartment ? @color/syswhite : @color/BG_90}"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/btn_popularOrder"
             app:layout_constraintTop_toBottomOf="@+id/edit_search" />
