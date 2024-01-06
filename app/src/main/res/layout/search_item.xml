@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="kr.co.gamja.study_hub.data.model.ContentXXXX" />
+        <variable
+            name="major"
+            type="String"/>
+        <variable
+            name="duration"
+            type="String"/>
+        <variable
+            name="restMsg"
+            type="String"/>
+        <variable
+            name="totalMem"
+            type="String"/>
+        <variable
+            name="remainMem"
+            type="String"/>
+        <variable
+            name="payment"
+            type="String"/>
+        <variable
+            name="gender"
+            type="String"/>
+        <variable
+            name="nickname"
+            type="String"/>
+        <variable
+            name="createDate"
+            type="String"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:background="@drawable/btn_bg_white_stroke_bg_50"
+        android:orientation="vertical"
+        android:elevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity = "center_vertical"
+            >
+
+            <TextView
+                android:id="@+id/txt_major"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@drawable/backgroundword_o_10"
+                android:padding="8dp"
+                android:textColor="@color/O_50"
+                android:textSize="12sp"
+                android:text="@{major}"
+                tools:text="학과" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_bookmark"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@{item.bookmarked ? @drawable/baseline_bookmark_border_24_unselected : @drawable/baseline_bookmark_24_selected}"
+                android:tag="0"
+                tools:background="@drawable/baseline_bookmark_border_24_unselected"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/sysblack1"
+            android:textSize="16sp"
+            android:text="@{item.title}"
+            tools:text="제목(최대 두줄)" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="14dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/BG_80"
+                android:text="@{duration}"
+                tools:text="9월 9일 ~ 10월 9일"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:textColor="@color/O_50"
+                android:layout_marginEnd="5dp"
+                android:text="@{restMsg}"
+                tools:text="10자리 남았습니다"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/gray_6rounded_background"
+            android:layout_marginTop="16dp"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/icon_person_gray"
+                    app:tint="@color/BG_50"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/O_50"
+                        android:text="@{remainMem}"
+                        tools:text="10"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/BG_90"
+                        android:text="@{totalMem}"
+                        tools:text="/20명"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/icon_coin_gray"
+                    app:tint="@color/BG_50"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BG_90"
+                    android:text="@{payment}"
+                    tools:text="400원"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imgGender"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    tools:src="@drawable/icon_gender_gray"
+                    app:tint="@color/BG_50"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/BG_90"
+                    android:text="@{gender}"
+                    tools:text="무관"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:id="@+id/userProfile"
+                tools:src="@drawable/avatar_s"
+                android:contentDescription="프로필"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp"
+                android:paddingVertical="5dp">
+                
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/BG_90"
+                    android:text="@{nickname}"
+                    tools:text="학생"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/BG_90"
+                    android:text="@{createDate}"
+                    tools:text="2023.9.1"/>
+                
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -13,6 +13,7 @@
         android:paddingBottom="14dp"
         android:layout_marginBottom="@dimen/sixteen">
 
+        <!-- de.hdodenhof.circleimageview.CircleImageView feedback 후에 선택 -->
         <ImageView
             android:id="@+id/icon_profile"
             android:layout_width="50dp"

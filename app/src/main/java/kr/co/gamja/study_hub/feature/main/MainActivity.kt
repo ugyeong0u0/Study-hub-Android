@@ -16,8 +16,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.datastore.App
-import kr.co.gamja.study_hub.databinding.ActivityMainBinding
 import kr.co.gamja.study_hub.feature.login.LoginCallback
+import kr.co.gamja.study_hub.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val tag = this.javaClass.simpleName
