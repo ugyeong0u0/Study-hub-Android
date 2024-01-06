@@ -40,6 +40,7 @@ class ContentFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         val contentAdapter = ContentAdapter(requireContext())
         getContent(contentAdapter, args.postId)
+
         // 툴바 설정
         val toolbar = binding.contentToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -93,6 +94,13 @@ class ContentFragment : Fragment() {
                 findNavController().navigate(action)
             }
         })
+
+        // 댓글 조회
+        val commentAdapter = CommentAdapter(requireContext())
+        viewModel.getCommentsList(adapter = commentAdapter,args.postId)
+        binding.recyclerComment.adapter = commentAdapter
+        binding.recyclerComment.layoutManager =
+            LinearLayoutManager(requireContext())
     }
 
     // 컨텐츠 내용 가져오기
