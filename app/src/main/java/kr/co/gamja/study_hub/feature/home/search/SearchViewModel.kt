@@ -57,4 +57,8 @@ class SearchViewModel: ViewModel() {
             }
         }
     }
+
+    fun resetList() {
+        _studys.postValue(listOf())
+    }
 }
