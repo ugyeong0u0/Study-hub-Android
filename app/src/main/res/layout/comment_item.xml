@@ -12,12 +12,14 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="@dimen/thirty_two"
             android:src="@drawable/avatar_s" />
 
         <TextView
             android:id="@+id/userNickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/thirty_two"
             android:layout_toEndOf="@+id/img_profile"
             android:textColor="@color/BG_90"
             android:textSize="12sp"
@@ -33,26 +35,26 @@
             android:textColor="@color/BG_70"
             android:textSize="10sp"
             tools:text="생성날짜 " />
+
         <TextView
             android:id="@+id/userComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/createdDate"
+            android:layout_toEndOf="@+id/img_profile"
             android:textColor="@color/BG_80"
             android:textSize="14sp"
-            android:layout_marginBottom="@dimen/thirty_two"
-            android:layout_toEndOf="@+id/img_profile"
-            tools:text="참여완료"/>
+            tools:text="참여완료" />
 
         <ImageButton
             android:id="@+id/icon_threeDot"
-            android:layout_width="@dimen/sixteen"
-            android:layout_height="@dimen/sixteen"
+            android:layout_width="@dimen/thirty_two"
+            android:layout_height="@dimen/thirty_two"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/icon_threedot_horizontal_s_gray"
-            android:visibility="visible"
+            android:layout_marginTop="@dimen/thirty_two"
             android:layout_marginEnd="@dimen/twenty"
-            />
+            android:background="@drawable/icon_threedot_vertical_gray"
+            android:visibility="visible" />
 
-</RelativeLayout>
+    </RelativeLayout>
 </layout>

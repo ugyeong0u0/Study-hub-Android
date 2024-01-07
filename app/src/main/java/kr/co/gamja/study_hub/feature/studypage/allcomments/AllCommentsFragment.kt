@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -20,8 +21,11 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
+import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
 import kr.co.gamja.study_hub.databinding.FragmentAllCommentsBinding
+import kr.co.gamja.study_hub.feature.studypage.allcomments.bottomsheet.CommentBottomSheetFragment
+import kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
 class AllCommentsFragment : Fragment() {
@@ -86,6 +90,17 @@ class AllCommentsFragment : Fragment() {
                 }
             })
         }
+        adapter.setOnItemClickListener(object:OnItemsClickListener{
+            override fun getItemValue(whatItem: Int, itemValue: Int) {
+                when(whatItem){
+                    1->{
+                        getModal(itemValue) // 수정 삭제 모달로 이동
+                    }
+                }
+            }
+        })
+
+
     }
 
     private fun getValue() {
@@ -113,6 +128,15 @@ class AllCommentsFragment : Fragment() {
         if (currentFocusView != null) {
             inputMethodManager.hideSoftInputFromWindow(currentFocusView.windowToken, 0)
         }
+    }
+    // 삭제 수정 모달싯트로
+    private fun getModal(postId: Int) {
+        val bundle = Bundle()
+        bundle.putInt("postId", postId)
+        val modal = CommentBottomSheetFragment()
+        modal.arguments = bundle
+        modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
+        modal.show(parentFragmentManager, modal.tag)
     }
 
 }

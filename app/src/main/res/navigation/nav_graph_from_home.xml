@@ -249,5 +249,10 @@
         android:name="kr.co.gamja.study_hub.feature.studypage.allcomments.AllCommentsFragment"
         android:label="fragment_all_comments"
         tools:layout="@layout/fragment_all_comments" />
+    <fragment
+        android:id="@+id/commentBottomSheetFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.allcomments.bottomsheet.CommentBottomSheetFragment"
+        android:label="fragment_comment_bottom_sheet"
+        tools:layout="@layout/fragment_comment_bottom_sheet" />
 
 </navigation>

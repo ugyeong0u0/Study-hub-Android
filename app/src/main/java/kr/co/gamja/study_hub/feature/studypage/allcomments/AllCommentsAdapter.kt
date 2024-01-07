@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kr.co.gamja.study_hub.data.model.Content
+import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
 import kr.co.gamja.study_hub.databinding.CommentItemBinding
 
 class AllCommentsAdapter(val context: Context) :
     PagingDataAdapter<Content, AllCommentsAdapter.AllCommentHolder>(DIFF_CALLBACK) {
+    val whatItem = mapOf("threeDot" to 1)
+    private lateinit var mOnItemsClickListener: OnItemsClickListener
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Content>() {
@@ -25,6 +28,11 @@ class AllCommentsAdapter(val context: Context) :
             }
         }
 
+    }
+
+    // 세개 닷 누르기 버튼
+    fun setOnItemClickListener(listener: OnItemsClickListener) {
+        mOnItemsClickListener = listener
     }
 
     override fun onBindViewHolder(holder: AllCommentHolder, position: Int) {
@@ -43,6 +51,7 @@ class AllCommentsAdapter(val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Content) {
             item.let {
+                val postId: Int = it.commentId
                 binding.userNickname.text = it.commentedUserData.nickname
                 val st = StringBuilder()
                 st.append(it.createdDate[0])
@@ -61,6 +70,10 @@ class AllCommentsAdapter(val context: Context) :
                         )
                     )
                     .into(binding.imgProfile)
+                // 세개 점 클릭
+                binding.iconThreeDot.setOnClickListener {
+                    mOnItemsClickListener.getItemValue(whatItem["threeDot"]!!, postId)
+                }
             }
         }
     }
