@@ -129,4 +129,11 @@ interface StudyHubApi {
         @Query("page") page: Int,
         @Query("size") size: Int
     ): Response<CommentsListResponse>
+
+    // 댓글 작성
+    @POST("/api/v1/comments")
+    suspend fun setComment(
+        @Body commentRequest: CommentRequest
+    ): Response<Unit>
+
 }

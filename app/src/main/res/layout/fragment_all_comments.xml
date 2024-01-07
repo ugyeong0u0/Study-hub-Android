@@ -7,9 +7,11 @@
         <variable
             name="viewModel"
             type="kr.co.gamja.study_hub.feature.studypage.allcomments.AllCommentsViewModel" />
+
     </data>
 
     <RelativeLayout
+        android:id="@+id/layout_relative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/syswhite">
@@ -70,7 +72,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginVertical="@dimen/sixteen"
             android:layout_marginEnd="@dimen/twenty"
-            android:background="@drawable/btn_background_o_50_corner_6"
+            android:background="@drawable/ablebtn_background_o_50_30_corner_6"
+            android:enabled="false"
             android:text="@string/enrollment"
             android:textColor="@color/syswhite"
             android:textSize="14sp" />
