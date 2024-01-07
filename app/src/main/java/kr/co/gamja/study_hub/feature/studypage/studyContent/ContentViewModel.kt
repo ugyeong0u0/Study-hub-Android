@@ -223,7 +223,7 @@ class ContentViewModel : ViewModel() {
                     val result = response.body() as CommentsListResponse
                     adapter.commentsList = result.content
                     adapter.notifyDataSetChanged()
-                    totalComment.value = result.numberOfElements
+                    totalComment.value = result.numberOfElements // 댓글 개수 저장
                 }
             } catch (e: Exception) {
                 Log.e(tag, "conmmentsList 코드 Exception: ${e.message}")

@@ -91,6 +91,9 @@
         <argument
             android:name="postId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_studyContentFragment_to_allCommentsFragment"
+            app:destination="@id/allCommentsFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_mainAlarmFragment"
@@ -241,4 +244,10 @@
         android:name="kr.co.gamja.study_hub.feature.mypage.engagedStudy.EngagedStudyFragment"
         android:label="fragment_engaged_study"
         tools:layout="@layout/fragment_engaged_study" />
+    <fragment
+        android:id="@+id/allCommentsFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.allcomments.AllCommentsFragment"
+        android:label="fragment_all_comments"
+        tools:layout="@layout/fragment_all_comments" />
+
 </navigation>
