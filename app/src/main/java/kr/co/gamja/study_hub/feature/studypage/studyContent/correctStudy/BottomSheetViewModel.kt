@@ -19,7 +19,7 @@ class BottomSheetViewModel:ViewModel() {
             }
         }catch (e: Exception){
             e.stackTrace
-            Log.e(tag, "스터디 content조회 Exception: ${e.message}")
+            Log.e(tag, "스터디 삭제 Exception: ${e.message}")
         }
     }
     }

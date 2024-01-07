@@ -136,4 +136,7 @@ interface StudyHubApi {
         @Body commentRequest: CommentRequest
     ): Response<Unit>
 
+    // 댓글 삭제
+    @DELETE("/api/v1/comments/{commentId}")
+    suspend fun deleteComment(@Path("commentId") commentId: Int): Response<Unit>
 }
