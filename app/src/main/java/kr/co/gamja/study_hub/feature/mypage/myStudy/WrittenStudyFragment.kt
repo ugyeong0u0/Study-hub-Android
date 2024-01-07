@@ -45,6 +45,11 @@ class WrittenStudyFragment : Fragment() {
         val toolbar = binding.writtenPageToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
+
+        binding.iconBack.setOnClickListener {
+            findNavController().navigateUp() // 뒤로 가기
+        }
+
         writtenStudyAdapter = WrittenStudyAdapter(requireContext())
         setUpRecyclerView()
         observeData()

@@ -59,13 +59,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <!-- de.hdodenhof.circleimageview.CircleImageView feedback 후에 선택 -->
                 <ImageView
                     android:id="@+id/img_profile"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/top_margin"
-                    android:src="@drawable/avatar_s" />
+                    android:src="@drawable/avatar_s"/>
 
                 <LinearLayout
                     android:id="@+id/layout_button"

@@ -373,7 +373,7 @@ class CreateStudyViewModel : ViewModel() {
                     params.isSuccess(result!!)
                     setInit() // 값 초기화 진행
                 } else {
-                    Log.e(tag, "스터디 생성 실패 code" + response.code().toString())
+                    Log.e(tag, "스터디 생성 실패 code" + response.code().toString()+"msg : "+response.message())
                 }
             } catch (e: Exception) {
                 Log.e(tag, "스터디 생성 Exception: ${e.message}")

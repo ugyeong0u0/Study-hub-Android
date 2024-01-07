@@ -48,7 +48,7 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -397,17 +397,99 @@
 
                     <View
                         android:id="@+id/view_divideWriter"
-
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
                         android:layout_below="@+id/txt_nickname"
                         android:background="@color/BG_30" />
 
                     <TextView
-                        android:id="@+id/head_recommend"
+                        android:id="@+id/txt_allComment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/view_divideWriter"
+                        android:layout_marginStart="@dimen/twenty"
+                        android:layout_marginTop="@dimen/twenty"
+                        android:layout_marginBottom="21dp"
+                        android:text="@{@string/txt_allComment(viewModel.totalComment)}"
+                        android:textColor="@color/sysblack1"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/btn_allComment"
+                        android:layout_width="@dimen/thirty_two"
+                        android:layout_height="@dimen/thirty_two"
+                        android:layout_below="@+id/view_divideWriter"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/twenty"
+                        android:layout_marginEnd="@dimen/twenty"
+                        android:layout_marginBottom="21dp"
+                        android:background="#00000000"
+                        android:src="@drawable/resized_icon_arrow_right_black"
+                        android:textColor="@color/G_60" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/btn_allComment"
+                        android:layout_marginHorizontal="@dimen/twenty"
+                        android:scrollbars="vertical" />
+
+                    <View
+                        android:id="@+id/view_divideRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/recycler_comment"
+                        android:background="@color/BG_30" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_commentOk"
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view_divideRecycler"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginVertical="@dimen/sixteen"
+                        android:layout_marginEnd="@dimen/twenty"
+                        android:background="@drawable/btn_background_o_50_corner_6"
+                        android:text="@string/enrollment"
+                        android:textColor="@color/syswhite"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edit_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view_divideRecycler"
+                        android:layout_alignBaseline="@+id/btn_commentOk"
+                        android:layout_marginVertical="@dimen/sixteen"
+                        android:layout_marginStart="@dimen/twenty"
+                        android:layout_marginEnd="@dimen/eight"
+                        android:layout_toStartOf="@id/btn_commentOk"
+                        android:background="@drawable/edit_from_stroke_bg_50_to_stroke_black"
+                        android:gravity="top|start"
+                        android:hint="@string/inputComment"
+                        android:inputType="text|textNoSuggestions"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:paddingHorizontal="@dimen/fourteen"
+                        android:paddingVertical="@dimen/sixteen"
+                        android:text="@={viewModel.studyComment}"
+                        android:textColor="@color/sysblack1"
+                        android:textSize="14sp" />
+
+
+                    <View
+                        android:id="@+id/view_divideComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_below="@+id/btn_commentOk"
+                        android:background="@color/BG_30" />
+
+                    <TextView
+                        android:id="@+id/head_recommend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view_divideComment"
                         android:layout_marginHorizontal="@dimen/twenty"
                         android:layout_marginTop="32dp"
                         android:layout_marginBottom="24dp"
@@ -453,6 +535,6 @@
 
                 </RelativeLayout>
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </layout>

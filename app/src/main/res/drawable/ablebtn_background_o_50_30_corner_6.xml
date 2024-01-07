@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 비활성화 상태일 때의 배경 -->
+    <item android:state_enabled="false" android:drawable="@drawable/btn_background_o_30_corner_6" />
+    <!-- 활성화 상태일 때의 배경 -->
+    <item android:drawable="@drawable/btn_background_o_50_corner_6" />
+</selector>

@@ -2,6 +2,7 @@ package kr.co.gamja.study_hub.feature.home
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,7 @@ class MainHomeFragment : Fragment() {
     private var doubleBackPressed = false
     private lateinit var deadlineAdapter: ItemCloseDeadlineAdapter
     private lateinit var onRecruitingAdapter: ItemOnRecruitingAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -104,8 +106,9 @@ class MainHomeFragment : Fragment() {
         onRecruitingAdapter = ItemOnRecruitingAdapter(requireContext())
         binding.recyclerOnGoing.adapter = onRecruitingAdapter
         binding.recyclerOnGoing.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
+            LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        // 리스트 업데이트
+        updateRecruitingList()
 
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         onRecruitingAdapter.setOnItemClickListener(object : OnBookmarkClickListener {
@@ -128,7 +131,6 @@ class MainHomeFragment : Fragment() {
         binding.recyclerApproaching.layoutManager = LinearLayoutManager(requireContext())
 
          // 리스트 업데이트
-        updateRecruitingList()
         updateDeadlineList()
 
         deadlineAdapter.setOnItemClickListener(object : OnBookmarkClickListener {
@@ -144,13 +146,6 @@ class MainHomeFragment : Fragment() {
                 findNavController().navigate(action)
             }
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // 뒤로 가기 될 시 list 값들 새로 가져오기
-        updateRecruitingList()
-        updateDeadlineList()
     }
 
     // 뒤로가기 누를 시 혹은 뷰 생성시 리스트 데이터 업데이트

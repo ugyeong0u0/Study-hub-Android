@@ -45,6 +45,7 @@
             android:id="@+id/action_createAccountFragment02_to_createAccountFragment03"
             app:destination="@id/nicknameFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/nicknameFragment"
         android:name="kr.co.gamja.study_hub.feature.signup.nickname.NicknameFragment"
