@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentBottomSheetBinding
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
@@ -18,6 +20,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentBottomSheetBinding
     private val viewModel: BottomSheetViewModel by viewModels()
     private var nowPostId: Int = -1 // 현재 보고 있는 포스팅 id
+    private val msg = this.javaClass.simpleName
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +37,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         if (receiveBundle != null) {
             nowPostId = receiveBundle.getInt("postId")
         }
-        // 스터디 글 삭제 누를 시 (todo("다이어로그 사라지는 순서 확인필요")-> callback추가해야함!!!!)
+        // 스터디 글 삭제 누를 시
         binding.btnDelete.setOnClickListener {
             val head = requireContext().resources.getString(R.string.q_deleteStudy)
             val sub = requireContext().resources.getString(R.string.q_deleteStudySub)
@@ -44,9 +47,15 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             dialog.showDialog()
             dialog.setOnClickListener(object : OnDialogClickListener {
                 override fun onclickResult() {
-                    viewModel.deleteStudy(postId = nowPostId)
-                    findNavController().navigateUp() // 뒤로 가기
-                    dismiss()
+                    viewModel.deleteStudy(postId = nowPostId, object : CallBackListener {
+                        override fun isSuccess(result: Boolean) {
+                            if (result) {
+                                Log.d(msg, "스터디삭제성공")
+                                findNavController().navigateUp() // 뒤로 가기
+                                dismiss()
+                            }
+                        }
+                    })
                 }
             })
         }
