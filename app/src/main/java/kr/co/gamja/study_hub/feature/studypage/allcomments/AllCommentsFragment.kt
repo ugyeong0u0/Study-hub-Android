@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
-import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
+import kr.co.gamja.study_hub.data.repository.OnCommentClickListener
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
 import kr.co.gamja.study_hub.databinding.FragmentAllCommentsBinding
 import kr.co.gamja.study_hub.feature.studypage.allcomments.bottomsheet.CommentBottomSheetFragment
@@ -92,17 +92,17 @@ class AllCommentsFragment : Fragment() {
                 }
             })
         }
-        adapter.setOnItemClickListener(object : OnItemsClickListener {
-            override fun getItemValue(whatItem: Int, itemValue: Int) {
+        adapter.setOnItemClickListener(object : OnCommentClickListener {
+            override fun getCommentValue(whatItem: Int, itemValue: Int, comment: String) {
                 when (whatItem) {
                     1 -> {
                         nowCommentId = itemValue // 댓 id 저장
-                        getModal() // 수정 삭제 모달로 이동
+                        getModal(comment) // 수정 삭제 모달로 이동
                     }
                 }
             }
         })
-        // 모달에서 삭제 눌러서 왔을 경우
+        // bottomsheet에서 삭제 눌러서 왔을 경우
         viewModel.isDelete.observe(viewLifecycleOwner) {
             if (it) {
                 viewModel.deleteComment(postId = nowCommentId, object : CallBackListener {
@@ -116,6 +116,13 @@ class AllCommentsFragment : Fragment() {
                 })
             }
         }
+        // bottomsheet에서 수정 눌러서 왔을 경우
+        viewModel.isModify.observe(viewLifecycleOwner) {
+            if (it) {
+                // todo("수정 시 연결 ")
+            }
+        }
+
     }
 
     private fun getValue() {
@@ -146,12 +153,20 @@ class AllCommentsFragment : Fragment() {
     }
 
     // 삭제 수정 모달싯트로
-    private fun getModal() {
+    private fun getModal(comment: String) {
         val modal = CommentBottomSheetFragment()
+        val bundle = Bundle()
+        bundle.putString("comment", comment)
+        modal.arguments = bundle
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         modal.show(parentFragmentManager, modal.tag)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        // 댓글 다는 editText값 초기화
+        viewModel.initComment()
+    }
 }
 
 class AllCommentViewModelFactory(private val studyHubApi: StudyHubApi) : ViewModelProvider.Factory {

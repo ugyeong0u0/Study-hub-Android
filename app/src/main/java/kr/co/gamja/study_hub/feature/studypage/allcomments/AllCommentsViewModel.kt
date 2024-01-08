@@ -38,6 +38,8 @@ class AllCommentsViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     // 삭제인지 확인
     private var _isDelete = MutableLiveData<Boolean>()
     val isDelete: LiveData<Boolean> get() = _isDelete
+
+    // CommentBottomsheetFragment에서 사용
     fun setDelete(result: Boolean) {
         _isDelete.value = result
     }
@@ -46,8 +48,13 @@ class AllCommentsViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     private var _isModify = MutableLiveData<Boolean>()
     val isModify: LiveData<Boolean> get() = _isModify
 
+    // CommentBottomsheetFragment에서 사용
     fun setModify(result: Boolean) {
         _isModify.value = result
+    }
+
+    fun initComment() {
+        comment.value = ""
     }
 
     val allContentsFlow = Pager(

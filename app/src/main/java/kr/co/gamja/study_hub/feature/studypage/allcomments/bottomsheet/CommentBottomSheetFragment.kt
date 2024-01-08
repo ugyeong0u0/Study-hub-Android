@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.feature.studypage.allcomments.bottomsheet
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class CommentBottomSheetFragment : BottomSheetDialogFragment() {
     private val msg = this.javaClass.simpleName
     private lateinit var binding: FragmentCommentBottomSheetBinding
     private lateinit var viewModel: AllCommentsViewModel
+    private lateinit var userComment: String  // 수정시 사용할 comment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +38,12 @@ class CommentBottomSheetFragment : BottomSheetDialogFragment() {
         val factory = AllCommentViewModelFactory(AuthRetrofitManager.api)
         viewModel = ViewModelProvider(requireActivity(), factory)[AllCommentsViewModel::class.java]
         binding.lifecycleOwner = viewLifecycleOwner
+
+        val receiveBundle = arguments
+        if (receiveBundle != null) {
+            userComment = receiveBundle.getString("comment").toString()
+            Log.d(msg, "comment : $userComment")
+        }
 
         // 스터디 글 삭제 누를 시
         binding.btnDelete.setOnClickListener {
@@ -56,8 +64,11 @@ class CommentBottomSheetFragment : BottomSheetDialogFragment() {
             dismiss()
         }
 
+        // 댓글 수정하기
         binding.btnModify.setOnClickListener {
-
+            viewModel.setModify(true) // 수정임을 AllCommentsViewModel에 알림
+            viewModel.comment.value=userComment
+            dismiss()
         }
     }
 

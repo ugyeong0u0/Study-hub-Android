@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kr.co.gamja.study_hub.data.model.Content
-import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
+import kr.co.gamja.study_hub.data.repository.OnCommentClickListener
 import kr.co.gamja.study_hub.databinding.CommentItemBinding
 
 class AllCommentsAdapter(val context: Context) :
     PagingDataAdapter<Content, AllCommentsAdapter.AllCommentHolder>(DIFF_CALLBACK) {
     val whatItem = mapOf("threeDot" to 1)
-    private lateinit var mOnItemsClickListener: OnItemsClickListener
+    private lateinit var mOnCommentClickListener: OnCommentClickListener
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Content>() {
@@ -32,8 +32,8 @@ class AllCommentsAdapter(val context: Context) :
     }
 
     // 세개 닷 누르기 버튼
-    fun setOnItemClickListener(listener: OnItemsClickListener) {
-        mOnItemsClickListener = listener
+    fun setOnItemClickListener(listener: OnCommentClickListener) {
+        mOnCommentClickListener = listener
     }
 
     override fun onBindViewHolder(holder: AllCommentHolder, position: Int) {
@@ -53,6 +53,7 @@ class AllCommentsAdapter(val context: Context) :
         fun bind(item: Content) {
             item.let {
                 val postId: Int = it.commentId
+                val comment: String = it.content
                 binding.userNickname.text = it.commentedUserData.nickname
                 val st = StringBuilder()
                 st.append(it.createdDate[0])
@@ -61,7 +62,7 @@ class AllCommentsAdapter(val context: Context) :
                     .append(".")
                     .append(it.createdDate[2])
                 binding.createdDate.text = st.toString()
-                binding.userComment.text = it.content
+                binding.userComment.text = comment
                 Glide.with(context)
                     .load(it.commentedUserData.imageUrl)
                     .apply(
@@ -73,12 +74,12 @@ class AllCommentsAdapter(val context: Context) :
                     .into(binding.imgProfile)
                 // 세개 점 클릭
                 binding.iconThreeDot.setOnClickListener {
-                    mOnItemsClickListener.getItemValue(whatItem["threeDot"]!!, postId)
+                    mOnCommentClickListener.getCommentValue(whatItem["threeDot"]!!, postId, comment)
                 }
                 // 댓 쓴 유저인지 확인-> 새개 점 노출 여부 결정
-                if(!it.usersComment){
-                    binding.iconThreeDot.visibility= View.INVISIBLE
-                }else binding.iconThreeDot.visibility=View.VISIBLE
+                if (!it.usersComment) {
+                    binding.iconThreeDot.visibility = View.INVISIBLE
+                } else binding.iconThreeDot.visibility = View.VISIBLE
             }
         }
     }

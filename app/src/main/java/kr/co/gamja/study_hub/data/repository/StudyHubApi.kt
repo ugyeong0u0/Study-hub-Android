@@ -140,4 +140,7 @@ interface StudyHubApi {
     @DELETE("/api/v1/comments/{commentId}")
     suspend fun deleteComment(@Path("commentId") commentId: Int): Response<Unit>
 
+    /*// 댓글 수정하기
+    @PUT("/api/v1/comments")
+    suspend fun correctComment( @Body commentRequest: CommentRequest):Response<Unit>*/
 }

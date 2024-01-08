@@ -35,3 +35,7 @@ interface OnItemsClickListener {
 interface OnBookmarkClickListener {
     fun onItemClick(tagId: String?, postId: Int? = 0)
 }
+// 댓글 수정용 리스너 (아이템 구분 map key에 맞는 int 값과 itemId, 댓글내용)
+interface OnCommentClickListener{
+    fun getCommentValue(whatItem: Int, itemValue: Int, comment: String)
+}
