@@ -35,6 +35,21 @@ class AllCommentsViewModel(studyHubApi: StudyHubApi) : ViewModel() {
         _postId.value = result
     }
 
+    // 삭제인지 확인
+    private var _isDelete = MutableLiveData<Boolean>()
+    val isDelete: LiveData<Boolean> get() = _isDelete
+    fun setDelete(result: Boolean) {
+        _isDelete.value = result
+    }
+
+    // 수정인지 확인
+    private var _isModify = MutableLiveData<Boolean>()
+    val isModify: LiveData<Boolean> get() = _isModify
+
+    fun setModify(result: Boolean) {
+        _isModify.value = result
+    }
+
     val allContentsFlow = Pager(
         PagingConfig(
             pageSize = 10,
@@ -79,6 +94,32 @@ class AllCommentsViewModel(studyHubApi: StudyHubApi) : ViewModel() {
                     Log.e(tag, errorResponse.message)
                     params.isSuccess(false)
                 }
+            }
+        }
+    }
+
+    // 삭제 하기
+    fun deleteComment(postId: Int, params: CallBackListener) {
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.deleteComment(postId)
+                Log.d(tag, "포스트id : $postId")
+                if (response.isSuccessful) {
+                    Log.d(tag, "댓글 삭제 성공")
+                    params.isSuccess(true)
+                } else {
+                    params.isSuccess(false)
+                    val errorResponse: ErrorResponse? = response.errorBody()?.let {
+                        val gson = Gson()
+                        gson.fromJson(it.charStream(), ErrorResponse::class.java)
+                    }
+                    if (errorResponse != null) {
+                        Log.e(tag, errorResponse.message)
+                    }
+                }
+            } catch (e: Exception) {
+                e.stackTrace
+                Log.e(tag, "댓글 삭제 Exception: ${e.message}")
             }
         }
     }

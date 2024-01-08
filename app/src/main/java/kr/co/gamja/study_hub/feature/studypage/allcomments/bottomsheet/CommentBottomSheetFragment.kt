@@ -1,17 +1,17 @@
 package kr.co.gamja.study_hub.feature.studypage.allcomments.bottomsheet
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.repository.CallBackListener
+import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.databinding.FragmentCommentBottomSheetBinding
+import kr.co.gamja.study_hub.feature.studypage.allcomments.AllCommentViewModelFactory
+import kr.co.gamja.study_hub.feature.studypage.allcomments.AllCommentsViewModel
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 
@@ -19,8 +19,7 @@ import kr.co.gamja.study_hub.global.OnDialogClickListener
 class CommentBottomSheetFragment : BottomSheetDialogFragment() {
     private val msg = this.javaClass.simpleName
     private lateinit var binding: FragmentCommentBottomSheetBinding
-    private val viewModel: CommentBottomSheetViewModel by viewModels()
-    private var nowPostId: Int = -1 // 현재 보고 있는 포스팅 id
+    private lateinit var viewModel: AllCommentsViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,12 +33,9 @@ class CommentBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val factory = AllCommentViewModelFactory(AuthRetrofitManager.api)
+        viewModel = ViewModelProvider(requireActivity(), factory)[AllCommentsViewModel::class.java]
         binding.lifecycleOwner = viewLifecycleOwner
-        val receiveBundle = arguments
-        if (receiveBundle != null) {
-            nowPostId = receiveBundle.getInt("postId")
-            Log.d(msg, "postId : $nowPostId")
-        }
 
         // 스터디 글 삭제 누를 시
         binding.btnDelete.setOnClickListener {
@@ -50,12 +46,8 @@ class CommentBottomSheetFragment : BottomSheetDialogFragment() {
             dialog.showDialog()
             dialog.setOnClickListener(object : OnDialogClickListener {
                 override fun onclickResult() {
-                    viewModel.deleteComment(postId = nowPostId, object : CallBackListener{
-                        override fun isSuccess(result: Boolean) { // todo("화면이동 확인 필요!!!, paging 업뎃확인도 필요")
-                            findNavController().navigateUp() // 뒤로 가기
-                            dismiss()
-                        }
-                    })
+                    viewModel.setDelete(true) // 삭제임을 AllCommentsViewModel에 알림
+                    dismiss()
                 }
             })
         }
@@ -64,7 +56,9 @@ class CommentBottomSheetFragment : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        // todo("수정하기 ")
+        binding.btnModify.setOnClickListener {
 
+        }
     }
+
 }

@@ -2,6 +2,7 @@ package kr.co.gamja.study_hub.feature.studypage.allcomments
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -74,6 +75,10 @@ class AllCommentsAdapter(val context: Context) :
                 binding.iconThreeDot.setOnClickListener {
                     mOnItemsClickListener.getItemValue(whatItem["threeDot"]!!, postId)
                 }
+                // 댓 쓴 유저인지 확인-> 새개 점 노출 여부 결정
+                if(!it.usersComment){
+                    binding.iconThreeDot.visibility= View.INVISIBLE
+                }else binding.iconThreeDot.visibility=View.VISIBLE
             }
         }
     }

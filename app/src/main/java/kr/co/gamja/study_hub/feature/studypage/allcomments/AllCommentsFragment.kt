@@ -25,13 +25,13 @@ import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
 import kr.co.gamja.study_hub.databinding.FragmentAllCommentsBinding
 import kr.co.gamja.study_hub.feature.studypage.allcomments.bottomsheet.CommentBottomSheetFragment
-import kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
 class AllCommentsFragment : Fragment() {
     private lateinit var binding: FragmentAllCommentsBinding
     private lateinit var viewModel: AllCommentsViewModel
     private lateinit var adapter: AllCommentsAdapter
+    private var nowCommentId: Int = -1 // 현재 보고 있는 댓글 id
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,7 +44,7 @@ class AllCommentsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val factory = AllCommentViewModelFactory(AuthRetrofitManager.api)
-        viewModel = ViewModelProvider(this, factory)[AllCommentsViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity(), factory)[AllCommentsViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -86,21 +86,36 @@ class AllCommentsFragment : Fragment() {
                         viewModel.comment.value = ""
                         // paging refresh
                         adapter.refresh()
+                        // 댓 개수 업뎃
+                        viewModel.getCommentsList(viewModel.postId.value!!)
                     }
                 }
             })
         }
-        adapter.setOnItemClickListener(object:OnItemsClickListener{
+        adapter.setOnItemClickListener(object : OnItemsClickListener {
             override fun getItemValue(whatItem: Int, itemValue: Int) {
-                when(whatItem){
-                    1->{
-                        getModal(itemValue) // 수정 삭제 모달로 이동
+                when (whatItem) {
+                    1 -> {
+                        nowCommentId = itemValue // 댓 id 저장
+                        getModal() // 수정 삭제 모달로 이동
                     }
                 }
             }
         })
-
-
+        // 모달에서 삭제 눌러서 왔을 경우
+        viewModel.isDelete.observe(viewLifecycleOwner) {
+            if (it) {
+                viewModel.deleteComment(postId = nowCommentId, object : CallBackListener {
+                    override fun isSuccess(result: Boolean) {
+                        if (result) {
+                            adapter.refresh() // 리사이클러뷰 업뎃
+                            viewModel.setDelete(false) // 삭제 후 false로 원상복귀
+                            viewModel.getCommentsList(viewModel.postId.value!!) // 댓 개수 없뎃
+                        }
+                    }
+                })
+            }
+        }
     }
 
     private fun getValue() {
@@ -129,12 +144,10 @@ class AllCommentsFragment : Fragment() {
             inputMethodManager.hideSoftInputFromWindow(currentFocusView.windowToken, 0)
         }
     }
+
     // 삭제 수정 모달싯트로
-    private fun getModal(postId: Int) {
-        val bundle = Bundle()
-        bundle.putInt("postId", postId)
+    private fun getModal() {
         val modal = CommentBottomSheetFragment()
-        modal.arguments = bundle
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         modal.show(parentFragmentManager, modal.tag)
     }
