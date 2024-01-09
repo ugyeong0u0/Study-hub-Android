@@ -10,6 +10,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
+import kr.co.gamja.study_hub.data.model.CommentCorrectRequest
 import kr.co.gamja.study_hub.data.model.CommentRequest
 import kr.co.gamja.study_hub.data.model.CommentsListResponse
 import kr.co.gamja.study_hub.data.model.ErrorResponse
@@ -27,12 +28,34 @@ class AllCommentsViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     // 댓글 양방향 데이터
     var comment = MutableLiveData<String>()
 
-    // postId
+    // 게시글 postId
     private var _postId = MutableLiveData<Int>(0)
     val postId: LiveData<Int> get() = _postId
 
     fun setPostId(result: Int) {
         _postId.value = result
+    }
+
+    // 삭제인지 확인
+    private var _isDelete = MutableLiveData<Boolean>()
+    val isDelete: LiveData<Boolean> get() = _isDelete
+
+    // CommentBottomsheetFragment에서 사용
+    fun setDelete(result: Boolean) {
+        _isDelete.value = result
+    }
+
+    // 수정인지 확인
+    private var _isModify = MutableLiveData<Boolean>()
+    val isModify: LiveData<Boolean> get() = _isModify
+
+    // CommentBottomsheetFragment에서 사용
+    fun setModify(result: Boolean) {
+        _isModify.value = result
+    }
+
+    fun initComment() {
+        comment.value = ""
     }
 
     val allContentsFlow = Pager(
@@ -79,6 +102,52 @@ class AllCommentsViewModel(studyHubApi: StudyHubApi) : ViewModel() {
                     Log.e(tag, errorResponse.message)
                     params.isSuccess(false)
                 }
+            }
+        }
+    }
+
+    // 삭제 하기
+    fun deleteComment(postId: Int, params: CallBackListener) {
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.deleteComment(postId)
+                Log.d(tag, "포스트id : $postId")
+                if (response.isSuccessful) {
+                    Log.d(tag, "댓글 삭제 성공")
+                    params.isSuccess(true)
+                } else {
+                    params.isSuccess(false)
+                    val errorResponse: ErrorResponse? = response.errorBody()?.let {
+                        val gson = Gson()
+                        gson.fromJson(it.charStream(), ErrorResponse::class.java)
+                    }
+                    if (errorResponse != null) {
+                        Log.e(tag, errorResponse.message)
+                    }
+                }
+            } catch (e: Exception) {
+                e.stackTrace
+                Log.e(tag, "댓글 삭제 Exception: ${e.message}")
+            }
+        }
+    }
+
+    // 댓글 수정하기
+    fun modifyComment(nowCommentId: Int, params: CallBackListener) {
+        val req = CommentCorrectRequest(nowCommentId, comment.value!!)
+        Log.d(tag, "댓글 viewModel commentId: $nowCommentId postId: ${postId.value}")
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.correctComment(req)
+                Log.d(tag, "응답code : ${response.code()}")
+                if (response.isSuccessful) {
+                    params.isSuccess(true)
+                } else {
+                    params.isSuccess(false)
+                }
+            } catch (e: Exception) {
+                e.stackTrace
+                Log.e(tag, "댓글 삭제 Exception: ${e.message}")
             }
         }
     }

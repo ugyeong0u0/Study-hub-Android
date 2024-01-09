@@ -20,12 +20,6 @@ interface OnViewClickListener {
     fun onViewClick(postId: Int?)
 }
 
-// 스터디 무한 스크롤 first/ last
-interface OnScrollCallBackListener {
-    fun isFirst(result: Boolean)
-    fun isLast(result: Boolean)
-}
-
 // 뷰 아이템 클릭 리스너
 interface OnItemsClickListener {
     // 아이템 구분 map key에 맞는 int 값과 itemId
@@ -34,4 +28,8 @@ interface OnItemsClickListener {
 // 북마크용 리스너
 interface OnBookmarkClickListener {
     fun onItemClick(tagId: String?, postId: Int? = 0)
+}
+// 댓글 수정용 리스너 (아이템 구분 map key에 맞는 int 값과 itemId, 댓글내용)
+interface OnCommentClickListener{
+    fun getCommentValue(whatItem: Int, itemValue: Int, comment: String)
 }
