@@ -26,6 +26,7 @@
     <string name="enrollment">등록</string>
     <string name="setComment">댓글이 작성됐어요.</string>
     <string name="commentBottomsheetHead">댓글을 삭제할까요?</string>
+    <string name="modifyComment">댓글이 수정됐어요.</string>
 
     <!--    스터디 만들기-->
     <string name="txt_createStudy">스터디 만들기</string>

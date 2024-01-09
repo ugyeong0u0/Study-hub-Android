@@ -71,26 +71,52 @@ class AllCommentsFragment : Fragment() {
             binding.btnCommentOk.isEnabled = isButtonEnabled
         }
 
-        // 댓글 등록하기 버튼 누를 시
+        // 댓글 등록하기 버튼 누를 시-> 수정인지 삭제인지 분기
         binding.btnCommentOk.setOnClickListener {
-            viewModel.setUserComment(object : CallBackListener {
-                override fun isSuccess(result: Boolean) {
-                    if (result) {
-                        CustomSnackBar.make(
-                            binding.layoutRelative,
-                            getString(R.string.setComment), binding.viewDivideRecycler, false
-                        ).show()
-                        // 키보드 내리기
-                        hideKeyboardForResend()
-                        // editText에 입력된 글 지우기
-                        viewModel.comment.value = ""
-                        // paging refresh
-                        adapter.refresh()
-                        // 댓 개수 업뎃
-                        viewModel.getCommentsList(viewModel.postId.value!!)
+            Log.d(tag, "댓글 수정 눌림${viewModel.isModify.value}")
+            // 댓글 수정일 경우, bottomsheet에서 수정인지 삭제인지 클릭에 따라 결정
+            if (viewModel.isModify.value == true) {
+                Log.d(tag, "댓글 수정 눌림2")
+                viewModel.modifyComment(nowCommentId, object : CallBackListener {
+                    override fun isSuccess(result: Boolean) {
+                        if (result) {
+                            Log.e(tag, "댓글 수정 성공 callback")
+                            CustomSnackBar.make(
+                                binding.layoutRelative,
+                                getString(R.string.modifyComment), binding.viewDivideRecycler, false
+                            ).show()
+                            // 키보드 내리기
+                            hideKeyboardForResend()
+                            // editText에 입력된 글 지우기
+                            viewModel.comment.value = ""
+                            // 수정 후 false
+                            viewModel.setModify(false)
+                            // paging refresh
+                            adapter.refresh()
+                        }
                     }
-                }
-            })
+                })
+            } else {
+                // 댓글 등록하기
+                viewModel.setUserComment(object : CallBackListener {
+                    override fun isSuccess(result: Boolean) {
+                        if (result) {
+                            CustomSnackBar.make(
+                                binding.layoutRelative,
+                                getString(R.string.setComment), binding.viewDivideRecycler, false
+                            ).show()
+                            // 키보드 내리기
+                            hideKeyboardForResend()
+                            // editText에 입력된 글 지우기
+                            viewModel.comment.value = ""
+                            // paging refresh
+                            adapter.refresh()
+                            // 댓 개수 업뎃
+                            viewModel.getCommentsList(viewModel.postId.value!!)
+                        }
+                    }
+                })
+            }
         }
         adapter.setOnItemClickListener(object : OnCommentClickListener {
             override fun getCommentValue(whatItem: Int, itemValue: Int, comment: String) {
@@ -116,12 +142,6 @@ class AllCommentsFragment : Fragment() {
                 })
             }
         }
-        // bottomsheet에서 수정 눌러서 왔을 경우
-        viewModel.isModify.observe(viewLifecycleOwner) {
-            if (it) {
-                // todo("수정 시 연결 ")
-            }
-        }
 
     }
 
@@ -129,7 +149,7 @@ class AllCommentsFragment : Fragment() {
         val receiveBundle = arguments
         if (receiveBundle != null) {
             val value = receiveBundle.getInt("postId")
-            viewModel.setPostId(value) // postId 설정
+            viewModel.setPostId(value) // 게시글 postId 설정
             viewModel.getCommentsList(value) // 댓 개수 가져오기
             Log.d(tag, " value: $value")
         } else Log.e(tag, "receiveBundle is Null")
@@ -161,6 +181,12 @@ class AllCommentsFragment : Fragment() {
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         modal.show(parentFragmentManager, modal.tag)
     }
+
+//    private fun showKeyboard() {
+//        val inputMethodManager =
+//            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        inputMethodManager.showSoftInput(binding.editComment, InputMethodManager.SHOW_IMPLICIT)
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

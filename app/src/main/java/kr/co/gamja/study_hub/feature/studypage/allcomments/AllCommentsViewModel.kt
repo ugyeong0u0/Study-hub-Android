@@ -10,6 +10,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
+import kr.co.gamja.study_hub.data.model.CommentCorrectRequest
 import kr.co.gamja.study_hub.data.model.CommentRequest
 import kr.co.gamja.study_hub.data.model.CommentsListResponse
 import kr.co.gamja.study_hub.data.model.ErrorResponse
@@ -27,7 +28,7 @@ class AllCommentsViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     // 댓글 양방향 데이터
     var comment = MutableLiveData<String>()
 
-    // postId
+    // 게시글 postId
     private var _postId = MutableLiveData<Int>(0)
     val postId: LiveData<Int> get() = _postId
 
@@ -123,6 +124,26 @@ class AllCommentsViewModel(studyHubApi: StudyHubApi) : ViewModel() {
                     if (errorResponse != null) {
                         Log.e(tag, errorResponse.message)
                     }
+                }
+            } catch (e: Exception) {
+                e.stackTrace
+                Log.e(tag, "댓글 삭제 Exception: ${e.message}")
+            }
+        }
+    }
+
+    // 댓글 수정하기
+    fun modifyComment(nowCommentId: Int, params: CallBackListener) {
+        val req = CommentCorrectRequest(nowCommentId, comment.value!!)
+        Log.d(tag, "댓글 viewModel commentId: $nowCommentId postId: ${postId.value}")
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.correctComment(req)
+                Log.d(tag, "응답code : ${response.code()}")
+                if (response.isSuccessful) {
+                    params.isSuccess(true)
+                } else {
+                    params.isSuccess(false)
                 }
             } catch (e: Exception) {
                 e.stackTrace

@@ -422,7 +422,6 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="@dimen/twenty"
                         android:layout_marginEnd="@dimen/twenty"
-                        android:layout_marginBottom="21dp"
                         android:background="#00000000"
                         android:src="@drawable/resized_icon_arrow_right_black"
                         android:textColor="@color/G_60" />
@@ -440,7 +439,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_below="@+id/recycler_comment"
-                        android:background="@color/BG_30" />
+                        android:background="@color/BG_30"
+                        android:layout_marginTop="@dimen/thirty_two"/>
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_commentOk"
