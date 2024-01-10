@@ -69,6 +69,7 @@ class StudyMainFragment : Fragment() {
         binding.recyclerStudyMain.adapter = adapter
         binding.recyclerStudyMain.layoutManager = LinearLayoutManager(requireContext())
 
+        viewModel.setReloadTrigger()
         observeData()
         viewModel.getStudyList()
 
@@ -112,8 +113,10 @@ class StudyMainFragment : Fragment() {
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         adapter.setOnBookmarkClickListener(object : OnBookmarkClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
+                Log.i("북마크4 onItemClickListener콜백1","")
                 viewModel.saveDeleteBookmarkItem(postId, object : CallBackListener {
                     override fun isSuccess(result: Boolean) {
+                        Log.i("북마크5 onItemClickListener콜백2","")
                         if (result)
                             Log.d(msgTag, "회원인 경우")
                         else

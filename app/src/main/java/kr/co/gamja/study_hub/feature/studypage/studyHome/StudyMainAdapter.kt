@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.feature.studypage.studyHome
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -120,6 +121,7 @@ class StudyMainAdapter(private val context: Context) :
             }
             //북마크 추가
             binding.btnBookmark.setOnClickListener {
+                Log.i("북마크1 눌림","")
                 val isBookmarked = binding.btnBookmark.tag == "1"
                 binding.btnBookmark.tag = if (isBookmarked) "0" else "1"
                 val backgroundResource = if (isBookmarked) {
@@ -127,8 +129,10 @@ class StudyMainAdapter(private val context: Context) :
                 } else {
                     R.drawable.baseline_bookmark_24_selected
                 }
+                Log.i("북마크2 backgroundResource : ",backgroundResource.toString())
                 binding.btnBookmark.setBackgroundResource(backgroundResource)
                 mOnBookmarkClickListener.onItemClick(binding.btnBookmark.tag.toString(), postId)
+                Log.i("북마크3 Listener눌림 : ","")
             }
             itemView.setOnClickListener {
                 mOnViewClickListener.onViewClick(postId)
