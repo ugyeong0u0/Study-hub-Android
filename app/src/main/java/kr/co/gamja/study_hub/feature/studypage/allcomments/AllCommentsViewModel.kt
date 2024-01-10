@@ -7,13 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.google.gson.Gson
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
-import kr.co.gamja.study_hub.data.model.CommentCorrectRequest
-import kr.co.gamja.study_hub.data.model.CommentRequest
-import kr.co.gamja.study_hub.data.model.CommentsListResponse
-import kr.co.gamja.study_hub.data.model.ErrorResponse
+import kr.co.gamja.study_hub.data.model.*
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
@@ -21,6 +22,14 @@ import kr.co.gamja.study_hub.data.repository.StudyHubApi
 class AllCommentsViewModel(studyHubApi: StudyHubApi) : ViewModel() {
 
     private val tag = this.javaClass.simpleName
+
+    // paging 초기화(기존 댓글 잔상 지우기)
+    private val _reloadTrigger = MutableStateFlow(Unit)
+
+    fun setReloadTrigger(){
+        _reloadTrigger.value=Unit
+    }
+
 
     // 댓글 개수
     var totalComment = MutableLiveData<Int>(0)
@@ -58,15 +67,17 @@ class AllCommentsViewModel(studyHubApi: StudyHubApi) : ViewModel() {
         comment.value = ""
     }
 
-    val allContentsFlow = Pager(
-        PagingConfig(
-            pageSize = 10,
-            enablePlaceholders = false,
-            initialLoadSize = 10
-        )
-    ) {
-        AllCommentsPagingSource(studyHubApi, postId.value!!)
-    }.flow.cachedIn(viewModelScope)
+    val allContentsFlow : Flow<PagingData<Content>> = _reloadTrigger.flatMapLatest {
+        Pager(
+            PagingConfig(
+                pageSize = 10,
+                enablePlaceholders = false,
+                initialLoadSize = 10
+            )
+        ) {
+            AllCommentsPagingSource(studyHubApi, postId.value!!)
+        }.flow.cachedIn(viewModelScope)
+    }
 
     // 댓글 개수 조회
     fun getCommentsList(postId: Int) {

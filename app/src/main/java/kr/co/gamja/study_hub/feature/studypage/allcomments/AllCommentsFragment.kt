@@ -63,6 +63,7 @@ class AllCommentsFragment : Fragment() {
         binding.recycleComments.adapter = adapter
         binding.recycleComments.layoutManager = LinearLayoutManager(requireContext())
 
+        viewModel.setReloadTrigger()
         observeData() // 페이징 데이터 업뎃
 
         // 댓글 관찰 -> 버튼 활성화 여부 결정
