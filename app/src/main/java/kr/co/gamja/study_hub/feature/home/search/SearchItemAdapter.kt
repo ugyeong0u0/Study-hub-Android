@@ -3,6 +3,7 @@ package kr.co.gamja.study_hub.feature.home.search
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,6 +14,9 @@ import kr.co.gamja.study_hub.global.Functions
 
 class SearchItemAdapter(private val context : Context, private val contentList : MutableList<ContentXXXX>) :
     RecyclerView.Adapter<SearchItemAdapter.SearchItemViewHolder>(){
+
+    private lateinit var listener : OnViewClickListener
+
     override fun getItemViewType(position: Int): Int {
         return position
     }
@@ -49,6 +53,10 @@ class SearchItemAdapter(private val context : Context, private val contentList :
 
             val function = Functions()
 
+            binding.lyItem.setOnClickListener {
+                listener.onClick(item.postId)
+            }
+
             binding.item = item
 
             binding.duration = "${item.studyStartDate[1]}월 ${item.studyStartDate[2]}일 ~ ${item.studyEndDate[1]}월 ${item.studyEndDate[2]}일"
@@ -80,5 +88,13 @@ class SearchItemAdapter(private val context : Context, private val contentList :
 
             binding.createDate = "${item.createdDate[0]}. ${item.createdDate[1]}. ${item.createdDate[2]}"
         }
+    }
+
+    interface OnViewClickListener{
+        fun onClick(action : Int)
+    }
+
+    fun setOnClickListener(onClickListener : OnViewClickListener){
+        this.listener = onClickListener
     }
 }

@@ -24,8 +24,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.ContentXXXX
+import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentSearchBinding
 import kr.co.gamja.study_hub.feature.home.ItemOnRecruitingAdapter
+import kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragmentDirections
 import kr.co.gamja.study_hub.global.ExtensionFragment.Companion.hideKeyboard
 
 class SearchFragment : Fragment() {
@@ -167,18 +169,20 @@ class SearchFragment : Fragment() {
                 lastLength = s?.length ?: 0
             }
             override fun afterTextChanged(s: Editable?) {
-//                if (!s.isNullOrEmpty()){
-//                    val isHot = binding.isHot ?: false
-//                    val isDepartment = binding.isDepartment ?: false
-//                    onUpdateStudys(s.toString(), isHot, isDepartment)
-//                }
-//                lastLength = s?.length ?: 0
             }
         })
 
         //recyclerView 설정
         // 모집중 스터디 어댑터 연결
         searchItemAdapter = SearchItemAdapter(requireContext(), itemList.value?.toMutableList() ?: mutableListOf())
+        searchItemAdapter.setOnClickListener(object : SearchItemAdapter.OnViewClickListener{
+            override fun onClick(action: Int) {
+                val navigateAction = ContentFragmentDirections.actionGlobalStudyContentFragment(action)
+                findNavController().navigate(
+                    navigateAction
+                )
+            }
+        })
         val _layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerStudy.apply{
             adapter = searchItemAdapter

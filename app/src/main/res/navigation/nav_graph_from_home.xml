@@ -31,6 +31,9 @@
         <argument
             android:name="showBottomNav"
             android:defaultValue="true" />
+        <action
+            android:id="@+id/action_search_to_content"
+            app:destination="@+id/studyContentFragment"/>
 
     </fragment>
 
