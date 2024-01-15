@@ -99,14 +99,15 @@ class StudyMainFragment : Fragment() {
         binding.btnAllStudy.setOnClickListener {
             setButtonOption(false) // 버튼 색, 글자색 변경
             viewModel.setIsHot(false)
-            observeData() // paging 데이터 업데이트
+            // todo("전체 인기 리스트 변하게 하기 ")
             viewModel.getStudyList() // 스터디 게시글 총 개수 업데이트
         }
+
         // 스터디 인기 조회 버튼
         binding.btnPopularOrder.setOnClickListener {
             setButtonOption(true) // 버튼 색, 글자색 변경
             viewModel.setIsHot(true)
-            observeData() // paging 데이터 업데이트
+            // todo("전체 인기 리스트 변하게 하기 ")
             viewModel.getStudyList() // 스터디 게시글 총 개수 업데이트
         }
 

@@ -67,88 +67,93 @@
             android:layout_toEndOf="@+id/txt_Month"
             android:background="@drawable/icon_arrow_right_black" />
 
-        <TextView
-            android:id="@+id/txt_sunday"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/layout_linear"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_left"
-            android:layout_marginStart="34dp"
-            android:layout_marginEnd="35dp"
-            android:text="@string/sunday"
-            android:textColor="@color/BG_80"
-            android:textSize="14sp" />
+            android:layout_marginStart="21dp"
+            android:layout_marginEnd="21dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txt_monday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_left"
-            android:layout_marginEnd="35dp"
-            android:layout_toEndOf="@+id/txt_sunday"
-            android:text="@string/monday"
-            android:textColor="@color/BG_80"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/txt_sunday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sunday"
+                android:textColor="@color/BG_80"
+                android:gravity="center"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/txt_tuesday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_left"
-            android:layout_marginEnd="35dp"
-            android:layout_toEndOf="@+id/txt_monday"
-            android:text="@string/tuesday"
-            android:textColor="@color/BG_80"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/txt_monday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/monday"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/txt_wednesday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_left"
-            android:layout_marginEnd="35dp"
-            android:layout_toEndOf="@+id/txt_tuesday"
-            android:text="@string/wednesday"
-            android:textColor="@color/BG_80"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/txt_tuesday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tuesday"
+                android:gravity="center"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/txt_Thursday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_left"
-            android:layout_marginEnd="35dp"
-            android:layout_toEndOf="@+id/txt_wednesday"
-            android:text="@string/Thursday"
-            android:textColor="@color/BG_80"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/txt_wednesday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/wednesday"
+                android:gravity="center"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/txt_friday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_left"
-            android:layout_marginEnd="35dp"
-            android:layout_toEndOf="@+id/txt_Thursday"
-            android:text="@string/friday"
-            android:textColor="@color/BG_80"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/txt_Thursday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/Thursday"
+                android:gravity="center"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/txt_Saturday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_left"
-            android:layout_toEndOf="@+id/txt_friday"
-            android:text="@string/Saturday"
-            android:textColor="@color/BG_80"
-            android:textSize="14sp"
-            android:layout_marginEnd="33dp"/>
+            <TextView
+                android:id="@+id/txt_friday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/friday"
+                android:gravity="center"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txt_Saturday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/Saturday"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_Saturday"
+            android:layout_below="@+id/layout_linear"
             android:layout_marginHorizontal="21dp" />
     </RelativeLayout>
 

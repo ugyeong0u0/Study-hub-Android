@@ -134,6 +134,7 @@ class StudyMainAdapter(private val context: Context) :
                 mOnBookmarkClickListener.onItemClick(binding.btnBookmark.tag.toString(), postId)
                 Log.i("북마크3 Listener눌림 : ","")
             }
+
             itemView.setOnClickListener {
                 mOnViewClickListener.onViewClick(postId)
             }
