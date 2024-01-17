@@ -111,28 +111,24 @@ class StudyMainAdapter(private val context: Context) :
                     ).into(binding.iconProfile)
 
                 // 북마크인지 아닌지 표시
-                if (it.bookmarked) {
-                    binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
-                } else {
-                    binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
-                }
-
-
+                binding.isBookmark = it.bookmarked
             }
             //북마크 추가
             binding.btnBookmark.setOnClickListener {
-                Log.i("북마크1 눌림","")
-                val isBookmarked = binding.btnBookmark.tag == "1"
-                binding.btnBookmark.tag = if (isBookmarked) "0" else "1"
-                val backgroundResource = if (isBookmarked) {
-                    R.drawable.baseline_bookmark_border_24_unselected
-                } else {
-                    R.drawable.baseline_bookmark_24_selected
+
+                when (binding.isBookmark) {
+                    true -> {
+                        binding.isBookmark = false
+                        binding.btnBookmark.tag = "0"
+                    }
+                    false -> {
+                        binding.isBookmark = true
+                        binding.btnBookmark.tag = "1"
+                    }
                 }
-                Log.i("북마크2 backgroundResource : ",backgroundResource.toString())
-                binding.btnBookmark.setBackgroundResource(backgroundResource)
+
                 mOnBookmarkClickListener.onItemClick(binding.btnBookmark.tag.toString(), postId)
-                Log.i("북마크3 Listener눌림 : ","")
+                Log.i("북마크3 Listener눌림 : ", "")
             }
 
             itemView.setOnClickListener {

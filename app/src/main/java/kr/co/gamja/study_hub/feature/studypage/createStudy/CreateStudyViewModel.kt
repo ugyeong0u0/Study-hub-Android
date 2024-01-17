@@ -392,21 +392,7 @@ class CreateStudyViewModel : ViewModel() {
                     urlEditText.value = result.chatUrl
                     studyTitle.value = result.title
                     Log.e("스터디 타이틀", studyTitle.value.toString())
-                    val startDateBuilder: StringBuilder = StringBuilder()
-                    val endDateBuilder: StringBuilder = StringBuilder()
 
-                    startDateBuilder.append(result.createdDate[0])
-                        .append("년 ")
-                        .append(result.createdDate[1])
-                        .append("월 ")
-                        .append(result.createdDate[2])
-                        .append("일 ")
-                    endDateBuilder.append(result.studyEndDate[0])
-                        .append("년 ")
-                        .append(result.studyEndDate[1])
-                        .append("월 ")
-                        .append(result.studyEndDate[2])
-                        .append("일 ")
                     studyContent.value = result.content
                     when (result.filteredGender) {
                         "FEMALE" -> setFemale(true)
@@ -426,8 +412,6 @@ class CreateStudyViewModel : ViewModel() {
                         whatFee.value = result.penaltyWay.toString()
                     }
 
-                    setEndDay(endDateBuilder.toString())
-                    setStartDay(startDateBuilder.toString())
                     persons.value = result.studyPerson.toString()
 
                     when (result.studyWay) {
@@ -435,6 +419,7 @@ class CreateStudyViewModel : ViewModel() {
                         "UNTACT" -> setOnline(true)
                         "MIX" -> setMix(true)
                     }
+                    initDay() // 날짜 초기화
                 }
             } catch (e: Exception) {
                 Log.e(tag, "스터디 수정 단건 조회 Exception: ${e.message}")

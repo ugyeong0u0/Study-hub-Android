@@ -70,13 +70,13 @@ class CreateStudyFragment : Fragment() {
                 dialog.showDialog()
                 dialog.setOnClickListener(object : OnDialogClickListener {
                     override fun onclickResult() {
-                        viewModel.setInit() // 초기화
+//                        viewModel.setInit() // 초기화
                         val navcontroller = findNavController()
                         navcontroller.navigateUp() // 뒤로 가기
                     }
                 })
             } else { // 입력된게 없는 경우
-                viewModel.setInit() // 초기화
+//                viewModel.setInit() // 초기화
                 val navcontroller = findNavController()
                 navcontroller.navigateUp() // 뒤로 가기
             }
@@ -262,10 +262,12 @@ class CreateStudyFragment : Fragment() {
             isCorrectStudyRequest = receiveBundle.getBoolean("isCorrectStudy")
             currentPostId = receiveBundle.getInt("postId")
             Log.d(tag, " value: $isCorrectStudyRequest, postId: $currentPostId")
-        } else Log.e(tag, "receiveBundle is Null")
+        } else Log.e(tag, "createStudyFragment's receiveBundle is Null")
         if (isCorrectStudyRequest) {
             binding.txtCreateStudy.text = getString(R.string.txt_alterStudy)
             viewModel.getMyCreatedStudy(currentPostId)
+        }else{
+            viewModel.setInit() // 처음 들어오면 초기화
         }
     }
 

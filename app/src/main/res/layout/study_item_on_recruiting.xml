@@ -2,7 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+<data>
+    <variable
+        name="isBookmark"
+        type="boolean" />
+</data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -29,6 +33,7 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_alignParentEnd="true"
+                android:background="@{isBookmark?@drawable/baseline_bookmark_24_selected:@drawable/baseline_bookmark_border_24_unselected}"
                 android:tag="0" />
 
             <TextView
