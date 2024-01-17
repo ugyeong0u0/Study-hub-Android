@@ -2,7 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+<data>
+    <variable
+        name="isBookmark"
+        type="boolean" />
+</data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,11 +68,11 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_bookmark"
-            android:tag="0"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="6dp"
-            android:background="@drawable/baseline_bookmark_border_24_unselected" />
+            android:background="@{isBookmark?@drawable/baseline_bookmark_24_selected:@drawable/baseline_bookmark_border_24_unselected}"
+            android:tag="0"  />
     </RelativeLayout>
 </layout>
