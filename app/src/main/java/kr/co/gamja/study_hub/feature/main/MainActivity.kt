@@ -14,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.datastore.App
 import kr.co.gamja.study_hub.feature.login.LoginCallback

@@ -15,12 +15,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.ContentXXXX
+import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentSearchBinding
 import kr.co.gamja.study_hub.feature.home.ItemOnRecruitingAdapter
+import kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragmentDirections
 import kr.co.gamja.study_hub.global.ExtensionFragment.Companion.hideKeyboard
 
 class SearchFragment : Fragment() {
@@ -29,6 +36,7 @@ class SearchFragment : Fragment() {
     private val viewModel: SearchViewModel by viewModels()
 
     private lateinit var searchItemAdapter: SearchItemAdapter
+    private var page = 0
 
     //글자수 처리를 위한 변수
     private var lastLength = 0
@@ -161,22 +169,53 @@ class SearchFragment : Fragment() {
                 lastLength = s?.length ?: 0
             }
             override fun afterTextChanged(s: Editable?) {
-//                if (!s.isNullOrEmpty()){
-//                    val isHot = binding.isHot ?: false
-//                    val isDepartment = binding.isDepartment ?: false
-//                    onUpdateStudys(s.toString(), isHot, isDepartment)
-//                }
-//                lastLength = s?.length ?: 0
             }
         })
 
         //recyclerView 설정
         // 모집중 스터디 어댑터 연결
         searchItemAdapter = SearchItemAdapter(requireContext(), itemList.value?.toMutableList() ?: mutableListOf())
-        binding.recyclerStudy.adapter = searchItemAdapter
-        binding.recyclerStudy.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerStudy.addItemDecoration(RecyclerViewDecoration(30))
+        searchItemAdapter.setOnClickListener(object : SearchItemAdapter.OnViewClickListener{
+            override fun onClick(action: Int) {
+                val navigateAction = ContentFragmentDirections.actionGlobalStudyContentFragment(action)
+                findNavController().navigate(
+                    navigateAction
+                )
+            }
+        })
+        val _layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerStudy.apply{
+            adapter = searchItemAdapter
+            layoutManager = _layoutManager
+            addItemDecoration(RecyclerViewDecoration(30))
+            addOnScrollListener(object : OnScrollListener(){
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val visibleItemCount = _layoutManager.childCount
+                    val totalItemCount = _layoutManager.itemCount
+                    val firstVisibleItem = _layoutManager.findFirstVisibleItemPosition()
+
+                    if ((visibleItemCount + firstVisibleItem) >= totalItemCount && firstVisibleItem >= 0) {
+                        //데이터를 받아올 함수
+                        page += 1
+                        lifecycleScope.launch(Dispatchers.IO){
+                            val isHot = binding.isHot ?: false
+                            val searchContent = binding.editSearch.text.toString()
+                            val isDepartment = binding.isDepartment ?: false
+                            viewModel.addSearchData(
+                                isHot = isHot,
+                                searchContent = searchContent,
+                                isDepartment = !isDepartment,
+                                page = page
+                            )
+                        }
+                    }
+                }
+            })
+        }
     }
+
     fun onUpdateStudys(s : String, isHot: Boolean, isDepartment: Boolean){
         if (s.length != 0){
             val searchContent = s.substring(0,s.length-1)

@@ -5,7 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kr.co.gamja.study_hub.data.model.ContentXXX
@@ -38,7 +44,7 @@ class SearchViewModel: ViewModel() {
                 try {
                     val response = RetrofitManager.api.getStudyPostAll(
                         hot = isHot,
-                        page = 1,
+                        page = 0,
                         size = 10,
                         inquiryText = searchContent,
                         titleAndMajor = !isDepartment
@@ -58,7 +64,50 @@ class SearchViewModel: ViewModel() {
         }
     }
 
+    //paging 함수
+    fun getContent(
+        isHot : Boolean,
+        searchContent : String,
+        isDepartment: Boolean
+    ) : LiveData<PagingData<ContentXXXX>> {
+        return Pager(
+            config = PagingConfig(pageSize = 8),
+            pagingSourceFactory = {SearchPagingSource(isHot = isHot, searchContent = searchContent, isDepartment = isDepartment)}
+        ).liveData
+    }
+
     fun resetList() {
         _studys.postValue(listOf())
     }
+
+    //데이터 추가
+    suspend fun addSearchData(isHot : Boolean, searchContent: String, isDepartment: Boolean, page : Int) =
+        viewModelScope.async(Dispatchers.IO) {
+
+            Log.d(tag,"addSearchData : ${_studys.value}")
+
+            try {
+                val response = RetrofitManager.api.getStudyPostAll(
+                    hot = isHot,
+                    page = page,
+                    size = 8,
+                    inquiryText = searchContent,
+                    titleAndMajor = !isDepartment
+                )
+
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    val data = result?.postDataByInquiries?.content ?: emptyList()
+                    _studys.postValue(_studys.value?.plus(data))
+
+                    Log.d(tag, "response is done : ${_studys.value}")
+
+                    return@async ""
+                } else {
+                    return@async response.errorBody()
+                }
+            } catch (e: Exception) {
+                return@async e.message
+            }
+        }.await()
 }
