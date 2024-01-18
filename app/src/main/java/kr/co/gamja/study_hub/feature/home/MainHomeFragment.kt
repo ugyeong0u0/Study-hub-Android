@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.OnBookmarkClickListener
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentMainHomeBinding
@@ -150,13 +151,19 @@ class MainHomeFragment : Fragment() {
 
     // 뒤로가기 누를 시 혹은 뷰 생성시 리스트 데이터 업데이트
     private fun updateRecruitingList(){
-        viewModel.getStudyPosts(
+        Log.e("pdateRecruitingList시작","")
+        viewModel.getRecruitingStudy(
             onRecruitingAdapter,
             false,
             0,
             5,
             null,
-            titleaAndMajor = false
+            titleAndMajor = false,
+            object: CallBackListener{
+                override fun isSuccess(result: Boolean) {
+                    Log.e("updateRecruitingList","")
+                }
+            }
         )
     }
     private fun updateDeadlineList(){
@@ -166,7 +173,12 @@ class MainHomeFragment : Fragment() {
             0,
             4,
             null,
-            titleaAndMajor = false
+            titleaAndMajor = false,
+            object: CallBackListener{
+                override fun isSuccess(result: Boolean) {
+                    Log.e("updateDeadlineList","")
+                }
+            }
         )
     }
 }
