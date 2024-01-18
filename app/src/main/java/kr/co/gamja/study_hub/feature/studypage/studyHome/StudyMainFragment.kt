@@ -17,8 +17,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -35,6 +37,10 @@ class StudyMainFragment : Fragment() {
     private lateinit var binding: FragmentStudyMainBinding
     private lateinit var viewModel: StudyMainViewModel
     private lateinit var adapter: StudyMainAdapter
+
+    // 같은 버튼 눌렸을 때 변화 x 하기
+    private var allBtnEnable = true
+    private var popularBtnEnable = false
 
     // 전체 / 인기 선택 버튼 색
     private lateinit var selectedDrawable: Drawable
@@ -71,7 +77,7 @@ class StudyMainFragment : Fragment() {
 
         viewModel.setReloadTrigger()
         observeData()
-        viewModel.getStudyList()
+        viewModel.getStudyList() // 스터디 총개수
 
         // 툴바 설정
         val toolbar = binding.studyMainToolbar
@@ -97,27 +103,37 @@ class StudyMainFragment : Fragment() {
 
         // 스터디 전체 조회 버튼
         binding.btnAllStudy.setOnClickListener {
-            setButtonOption(false) // 버튼 색, 글자색 변경
-            viewModel.setIsHot(false)
-            // todo("전체 인기 리스트 변하게 하기 ")
-            viewModel.getStudyList() // 스터디 게시글 총 개수 업데이트
+            if (!allBtnEnable) { // 같은 버튼 눌리지 않게
+                setButtonOption(false) // 버튼 색, 글자색 변경
+                viewModel.setIsHot(false)
+                viewModel.setReloadTrigger()
+                observeData()
+                viewModel.getStudyList() // 스터디 게시글 총 개수 업데이트
+                allBtnEnable = true
+                popularBtnEnable = false
+            }
         }
 
         // 스터디 인기 조회 버튼
         binding.btnPopularOrder.setOnClickListener {
-            setButtonOption(true) // 버튼 색, 글자색 변경
-            viewModel.setIsHot(true)
-            // todo("전체 인기 리스트 변하게 하기 ")
-            viewModel.getStudyList() // 스터디 게시글 총 개수 업데이트
+            if (!popularBtnEnable) { // 같은 버튼 눌리지 않게
+                setButtonOption(true) // 버튼 색, 글자색 변경
+                viewModel.setIsHot(true)
+                viewModel.setReloadTrigger()
+                observeData()
+                viewModel.getStudyList() // 스터디 게시글 총 개수 업데이트
+                allBtnEnable = false
+                popularBtnEnable = true
+            }
         }
 
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         adapter.setOnBookmarkClickListener(object : OnBookmarkClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
-                Log.i("북마크4 onItemClickListener콜백1","")
+                Log.i("북마크4 onItemClickListener콜백1", "")
                 viewModel.saveDeleteBookmarkItem(postId, object : CallBackListener {
                     override fun isSuccess(result: Boolean) {
-                        Log.i("북마크5 onItemClickListener콜백2","")
+                        Log.i("북마크5 onItemClickListener콜백2", "")
                         if (result)
                             Log.d(msgTag, "회원인 경우")
                         else
@@ -135,6 +151,7 @@ class StudyMainFragment : Fragment() {
         })
 
     }
+
 
     // 버튼색 글자색 변경
     private fun setButtonOption(isHot: Boolean) {
@@ -161,9 +178,22 @@ class StudyMainFragment : Fragment() {
     }
 
     private fun observeData() {
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.studyMainFlow.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
+
+                delay(300) // 데이터가 로딩되기전에 리사이클러뷰 아이템 포지션가져와서 dalay 줌 todo("300밀리초가 적절한 시간인지...")
+
+                binding.recyclerStudyMain.post {
+                    val firstVisibleItemPosition =
+                        (binding.recyclerStudyMain.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                    Log.d("리사이클러뷰 상단 postion : ", firstVisibleItemPosition.toString())
+                    if (firstVisibleItemPosition > 0) {
+                        binding.recyclerStudyMain.scrollToPosition(0)
+
+                    }
+                }
             }
         }
     }

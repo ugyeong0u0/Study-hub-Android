@@ -25,7 +25,7 @@ import kr.co.gamja.study_hub.data.repository.StudyHubApi
 class StudyMainViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     private val tag = this.javaClass.simpleName
 
-    // paging 초기화(기존 댓글 잔상 지우기)
+    // paging 초기화
     private val _reloadTrigger = MutableStateFlow(Unit)
 
     fun setReloadTrigger() {
