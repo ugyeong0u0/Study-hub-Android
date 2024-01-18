@@ -54,6 +54,13 @@
     <string name="txt_word_major">학과</string>
     <string name="hint_major">현재 재학중인 학과를 적어주세요</string>
 
+    <!--    비밀번호 찾기-->
+    <string name="toolbar_findPassword">비밀번호 찾기</string>
+    <string name="setEmail">가입했던 이메일 주소를 입력해주세요.</string>
+    <string name="setEmailErr">가입되지 않은 이메일이예요. 다시 입력해 주세요.</string>
+    <string name="seeEmailAuth">이메일에 전송된 인증코드를 입력해주세요</string>
+    <string name="sentedEmail">전송된이메일</string>
+
     <!--    학과이름-->
     <string-array name="array_majors">
         <item>공연예술과</item>

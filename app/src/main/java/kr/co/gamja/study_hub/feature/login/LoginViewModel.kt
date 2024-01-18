@@ -57,6 +57,7 @@ class LoginViewModel : ViewModel() {
                     Log.d(tag, "로그인 성공 code" + response.code().toString())
                     params.onSuccess(true, result.accessToken, result.refreshToken)
                 } else {
+                    params.onfail(true)
                     Log.e(tag, "로그인 실패")
                     val errorResponse: LoginErrorResponse? = response.errorBody()?.let {
                         val gson = Gson()
@@ -65,7 +66,6 @@ class LoginViewModel : ViewModel() {
                     if (errorResponse != null) {
                         val status = errorResponse.status
                         Log.e(tag, status.toString())
-                        params.onfail(true)
                     }
                 }
             } catch (e: Exception) {

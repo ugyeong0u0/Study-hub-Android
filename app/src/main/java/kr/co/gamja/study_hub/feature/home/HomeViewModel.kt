@@ -7,10 +7,44 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
 import kr.co.gamja.study_hub.data.model.FindStudyResponseM
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 
 // TODO("스터디 메인 뷰모델 합치기")
 class HomeViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
+
+    // ItemOnRecruitingAdapter 모집 중 리스트 값
+    fun getRecruitingStudy(adapter: ItemOnRecruitingAdapter,
+                           isHot: Boolean,
+                           page: Int,
+                           size: Int,
+                           inquiryText: String?,
+                           titleAndMajor: Boolean,
+                           params : CallBackListener){
+        viewModelScope.launch{
+            try {
+                val response =
+                    AuthRetrofitManager.api.getStudyPostAll(
+                        isHot,
+                        page,
+                        size,
+                        inquiryText,
+                        titleAndMajor
+                    )
+                Log.e("ItemOnRecruitingAdapter viewModel응답코드 " , response.code().toString())
+                if(response.isSuccessful){
+                    val result = response.body() as FindStudyResponseM
+                    Log.e("ItemOnRecruitingAdapter viewModel 안" , "")
+                    adapter.studyPosts = result
+                    adapter.notifyDataSetChanged()
+                    params.isSuccess(true)
+                }
+            }catch (e : Exception){
+                Log.e(tag, "스터디 글 조회 Exception: ${e.message}")
+            }
+        }
+    }
+
 
     fun <T> getStudyPosts(
         adapter: T,
@@ -18,7 +52,8 @@ class HomeViewModel : ViewModel() {
         page: Int,
         size: Int,
         inquiryText: String?,
-        titleaAndMajor: Boolean
+        titleaAndMajor: Boolean,
+        params : CallBackListener
     ) {
         viewModelScope.launch {
             try {
@@ -33,11 +68,14 @@ class HomeViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val result = response.body() as FindStudyResponseM
                     if (adapter is ItemOnRecruitingAdapter) {
+                        Log.e("ItemOnRecruitingAdapter viewModel 안" , "")
                         adapter.studyPosts = result
                         adapter.notifyDataSetChanged()
+                        params.isSuccess(true)
                     } else if (adapter is ItemCloseDeadlineAdapter) {
                         adapter.studyPosts = result
                         adapter.notifyDataSetChanged()
+                        params.isSuccess(true)
                     }
                 }
 

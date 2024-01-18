@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.login.findpassword.FindPasswordViewModel" />
+    </data>
+    <RelativeLayout
+        android:id="@+id/layout_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/syswhite">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/findPassword_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/twenty"
+                android:layout_marginEnd="@dimen/twenty">
+
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignBottom="@+id/findPassword"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
+
+                <TextView
+                    android:id="@+id/findPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/btn_complete"
+                    android:layout_toStartOf="@id/btn_complete"
+                    android:layout_toEndOf="@id/icon_back"
+                    android:gravity="center"
+                    android:text="@string/toolbar_findPassword"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_complete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="#00000000"
+                    android:enabled="@{viewModel.enableEmailBtn?true:false}"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="@string/btn_nextpage"
+                    android:textColor="@{viewModel.enableEmailBtn?@color/O_50:@color/O_Deactivation}"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/setEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/findPassword_toolbar"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="@dimen/sixteen"
+            android:text="@string/setEmail"
+            android:textColor="@color/sysblack2"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/setEmail"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:background="@drawable/edit_from_stroke_bg_50_to_stroke_black"
+            android:gravity="top|start"
+            android:hint="@string/hint_univaddress"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:maxLength="30"
+            android:paddingStart="@dimen/fourteen"
+            android:paddingTop="13dp"
+            android:paddingEnd="@dimen/fourteen"
+            android:paddingBottom="13dp"
+            android:text="@={viewModel.userEmail}"
+            android:textColor="@color/sysblack1"
+            android:textColorHint="@color/BG_70"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+
+</layout>

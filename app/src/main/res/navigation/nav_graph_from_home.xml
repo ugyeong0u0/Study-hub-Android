@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_from_home"
     app:startDestination="@id/mainHomeFragment">
+
     <fragment
         android:id="@+id/mainHomeFragment"
         android:name="kr.co.gamja.study_hub.feature.home.MainHomeFragment"
@@ -31,6 +32,9 @@
         <argument
             android:name="showBottomNav"
             android:defaultValue="true" />
+        <action
+            android:id="@+id/action_search_to_content"
+            app:destination="@+id/studyContentFragment" />
 
     </fragment>
 
@@ -254,5 +258,25 @@
         android:name="kr.co.gamja.study_hub.feature.studypage.allcomments.bottomsheet.CommentBottomSheetFragment"
         android:label="fragment_comment_bottom_sheet"
         tools:layout="@layout/fragment_comment_bottom_sheet" />
-
+    <fragment
+        android:id="@+id/findPassByEmailFragment"
+        android:name="kr.co.gamja.study_hub.feature.login.findpassword.FindPassByEmailFragment"
+        android:label="fragment_find_pass_by_email"
+        tools:layout="@layout/fragment_find_pass_by_email">
+        <action
+            android:id="@+id/action_findPassByEmailFragment_to_findPassByAuthFragment"
+            app:destination="@id/findPassByAuthFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/findPassByAuthFragment"
+        android:name="kr.co.gamja.study_hub.feature.login.findpassword.FindPassByAuthFragment"
+        android:label="fragment_find_pass_by_auth"
+        tools:layout="@layout/fragment_find_pass_by_auth">
+        <action
+            android:id="@+id/action_findPassByAuthFragment_to_newPasswordFragment"
+            app:destination="@id/newPasswordFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_findPassByEmailFragment"
+        app:destination="@id/findPassByEmailFragment" />
 </navigation>

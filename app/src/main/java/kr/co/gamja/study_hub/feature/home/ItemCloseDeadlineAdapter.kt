@@ -87,27 +87,22 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
                     )
                     .into(binding.iconProfile)
                 // 북마크 여부에 따른 색 변경
-                if (it.bookmarked) {
-                    binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
-                } else {
-                    binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
-                }
+                binding.isBookmark = it.bookmarked
 
                 //북마크 추가
                 binding.btnBookmark.setOnClickListener {
-                    // 북마크 추가
-                    if (binding.btnBookmark.tag.toString() == "0") {
-                        binding.btnBookmark.tag = "1"
-                        binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
-                        val tagId = binding.btnBookmark.tag.toString()
-                        mOnBookmarkClickListener.onItemClick(tagId, postId) // fragment로 callback부분
-
-                    } else { // 북마크 삭제
-                        binding.btnBookmark.tag = "0"
-                        binding.btnBookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
-                        val tagId = binding.btnBookmark.tag.toString()
-                        mOnBookmarkClickListener.onItemClick(tagId, postId)
+                    when (binding.isBookmark) {
+                        true -> {
+                            binding.isBookmark = false
+                            binding.btnBookmark.tag = "0"
+                        }
+                        false -> {
+                            binding.isBookmark = true
+                            binding.btnBookmark.tag = "1"
+                        }
                     }
+                    val tagId = binding.btnBookmark.tag.toString()
+                    mOnBookmarkClickListener.onItemClick(tagId, postId) // fragment로 callback부분
                 }
             }
         }
