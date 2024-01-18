@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_from_home"
     app:startDestination="@id/mainHomeFragment">
+
     <fragment
         android:id="@+id/mainHomeFragment"
         android:name="kr.co.gamja.study_hub.feature.home.MainHomeFragment"
