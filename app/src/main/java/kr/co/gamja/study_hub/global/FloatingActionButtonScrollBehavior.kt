@@ -14,7 +14,7 @@ class FloatingActionButtonScrollBehavior (context: Context? = null, attrs: Attri
 
     override fun onNestedScroll(coordinatorLayout: CoordinatorLayout, child: FloatingActionButton, target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, type: Int, consumed: IntArray) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type, consumed)
-        if (dyConsumed != 0) {
+        if (dyConsumed > 0) {
             child.hide(object : FloatingActionButton.OnVisibilityChangedListener() {
                 override fun onHidden(fab: FloatingActionButton) {
                     super.onHidden(fab)

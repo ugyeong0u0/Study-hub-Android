@@ -3,6 +3,7 @@ package kr.co.gamja.study_hub.feature.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
 import kr.co.gamja.study_hub.data.model.FindStudyResponseM
@@ -31,6 +32,7 @@ class HomeViewModel : ViewModel() {
                         inquiryText,
                         titleAndMajor
                     )
+
                 Log.e("ItemOnRecruitingAdapter viewModel응답코드 " , response.code().toString())
                 if(response.isSuccessful){
                     val result = response.body() as FindStudyResponseM
