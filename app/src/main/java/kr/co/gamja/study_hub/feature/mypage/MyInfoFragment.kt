@@ -140,10 +140,11 @@ class MyInfoFragment : Fragment(), SecondCallBackListener {
             Log.d(tag, "초기화")
             if (goLogin) {
                 withContext(Dispatchers.Main) {
-                    findNavController().navigate(
-                        R.id.action_global_loginFragment,
-                        null
-                    )
+                    val navController = findNavController()
+                    // 네비게이션 그래프 변경
+                    navController.setGraph(R.navigation.nav_graph_login_signup)
+                    // 로그인 프래그먼트로 이동
+                    navController.navigate(R.id.loginFragment)
                 }
             }
 

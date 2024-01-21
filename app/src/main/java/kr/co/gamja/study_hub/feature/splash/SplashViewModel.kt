@@ -1,4 +1,4 @@
-package kr.co.gamja.study_hub.feature.main
+package kr.co.gamja.study_hub.feature.splash
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -11,7 +11,7 @@ import kr.co.gamja.study_hub.data.model.AccessTokenResponse
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 import kr.co.gamja.study_hub.feature.login.LoginCallback
 
-class MainViewModel: ViewModel() {
+class SplashViewModel: ViewModel() {
     private val tag = this.javaClass.simpleName
 
     fun autoLogin(refreshToken: String, params: LoginCallback) {
@@ -36,6 +36,7 @@ class MainViewModel: ViewModel() {
                     }
                 }
             } catch (e: Exception) {
+                params.onfail(true)
                 Log.e(tag, "자동 로그인 Exception: ${e.message}")
             }
         }

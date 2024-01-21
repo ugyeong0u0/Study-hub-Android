@@ -151,6 +151,7 @@ class MainHomeFragment : Fragment() {
 
     // 뒤로가기 누를 시 혹은 뷰 생성시 리스트 데이터 업데이트
     private fun updateRecruitingList(){
+
         Log.e("pdateRecruitingList시작","")
         viewModel.getRecruitingStudy(
             onRecruitingAdapter,
