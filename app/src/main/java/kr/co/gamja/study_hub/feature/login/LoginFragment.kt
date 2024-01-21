@@ -23,6 +23,7 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.datastore.App
 import kr.co.gamja.study_hub.databinding.FragmentLoginBinding
@@ -119,18 +120,23 @@ class LoginFragment : Fragment() {
                 ) {
                     if (isBoolean) {
                         Log.d(
-                            "로그인 토큰(accessToken // refreshToken) 저장",
+                            "로그인 토큰(accessToken // refreshToken):",
                             accessToken + "//" + refreshToken
                         )
-                        findNavController().navigate(R.id.action_login_to_nav_graph02_main, null)
-
-                        CoroutineScope(Dispatchers.Main).launch {
+                        CoroutineScope(Dispatchers.IO).launch {
                             val dataStoreInstance = App.getInstance().getDataStore()
 
                             dataStoreInstance.clearDataStore() // 초기화 후
                             dataStoreInstance.setAccessToken(accessToken)
                             dataStoreInstance.setRefreshToken(refreshToken)
+                            withContext(Dispatchers.Main) {
+                                findNavController().navigate(
+                                    R.id.action_login_to_nav_graph02_main,
+                                    null
+                                )
+                            }
                         }
+
                     }
                 }
             })
