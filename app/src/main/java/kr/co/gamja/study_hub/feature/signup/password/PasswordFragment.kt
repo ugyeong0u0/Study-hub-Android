@@ -82,7 +82,7 @@ class PasswordFragment : Fragment() {
             navcontroller.navigateUp() // 뒤로 가기
         }
 
-        binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 2)
+        binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 3)
 
         binding.viewPassword.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {

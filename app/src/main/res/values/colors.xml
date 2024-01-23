@@ -46,4 +46,5 @@
 
 <!--    갈색-->
     <color name="O_Deactivation">#6F2B1C</color>
+    <color name="W_Deactivation">#6F6F6F</color>
 </resources>

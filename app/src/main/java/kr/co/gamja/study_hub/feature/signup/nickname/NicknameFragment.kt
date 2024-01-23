@@ -75,7 +75,7 @@ class NicknameFragment : Fragment() {
             val navcontroller = findNavController()
             navcontroller.navigateUp() // 뒤로 가기
         }
-        binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 3)
+        binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 4)
 
         binding.btnFemale.setOnClickListener {
             binding.btnFemale.background = selectedDrawable

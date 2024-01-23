@@ -14,11 +14,11 @@
             android:name="showBottomNav"
             android:defaultValue="false" />
         <action
-            android:id="@+id/action_login_to_createAccount"
-            app:destination="@id/emailFragment" />
-        <action
             android:id="@+id/action_login_to_nav_graph02_main"
             app:destination="@id/nav_graph_from_home" />
+        <action
+            android:id="@+id/action_loginFragment_to_agreementFragment"
+            app:destination="@id/agreementFragment" />
 
     </fragment>
     <fragment
@@ -85,6 +85,15 @@
     <action
         android:id="@+id/action_global_loginFragment"
         app:destination="@id/loginFragment" />
+    <fragment
+        android:id="@+id/agreementFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.agreement.AgreementFragment"
+        android:label="fragment_agreement"
+        tools:layout="@layout/fragment_agreement" >
+        <action
+            android:id="@+id/action_agreementFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+    </fragment>
 
 
 </navigation>
