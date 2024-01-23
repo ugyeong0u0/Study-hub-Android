@@ -69,7 +69,7 @@ class AllCommentsAdapter(val context: Context) :
                         RequestOptions().override(
                             binding.imgProfile.width,
                             binding.imgProfile.height
-                        )
+                        ).circleCrop()
                     )
                     .into(binding.imgProfile)
                 // 세개 점 클릭

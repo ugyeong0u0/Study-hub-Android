@@ -51,7 +51,7 @@ class CommentAdapter(private val context: Context) :
                         RequestOptions().override(
                             binding.imgProfile.width,
                             binding.imgProfile.height
-                        )
+                        ).circleCrop()
                     )
                     .into(binding.imgProfile)
             }

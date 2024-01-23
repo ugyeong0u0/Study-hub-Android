@@ -107,7 +107,7 @@ class StudyMainAdapter(private val context: Context) :
                         RequestOptions().override(
                             binding.iconProfile.width,
                             binding.iconProfile.height
-                        )
+                        ).circleCrop()
                     ).into(binding.iconProfile)
 
                 // 북마크인지 아닌지 표시

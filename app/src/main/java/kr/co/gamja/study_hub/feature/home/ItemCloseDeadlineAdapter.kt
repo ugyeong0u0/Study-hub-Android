@@ -83,7 +83,7 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
                         RequestOptions().override(
                             binding.iconProfile.width,
                             binding.iconProfile.height
-                        )
+                        ).circleCrop()
                     )
                     .into(binding.iconProfile)
                 // 북마크 여부에 따른 색 변경

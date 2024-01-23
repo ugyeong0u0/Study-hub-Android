@@ -45,7 +45,7 @@ class MypageMainFragment : Fragment() {
                         RequestOptions().override(
                             binding.iconProfile.width,
                             binding.iconProfile.height
-                        )
+                        ).circleCrop()
                     )
                     .into(binding.iconProfile)
 
