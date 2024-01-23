@@ -219,7 +219,7 @@
         android:id="@+id/participantFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.ParticipantFragment"
         android:label="fragment_participant"
-        tools:layout="@layout/fragment_participant"/>
+        tools:layout="@layout/fragment_participant" />
     <fragment
         android:id="@+id/waitingFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingFragment"
@@ -239,7 +239,7 @@
         android:id="@+id/applicationFragment"
         android:name="kr.co.gamja.study_hub.feature.studypage.apply.ApplicationFragment"
         android:label="fragment_application"
-        tools:layout="@layout/fragment_application" />
+        tools:layout="@layout/fragment_application"/>
     <action
         android:id="@+id/action_global_applicationFragment"
         app:destination="@id/applicationFragment" />

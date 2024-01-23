@@ -73,12 +73,13 @@ class BookmarkFragment : Fragment() {
                 when (whatItem) {
                     1 -> {
                         val action =
-                            MainHomeFragmentDirections.actionGlobalStudyContentFragment(itemValue)
+                            BookmarkFragmentDirections.actionGlobalStudyContentFragment(itemValue)
                         findNavController().navigate(action)
                     }
-                    2 -> {
-                        // todo("신청하기 api 연결")
-                        Log.d(logMessage, "신청하기")
+                    2 -> { // 신청하기 일 때
+                        val bundle = Bundle()
+                        bundle.putInt("postId", itemValue)
+                        findNavController().navigate(R.id.action_global_applicationFragment, bundle)
                     }
                 }
             }

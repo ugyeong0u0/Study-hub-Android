@@ -55,7 +55,7 @@ class ApplicationFragment : Fragment() {
                 } else {
                     viewModel.applyStudy(object : CallBackListener {
                         override fun isSuccess(result: Boolean) {
-                            val navOptions = NavOptions.Builder()
+                            val navOptions = NavOptions.Builder() // 백스택에서 제거
                                 .setPopUpTo(R.id.applicationFragment, true)
                                 .build()
                             if (result) {
@@ -63,7 +63,7 @@ class ApplicationFragment : Fragment() {
                                     binding.layoutRelative,
                                     getString(R.string.apply_ok)
                                 ).show()
-                                // todo(" 스터디 켄텐츠 bundle값 3종류 필요한듯(스터디 생성, 수정 , 신청후) 수정하기")
+                                // todo("컨텐츠로 돌아가야함")
                                 /*val action =
                                     ApplicationFragmentDirections.actionGlobalStudyContentFragment(result)
                                 findNavController().navigate(action, navOptions) // 백스택에서 생성 페이지 제거*/
