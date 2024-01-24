@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -43,6 +44,7 @@ class CreateStudyFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
@@ -54,32 +56,18 @@ class CreateStudyFragment : Fragment() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
+        // 안드로이드 폰 바텀네비에서 뒤로가기 할 시 다이얼로그
+        val pressedCallBack = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                isPressedBackBtn()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, pressedCallBack)
+
+
         // 뒤로가기 아이콘 누를 시 알림 메시지
         binding.iconBack.setOnClickListener {
-            if (viewModel.goBack()) { // 하나라도 입력 된 경우 뒤로가기 시 알림띄움
-                val head: String
-                if (!isCorrectStudyRequest) {
-                    head = requireContext().resources.getString(R.string.q_cancelCreatingStudy)
-                } else {
-                    head = requireContext().resources.getString(R.string.q_alterCreatingStudy)
-                }
-                val sub = requireContext().resources.getString(R.string.q_sub_cancelCreatingStudy)
-                val no = requireContext().resources.getString(R.string.btn_no)
-                val yes = requireContext().resources.getString(R.string.btn_yes)
-                val dialog = CustomDialog(requireContext(), head, sub, no, yes)
-                dialog.showDialog()
-                dialog.setOnClickListener(object : OnDialogClickListener {
-                    override fun onclickResult() {
-//                        viewModel.setInit() // 초기화
-                        val navcontroller = findNavController()
-                        navcontroller.navigateUp() // 뒤로 가기
-                    }
-                })
-            } else { // 입력된게 없는 경우
-//                viewModel.setInit() // 초기화
-                val navcontroller = findNavController()
-                navcontroller.navigateUp() // 뒤로 가기
-            }
+            isPressedBackBtn() // 다이어로그 띄우게
         }
 
         // TODO("번들로 받을지?")
@@ -260,14 +248,41 @@ class CreateStudyFragment : Fragment() {
         val receiveBundle = arguments
         if (receiveBundle != null) {
             isCorrectStudyRequest = receiveBundle.getBoolean("isCorrectStudy")
-            currentPostId = receiveBundle.getInt("postId")
-            Log.d(tag, " value: $isCorrectStudyRequest, postId: $currentPostId")
-        } else Log.e(tag, "createStudyFragment's receiveBundle is Null")
+            Log.d("createStudyFragment's 스터디 수정인지", isCorrectStudyRequest.toString())
+        } else Log.e(tag, "createStudyFragment's receiveBundle is Null in goToCorrectStudy()")
         if (isCorrectStudyRequest) {
+            currentPostId = receiveBundle?.getInt("postId") ?: 0
+            Log.d(tag, " value: $isCorrectStudyRequest, postId: $currentPostId")
             binding.txtCreateStudy.text = getString(R.string.txt_alterStudy)
             viewModel.getMyCreatedStudy(currentPostId)
-        }else{
-            viewModel.setInit() // 처음 들어오면 초기화
+        }
+    }
+
+    // 뒤로 가기시 다이어로그 띄울건지에 대한
+    fun isPressedBackBtn() {
+        if (viewModel.goBack()) { // 하나라도 입력 된 경우 뒤로가기 시 알림띄움
+            val head: String
+            if (!isCorrectStudyRequest) {
+                head = requireContext().resources.getString(R.string.q_cancelCreatingStudy)
+            } else {
+                head = requireContext().resources.getString(R.string.q_alterCreatingStudy)
+            }
+            val sub = requireContext().resources.getString(R.string.q_sub_cancelCreatingStudy)
+            val no = requireContext().resources.getString(R.string.btn_no)
+            val yes = requireContext().resources.getString(R.string.btn_yes)
+            val dialog = CustomDialog(requireContext(), head, sub, no, yes)
+            dialog.showDialog()
+            dialog.setOnClickListener(object : OnDialogClickListener {
+                override fun onclickResult() {
+                    viewModel.setInit() // 초기화
+                    val navcontroller = findNavController()
+                    navcontroller.navigateUp() // 뒤로 가기
+                }
+            })
+        } else { // 입력된게 없는 경우
+//                viewModel.setInit() // 초기화
+            val navcontroller = findNavController()
+            navcontroller.navigateUp() // 뒤로 가기
         }
     }
 

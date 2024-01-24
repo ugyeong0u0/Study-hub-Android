@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -75,8 +76,19 @@ class RelativeMajorFragment : Fragment() {
     fun selectMajor() {
         val editTxt_major = binding.autoMajor
         val array_major: Array<String> = resources.getStringArray(R.array.array_majors)
-        val adapter_array =
-            ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, array_major)
+        val adapter_array = object :
+            ArrayAdapter<String>(
+                requireContext(),
+                android.R.layout.simple_list_item_1,
+                array_major
+            ) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getView(position, convertView, parent) as TextView
+                val color = requireContext().getColor(R.color.sysblack1) // 리스트 글자 색 변경
+                view.setTextColor(color)
+                return view
+            }
+        }
         editTxt_major.setAdapter(adapter_array)
 
         // 드랍다운 배경셋팅
@@ -87,13 +99,16 @@ class RelativeMajorFragment : Fragment() {
         binding.chipMajor.setOnCloseIconClickListener {
             viewModel.setUserMajor("else로 빠짐") // 통신시 값 "null"로
             viewModel.setIsRelativeMajor(false) // chip 안보이게
-            Log.d(tagMessage, "chip 보이는지 isRelativeMajor" + viewModel.isRelativeMajor.value.toString())
+            Log.d(
+                tagMessage,
+                "chip 보이는지 isRelativeMajor" + viewModel.isRelativeMajor.value.toString()
+            )
         }
         binding.autoMajor.setOnItemClickListener { parent, _, position, _ ->
             binding.autoMajor.isEnabled = true // 추가로 텍스트 변경 가능
             binding.chipMajor.apply {
                 // 스낵바 띄우기, 통신시 값확인
-                if (viewModel.isRelativeMajor.value==true) {
+                if (viewModel.isRelativeMajor.value == true) {
                     CustomSnackBar.make(
                         binding.layoutRelative,
                         getString(R.string.txt_warningMajor),

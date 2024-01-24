@@ -1,6 +1,9 @@
 package kr.co.gamja.study_hub.feature.home
 
 import android.content.Context
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -68,8 +71,19 @@ class ItemOnRecruitingAdapter(private val context: Context) :
                 binding.txtMajor.text = koreanMajor
                 binding.txtHead.text = it.title // 제목
                 val vacancy = it.studyPerson - it.remainingSeat // 공석자리
-                binding.txtPeople.text =
-                    context.getString(R.string.txt_people, vacancy, it.studyPerson) // 참여인원/참여최대인원
+
+                val spannableString =
+                    SpannableString(context.getString(R.string.txt_people, vacancy, it.studyPerson))
+                val color = context.getColor(R.color.O_50)
+                val unAvailableSeatLength = vacancy.toString().length
+                spannableString.setSpan(
+                    ForegroundColorSpan(color),
+                    0,
+                    unAvailableSeatLength,
+                    Spanned.SPAN_INCLUSIVE_EXCLUSIVE
+                )
+                binding.txtPeople.text = spannableString// 참여인원/참여최대인원
+
                 binding.txtRemainingSeats.text =
                     context.getString(R.string.txt_RemainingSeats, it.remainingSeat) // %d자리 남았어요
                 // 요금
@@ -82,7 +96,18 @@ class ItemOnRecruitingAdapter(private val context: Context) :
                     feeStBuilder.clear()
                     feeStBuilder.append(it.penalty)
                         .append("원")
-                    binding.txtFee.text = feeStBuilder.toString()
+
+                    val penaltySpannableString =
+                        SpannableString(feeStBuilder.toString())
+                    val penaltyLength = feeStBuilder.toString().length-1
+                    penaltySpannableString.setSpan(
+                        ForegroundColorSpan(color),
+                        0,
+                        penaltyLength,
+                        Spanned.SPAN_INCLUSIVE_EXCLUSIVE
+                    )
+
+                    binding.txtFee.text = penaltySpannableString
                 }
                 // 북마크 여부
                 binding.isBookmark = it.bookmarked

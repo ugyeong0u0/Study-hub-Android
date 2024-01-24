@@ -60,7 +60,7 @@ class ContentFragment : Fragment() {
                     RequestOptions().override(
                         binding.iconProfile.width,
                         binding.iconProfile.height
-                    )
+                    ).circleCrop()
                 )
                 .into(binding.iconProfile)
         }
@@ -79,10 +79,9 @@ class ContentFragment : Fragment() {
         }
         // 신청하기 페이지로 이동
         binding.btnNext.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_global_applicationFragment,
-                null
-            )
+           val bundle = Bundle()
+            bundle.putInt("postId", args.postId)
+            findNavController().navigate(R.id.action_global_applicationFragment,bundle)
         }
 
         binding.recyclerRecommend.adapter = contentAdapter

@@ -48,7 +48,7 @@ class EmailFragment : Fragment() {
 
     }
 
-    override fun onAttach(context: Context) {
+    /*override fun onAttach(context: Context) {
         super.onAttach(context)
         requireActivity().onBackPressedDispatcher.addCallback(
             this,
@@ -57,7 +57,7 @@ class EmailFragment : Fragment() {
                     findNavController().navigate(R.id.action_global_loginFragment, null)
                 }
             })
-    }
+    }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -96,7 +96,7 @@ class EmailFragment : Fragment() {
             findNavController().navigate(R.id.action_global_loginFragment, null)
         }
 
-        binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 1)
+        binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 2)
 
         setupEmailEditText()
         setupEmailAuthText()

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Drop Shadow -->
+    <item>
+        <shape>
+            <corners android:radius="@dimen/btn_round" />
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+
+            <solid android:color="#1A000000" /> <!-- 약간의 투명도를 가진 검은색 -->
+        </shape>
+    </item>
+
+    <!-- Background -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/white" /> <!-- 백색 배경 -->
+        </shape>
+    </item>
+</layer-list>

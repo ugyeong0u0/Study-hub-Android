@@ -1,9 +1,11 @@
 package kr.co.gamja.study_hub.feature.mypage
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -14,12 +16,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentMypageMainBinding
+import kr.co.gamja.study_hub.global.CustomSnackBar
 
 
 class MypageMainFragment : Fragment() {
     private lateinit var binding: FragmentMypageMainBinding
     private val viewModel: MyInfoViewModel by activityViewModels()
-
+    private var doubleBackPressed = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,6 +30,29 @@ class MypageMainFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mypage_main, container, false)
         return binding.root
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (doubleBackPressed) {
+                        requireActivity().finish()
+                    } else {
+                        doubleBackPressed = true
+                        val activity = requireActivity() as AppCompatActivity
+                        val bottomView = activity.findViewById<View>(R.id.bottom_nav)
+                        CustomSnackBar.make(
+                            binding.layoutUserInfo,
+                            getString(R.string.btnBack_login), bottomView, false
+                        ).show()
+                        view?.postDelayed({ doubleBackPressed = false }, 2000)
+                    }
+                }
+            }
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,14 +66,14 @@ class MypageMainFragment : Fragment() {
 
         viewModel.getUsers()
         viewModel.imgData.observe(viewLifecycleOwner, Observer { img ->
-                Glide.with(this).load(viewModel.imgData.value)
-                    .apply(
-                        RequestOptions().override(
-                            binding.iconProfile.width,
-                            binding.iconProfile.height
-                        )
-                    )
-                    .into(binding.iconProfile)
+            Glide.with(this).load(viewModel.imgData.value)
+                .apply(
+                    RequestOptions().override(
+                        binding.iconProfile.width,
+                        binding.iconProfile.height
+                    ).circleCrop()
+                )
+                .into(binding.iconProfile)
 
         })
         viewModel.setOnClickListener(object : MyInfoCallbackListener {
@@ -71,23 +97,30 @@ class MypageMainFragment : Fragment() {
             )
         }
         // 작성한 글 누를 시
-        binding.btnUserContent.setOnClickListener{
+        binding.btnUserContent.setOnClickListener {
             findNavController().navigate(
                 R.id.action_mypageMainFragment_to_writtenStudyFragment,
                 null
             )
         }
         // 북마크 페이지로 이동
-        binding.btnUserBookmark.setOnClickListener{
+        binding.btnUserBookmark.setOnClickListener {
             findNavController().navigate(
                 R.id.action_global_mainBookmarkFragment,
                 null
             )
         }
         // 참여한 스터디 페이지로 이동
-        binding.btnUserStudy.setOnClickListener{
+        binding.btnUserStudy.setOnClickListener {
             findNavController().navigate(
                 R.id.action_mypageMainFragment_to_engagedStudyFragment,
+                null
+            )
+        }
+        // 문의하기
+        binding.btnAsking.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_mypageMainFragment_to_complaintFragment,
                 null
             )
         }

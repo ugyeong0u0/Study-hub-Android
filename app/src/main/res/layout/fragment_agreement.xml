@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.signup.agreement.AgreementViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/layout_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/agreement_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            android:background="@color/sysblack2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
+
+                <TextView
+                    android:id="@+id/word_registration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/icon_back"
+                    android:gravity="center"
+                    android:text="@string/word_registration"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/txt_pageNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/agreement_toolbar"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="@dimen/login_top_margin"
+            android:textColor="@color/G_60"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="1/5" />
+
+        <TextView
+            android:id="@+id/txt_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_pageNumber"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="@dimen/twenty_four"
+            android:text="@string/head_agreement"
+            android:textColor="@color/syswhite"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_head"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginBottom="@dimen/login_top_margin"
+            android:text="@string/sub_agreement"
+            android:textColor="@color/G_40"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:id="@+id/layout_allAgree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_sub"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:background="@drawable/background_100_radius_6"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:tag="0">
+
+            <ImageView
+                android:id="@+id/radioImg_allAgreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/ten"
+                android:layout_marginEnd="4dp"
+                android:paddingVertical="12dp"
+                android:src="@{viewModel.allConsent?@drawable/resized_icon_check_act_orange:@drawable/resized_icon_check_non_gray}" />
+
+            <TextView
+                android:id="@+id/radio_allAgreement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:text="@string/allAgree"
+                android:textColor="@color/syswhite"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_allAgree"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:clickable="true"
+            android:tag="0">
+
+            <ImageView
+                android:id="@+id/radioImg_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/ten"
+                android:layout_marginEnd="4dp"
+                android:paddingVertical="12dp"
+                android:src="@{viewModel.serviceContent?@drawable/resized_icon_check_act_orange:@drawable/resized_icon_check_non_gray}" />
+
+            <TextView
+                android:id="@+id/radio_service"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/radioImg_service"
+                android:paddingVertical="12dp"
+                android:text="@string/service_consent"
+                android:textColor="@color/syswhite"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/arrow_service"
+                android:layout_width="@dimen/resized_item"
+                android:layout_height="@dimen/resized_item"
+                android:layout_alignEnd="@id/radio_service"
+                android:layout_marginTop="13dp"
+                android:src="@drawable/icon_arrow_right_gray" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/layout_personalInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_service"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:tag="0">
+
+            <ImageView
+                android:id="@+id/personalInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/ten"
+                android:layout_marginEnd="4dp"
+                android:paddingVertical="12dp"
+                android:src="@{viewModel.infoConsent?@drawable/resized_icon_check_act_orange:@drawable/resized_icon_check_non_gray}" />
+
+            <TextView
+                android:id="@+id/radio_personalInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/personalInfo"
+                android:paddingVertical="12dp"
+                android:text="@string/personalInfo_consent"
+                android:textColor="@color/syswhite"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/arrow_personalInfo"
+                android:layout_width="@dimen/resized_item"
+                android:layout_height="@dimen/resized_item"
+                android:layout_alignEnd="@id/radio_personalInfo"
+                android:layout_marginTop="13dp"
+                android:src="@drawable/icon_arrow_right_gray" />
+
+        </RelativeLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="@dimen/twenty"
+            android:background="@{viewModel.allConsent?@drawable/solid_o_50_corner_6:@drawable/background_o_deactivation_corner_4}"
+            android:enabled="@{viewModel.allConsent?true:false}"
+            android:text="@string/btn_nextpage"
+            android:textColor="@{viewModel.allConsent?@color/syswhite:@color/W_Deactivation}"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</layout>

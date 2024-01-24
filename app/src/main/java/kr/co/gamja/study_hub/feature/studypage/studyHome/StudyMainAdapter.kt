@@ -1,6 +1,10 @@
 package kr.co.gamja.study_hub.feature.studypage.studyHome
 
 import android.content.Context
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -68,8 +72,12 @@ class StudyMainAdapter(private val context: Context) :
                 val unAvailableSeat = it.studyPerson - it.remainingSeat
                 binding.txtAvailable.text =
                     context.getString(R.string.txt_leftNumber, it.remainingSeat)
-                binding.txtPeopleNumber.text =
-                    context.getString(R.string.txt_people_number, unAvailableSeat, it.studyPerson)
+
+                val spannableString =SpannableString(context.getString(R.string.txt_people_number, unAvailableSeat, it.studyPerson))
+                val color = context.getColor(R.color.O_50)
+                val unAvailableSeatLength = unAvailableSeat.toString().length
+                spannableString.setSpan(ForegroundColorSpan(color),0,unAvailableSeatLength,Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+                binding.txtPeopleNumber.text =spannableString
 
                 val sb = StringBuilder()
                 sb.append(it.studyStartDate[1])
@@ -90,7 +98,8 @@ class StudyMainAdapter(private val context: Context) :
                         .append("원")
                     binding.txtFee.text = sb.toString()
                 }
-                binding.txtGender.text = it.filteredGender
+
+                binding.txtGender.text = functions.convertToKoreanGender(it.filteredGender)
                 binding.txtNickname.text = it.userData.nickname
 
                 sb.clear()
@@ -107,7 +116,7 @@ class StudyMainAdapter(private val context: Context) :
                         RequestOptions().override(
                             binding.iconProfile.width,
                             binding.iconProfile.height
-                        )
+                        ).circleCrop()
                     ).into(binding.iconProfile)
 
                 // 북마크인지 아닌지 표시

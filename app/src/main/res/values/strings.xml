@@ -6,6 +6,11 @@
     <string name="welcome03">팀원</string>
     <string name="welcome04">만나보세요</string>
 
+    <string name="head_agreement">이용약관에 동의해주세요</string>
+    <string name="sub_agreement">서비스 이용을 위해서 약관 동의가 필요해요</string>
+    <string name="allAgree">전체동의</string>
+    <string name="service_consent">\[필수\] 서비스 이용약관 동의</string>
+    <string name="personalInfo_consent">\[필수\] 개인정보 수집 및 이용 동의</string>
     <string name="txt_word_email">이메일</string>
     <string name="txt_word_password">비밀번호</string>
     <string name="hint_email">이메일 주소를 입력해주세요(@inu.ac.kr)</string>
@@ -21,7 +26,7 @@
     <string name="txterror_empty"> </string>
     <string name="btnBack_login">한번 더 누르면 앱종료임.</string>
     <!--    회원가입-->
-    <string name="txt_pagenumber">%d\/4</string>
+    <string name="txt_pagenumber">%d\/5</string>
 
     <string name="txt_email">이메일을 입력해주세요</string>
     <string name="hint_univaddress">\@inu.ac.kr</string>

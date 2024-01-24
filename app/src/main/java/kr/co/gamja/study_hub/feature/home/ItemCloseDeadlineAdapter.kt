@@ -1,6 +1,9 @@
 package kr.co.gamja.study_hub.feature.home
 
 import android.content.Context
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -74,8 +77,19 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
                 val full = it.studyPerson - it.remainingSeat // 채워진 인원
                 binding.sentencePeople.text =
                     context.getString(R.string.sentence_people, it.remainingSeat) // %d 자리 남았어요
-                binding.txtPeople.text =
-                    context.getString(R.string.txt_people, full, it.studyPerson) // 채워진자리/전체인원
+
+                val spannableString =
+                    SpannableString( context.getString(R.string.txt_people, full, it.studyPerson))
+                val color = context.getColor(R.color.O_50)
+                val unAvailableSeatLength = full.toString().length
+                spannableString.setSpan(
+                    ForegroundColorSpan(color),
+                    0,
+                    unAvailableSeatLength,
+                    Spanned.SPAN_INCLUSIVE_EXCLUSIVE
+                )
+                binding.txtPeople.text =spannableString // 채워진자리/전체인원
+
                 // 스터디 생성한 사람 프로필 이미지
                 Glide.with(context)
                     .load(it.userData.imageUrl)
@@ -83,7 +97,7 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
                         RequestOptions().override(
                             binding.iconProfile.width,
                             binding.iconProfile.height
-                        )
+                        ).circleCrop()
                     )
                     .into(binding.iconProfile)
                 // 북마크 여부에 따른 색 변경

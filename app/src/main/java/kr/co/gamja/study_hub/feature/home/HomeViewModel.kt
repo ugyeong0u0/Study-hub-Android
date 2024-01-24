@@ -10,7 +10,6 @@ import kr.co.gamja.study_hub.data.model.FindStudyResponseM
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 
-// TODO("스터디 메인 뷰모델 합치기")
 class HomeViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
 
@@ -33,10 +32,10 @@ class HomeViewModel : ViewModel() {
                         titleAndMajor
                     )
 
-                Log.e("ItemOnRecruitingAdapter viewModel응답코드 " , response.code().toString())
+                Log.d("HomeViewModel: ItemOnRecruitingAdapter viewModel응답코드 " , response.code().toString())
                 if(response.isSuccessful){
                     val result = response.body() as FindStudyResponseM
-                    Log.e("ItemOnRecruitingAdapter viewModel 안" , "")
+                    Log.d("HomeViewModel: ItemOnRecruitingAdapter viewModel 안" , "")
                     adapter.studyPosts = result
                     adapter.notifyDataSetChanged()
                     params.isSuccess(true)
@@ -70,7 +69,7 @@ class HomeViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val result = response.body() as FindStudyResponseM
                     if (adapter is ItemOnRecruitingAdapter) {
-                        Log.e("ItemOnRecruitingAdapter viewModel 안" , "")
+                        Log.d("ItemOnRecruitingAdapter viewModel 안" , "")
                         adapter.studyPosts = result
                         adapter.notifyDataSetChanged()
                         params.isSuccess(true)

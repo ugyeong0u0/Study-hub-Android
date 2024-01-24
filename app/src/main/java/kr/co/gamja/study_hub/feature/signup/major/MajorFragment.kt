@@ -83,7 +83,7 @@ class MajorFragment : Fragment() {
                 }
             })
         }
-        binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 4)
+        binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 5)
         // 학과 선택박스(AutoCompleteTextView)
         selectMajor()
     }
