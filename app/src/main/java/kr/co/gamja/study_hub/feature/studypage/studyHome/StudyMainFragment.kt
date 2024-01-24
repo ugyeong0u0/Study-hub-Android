@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -17,19 +16,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.datastore.App
 import kr.co.gamja.study_hub.data.repository.*
 import kr.co.gamja.study_hub.databinding.FragmentStudyMainBinding
 import kr.co.gamja.study_hub.feature.home.MainHomeFragmentDirections
-import kr.co.gamja.study_hub.feature.login.LoginCallback
 import kotlin.properties.Delegates
 
 class StudyMainFragment : Fragment() {
@@ -98,7 +91,10 @@ class StudyMainFragment : Fragment() {
 
         // 스터디 생성하기
         binding.btnFlaot.setOnClickListener {
-            findNavController().navigate(R.id.action_StudyFragment01_to_createStudyFragment, null)
+            // 스터디 새로 생성함을 알리는 bundle(수정하기랑 구분하기 위해)
+            val bundle = Bundle()
+            bundle.putBoolean("isCorrectStudy", false)
+            findNavController().navigate(R.id.action_StudyFragment01_to_createStudyFragment, bundle)
         }
 
         // 스터디 전체 조회 버튼

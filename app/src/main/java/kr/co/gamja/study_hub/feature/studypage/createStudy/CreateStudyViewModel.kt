@@ -131,6 +131,7 @@ class CreateStudyViewModel : ViewModel() {
     // 완료 버튼 enable
     private val _completeBtn = MutableLiveData<Boolean>(false)
     val completeBtn: LiveData<Boolean> get() = _completeBtn
+
     fun setCompleteBtn(new: Boolean) {
         _completeBtn.value = new
     }
@@ -373,7 +374,11 @@ class CreateStudyViewModel : ViewModel() {
                     params.isSuccess(result!!)
                     setInit() // 값 초기화 진행
                 } else {
-                    Log.e(tag, "스터디 생성 실패 code" + response.code().toString()+"msg : "+response.message())
+                    Log.e(
+                        tag,
+                        "스터디 생성 실패 code" + response.code()
+                            .toString() + "msg : " + response.message()
+                    )
                 }
             } catch (e: Exception) {
                 Log.e(tag, "스터디 생성 Exception: ${e.message}")
@@ -391,7 +396,7 @@ class CreateStudyViewModel : ViewModel() {
 
                     urlEditText.value = result.chatUrl
                     studyTitle.value = result.title
-                    Log.e("스터디 타이틀", studyTitle.value.toString())
+                    Log.d("스터디 타이틀", studyTitle.value.toString())
 
                     studyContent.value = result.content
                     when (result.filteredGender) {
@@ -443,7 +448,10 @@ class CreateStudyViewModel : ViewModel() {
             meetMethod.value.toString(),
             studyTitle.value.toString()
         )
-        Log.e("스터디 수정값 ", correctStudyRequest.toString() + "_endDay: " + _endDay.value.toString())
+        Log.d(
+            "CreateStudyViewModel.kt 스터디 수정값 ",
+            correctStudyRequest.toString() + "_endDay: " + _endDay.value.toString()
+        )
         viewModelScope.launch {
             try {
                 val response = AuthRetrofitManager.api.correctMyStudy(correctStudyRequest)

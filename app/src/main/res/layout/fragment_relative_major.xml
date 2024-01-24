@@ -61,8 +61,8 @@
                     android:enabled="@{viewModel.isRelativeMajor}"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
-                    android:text="@string/btn_button"
-                    android:textColor="@color/O_50"
+                    android:text="@string/btn_complete"
+                    android:textColor="@{viewModel.isRelativeMajor?@color/O_50:@color/O_Deactivation}"
                     android:textSize="16sp" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>

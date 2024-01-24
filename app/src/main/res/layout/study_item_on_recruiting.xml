@@ -2,11 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<data>
-    <variable
-        name="isBookmark"
-        type="boolean" />
-</data>
+
+    <data>
+
+        <variable
+            name="isBookmark"
+            type="boolean" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -15,7 +18,7 @@
             android:id="@+id/layout_relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/syswhite"
+            android:background="@drawable/shadow_1dp"
             android:padding="@dimen/twenty">
 
             <TextView
@@ -88,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/fourteen"
                     android:layout_weight="1"
+                    android:bufferType="spannable"
                     android:gravity="center"
                     android:text="@string/txt_people_number"
                     android:textColor="@color/BG_90"
