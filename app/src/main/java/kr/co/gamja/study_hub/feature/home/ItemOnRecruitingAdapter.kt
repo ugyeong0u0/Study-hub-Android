@@ -99,7 +99,7 @@ class ItemOnRecruitingAdapter(private val context: Context) :
 
                     val penaltySpannableString =
                         SpannableString(feeStBuilder.toString())
-                    val penaltyLength = feeStBuilder.toString().length
+                    val penaltyLength = feeStBuilder.toString().length-1
                     penaltySpannableString.setSpan(
                         ForegroundColorSpan(color),
                         0,

@@ -11,7 +11,7 @@
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="244dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/sixteen"
         android:background="@drawable/btn_bg_white_stroke_bg_50"
