@@ -1,11 +1,13 @@
 package kr.co.gamja.study_hub.feature.studypage.studyHome
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -23,6 +25,7 @@ import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.*
 import kr.co.gamja.study_hub.databinding.FragmentStudyMainBinding
 import kr.co.gamja.study_hub.feature.home.MainHomeFragmentDirections
+import kr.co.gamja.study_hub.global.CustomSnackBar
 import kotlin.properties.Delegates
 
 class StudyMainFragment : Fragment() {
@@ -30,6 +33,7 @@ class StudyMainFragment : Fragment() {
     private lateinit var binding: FragmentStudyMainBinding
     private lateinit var viewModel: StudyMainViewModel
     private lateinit var adapter: StudyMainAdapter
+    private var doubleBackPressed = false
 
     // 같은 버튼 눌렸을 때 변화 x 하기
     private var allBtnEnable = true
@@ -40,6 +44,30 @@ class StudyMainFragment : Fragment() {
     private lateinit var nonSelectedDrawable: Drawable
     private var selectedTextColor by Delegates.notNull<Int>()
     private var nonSelectedTextColor by Delegates.notNull<Int>()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (doubleBackPressed) {
+                        requireActivity().finish()
+                    } else {
+                        doubleBackPressed = true
+                        val activity = requireActivity() as AppCompatActivity
+                        val bottomView = activity.findViewById<View>(R.id.bottom_nav)
+                        CustomSnackBar.make(
+                            binding.layoutRelative,
+                            getString(R.string.btnBack_login), bottomView, false
+                        ).show()
+                        view?.postDelayed({ doubleBackPressed = false }, 2000)
+                    }
+                }
+            }
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -145,7 +173,6 @@ class StudyMainFragment : Fragment() {
                 findNavController().navigate(action)
             }
         })
-
     }
 
 

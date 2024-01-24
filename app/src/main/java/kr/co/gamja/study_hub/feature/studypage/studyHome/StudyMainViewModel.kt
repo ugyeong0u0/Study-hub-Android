@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
-import kr.co.gamja.study_hub.data.model.Content
 import kr.co.gamja.study_hub.data.model.ContentXXXX
 import kr.co.gamja.study_hub.data.model.FindStudyResponseM
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
@@ -42,6 +41,11 @@ class StudyMainViewModel(studyHubApi: StudyHubApi) : ViewModel() {
         _isHotStudy.value = result
     }
 
+    // 리스트 있는지 여부
+    private val _isList = MutableLiveData<Boolean>()
+    val isList: LiveData<Boolean> get() = _isList
+
+
     val studyMainFlow: Flow<PagingData<ContentXXXX>> = _reloadTrigger.flatMapLatest {
         Pager(
             PagingConfig(
@@ -63,6 +67,7 @@ class StudyMainViewModel(studyHubApi: StudyHubApi) : ViewModel() {
                 if (response.isSuccessful) {
                     val result = response.body() as FindStudyResponseM
                     _listSize.value = result.totalCount
+                    _isList.value = result.totalCount>0 // 리스트 개수가 0 이상으로 없어요 그림 노출 결정
                 }
 
             } catch (e: Exception) {

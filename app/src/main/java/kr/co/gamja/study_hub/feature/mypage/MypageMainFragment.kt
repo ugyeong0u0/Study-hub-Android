@@ -1,9 +1,11 @@
 package kr.co.gamja.study_hub.feature.mypage
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -14,12 +16,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentMypageMainBinding
+import kr.co.gamja.study_hub.global.CustomSnackBar
 
 
 class MypageMainFragment : Fragment() {
     private lateinit var binding: FragmentMypageMainBinding
     private val viewModel: MyInfoViewModel by activityViewModels()
-
+    private var doubleBackPressed = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,6 +30,29 @@ class MypageMainFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mypage_main, container, false)
         return binding.root
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (doubleBackPressed) {
+                        requireActivity().finish()
+                    } else {
+                        doubleBackPressed = true
+                        val activity = requireActivity() as AppCompatActivity
+                        val bottomView = activity.findViewById<View>(R.id.bottom_nav)
+                        CustomSnackBar.make(
+                            binding.layoutUserInfo,
+                            getString(R.string.btnBack_login), bottomView, false
+                        ).show()
+                        view?.postDelayed({ doubleBackPressed = false }, 2000)
+                    }
+                }
+            }
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

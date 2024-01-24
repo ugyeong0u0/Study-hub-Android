@@ -2,6 +2,9 @@ package kr.co.gamja.study_hub.feature.home
 
 import android.content.Context
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.OnBookmarkClickListener
@@ -70,6 +75,29 @@ class MainHomeFragment : Fragment() {
         val toolbar = binding.mainToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
+
+        // 모집중 스터디 글자 span
+        var spannableString = SpannableString(binding.txtOnGoingStudy.text)
+        val color = requireContext().getColor(R.color.O_50)
+        spannableString.setSpan(
+            ForegroundColorSpan(color),
+            0,
+            4,
+            Spanned.SPAN_INCLUSIVE_EXCLUSIVE
+        )
+        binding.txtOnGoingStudy.text=spannableString
+
+        // 마감이 임박한 스터디 글자 span
+        spannableString = SpannableString(binding.txtApproachingStudy.text)
+        spannableString.setSpan(
+            ForegroundColorSpan(color),
+            0,
+            2,
+            Spanned.SPAN_INCLUSIVE_EXCLUSIVE
+        )
+        binding.txtApproachingStudy.text=spannableString
+
+
         binding.iconH.setOnClickListener {
             findNavController().navigate(
                 R.id.action_mainFragment01_self,
@@ -147,12 +175,18 @@ class MainHomeFragment : Fragment() {
                 findNavController().navigate(action)
             }
         })
+
+        // 모집중 옆에있는 '전체'버튼 누를시 study탭으로 이동
+        binding.btnAll.setOnClickListener{
+            val bottomNavView: BottomNavigationView =requireActivity().findViewById(R.id.bottom_nav)
+            bottomNavView.selectedItemId=R.id.studyMainFragment
+        }
     }
 
     // 뒤로가기 누를 시 혹은 뷰 생성시 리스트 데이터 업데이트
     private fun updateRecruitingList(){
 
-        Log.e("pdateRecruitingList시작","")
+        Log.d("MainHomeFragment.kt : pdateRecruitingList시작","")
         viewModel.getRecruitingStudy(
             onRecruitingAdapter,
             false,
@@ -162,7 +196,7 @@ class MainHomeFragment : Fragment() {
             titleAndMajor = false,
             object: CallBackListener{
                 override fun isSuccess(result: Boolean) {
-                    Log.e("updateRecruitingList","")
+                    Log.d("MainHomeFragment.kt : updateRecruitingList","")
                 }
             }
         )
@@ -177,7 +211,7 @@ class MainHomeFragment : Fragment() {
             titleaAndMajor = false,
             object: CallBackListener{
                 override fun isSuccess(result: Boolean) {
-                    Log.e("updateDeadlineList","")
+                    Log.d("MainHomeFragment.kt : updateDeadlineList callback","")
                 }
             }
         )
