@@ -98,9 +98,7 @@
            android:text="@string/apply_alarm"
            android:textColor="@color/BG_60"
            android:textSize="12sp"
-           android:layout_marginBottom="@dimen/thirty_two"
-
-        />
+           android:layout_marginBottom="@dimen/thirty_two" />
        <androidx.appcompat.widget.AppCompatButton
            android:id="@+id/btn_complete"
            android:layout_width="match_parent"

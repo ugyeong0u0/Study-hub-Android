@@ -187,14 +187,14 @@
             android:id="@+id/line_belowWaitPartner"
             android:layout_width="match_parent"
             android:layout_height="8dp"
-            android:background="@color/BG_30"
-            android:paddingBottom="8dp" />
+            android:background="@color/BG_30" />
 
         <Button
             android:id="@+id/btn_notice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/twenty"
+            android:layout_marginTop="10dp"
             android:background="#00000000"
             android:text="@string/btn_notice"
             android:textAlignment="viewStart"
@@ -206,7 +206,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/twenty"
-            android:layout_marginTop="24dp"
             android:background="#00000000"
             android:text="@string/btn_asking"
             android:textAlignment="viewStart"
@@ -218,7 +217,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/twenty"
-            android:layout_marginTop="24dp"
             android:background="#00000000"
             android:text="@string/btn_usingGuide"
             android:textAlignment="viewStart"
@@ -231,7 +229,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/twenty"
-            android:layout_marginTop="24dp"
             android:background="#00000000"
             android:text="@string/btn_terms"
             android:textAlignment="viewStart"
@@ -243,7 +240,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/twenty"
-            android:layout_marginTop="24dp"
             android:background="#00000000"
             android:text="@string/btn_uerTerms"
             android:textAlignment="viewStart"

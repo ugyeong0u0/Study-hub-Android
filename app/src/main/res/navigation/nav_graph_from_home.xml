@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_mypageMainFragment_to_engagedStudyFragment"
             app:destination="@id/engagedStudyFragment" />
+        <action
+            android:id="@+id/action_mypageMainFragment_to_complaintFragment"
+            app:destination="@id/complaintFragment" />
     </fragment>
     <fragment
         android:id="@+id/manualFragment"
@@ -279,4 +282,9 @@
     <action
         android:id="@+id/action_global_findPassByEmailFragment"
         app:destination="@id/findPassByEmailFragment" />
+    <fragment
+        android:id="@+id/complaintFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.aboutstudyhub.ComplaintFragment"
+        android:label="fragment_complaint"
+        tools:layout="@layout/fragment_complaint" />
 </navigation>

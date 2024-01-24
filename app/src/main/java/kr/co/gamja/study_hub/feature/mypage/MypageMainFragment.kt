@@ -66,14 +66,14 @@ class MypageMainFragment : Fragment() {
 
         viewModel.getUsers()
         viewModel.imgData.observe(viewLifecycleOwner, Observer { img ->
-                Glide.with(this).load(viewModel.imgData.value)
-                    .apply(
-                        RequestOptions().override(
-                            binding.iconProfile.width,
-                            binding.iconProfile.height
-                        ).circleCrop()
-                    )
-                    .into(binding.iconProfile)
+            Glide.with(this).load(viewModel.imgData.value)
+                .apply(
+                    RequestOptions().override(
+                        binding.iconProfile.width,
+                        binding.iconProfile.height
+                    ).circleCrop()
+                )
+                .into(binding.iconProfile)
 
         })
         viewModel.setOnClickListener(object : MyInfoCallbackListener {
@@ -97,23 +97,30 @@ class MypageMainFragment : Fragment() {
             )
         }
         // 작성한 글 누를 시
-        binding.btnUserContent.setOnClickListener{
+        binding.btnUserContent.setOnClickListener {
             findNavController().navigate(
                 R.id.action_mypageMainFragment_to_writtenStudyFragment,
                 null
             )
         }
         // 북마크 페이지로 이동
-        binding.btnUserBookmark.setOnClickListener{
+        binding.btnUserBookmark.setOnClickListener {
             findNavController().navigate(
                 R.id.action_global_mainBookmarkFragment,
                 null
             )
         }
         // 참여한 스터디 페이지로 이동
-        binding.btnUserStudy.setOnClickListener{
+        binding.btnUserStudy.setOnClickListener {
             findNavController().navigate(
                 R.id.action_mypageMainFragment_to_engagedStudyFragment,
+                null
+            )
+        }
+        // 문의하기
+        binding.btnAsking.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_mypageMainFragment_to_complaintFragment,
                 null
             )
         }
