@@ -110,7 +110,12 @@
                 android:layout_height="1dp"
                 android:layout_below="@+id/btn_allStudy"
                 android:background="@color/BG_30" />
-
+            <ProgressBar
+                android:id="@+id/mainHomeProgressBar"
+                style="@style/CustomProgressBar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"/>
             <LinearLayout
                 android:id="@+id/layout_linear"
                 android:layout_width="match_parent"
@@ -125,7 +130,7 @@
                     android:layout_width="210dp"
                     android:layout_height="210dp"
                     android:src="@drawable/image_empty_post"
-                    android:visibility="@{viewModel.isList?View.VISIBLE:View.INVISIBLE}"/>
+                    android:visibility="@{viewModel.isList?View.INVISIBLE:View.VISIBLE}"/>
 
                 <TextView
                     android:id="@+id/txt_noText01"
@@ -134,13 +139,15 @@
                     android:text="@string/txt_noText"
                     android:textColor="@color/BG_80"
                     android:textSize="14sp"
-                    android:visibility="@{viewModel.isList?View.VISIBLE:View.INVISIBLE}"/>
+                    android:visibility="@{viewModel.isList?View.INVISIBLE:View.VISIBLE}"/>
+
             </LinearLayout>
 
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/view_horizontal">
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_studyMain"
@@ -150,6 +157,14 @@
                     android:layout_marginHorizontal="@dimen/twenty"
                     android:layout_marginTop="22dp"
                     android:scrollbars="vertical" />
+
+                <ProgressBar
+                    android:id="@+id/studyRecyclerProgressBar"
+                    style="@style/CustomProgressBar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_anchor="@id/recycler_studyMain"
+                    app:layout_anchorGravity="bottom|center_horizontal"/>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btn_flaot"

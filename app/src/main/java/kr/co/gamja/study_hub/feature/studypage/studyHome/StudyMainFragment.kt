@@ -11,12 +11,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -173,6 +175,13 @@ class StudyMainFragment : Fragment() {
                 findNavController().navigate(action)
             }
         })
+
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collectLatest { loadState ->
+                binding.studyRecyclerProgressBar.isVisible = loadState.refresh is LoadState.Loading
+                binding.mainHomeProgressBar.isVisible=loadState.refresh is LoadState.Loading
+            }
+        }
     }
 
 
@@ -201,7 +210,6 @@ class StudyMainFragment : Fragment() {
     }
 
     private fun observeData() {
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.studyMainFlow.collectLatest { pagingData ->
                 adapter.submitData(pagingData)

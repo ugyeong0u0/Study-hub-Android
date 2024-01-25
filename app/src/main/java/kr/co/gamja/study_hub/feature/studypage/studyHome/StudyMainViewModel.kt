@@ -24,6 +24,9 @@ import kr.co.gamja.study_hub.data.repository.StudyHubApi
 class StudyMainViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     private val tag = this.javaClass.simpleName
 
+    // 프로그래스바 로딩여부
+    var studyProBar = MutableLiveData<Boolean>(true)
+
     // paging 초기화
     private val _reloadTrigger = MutableStateFlow(Unit)
 
@@ -42,7 +45,7 @@ class StudyMainViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     }
 
     // 리스트 있는지 여부
-    private val _isList = MutableLiveData<Boolean>()
+    private val _isList = MutableLiveData<Boolean>(true)
     val isList: LiveData<Boolean> get() = _isList
 
 
