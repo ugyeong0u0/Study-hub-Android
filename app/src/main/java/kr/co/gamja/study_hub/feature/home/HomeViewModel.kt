@@ -1,9 +1,10 @@
 package kr.co.gamja.study_hub.feature.home
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
 import kr.co.gamja.study_hub.data.model.FindStudyResponseM
@@ -12,6 +13,18 @@ import kr.co.gamja.study_hub.data.repository.CallBackListener
 
 class HomeViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
+
+    // 프로그래스 보이기 안보이기 처리
+    var progressRecruiting = MutableLiveData<Boolean>(false)
+
+    var progressDeadLine = MutableLiveData<Boolean>(false)
+
+    private val _visibleProgress = MutableLiveData<Boolean>(true)
+    val visibleProgress: LiveData<Boolean> get() = _visibleProgress
+
+    fun updateProgressBar(result : Boolean){
+        _visibleProgress.value=result
+    }
 
     // ItemOnRecruitingAdapter 모집 중 리스트 값
     fun getRecruitingStudy(adapter: ItemOnRecruitingAdapter,

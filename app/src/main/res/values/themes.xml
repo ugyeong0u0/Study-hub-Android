@@ -26,4 +26,10 @@
     <style name="tabTextSize" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">16sp</item>
     </style>
+
+<!--    프러그래스바-->
+    <style name="CustomProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/my_process</item>
+    </style>
+
 </resources>
