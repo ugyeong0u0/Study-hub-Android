@@ -1,7 +1,6 @@
 package kr.co.gamja.study_hub.feature.toolbar.bookmark
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +17,9 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.OnBookmarkClickListener
-import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
+import kr.co.gamja.study_hub.data.repository.OnPostingIdClickListener
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
 import kr.co.gamja.study_hub.databinding.FragmentBookmarkBinding
-import kr.co.gamja.study_hub.feature.home.MainHomeFragmentDirections
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 
@@ -68,17 +66,18 @@ class BookmarkFragment : Fragment() {
             }
         })
         // 스터디 컨텐츠 자세히 보기
-        adapter.setOnItemsClickListener(object : OnItemsClickListener {
-            override fun getItemValue(whatItem: Int, itemValue: Int) {
+        adapter.setOnItemsClickListener(object : OnPostingIdClickListener {
+            override fun getItemValue(whatItem: Int, postingId: PostingId) {
                 when (whatItem) {
                     1 -> {
                         val action =
-                            BookmarkFragmentDirections.actionGlobalStudyContentFragment(itemValue)
+                            BookmarkFragmentDirections.actionGlobalStudyContentFragment(postingId.postId)
                         findNavController().navigate(action)
                     }
                     2 -> { // 신청하기 일 때
                         val bundle = Bundle()
-                        bundle.putInt("postId", itemValue)
+                        bundle.putInt("postId", postingId.postId)
+                        bundle.putInt("studyId", postingId.studyId)
                         findNavController().navigate(R.id.action_global_applicationFragment, bundle)
                     }
                 }

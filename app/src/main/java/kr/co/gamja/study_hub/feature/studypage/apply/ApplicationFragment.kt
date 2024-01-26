@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.feature.studypage.apply
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentApplicationBinding
@@ -34,6 +34,8 @@ class ApplicationFragment : Fragment() {
 
         val studyId = arguments?.getInt("studyId") // 스터디 조회에서 신청으로 넘어왔을 때 받은 studyId
         val postId = arguments?.getInt("postId")
+        Log.d("postId,studyId", postId.toString()+" : "+ studyId.toString())
+
         // 툴바 설정
         val toolbar = binding.applicationToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)

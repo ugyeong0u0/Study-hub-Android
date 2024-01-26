@@ -1,5 +1,7 @@
 package kr.co.gamja.study_hub.data.repository
 
+import kr.co.gamja.study_hub.feature.toolbar.bookmark.PostingId
+
 //  단일 성공여부를 나타내주는 콜백
 interface CallBackListener {
     fun isSuccess(result: Boolean)
@@ -32,4 +34,8 @@ interface OnBookmarkClickListener {
 // 댓글 수정용 리스너 (아이템 구분 map key에 맞는 int 값과 itemId, 댓글내용)
 interface OnCommentClickListener{
     fun getCommentValue(whatItem: Int, itemValue: Int, comment: String)
+}
+// 북마크 전용 뷰 클릭 리스너
+interface OnPostingIdClickListener{
+    fun getItemValue(whatItem: Int, postingId: PostingId)
 }

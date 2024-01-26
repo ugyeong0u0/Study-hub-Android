@@ -1,7 +1,6 @@
 package kr.co.gamja.study_hub.feature.studypage.studyContent
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,10 +80,10 @@ class ContentFragment : Fragment() {
         }
         // 신청하기 페이지로 이동
         binding.btnNext.setOnClickListener {
-           val bundle = Bundle()
+            val bundle = Bundle()
             bundle.putInt("studyId", viewModel.studyId.value?.toInt() ?: 0)
-            bundle.putInt("postId", args.postId )
-            findNavController().navigate(R.id.action_global_applicationFragment,bundle)
+            bundle.putInt("postId", args.postId)
+            findNavController().navigate(R.id.action_global_applicationFragment, bundle)
         }
 
         binding.recyclerRecommend.adapter = contentAdapter

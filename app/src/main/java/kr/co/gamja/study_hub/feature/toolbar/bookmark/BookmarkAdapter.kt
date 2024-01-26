@@ -1,7 +1,6 @@
 package kr.co.gamja.study_hub.feature.toolbar.bookmark
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.ContentXX
 import kr.co.gamja.study_hub.data.repository.OnBookmarkClickListener
-import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
+import kr.co.gamja.study_hub.data.repository.OnPostingIdClickListener
 import kr.co.gamja.study_hub.databinding.BookmarkItemBinding
 import kr.co.gamja.study_hub.global.Functions
 
@@ -19,7 +18,7 @@ class BookmarkAdapter(val context: Context) :
     PagingDataAdapter<ContentXX, BookmarkAdapter.BookmarkHolder>(DIFF_CALLBACK) {
     val whatItem = mapOf("detailStudyContent" to 1, "participating" to 2)
     private lateinit var mOnBookmarkClickListener: OnBookmarkClickListener // 북마크 클릭
-    private lateinit var mOnItemsClickListener: OnItemsClickListener // 1: 뷰 클릭, 2. 신청하기
+    private lateinit var mOnItemsClickListener: OnPostingIdClickListener // 1: 뷰 클릭, 2. 신청하기
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContentXX>() {
@@ -34,7 +33,7 @@ class BookmarkAdapter(val context: Context) :
     }
 
     // 스터디 자세히 보기 및 신청하기 Listener
-    fun setOnItemsClickListener(listener: OnItemsClickListener) {
+    fun setOnItemsClickListener(listener: OnPostingIdClickListener) {
         mOnItemsClickListener = listener
     }
 
@@ -63,7 +62,8 @@ class BookmarkAdapter(val context: Context) :
 
         fun setBookmarkList(bookmarkItem: ContentXX?) {
             bookmarkItem?.let {
-            val postId: Int = it.postId
+                val postId: Int = it.postId
+                val studyId: Int = it.studyId
                 val functions = Functions()
                 val koreanMajor = functions.convertToKoreanMajor(it.major)
                 binding.txtRelativeMajor.text = koreanMajor
@@ -83,25 +83,31 @@ class BookmarkAdapter(val context: Context) :
                 } else {
                     binding.btnJoin.setOnClickListener {
                         // 신청하기 클릭시
-                        mOnItemsClickListener.getItemValue(whatItem["participating"]!!, postId!!)
+                        mOnItemsClickListener.getItemValue(
+                            whatItem["participating"]!!,
+                            PostingId(postId, studyId)
+                        )
                     }
                 }
 
-            binding.btnBookmark.setOnClickListener {
-                val isBookmarked = binding.btnBookmark.tag == "1"
-                binding.btnBookmark.tag = if (isBookmarked) "0" else "1"
-                val backgroundResource = if (!isBookmarked) {
-                    R.drawable.baseline_bookmark_24_selected
-                } else {
-                    R.drawable.baseline_bookmark_border_24_unselected
+                binding.btnBookmark.setOnClickListener {
+                    val isBookmarked = binding.btnBookmark.tag == "1"
+                    binding.btnBookmark.tag = if (isBookmarked) "0" else "1"
+                    val backgroundResource = if (!isBookmarked) {
+                        R.drawable.baseline_bookmark_24_selected
+                    } else {
+                        R.drawable.baseline_bookmark_border_24_unselected
+                    }
+                    binding.btnBookmark.setBackgroundResource(backgroundResource)
+                    mOnBookmarkClickListener.onItemClick(binding.btnBookmark.tag.toString(), postId)
                 }
-                binding.btnBookmark.setBackgroundResource(backgroundResource)
-                mOnBookmarkClickListener.onItemClick(binding.btnBookmark.tag.toString(), postId)
-            }
-            // 뷰클릭이벤트
-            itemView.setOnClickListener {
-                mOnItemsClickListener.getItemValue(whatItem["detailStudyContent"]!!, postId!!)
-            }
+                // 뷰클릭이벤트
+                itemView.setOnClickListener {
+                    mOnItemsClickListener.getItemValue(
+                        whatItem["participating"]!!,
+                        PostingId(postId, studyId)
+                    )
+                }
             }
         }
     }
