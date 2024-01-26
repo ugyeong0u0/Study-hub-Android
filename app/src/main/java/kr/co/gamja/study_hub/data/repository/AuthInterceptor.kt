@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.data.repository
 
 import android.util.Log
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
@@ -8,6 +9,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kr.co.gamja.study_hub.data.datastore.App
 import kr.co.gamja.study_hub.data.model.AccessTokenRequest
+import kr.co.gamja.study_hub.data.model.ErrorResponse
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -35,6 +37,16 @@ class AuthInterceptor() : Interceptor {
 
         if (response.code != 200 && response.code != 201 && response.code != 204) {
             Log.e(tag, "회원조회 인터셉트 기존토큰 유효x " + response.code)
+
+            val responseBodyString = response.body?.string()
+            val errorResponse: ErrorResponse? = responseBodyString?.let {
+                val gson = Gson()
+                gson.fromJson(it, ErrorResponse::class.java)
+            }
+            if (errorResponse != null) {
+                Log.e(tag, "서버 에러 메시지: " + errorResponse.message)
+            }
+
             val getNewToken =
                 RetrofitManager.api.accessTokenIssued(AccessTokenRequest(refreshToken))
 
@@ -58,12 +70,20 @@ class AuthInterceptor() : Interceptor {
                 response.close()
                 return@runBlocking chain.proceed(newAuthRequest)
             } else {
-                Log.e(tag, "회원조회 인터셉트 리프레쉬유효x " + getNewToken.code())
+                Log.e(tag, "회원조회 인터셉트 리프레쉬유효x 코드 : " + getNewToken.code())
+                val errorResp: ErrorResponse? = getNewToken.errorBody()?.let {
+                    val gson = Gson()
+                    gson.fromJson(it.charStream(), ErrorResponse::class.java)
+                }
+                if (errorResp != null) {
+                    Log.d(tag, errorResp.status)
+                }
 
                 return@runBlocking response
             }
         } else {
             Log.d(tag, "회원조회 인터셉트 기존액세스토큰 유효 " + response.code)
+
             return@runBlocking response
         }
     }

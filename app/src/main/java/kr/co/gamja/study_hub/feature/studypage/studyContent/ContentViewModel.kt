@@ -17,6 +17,10 @@ class ContentViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
     private val functions = Functions()
 
+    // studyId 신청하기 할 때 필요
+    private val _studyId = MutableLiveData<Int>()
+    val studyId: LiveData<Int> get() = _studyId
+
     // 작성 날짜
     private val _writingDate = MutableLiveData<String>()
     val writingDate: LiveData<String> get() = _writingDate
@@ -113,6 +117,9 @@ class ContentViewModel : ViewModel() {
     private fun getInformationOfStudy(result: StudyContentResponseM) {
         // 상단 관련학과
         val koreanRelativeMajor = functions.convertToKoreanMajor(result.major)
+        // 신청하기 때 쓸 studyId
+        _studyId.value=result.studyId
+
         _majorData.value = koreanRelativeMajor
         // 제목
         _headData.value = result.title

@@ -201,7 +201,6 @@ class MainHomeFragment : Fragment() {
             }
         }
         viewModel.visibleProgress.observe(viewLifecycleOwner) {
-            Log.e("호출", "")
             if (!it) {
                 binding.mainProgressBar.visibility = View.GONE
             } else {

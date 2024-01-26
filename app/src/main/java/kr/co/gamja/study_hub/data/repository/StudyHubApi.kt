@@ -81,7 +81,7 @@ interface StudyHubApi {
      */
 
     // 스터디 컨텐츠 조회- 스터디 단건 조회 api
-    @GET("/api/v1/study-posts/{postId}")
+    @GET("/api/v2/study-posts/{postId}")
     suspend fun getStudyContent(@Path("postId") postId: Int): Response<StudyContentResponseM>
 
     // 스터디 삭제
@@ -142,5 +142,13 @@ interface StudyHubApi {
 
     // 댓글 수정하기
     @PUT("/api/v1/comments")
-    suspend fun correctComment(@Body commentCorrectRequest: CommentCorrectRequest):Response<Unit>
+    suspend fun correctComment(@Body commentCorrectRequest: CommentCorrectRequest): Response<Unit>
+
+    // 스터디 신청하기
+    @POST("/api/v1/study")
+    suspend fun applyStudy(
+        @Query("introduce") introduce: String,
+        @Query("studyId") studyInt: Int
+    ): Response<Unit>
+
 }
