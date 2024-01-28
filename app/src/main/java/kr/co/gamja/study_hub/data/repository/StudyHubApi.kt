@@ -151,4 +151,9 @@ interface StudyHubApi {
         @Query("studyId") studyInt: Int
     ): Response<Unit>
 
+    // 스터디 마감
+    @PUT("/api/v1/study-posts/{post-id}/close")
+    suspend fun deleteStudy(
+        @Path("post-id") postId:Int
+    ):Response<Unit>
 }

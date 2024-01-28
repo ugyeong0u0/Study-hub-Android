@@ -104,7 +104,7 @@ class BookmarkAdapter(val context: Context) :
                 // 뷰클릭이벤트
                 itemView.setOnClickListener {
                     mOnItemsClickListener.getItemValue(
-                        whatItem["participating"]!!,
+                        whatItem["detailStudyContent"]!!,
                         PostingId(postId, studyId)
                     )
                 }

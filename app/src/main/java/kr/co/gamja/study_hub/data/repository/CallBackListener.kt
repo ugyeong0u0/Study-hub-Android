@@ -35,7 +35,7 @@ interface OnBookmarkClickListener {
 interface OnCommentClickListener{
     fun getCommentValue(whatItem: Int, itemValue: Int, comment: String)
 }
-// 북마크 전용 뷰 클릭 리스너
+// 북마크, 참여자페이지로 넘어갈 때 전용 뷰 클릭 리스너
 interface OnPostingIdClickListener{
     fun getItemValue(whatItem: Int, postingId: PostingId)
 }

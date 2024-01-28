@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="isCloseStudy"
+            type="boolean" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,8 +42,8 @@
             android:layout_below="@+id/txt_major"
             android:layout_marginHorizontal="@dimen/sixteen"
             android:layout_marginBottom="@dimen/fourteen"
-            android:textSize="16sp"
             android:textColor="@color/sysblack1"
+            android:textSize="16sp"
             tools:text="제목" />
 
         <TextView
@@ -82,8 +89,9 @@
                 android:layout_marginStart="@dimen/sixteen"
                 android:layout_weight="1"
                 android:background="#00000000"
+                android:enabled="@{isCloseStudy? false : true}"
                 android:text="@string/endStudy"
-                android:textColor="@color/O_50" />
+                android:textColor="@{isCloseStudy?@color/BG_60 :@color/O_50}" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_participant"
@@ -95,11 +103,12 @@
                 android:text="@string/participant"
                 android:textColor="@color/BG_80" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/twenty"
-            android:background="@color/BG_30"
-            android:layout_below="@+id/layout_linear"/>
+            android:layout_below="@+id/layout_linear"
+            android:background="@color/BG_30" />
 
     </RelativeLayout>
 </layout>

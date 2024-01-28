@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
-import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
-import kr.co.gamja.study_hub.data.repository.StudyHubApi
+import kr.co.gamja.study_hub.data.repository.*
 import kr.co.gamja.study_hub.databinding.FragmentWrittenStudyBinding
+import kr.co.gamja.study_hub.feature.mypage.MyInfoFragment
+import kr.co.gamja.study_hub.feature.toolbar.bookmark.PostingId
+import kr.co.gamja.study_hub.global.CustomDialog
+import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 class WrittenStudyFragment : Fragment() {
     private lateinit var binding: FragmentWrittenStudyBinding
@@ -51,31 +53,53 @@ class WrittenStudyFragment : Fragment() {
         }
 
         writtenStudyAdapter = WrittenStudyAdapter(requireContext())
-        setUpRecyclerView()
+        binding.recylerWrittenList.adapter = writtenStudyAdapter
+        binding.recylerWrittenList.layoutManager = LinearLayoutManager(requireContext())
+
+//        setUpRecyclerView()
         observeData()
         viewModel.updateMyStudyListSize()
-    }
 
-    private fun setUpRecyclerView() {
-        val writtenAdapter = this@WrittenStudyFragment.writtenStudyAdapter
-        binding.recylerWrittenList.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = writtenAdapter
-        }
-        writtenAdapter.setOnItemClickListener(object : OnItemsClickListener {
-            override fun getItemValue(whatItem: Int, itemValue: Int) {
-                val navController =findNavController()
+
+        writtenStudyAdapter.setOnItemClickListener(object: OnPostingIdClickListener {
+            override fun getItemValue(whatItem: Int, postingId: PostingId) {
+                val navController = findNavController()
                 when (whatItem) {
                     // todo("api 연결 혹은 페이지 변경 연결")
                     // 마감 클릭시
                     1 -> {
-                        navController.navigate(R.id.action_writtenStudyFragment_to_participantFragment)
                         Log.d(tag, "마감 버튼 눌림")
+                        val head =
+                            requireContext().resources.getString(R.string.head_shutdownStudy)
+                        val sub =
+                            requireContext().resources.getString(R.string.sub_shutdownStudy)
+                        val yes =
+                            requireContext().resources.getString(R.string.endStudy)
+                        val no = requireContext().resources.getString(R.string.btn_no)
+                        val dialog =
+                            CustomDialog(requireContext(), head, sub, no, yes)
+                        dialog.showDialog()
+                        dialog.setOnClickListener(object : OnDialogClickListener {
+                            override fun onclickResult() { // 마감 누를시
+                                viewModel.shutDownStudy(postingId.postId, object : CallBackListener {
+                                    override fun isSuccess(result: Boolean) {
+                                        if (result) {
+                                            writtenStudyAdapter.refresh() // 재로딩
+                                        }
+                                    }
+                                })
+                            }
+                        })
+
                     }
                     // 참여자 클릭시
                     2 -> {
                         Log.d(tag, "참여자 버튼 눌림")
-                        navController.navigate(R.id.action_writtenStudyFragment_to_participantFragment)
+                        val bundle = Bundle()
+                        bundle.putInt("postId", postingId.postId)
+                        bundle.putInt("studyId",postingId.studyId)
+                        navController.navigate(R.id.action_writtenStudyFragment_to_participantFragment,bundle)
+                        // todo("아이템 받는거까지")
                     }
                     // 스터디 수정 클릭시
                     3 -> {
@@ -84,6 +108,16 @@ class WrittenStudyFragment : Fragment() {
                 }
             }
         })
+
+    }
+
+    private fun setUpRecyclerView() {
+//        val writtenAdapter = this@WrittenStudyFragment.writtenStudyAdapter
+//        binding.recylerWrittenList.apply {
+//            layoutManager = LinearLayoutManager(requireContext())
+//            adapter = writtenAdapter
+//        }
+//        Log.e("호출", "")
     }
 
     private fun observeData() {
