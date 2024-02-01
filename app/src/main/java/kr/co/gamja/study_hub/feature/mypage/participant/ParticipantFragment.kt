@@ -12,13 +12,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentParticipantBinding
+import kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingContentAdapter
 
 class ParticipantFragment : Fragment() {
     private val logMessage = this.javaClass.simpleName
     private lateinit var binding: FragmentParticipantBinding
     private lateinit var participantPagerAdapter: ParticipantPagerAdapter
     private lateinit var viewPager :ViewPager2
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +38,7 @@ class ParticipantFragment : Fragment() {
         val postId = arguments?.getInt("postId")
 
         // viewPager2 Adapter설정
-        participantPagerAdapter = ParticipantPagerAdapter(this)
+        participantPagerAdapter = ParticipantPagerAdapter(this, studyId, postId)
         viewPager= binding.pager
         viewPager.adapter=participantPagerAdapter
         // tab과 viewPager2 연결

@@ -156,4 +156,20 @@ interface StudyHubApi {
     suspend fun deleteStudy(
         @Path("post-id") postId:Int
     ):Response<Unit>
+
+    //스터디 참여 신청 정보
+    @GET("/api/v1/study")
+    suspend fun getRegisterList(
+        @Query("page") page : Int,
+        @Query("size") size : Int,
+        @Query("studyId") studyId : Int?,
+    ) : Response<GetRegisterListDto>
+
+    //스터디 참여 신청 정보 수정
+    @PUT("/api/v1/study")
+    suspend fun editApplyInfo(
+        @Query("inspection") inspection : String,
+        @Query("studyId") studyId : Int,
+        @Query("userId") userId : Int
+    ) : Response<Unit>
 }

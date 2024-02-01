@@ -14,5 +14,5 @@ data class ContentXXXX(
     val studyPerson: Int,
     val studyStartDate: List<Int>,
     val title: String,
-    val userData: UserDataX
+    val userData: UserData
 )

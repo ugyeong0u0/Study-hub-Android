@@ -64,18 +64,6 @@ class SearchViewModel: ViewModel() {
         }
     }
 
-    //paging 함수
-    fun getContent(
-        isHot : Boolean,
-        searchContent : String,
-        isDepartment: Boolean
-    ) : LiveData<PagingData<ContentXXXX>> {
-        return Pager(
-            config = PagingConfig(pageSize = 8),
-            pagingSourceFactory = {SearchPagingSource(isHot = isHot, searchContent = searchContent, isDepartment = isDepartment)}
-        ).liveData
-    }
-
     fun resetList() {
         _studys.postValue(listOf())
     }

@@ -57,7 +57,7 @@
             android:layout_marginHorizontal="@dimen/sixteen"
             android:layout_marginBottom="@dimen/eighteen"
             android:background="@drawable/background_bg_20_corner_6"
-            android:paddingHorizontal="@dimen/fourteen"
+            android:paddingHorizontal="12dp"
             android:paddingVertical="@dimen/twenty"
             android:textColor="@color/BG_80"
             android:textSize="14sp"
@@ -96,6 +96,7 @@
                 android:background="@color/BG_20" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_accept"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

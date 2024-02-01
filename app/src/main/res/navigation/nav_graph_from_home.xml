@@ -227,7 +227,7 @@
         android:id="@+id/waitingFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingFragment"
         android:label="fragment_waiting"
-        tools:layout="@layout/fragment_wating" />
+        tools:layout="@layout/fragment_waiting" />
     <fragment
         android:id="@+id/participationFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.participation.ParticipationFragment"

@@ -1,7 +1,7 @@
 package kr.co.gamja.study_hub.data.model
 
-data class CommentsListResponse(
-    val content: List<Content>,
+data class ApplyUserData(
+    val content: List<RegisterListContent>,
     val empty: Boolean,
     val first: Boolean,
     val last: Boolean,
