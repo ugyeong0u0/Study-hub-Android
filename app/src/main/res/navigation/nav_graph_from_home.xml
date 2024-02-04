@@ -286,5 +286,5 @@
         android:id="@+id/complaintFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.aboutstudyhub.ComplaintFragment"
         android:label="fragment_complaint"
-        tools:layout="@layout/fragment_complaint" />
+        tools:layout="@layout/fragment_complaint" /><action android:id="@+id/action_global_mypageMainFragment" app:destination="@id/mypageMainFragment"/>
 </navigation>

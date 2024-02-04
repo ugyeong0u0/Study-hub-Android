@@ -154,6 +154,12 @@ interface StudyHubApi {
     // 스터디 마감
     @PUT("/api/v1/study-posts/{post-id}/close")
     suspend fun deleteStudy(
-        @Path("post-id") postId:Int
-    ):Response<Unit>
+        @Path("post-id") postId: Int
+    ): Response<Unit>
+
+    //
+    @POST("/api/v1/email/question")
+    suspend fun studyQuestion(
+        @Body questionRequest: QuestionRequest
+    ): Response<Unit>
 }
