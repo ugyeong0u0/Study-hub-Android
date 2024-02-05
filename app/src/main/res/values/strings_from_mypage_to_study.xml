@@ -157,5 +157,9 @@
     <string name="head_shutdownStudy">이 글의 모집을 마감할까요?</string>
     <string name="sub_shutdownStudy">이 글의 모집을 마감할까요?</string>
 
+<!--    비밀번호 변경-->
+    <string name="error_noRegisteredEmail">가입되지 않은 이메일이에요. 다시 입력해 주세요.</string>
+    <string name="error_resendPlease">재전송 다시 해주세요.</string>
+    <string name="error_notSuitAuth">인증코드가 일치하지 않아요. 다시 입력하거나 새 인증코드를 받아주세요.</string>
 </resources>
 

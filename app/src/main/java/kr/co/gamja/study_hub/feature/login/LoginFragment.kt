@@ -151,6 +151,16 @@ class LoginFragment : Fragment() {
         binding.btnRegistration.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_agreementFragment, null)
         }
+        // 로그인에서 비번 찾기 누를 시
+        binding.btnForgetPassword.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("page", "login")
+
+            // 네비게이션 그래프 변경
+            findNavController().setGraph(R.navigation.nav_graph_from_home)
+            // 로그인 프래그먼트로 이동
+            findNavController().navigate(R.id.findPassByEmailFragment, bundle)
+        }
 
     }
 

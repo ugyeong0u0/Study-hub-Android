@@ -157,9 +157,15 @@ interface StudyHubApi {
         @Path("post-id") postId: Int
     ): Response<Unit>
 
-    //
+    // 문의하기
     @POST("/api/v1/email/question")
     suspend fun studyQuestion(
         @Body questionRequest: QuestionRequest
     ): Response<Unit>
+
+    // 비밀번호 찾기위한 email 검증
+    @POST("/api/v1/email/password")
+    suspend fun emailPassword(
+        @Body email: EmailRequest
+    ) :Response<Unit>
 }
