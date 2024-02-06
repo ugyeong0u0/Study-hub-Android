@@ -17,6 +17,7 @@ import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentFindPassByAuthBinding
 import kr.co.gamja.study_hub.global.CustomSnackBar
+
 // 로그인이나 마이페이지 비번변경 페이지에서 비번찾기 눌렀을 때
 class FindPassByAuthFragment : Fragment() {
     private val msgTag = this.javaClass.simpleName
@@ -38,6 +39,8 @@ class FindPassByAuthFragment : Fragment() {
 //        Log.e(msgTag,"이메일 인증코드 페이지")
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        viewModel.initEmailVerificationTwo(false) // emailVerificationResult.value false시 observe때문에 놓음
+        viewModel.initEmailVerification() // 이메일 보낼때 비동기함수 끝났는지 여부 변수 초기화
 
         // 툴바 설정
         val toolbar = binding.findPassByAuthToolbar
@@ -59,27 +62,35 @@ class FindPassByAuthFragment : Fragment() {
             "FindPassByAuthFragment's receiveBundle is Null in goToCorrectStudy()"
         )
 
+        // 유저 이메일 확인 버튼 활성화
+        viewModel.userEmail.observe(viewLifecycleOwner) {
+            viewModel.updateEnableEmailBtn()
+        }
+
+        // 이메일 인증 통신 완료 된 후 화면 전환 혹은 스낵바
+        viewModel.emailVerificationResult.observe(viewLifecycleOwner) { result ->
+            if (result) {
+                Log.i(msgTag,"이메일 코드 재전송")
+                CustomSnackBar.make(
+                    binding.layoutRelative,
+                    getString(R.string.txt_resendAlarm),
+                    null, true, R.drawable.icon_check_green
+                ).show()
+            } else {
+                if (viewModel.emailVerificationResultTwo.value == true) {
+                    CustomSnackBar.make(
+                        binding.layoutRelative,
+                        getString(R.string.error_resendPlease),
+                        null, true, R.drawable.icon_warning_m_orange_8_12
+                    ).show()
+                }
+            }
+        }
+
         // 재전송 버튼 누를 시
         binding.btnResend.setOnClickListener {
-            hideKeyboardForResend() // 자판 내리기
-            viewModel.emailForFindPassword(object : CallBackListener {
-                override fun isSuccess(result: Boolean) {
-                    if (result) {
-                        Log.e("이메일 인증 끝","")
-                        CustomSnackBar.make(
-                            binding.layoutRelative,
-                            getString(R.string.txt_resendAlarm),
-                            null, true, R.drawable.icon_check_green
-                        ).show()
-                    } else {
-                        CustomSnackBar.make(
-                            binding.layoutRelative,
-                            getString(R.string.error_resendPlease),
-                            null, true, R.drawable.icon_warning_m_orange_8_12
-                        ).show()
-                    }
-                }
-            })
+            hideKeyboardForResend() // 자판내리기
+            viewModel.emailForFindPassword() // 이메일 인증
         }
 
         viewModel.userAuth.observe(viewLifecycleOwner) {
@@ -90,7 +101,7 @@ class FindPassByAuthFragment : Fragment() {
             hideKeyboardForResend() // 자판 내리기
             viewModel.authForFindPassword(object : CallBackListener {
                 override fun isSuccess(result: Boolean) {
-                    if(result){
+                    if (result) {
 
                         viewModel.initUserAuth() // 인증코드 지우기
                         viewModel.initUserEmail() // 인증 이메일 지우기
@@ -102,7 +113,7 @@ class FindPassByAuthFragment : Fragment() {
                             R.id.action_findPassByAuthFragment_to_newPasswordFragment,
                             bundle
                         )
-                    }else{
+                    } else {
                         CustomSnackBar.make(
                             binding.layoutRelative,
                             getString(R.string.error_notSuitAuth),
@@ -113,6 +124,7 @@ class FindPassByAuthFragment : Fragment() {
             })
         }
     }
+
     private fun hideKeyboardForResend() {
         val inputMethodManager =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

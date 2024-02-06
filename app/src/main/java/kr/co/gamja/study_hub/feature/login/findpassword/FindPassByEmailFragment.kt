@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.CallBackListener
@@ -44,6 +45,9 @@ class FindPassByEmailFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        viewModel.initEmailVerification() // 이메일 보낼때 비동기함수 끝났는지 여부 변수 초기화
+        viewModel.initEmailVerificationTwo(false) // emailVerificationResult.value false시 observe때문에 놓음
+
         // 툴바 설정
         val toolbar = binding.findPasswordToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -74,6 +78,7 @@ class FindPassByEmailFragment : Fragment() {
                     findNavController().navigateUp() // 뒤로 가기
                 }
                 // 로그인에서 비번 찾기 누를 시 - login.kt에서 옴
+                // todo(로그인 시에는 jwt토큰 없어서 서버 답변 필요)
                 "login" -> {
 //                   Log.e(tagMsg,"login으로")
                     // 로그인 프래그먼트로 이동
@@ -99,31 +104,33 @@ class FindPassByEmailFragment : Fragment() {
         viewModel.userEmail.observe(viewLifecycleOwner) {
             viewModel.updateEnableEmailBtn()
         }
+
+        // 이메일 인증 통신 완료 된 후 화면 전환 혹은 스낵바
+        viewModel.emailVerificationResult.observe(viewLifecycleOwner) { result ->
+            if (result) {
+                val bundle = Bundle()
+                bundle.putString("page", fromPage)
+                Log.i(tagMsg, "3. 이메일 콜백 isAdd : $isAdded")
+                findNavController().navigate(
+                    R.id.action_findPassByEmailFragment_to_findPassByAuthFragment,
+                    bundle
+                )
+            } else {
+                if (viewModel.emailVerificationResultTwo.value == true) {
+                    // 존재하지 않는 이메일 오류 스낵바
+                    CustomSnackBar.make(
+                        binding.layoutRelative,
+                        requireContext().getString(R.string.error_noRegisteredEmail),
+                        null, true, R.drawable.icon_warning_m_orange_8_12
+                    ).show()
+                }
+            }
+        }
+
         // 이메일 확인 버튼 클릭 시
         binding.btnComplete.setOnClickListener {
             hideKeyboardForResend() // 자판내리기
-
-            viewModel.emailForFindPassword(object : CallBackListener {
-                override fun isSuccess(result: Boolean) {
-                    if (result) {
-//                        Log.e(tagMsg,"이메일 인증 callBack 안 ")
-                        val bundle = Bundle()
-                        bundle.putString("page", fromPage)
-
-                        findNavController().navigate(
-                            R.id.action_findPassByEmailFragment_to_findPassByAuthFragment,
-                            bundle
-                        )
-                    } else {
-                        // 존재하지 않는 이메일 오류 스낵바
-                        CustomSnackBar.make(
-                            binding.layoutRelative,
-                            getString(R.string.error_noRegisteredEmail),
-                            null, true, R.drawable.icon_warning_m_orange_8_12
-                        ).show()
-                    }
-                }
-            })
+            viewModel.emailForFindPassword() // 이메일 인증
         }
     }
 

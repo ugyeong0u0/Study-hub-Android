@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         // splash에서 온 경우, 화면 재생성이 x splah 화면에서 온 로그인 여부에 따른
             if (savedInstanceState == null && autoUserLoginResult) {
+                Log.i(tag,"splash 거쳐옴")
                    navController.navigate(R.id.action_global_mainHomeFragment2) // 홈으로 가기
             }
 
@@ -79,5 +80,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
 }
