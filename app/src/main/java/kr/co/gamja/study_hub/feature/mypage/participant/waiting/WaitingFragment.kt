@@ -14,7 +14,9 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentWaitingBinding
+import kr.co.gamja.study_hub.feature.mypage.participant.BottomSheet
 import kr.co.gamja.study_hub.feature.mypage.participant.ParticipantViewModel
+import kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment
 
 class WaitingFragment : Fragment() {
 
@@ -38,7 +40,6 @@ class WaitingFragment : Fragment() {
 
         val studyId = arguments?.getInt("studyId") ?: -1
         val postId = arguments?.getInt("postId") ?: -1
-        Log.d("ParticipantFragment", "studyId : ${studyId}")
         initRecyclerView(studyId)
 
         //observing
@@ -68,14 +69,20 @@ class WaitingFragment : Fragment() {
 
         adapter = WaitingContentAdapter(requireContext())
         val listener = object : WaitingContentAdapter.OnClickListener{
+
+            /** 수락 선택 >> Dialog 띄워야 함 */
             override fun onAcceptClick(userId : Int) {
                 viewModel.accept(studyId, userId)
                 viewModel.fetchData(studyId, pageNum)
             }
 
+            //거절 선택 >> BottomFragment
             override fun onRefusalClick(userId : Int) {
-                viewModel.refusal(studyId, userId)
-                viewModel.fetchData(studyId, pageNum)
+                val bottomSheetFragment = BottomSheet(userId)
+                bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+
+//                viewModel.refusal(studyId, userId)
+//                viewModel.fetchData(studyId, pageNum)
             }
         }
 
