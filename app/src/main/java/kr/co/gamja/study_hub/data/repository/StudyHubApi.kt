@@ -168,4 +168,18 @@ interface StudyHubApi {
     suspend fun emailPassword(
         @Body email: EmailRequest
     ) :Response<Unit>
+
+    // 댓글 미리보기(댓글 창 들어가기 직전에 보는 8개 댓글)
+    @GET("/api/v1/comments/{post-id}/preview")
+    suspend fun previewChatList(
+        @Path("post-id") postId: Int
+    ):Response<previewChatResponse>
+
+    // 내가 참여한 스터디 목록
+//    @GET("/api/v1/participated-study")
+//    suspend fun participatingMyStudy(
+//        @Query("page") page: Int,
+//        @Query("size") size: Int
+//    ):Response<>
+
 }

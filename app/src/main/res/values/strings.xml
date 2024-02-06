@@ -231,4 +231,5 @@
     <string name="engagedStudy">참여한 스터디</string>
     <string name="binEngagedStudy">참여한 스터디가 없어요</string>
     <string name="sub_binBookmark">나와 맞는 스터디를 찾아보세요!</string>
+    <string name="txt_goChatRoom">채팅방으로 이동하기</string>
 </resources>
