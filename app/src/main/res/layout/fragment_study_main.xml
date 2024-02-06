@@ -93,17 +93,6 @@
                 android:textColor="@color/BG_90"
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/txt_numberOfList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/btn_allStudy"
-                android:layout_alignParentEnd="true"
-                android:layout_marginHorizontal="@dimen/twenty"
-                android:text="@{@string/txt_list_number(viewModel.listSize)}"
-                android:textColor="@color/BG_80"
-                android:textSize="14sp" />
-
             <View
                 android:id="@+id/view_horizontal"
                 android:layout_width="match_parent"

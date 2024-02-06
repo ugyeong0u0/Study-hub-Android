@@ -76,6 +76,7 @@ class FindPassByAuthFragment : Fragment() {
                     getString(R.string.txt_resendAlarm),
                     null, true, R.drawable.icon_check_green
                 ).show()
+                viewModel.initEmailVerificationTwo(false) // emailVerificationResult.value false시 observe때문에 놓음
             } else {
                 if (viewModel.emailVerificationResultTwo.value == true) {
                     CustomSnackBar.make(

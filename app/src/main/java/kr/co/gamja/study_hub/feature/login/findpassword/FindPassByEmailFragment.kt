@@ -111,6 +111,7 @@ class FindPassByEmailFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putString("page", fromPage)
                 Log.i(tagMsg, "3. 이메일 콜백 isAdd : $isAdded")
+                viewModel.initEmailVerificationTwo(false) // emailVerificationResult.value false시 observe때문에 놓음
                 findNavController().navigate(
                     R.id.action_findPassByEmailFragment_to_findPassByAuthFragment,
                     bundle

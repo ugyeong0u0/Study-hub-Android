@@ -51,7 +51,7 @@ class NewPasswordViewModel : ViewModel() {
         val req = NewPasswordRequest(auth, rePassword.value.toString())
         Log.d(tag, req.toString())
         viewModelScope.launch {
-            val response = RetrofitManager.api.putNewPassword(req)
+            val response = AuthRetrofitManager.api.putNewPassword(req)
             if (response.isSuccessful) {
                 params.isSuccess(true)
             }
