@@ -53,7 +53,7 @@ class FindPassByAuthFragment : Fragment() {
         val receiveBundle = arguments
         if (receiveBundle != null) {
             fromPage = receiveBundle.getString("page").toString()
-            Log.e(msgTag, "어떤 페이지에서 비밀번호 찾기로 왔는지 : {$fromPage}")
+            Log.i(msgTag, "어떤 페이지에서 비밀번호 찾기로 왔는지 : {$fromPage}")
         } else Log.e(
             msgTag,
             "FindPassByAuthFragment's receiveBundle is Null in goToCorrectStudy()"
@@ -61,6 +61,7 @@ class FindPassByAuthFragment : Fragment() {
 
         // 재전송 버튼 누를 시
         binding.btnResend.setOnClickListener {
+            hideKeyboardForResend() // 자판 내리기
             viewModel.emailForFindPassword(object : CallBackListener {
                 override fun isSuccess(result: Boolean) {
                     if (result) {
@@ -92,7 +93,7 @@ class FindPassByAuthFragment : Fragment() {
                     if(result){
 
                         viewModel.initUserAuth() // 인증코드 지우기
-
+                        viewModel.initUserEmail() // 인증 이메일 지우기
                         val bundle = Bundle()
                         bundle.putString("page", fromPage)
                         bundle.putBoolean("auth", true)

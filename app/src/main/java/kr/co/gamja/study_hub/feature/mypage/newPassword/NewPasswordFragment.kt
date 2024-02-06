@@ -124,7 +124,7 @@ class NewPasswordFragment : Fragment() {
                             "login" -> {
 //                                Log.e(tagMsg,"login으로")
                                 // 로그인 프래그먼트로 이동
-                                findNavController().navigate(R.id.action_global_loginFragment)
+                                findNavController().popBackStack(R.id.findPassByEmailFragment, true)
                             }
                         }
 
@@ -139,7 +139,7 @@ class NewPasswordFragment : Fragment() {
         if (receiveBundle != null) {
             value = receiveBundle.getBoolean("auth")
             fromPage = receiveBundle.getString("page").toString() // 페이지 어디서 왔는지
-            Log.d(tag, " value: $value fromPage : $fromPage")
+            Log.e(tag, " value: $value fromPage : $fromPage")
         } else Log.e(tag, "receiveBundle is Null")
     }
 

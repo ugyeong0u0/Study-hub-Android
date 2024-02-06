@@ -106,7 +106,6 @@ class FindPassByEmailFragment : Fragment() {
             viewModel.emailForFindPassword(object : CallBackListener {
                 override fun isSuccess(result: Boolean) {
                     if (result) {
-                        viewModel.initUserEmail() // 인증 이메일 지우기
 //                        Log.e(tagMsg,"이메일 인증 callBack 안 ")
                         val bundle = Bundle()
                         bundle.putString("page", fromPage)

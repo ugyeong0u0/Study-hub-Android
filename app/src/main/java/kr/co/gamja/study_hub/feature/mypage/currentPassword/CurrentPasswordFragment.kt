@@ -102,7 +102,7 @@ class CurrentPasswordFragment : Fragment() {
         binding.btnForgetPassword.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("page", "myPage")
-            findNavController().navigate(R.id.findPassByEmailFragment, bundle)
+            findNavController().navigate(R.id.action_global_findPassByEmailFragment, bundle)
         }
     }
 

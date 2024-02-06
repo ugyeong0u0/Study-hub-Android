@@ -156,7 +156,7 @@ class LoginFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("page", "login")
             // 로그인 프래그먼트로 이동
-            findNavController().navigate(R.id.findPassByEmailFragment, bundle)
+            findNavController().navigate(R.id.action_global_findPassByEmailFragment, bundle)
         }
 
     }
