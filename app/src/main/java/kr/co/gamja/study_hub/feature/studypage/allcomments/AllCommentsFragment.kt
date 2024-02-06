@@ -104,7 +104,7 @@ class AllCommentsFragment : Fragment() {
                         if (result) {
                             CustomSnackBar.make(
                                 binding.layoutRelative,
-                                getString(R.string.setComment), binding.viewDivideRecycler, false
+                                getString(R.string.setComment), binding.viewDivideRecycler, true, R.drawable.icon_check_green
                             ).show()
                             // 키보드 내리기
                             hideKeyboardForResend()

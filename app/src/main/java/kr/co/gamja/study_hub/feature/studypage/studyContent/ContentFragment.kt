@@ -1,9 +1,11 @@
 package kr.co.gamja.study_hub.feature.studypage.studyContent
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -19,6 +21,7 @@ import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentContentBinding
 import kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment
+import kr.co.gamja.study_hub.global.CustomSnackBar
 
 // 스터디 상세 보기 관련
 class ContentFragment : Fragment() {
@@ -112,6 +115,31 @@ class ContentFragment : Fragment() {
                 bundle
             )
         }
+
+        // 댓글 관찰 -> 버튼 활성화 여부 결정
+        viewModel.studyComment.observe(viewLifecycleOwner) { comment ->
+            val isButtonEnabled = comment.isNotEmpty()
+            binding.btnCommentOk.isEnabled = isButtonEnabled
+        }
+        // 댓글 추가
+        binding.btnCommentOk.setOnClickListener{
+            viewModel.setUserComment(object : CallBackListener {
+                override fun isSuccess(result: Boolean) {
+                    if (result) {
+                        CustomSnackBar.make(
+                            binding.layoutRelative,
+                            getString(R.string.setComment), binding.btnNext, true, R.drawable.icon_check_green
+                        ).show()
+                        // 키보드 내리기
+                        hideKeyboardForResend()
+                        // editText에 입력된 글 지우기
+                        viewModel.studyComment.value = ""
+                        // 어댑터 리스트 재로딩
+                       viewModel.getCommentsList(adapter = commentAdapter, args.postId)
+                    }
+                }
+            })
+        }
     }
 
     // 컨텐츠 내용 가져오기
@@ -138,5 +166,13 @@ class ContentFragment : Fragment() {
         modal.arguments = bundle
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         modal.show(parentFragmentManager, modal.tag)
+    }
+    private fun hideKeyboardForResend() {
+        val inputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val currentFocusView = requireActivity().currentFocus
+        if (currentFocusView != null) {
+            inputMethodManager.hideSoftInputFromWindow(currentFocusView.windowToken, 0)
+        }
     }
 }

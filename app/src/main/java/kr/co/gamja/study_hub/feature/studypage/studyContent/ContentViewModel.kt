@@ -5,11 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
-import kr.co.gamja.study_hub.data.model.CommentsListResponse
-import kr.co.gamja.study_hub.data.model.StudyContentResponseM
-import kr.co.gamja.study_hub.data.model.previewChatResponse
+import kr.co.gamja.study_hub.data.model.*
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
@@ -99,7 +97,33 @@ class ContentViewModel : ViewModel() {
     // 댓글 개수
     var totalComment = MutableLiveData<Int>()
 
+
+    // 댓글 등록
+    fun setUserComment(params: CallBackListener) {
+        val req = CommentRequest(studyComment.value!!, _postId.value!!)
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.setComment(req)
+                if (response.isSuccessful) {
+                    params.isSuccess(true)
+                } else {
+                    val errorResponse: ErrorResponse? = response.errorBody()?.let {
+                        val gson = Gson()
+                        gson.fromJson(it.charStream(), ErrorResponse::class.java)
+                    }
+                    if (errorResponse != null) {
+                        Log.e(tag, errorResponse.message)
+                        params.isSuccess(false)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(tag, "스터디 미리보기 댓글 Exception: ${e.message}")
+            }
+        }
+    }
+
     fun getStudyContent(adapter: ContentAdapter, postId: Int, params: CallBackListener) {
+        Log.i(tag, "postId$postId")
         viewModelScope.launch {
             try {
                 val response = AuthRetrofitManager.api.getStudyContent(postId)
@@ -120,7 +144,7 @@ class ContentViewModel : ViewModel() {
         // 상단 관련학과
         val koreanRelativeMajor = functions.convertToKoreanMajor(result.major)
         // 신청하기 때 쓸 studyId
-        _studyId.value=result.studyId
+        _studyId.value = result.studyId
 
         _majorData.value = koreanRelativeMajor
         // 제목
