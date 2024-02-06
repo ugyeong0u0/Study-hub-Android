@@ -13,7 +13,6 @@ import kr.co.gamja.study_hub.databinding.FragmentWithdrawalBinding
 
 
 class WithdrawalFragment : Fragment() {
-    private val tag = this.javaClass.simpleName
     private lateinit var binding: FragmentWithdrawalBinding
 
     override fun onCreateView(

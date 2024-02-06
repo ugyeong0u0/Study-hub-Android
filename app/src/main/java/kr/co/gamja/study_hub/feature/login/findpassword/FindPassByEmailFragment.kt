@@ -76,10 +76,8 @@ class FindPassByEmailFragment : Fragment() {
                 // 로그인에서 비번 찾기 누를 시 - login.kt에서 옴
                 "login" -> {
 //                   Log.e(tagMsg,"login으로")
-                    // 네비게이션 그래프 변경
-                    findNavController().setGraph(R.navigation.nav_graph_login_signup)
                     // 로그인 프래그먼트로 이동
-                    findNavController().navigate(R.id.loginFragment)
+                    findNavController().navigate(R.id.action_global_loginFragment)
                 }
             }
 
@@ -91,10 +89,8 @@ class FindPassByEmailFragment : Fragment() {
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (fromPage.equals("login")) {
-                        // 네비게이션 그래프 변경
-                        findNavController().setGraph(R.navigation.nav_graph_login_signup)
                         // 로그인 프래그먼트로 이동
-                        findNavController().navigate(R.id.loginFragment)
+                        findNavController().navigate(R.id.action_global_loginFragment)
                     }
                 }
             })

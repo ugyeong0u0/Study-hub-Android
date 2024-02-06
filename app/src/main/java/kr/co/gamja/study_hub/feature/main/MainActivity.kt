@@ -1,14 +1,25 @@
 package kr.co.gamja.study_hub.feature.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.datastore.App
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.ActivityMainBinding
+import kr.co.gamja.study_hub.feature.login.LoginCallback
+import kr.co.gamja.study_hub.feature.splash.SplashViewModel
 
 class MainActivity : AppCompatActivity() {
     private val tag = this.javaClass.simpleName
@@ -16,29 +27,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
     private var autoUserLoginResult: Boolean = false // splash에서 받은 자동 로그인 통신 결과
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        autoUserLoginResult = intent.getBooleanExtra("autoLogin", false) // 스플래시에서 받은 자동로그인 값
 
+        autoUserLoginResult =
+            intent?.getBooleanExtra("autoLogin", false) ?: false// 스플래시에서 받은 자동로그인 값
         navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         navController = navHostFragment.navController
-
-
         val navInflater = navController.navInflater
-        // splah 화면에서 온 로그인 여부에 따른 nav graph첨부
-        when (autoUserLoginResult) {
-            true -> {
-                val loginNavGraph = navInflater.inflate(R.navigation.nav_graph_from_home)
-                navController.graph = loginNavGraph
+
+        // splash에서 온 경우, 화면 재생성이 x splah 화면에서 온 로그인 여부에 따른
+            if (savedInstanceState == null && autoUserLoginResult) {
+                   navController.navigate(R.id.action_global_mainHomeFragment2) // 홈으로 가기
             }
-            false -> {
-                val notLoginNavGraph =
-                    navInflater.inflate(R.navigation.nav_graph_login_signup)
-                navController.graph = notLoginNavGraph
-            }
-        }
 
 
         binding.bottomNav.setupWithNavController(navController)
@@ -75,4 +79,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 }

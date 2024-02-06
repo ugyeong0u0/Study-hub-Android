@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_from_home"
-    app:startDestination="@id/mainHomeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/mainHomeFragment"
@@ -290,4 +290,97 @@
     <action
         android:id="@+id/action_global_mypageMainFragment"
         app:destination="@id/mypageMainFragment" />
+
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="kr.co.gamja.study_hub.feature.login.LoginFragment"
+        android:label=" "
+        tools:layout="@layout/fragment_login">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_loginFragment_to_agreementFragment"
+            app:destination="@id/agreementFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.email.EmailFragment"
+        android:label="@string/word_registration"
+        tools:layout="@layout/fragment_email">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_createAccountFragment01_to_createAccountFragment02"
+            app:destination="@id/passwordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.password.PasswordFragment"
+        android:label="@string/word_registration"
+        tools:layout="@layout/fragment_password">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_createAccountFragment02_to_createAccountFragment03"
+            app:destination="@id/nicknameFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nicknameFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.nickname.NicknameFragment"
+        android:label="@string/word_registration"
+        tools:layout="@layout/fragment_nickname">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_createAccountFragment03_to_createAccountFragment04"
+            app:destination="@id/majorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/majorFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.major.MajorFragment"
+        android:label="@string/word_registration"
+        tools:layout="@layout/fragment_major">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_createAccountFragment04_to_createAccountFragmentEnd05"
+            app:destination="@id/signupEndFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupEndFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.SignupEndFragment"
+        android:label="@string/word_registration"
+        tools:layout="@layout/fragment_signup_end">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_create05EndFragment_to_login"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment" />
+    <fragment
+        android:id="@+id/agreementFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.agreement.AgreementFragment"
+        android:label="fragment_agreement"
+        tools:layout="@layout/fragment_agreement">
+        <action
+            android:id="@+id/action_agreementFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_mainHomeFragment2"
+        app:destination="@id/mainHomeFragment" />
+
+
 </navigation>
