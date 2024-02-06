@@ -171,7 +171,7 @@ interface StudyHubApi {
 
     // 댓글 미리보기(댓글 창 들어가기 직전에 보는 8개 댓글)
     @GET("/api/v1/comments/{post-id}/preview")
-    suspend fun previewChatList(
+    suspend fun getPreviewChatList(
         @Path("post-id") postId: Int
     ):Response<previewChatResponse>
 

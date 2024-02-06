@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kr.co.gamja.study_hub.data.model.Content
+import kr.co.gamja.study_hub.data.model.previewChatResponseItem
 import kr.co.gamja.study_hub.databinding.CommentItemBinding
 
 // 스터디내용 조회 페이지에서 댓글 8개 보는 adapter
 class CommentAdapter(private val context: Context) :
     RecyclerView.Adapter<CommentAdapter.CommentHolder>() {
-    var commentsList: List<Content>? = null
+    var commentsList: List<previewChatResponseItem>? = null
 
     override fun getItemViewType(position: Int): Int {
         return position
@@ -34,7 +35,7 @@ class CommentAdapter(private val context: Context) :
 
     inner class CommentHolder(val binding: CommentItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(comment: Content?) {
+        fun bind(comment: previewChatResponseItem?) {
             comment?.let {
                 binding.userNickname.text = it.commentedUserData.nickname
                 val st = StringBuilder()

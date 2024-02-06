@@ -9,8 +9,10 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
 import kr.co.gamja.study_hub.data.model.CommentsListResponse
 import kr.co.gamja.study_hub.data.model.StudyContentResponseM
+import kr.co.gamja.study_hub.data.model.previewChatResponse
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
+import kr.co.gamja.study_hub.data.repository.RetrofitManager
 import kr.co.gamja.study_hub.global.Functions
 
 class ContentViewModel : ViewModel() {
@@ -223,14 +225,14 @@ class ContentViewModel : ViewModel() {
     fun getCommentsList(adapter: CommentAdapter, postId: Int) {
         viewModelScope.launch {
             try {
-                val response = AuthRetrofitManager.api.getComments(postId, 0, 8)
+                val response = RetrofitManager.api.getPreviewChatList(postId)
                 Log.d(tag, "conmmentsList postID" + _postId.value.toString())
                 if (response.isSuccessful) {
                     Log.d(tag, "conmmentsList 코드 code" + response.code().toString())
-                    val result = response.body() as CommentsListResponse
-                    adapter.commentsList = result.content
+                    val result = response.body() as previewChatResponse
+                    adapter.commentsList = result
                     adapter.notifyDataSetChanged()
-                    totalComment.value = result.numberOfElements // 댓글 개수 저장
+                    totalComment.value = result.size// 댓글 개수 저장
                 }
             } catch (e: Exception) {
                 Log.e(tag, "conmmentsList 코드 Exception: ${e.message}")
