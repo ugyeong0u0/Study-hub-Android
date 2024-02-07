@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentParticipationBinding
 import kr.co.gamja.study_hub.feature.mypage.participant.ParticipantViewModel
-import kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingContentAdapter
 
 class ParticipationFragment : Fragment() {
 
@@ -25,8 +24,7 @@ class ParticipationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(
-            layoutInflater,R.layout.fragment_participation, container, false)
+        binding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_participation, container, false)
         return binding.root
     }
 
