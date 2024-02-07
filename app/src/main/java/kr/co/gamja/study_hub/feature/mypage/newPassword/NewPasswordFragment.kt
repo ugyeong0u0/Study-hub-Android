@@ -4,13 +4,13 @@ import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
@@ -23,6 +23,8 @@ class NewPasswordFragment : Fragment() {
     private lateinit var binding: FragmentNewPasswordBinding
     private val viewModel: NewPasswordViewModel by viewModels()
     private var value = false
+    private val tagMsg = this.javaClass.simpleName
+    var fromPage: String = "" // 이메일로 비번찾기 페이지 bundle로 받음
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -96,7 +98,7 @@ class NewPasswordFragment : Fragment() {
 
         binding.btnComplete.setOnClickListener {
             hideKeyboardForBtnComplete()
-            getValue()
+            getValue() // frompage 값 가져옴
             viewModel.changePassword(value, object : CallBackListener {
                 override fun isSuccess(result: Boolean) {
                     if (result) {
@@ -106,7 +108,26 @@ class NewPasswordFragment : Fragment() {
                             null,
                             true
                         ).show()
-                        findNavController().navigate(R.id.action_global_myInfoFragment, null)
+//                        Log.e(tagMsg, "when절 전:"+ fromPage)
+                        when (fromPage) {
+                            // 마이페이지에서 비번변경할 시 - currentPassword.kt에서옴
+                            "changePassword" -> {
+//                                Log.e(tagMsg,"changePassword했고 mypageinfo로")
+                                findNavController().popBackStack(R.id.currentPasswordFragment, true)
+                            }
+                            // 마이페이지에서 비번찾기 누를시 - currentPassword.kt에서 비번찾기 눌러서 옴
+                            "myPage" -> {
+//                                Log.e(tagMsg,"mypageinfo로")
+                                findNavController().popBackStack(R.id.currentPasswordFragment, true)
+                            }
+                            // 로그인에서 비번 찾기 누를 시 - login.kt에서 옴
+                            "login" -> {
+//                                Log.e(tagMsg,"login으로")
+                                // 로그인 프래그먼트로 이동
+                                findNavController().popBackStack(R.id.findPassByEmailFragment, true)
+                            }
+                        }
+
                     } else Log.e(tag, "비번 변경 안됨 에러메시지 확인바람")
                 }
             })
@@ -117,7 +138,8 @@ class NewPasswordFragment : Fragment() {
         val receiveBundle = arguments
         if (receiveBundle != null) {
             value = receiveBundle.getBoolean("auth")
-            Log.d(tag, " value: $value")
+            fromPage = receiveBundle.getString("page").toString() // 페이지 어디서 왔는지
+            Log.e(tag, " value: $value fromPage : $fromPage")
         } else Log.e(tag, "receiveBundle is Null")
     }
 

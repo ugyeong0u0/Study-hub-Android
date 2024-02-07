@@ -5,17 +5,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
-import kr.co.gamja.study_hub.data.model.CommentsListResponse
-import kr.co.gamja.study_hub.data.model.StudyContentResponseM
+import kr.co.gamja.study_hub.data.model.*
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
+import kr.co.gamja.study_hub.data.repository.RetrofitManager
 import kr.co.gamja.study_hub.global.Functions
 
 class ContentViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
     private val functions = Functions()
+
+    // studyId 신청하기 할 때 필요
+    private val _studyId = MutableLiveData<Int>()
+    val studyId: LiveData<Int> get() = _studyId
 
     // 작성 날짜
     private val _writingDate = MutableLiveData<String>()
@@ -87,16 +91,109 @@ class ContentViewModel : ViewModel() {
     private val _isBookmarked = MutableLiveData<Boolean>()
     val isBookmarked: LiveData<Boolean> get() = _isBookmarked
 
-    // 댓글 양방향 데이터 todo("연결하기")
+    // 댓글 양방향 데이터
     var studyComment = MutableLiveData<String>()
 
     // 댓글 개수
     var totalComment = MutableLiveData<Int>()
 
-    fun getStudyContent(adapter: ContentAdapter, postId: Int, params: CallBackListener) {
+    // 댓글 삭제인지 확인
+    private var _isDelete = MutableLiveData<Boolean>()
+    val isDelete: LiveData<Boolean> get() = _isDelete
+
+    // CommentBottomsheetFragment에서 사용
+    fun setDelete(result: Boolean) {
+        _isDelete.value = result
+    }
+
+    // 댓글 수정인지 확인
+    private var _isModify = MutableLiveData<Boolean>()
+    val isModify: LiveData<Boolean> get() = _isModify
+
+    // CommentBottomsheetFragment에서 사용
+    fun setModify(result: Boolean) {
+        _isModify.value = result
+    }
+
+
+    // 댓글 등록
+    fun setUserComment(params: CallBackListener) {
+        val req = CommentRequest(studyComment.value!!, _postId.value!!)
+//        Log.e(tag, "댓글등록 $req")
         viewModelScope.launch {
             try {
-                val response = AuthRetrofitManager.api.getStudyContent(postId)
+                val response = AuthRetrofitManager.api.setComment(req)
+                if (response.isSuccessful) {
+                    params.isSuccess(true)
+                } else {
+                    val errorResponse: ErrorResponse? = response.errorBody()?.let {
+                        val gson = Gson()
+                        gson.fromJson(it.charStream(), ErrorResponse::class.java)
+                    }
+                    if (errorResponse != null) {
+                        Log.e(tag, errorResponse.message)
+                        params.isSuccess(false)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(tag, "스터디 미리보기 댓글 Exception: ${e.message}")
+            }
+        }
+    }
+
+    // 삭제 하기
+    fun deleteComment(postId: Int, params: CallBackListener) {
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.deleteComment(postId)
+                Log.d(tag, "포스트id : $postId")
+                if (response.isSuccessful) {
+                    Log.d(tag, "댓글미리보기 삭제 성공")
+                    params.isSuccess(true)
+                } else {
+                    params.isSuccess(false)
+                    val errorResponse: ErrorResponse? = response.errorBody()?.let {
+                        val gson = Gson()
+                        gson.fromJson(it.charStream(), ErrorResponse::class.java)
+                    }
+                    if (errorResponse != null) {
+                        Log.e(tag, errorResponse.message)
+                    }
+                }
+            } catch (e: Exception) {
+                e.stackTrace
+                Log.e(tag, "댓글미리보기 삭제 Exception: ${e.message}")
+            }
+        }
+    }
+
+    // 댓글 수정
+    fun modifyComment(nowCommentId: Int, params: CallBackListener) {
+        val req = CommentCorrectRequest(nowCommentId, studyComment.value!!)
+        Log.d(tag, "댓글미리보기 viewModel commentId: $nowCommentId postId: ${_postId.value}")
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.correctComment(req)
+                Log.d(tag, "응답code : ${response.code()}")
+                if (response.isSuccessful) {
+                    params.isSuccess(true)
+                } else {
+                    params.isSuccess(false)
+                }
+            } catch (e: Exception) {
+                e.stackTrace
+                Log.e(tag, "댓글 미리보기 삭제 Exception: ${e.message}")
+            }
+        }
+    }
+
+    // 컨텐츠 정보 가져오기
+    fun getStudyContent(adapter: ContentAdapter, postId: Int, params: CallBackListener) {
+//        Log.e(tag, " getStudyContent의 postId$postId")
+        viewModelScope.launch {
+            try {
+                val response = RetrofitManager.api.getStudyContent(postId)
+//                Log.e(tag, " response의 postId$response")
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponseM
                     getInformationOfStudy(result)
@@ -110,9 +207,14 @@ class ContentViewModel : ViewModel() {
         }
     }
 
+    // 컨텐츠 데이터 입력
     private fun getInformationOfStudy(result: StudyContentResponseM) {
         // 상단 관련학과
+//        Log.e(tag,result.major)
         val koreanRelativeMajor = functions.convertToKoreanMajor(result.major)
+        // 신청하기 때 쓸 studyId
+        _studyId.value = result.studyId
+
         _majorData.value = koreanRelativeMajor
         // 제목
         _headData.value = result.title
@@ -175,6 +277,7 @@ class ContentViewModel : ViewModel() {
         _writerMajor.value = koreanWriterMajor
         // 작성자 이름
         _writerName.value = result.postedUser.nickname
+//        Log.e(tag, result.postedUser.nickname)
         // 작성자 이미지
         _userImg.value = result.postedUser.imageUrl
         _postId.value = result.postId
@@ -212,21 +315,21 @@ class ContentViewModel : ViewModel() {
         }
     }
 
-    // 댓글 리스트 조회
+    // 댓글 리스트 조회 todo(비회원인 경우 추가 )
     fun getCommentsList(adapter: CommentAdapter, postId: Int) {
         viewModelScope.launch {
             try {
-                val response = AuthRetrofitManager.api.getComments(postId, 0, 8)
-                Log.d(tag, "conmmentsList postID" + _postId.value.toString())
+                val response = AuthRetrofitManager.api.getPreviewChatList(postId)
+                Log.d(tag, "commentsList postID$postId")
                 if (response.isSuccessful) {
-                    Log.d(tag, "conmmentsList 코드 code" + response.code().toString())
-                    val result = response.body() as CommentsListResponse
-                    adapter.commentsList = result.content
+                    Log.d(tag, "commentsList 코드 code" + response.code().toString())
+                    val result = response.body() as previewChatResponse
+                    adapter.commentsList = result
                     adapter.notifyDataSetChanged()
-                    totalComment.value = result.numberOfElements // 댓글 개수 저장
+                    totalComment.value = result.size// 댓글 개수 저장
                 }
             } catch (e: Exception) {
-                Log.e(tag, "conmmentsList 코드 Exception: ${e.message}")
+                Log.e(tag, "commentsList 코드 Exception: ${e.message}")
             }
         }
     }

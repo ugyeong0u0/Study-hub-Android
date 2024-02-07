@@ -92,6 +92,7 @@
             android:layout_marginBottom="@dimen/sixteen"
             android:textColor="@color/BG_90"
             android:textSize="12sp"
+            android:text="@{viewModel.userEmail}"
             tools:text="\@inu.ac.kr"/>
 
         <EditText
@@ -124,7 +125,6 @@
             android:layout_marginHorizontal="@dimen/eight"
             android:layout_marginVertical="@dimen/ten"
             android:background="@drawable/btn_next_orange"
-            android:enabled="false"
             android:text="@string/btn_resendauth"
             android:textColor="@color/syswhite"
             android:textSize="14sp" />

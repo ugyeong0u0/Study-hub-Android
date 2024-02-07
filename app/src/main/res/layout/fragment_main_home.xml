@@ -180,6 +180,13 @@
                     android:layout_marginBottom="40dp"
                     android:orientation="vertical" />
 
+                <ProgressBar
+                    android:id="@+id/mainProgressBar"
+                    style="@style/CustomProgressBar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/txt_onGoingStudy"
+                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>

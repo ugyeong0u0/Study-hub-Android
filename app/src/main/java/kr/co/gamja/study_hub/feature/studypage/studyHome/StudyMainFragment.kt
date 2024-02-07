@@ -11,12 +11,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -91,14 +93,18 @@ class StudyMainFragment : Fragment() {
         nonSelectedTextColor = ContextCompat.getColor(requireContext(), R.color.BG_90)
 
 
-        // 스터디 조회 리사이클러뷰 연결
-        adapter = StudyMainAdapter(requireContext())
+        // 스터디 조회 리사이클러뷰 연결 및 스터디 개수 확인 
+        adapter = StudyMainAdapter(requireContext()).apply {
+            addLoadStateListener { loadState->
+                val isEmptyList = loadState.refresh is LoadState.NotLoading && itemCount == 0
+                viewModel.isList.postValue(!isEmptyList)
+            }
+        }
         binding.recyclerStudyMain.adapter = adapter
         binding.recyclerStudyMain.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.setReloadTrigger()
         observeData()
-        viewModel.getStudyList() // 스터디 총개수
 
         // 툴바 설정
         val toolbar = binding.studyMainToolbar
@@ -132,7 +138,6 @@ class StudyMainFragment : Fragment() {
                 viewModel.setIsHot(false)
                 viewModel.setReloadTrigger()
                 observeData()
-                viewModel.getStudyList() // 스터디 게시글 총 개수 업데이트
                 allBtnEnable = true
                 popularBtnEnable = false
             }
@@ -145,7 +150,6 @@ class StudyMainFragment : Fragment() {
                 viewModel.setIsHot(true)
                 viewModel.setReloadTrigger()
                 observeData()
-                viewModel.getStudyList() // 스터디 게시글 총 개수 업데이트
                 allBtnEnable = false
                 popularBtnEnable = true
             }
@@ -173,6 +177,13 @@ class StudyMainFragment : Fragment() {
                 findNavController().navigate(action)
             }
         })
+
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collectLatest { loadState ->
+                binding.studyRecyclerProgressBar.isVisible = loadState.refresh is LoadState.Loading
+                binding.mainHomeProgressBar.isVisible=loadState.refresh is LoadState.Loading
+            }
+        }
     }
 
 
@@ -201,7 +212,6 @@ class StudyMainFragment : Fragment() {
     }
 
     private fun observeData() {
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.studyMainFlow.collectLatest { pagingData ->
                 adapter.submitData(pagingData)

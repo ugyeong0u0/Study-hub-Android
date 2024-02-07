@@ -93,7 +93,7 @@ class EmailFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
         binding.iconBack.setOnClickListener {
-            findNavController().navigate(R.id.action_global_loginFragment, null)
+            findNavController().navigateUp() // 뒤로 가기
         }
 
         binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 2)

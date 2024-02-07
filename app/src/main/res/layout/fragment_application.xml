@@ -73,7 +73,8 @@
            android:paddingRight="14dp"
            android:paddingBottom="20dp"
            android:text="@={viewModel.applyEditText}"
-           android:textColor="@color/BG_70"
+           android:textColor="@color/sysblack1"
+           android:textColorHint="@color/BG_70"
            android:textSize="14sp" />
        <TextView
            android:layout_below="@+id/edit_applyHint"

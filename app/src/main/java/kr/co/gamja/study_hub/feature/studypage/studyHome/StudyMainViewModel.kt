@@ -24,6 +24,9 @@ import kr.co.gamja.study_hub.data.repository.StudyHubApi
 class StudyMainViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     private val tag = this.javaClass.simpleName
 
+    // 프로그래스바 로딩여부
+    var studyProBar = MutableLiveData<Boolean>(true)
+
     // paging 초기화
     private val _reloadTrigger = MutableStateFlow(Unit)
 
@@ -42,9 +45,7 @@ class StudyMainViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     }
 
     // 리스트 있는지 여부
-    private val _isList = MutableLiveData<Boolean>()
-    val isList: LiveData<Boolean> get() = _isList
-
+    var isList=MutableLiveData<Boolean>(true)
 
     val studyMainFlow: Flow<PagingData<ContentXXXX>> = _reloadTrigger.flatMapLatest {
         Pager(
@@ -56,24 +57,6 @@ class StudyMainViewModel(studyHubApi: StudyHubApi) : ViewModel() {
         ) {
             StudyMainPagingSource(studyHubApi, _isHotStudy.value ?: false)
         }.flow.cachedIn(viewModelScope)
-    }
-
-
-    // 스터디 리스트 총개수
-    fun getStudyList() {
-        viewModelScope.launch {
-            try {
-                val response = RetrofitManager.api.getStudyPostAll(false, 0, 10, null, false)
-                if (response.isSuccessful) {
-                    val result = response.body() as FindStudyResponseM
-                    _listSize.value = result.totalCount
-                    _isList.value = result.totalCount>0 // 리스트 개수가 0 이상으로 없어요 그림 노출 결정
-                }
-
-            } catch (e: Exception) {
-                Log.e(tag, "북마크조회 Exception: ${e.message}")
-            }
-        }
     }
 
     fun saveDeleteBookmarkItem(postId: Int?, params: CallBackListener) {

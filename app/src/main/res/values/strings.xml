@@ -24,7 +24,7 @@
     <string name="txterror_password">잘못된 비밀번호예요.(10자리 이상, 특수문자 포함 필수)</string>
     <string name="txterror_passwordOk">사용 가능한 비밀번호예요.</string>
     <string name="txterror_empty"> </string>
-    <string name="btnBack_login">한번 더 누르면 앱종료임.</string>
+    <string name="btnBack_login">\'뒤로가기\'를 한 번 더 누르면 종료돼요.</string>
     <!--    회원가입-->
     <string name="txt_pagenumber">%d\/5</string>
 
@@ -231,4 +231,5 @@
     <string name="engagedStudy">참여한 스터디</string>
     <string name="binEngagedStudy">참여한 스터디가 없어요</string>
     <string name="sub_binBookmark">나와 맞는 스터디를 찾아보세요!</string>
+    <string name="txt_goChatRoom">채팅방으로 이동하기</string>
 </resources>

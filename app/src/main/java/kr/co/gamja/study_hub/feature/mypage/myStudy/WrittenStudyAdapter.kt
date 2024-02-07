@@ -10,14 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.ContentXXX
 import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
+import kr.co.gamja.study_hub.data.repository.OnPostingIdClickListener
 import kr.co.gamja.study_hub.databinding.WrittenstudyItemBinding
+import kr.co.gamja.study_hub.feature.toolbar.bookmark.PostingId
 import kr.co.gamja.study_hub.global.Functions
-
+// todo("인터페이스 클래스담기는것으로 변경하기 ")
 class WrittenStudyAdapter(private val context: Context) :
     PagingDataAdapter<ContentXXX, WrittenStudyAdapter.WrittenStudyHolder>(DIFF_CALLBACK) {
-    private lateinit var mOnItemsClickListener: OnItemsClickListener// item 내부요소 구별 클릭리스너
+    private lateinit var mOnItemsClickListener: OnPostingIdClickListener// item 내부요소 구별 클릭리스너
     val whatItem = mapOf("shutdownStudy" to 1, "goParticipant" to 2, "goStudyPage" to 3)
-    fun setOnItemClickListener(listener: OnItemsClickListener) {
+    fun setOnItemClickListener(listener: OnPostingIdClickListener) {
         mOnItemsClickListener = listener
     }
 
@@ -51,27 +53,31 @@ class WrittenStudyAdapter(private val context: Context) :
         fun bind(content: ContentXXX) {
             val functions = Functions()
             val postId: Int = content.postId
+            val studyId= content.studyId
             binding.txtMajor.text = functions.convertToKoreanMajor(content.major)
             binding.txtTitle.text = content.title
             binding.txtSub.text = content.content
             binding.txtRemainingSeats.text =
                 context.getString(R.string.txt_RemainingSeats, content.remainingSeat)
+            // 마감 색 여부
+            binding.isCloseStudy=content.close
+
             binding.btnSetEnd.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
                     // 마감 클릭시
-                    mOnItemsClickListener.getItemValue(whatItem["shutdownStudy"]!!, postId)
+                    mOnItemsClickListener.getItemValue(whatItem["shutdownStudy"]!!, PostingId(postId, studyId))
                 }
             })
             binding.btnParticipant.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
                     // 참여자 클릭시
-                    mOnItemsClickListener.getItemValue(whatItem["goParticipant"]!!, postId)
+                    mOnItemsClickListener.getItemValue(whatItem["goParticipant"]!!, PostingId(postId, studyId))
                 }
             })
             binding.btnThreeDot.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
                     // 스터디 수정 클릭시
-                    mOnItemsClickListener.getItemValue(whatItem["goStudyPage"]!!, postId)
+                    mOnItemsClickListener.getItemValue(whatItem["goStudyPage"]!!, PostingId(postId, studyId))
                 }
             })
         }

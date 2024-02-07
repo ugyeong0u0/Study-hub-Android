@@ -31,6 +31,12 @@ class ParticipantFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // todo("대기,거절,참여 연결해야함 ")
+        // postId, studyId 작성한글 페이지(WrittenStudyFragment.kt)에서 받음
+        val studyId = arguments?.getInt("studyId")
+        val postId = arguments?.getInt("postId")
+
         // viewPager2 Adapter설정
         participantPagerAdapter = ParticipantPagerAdapter(this)
         viewPager= binding.pager

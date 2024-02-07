@@ -132,6 +132,7 @@ class CreateStudyViewModel : ViewModel() {
     private val _completeBtn = MutableLiveData<Boolean>(false)
     val completeBtn: LiveData<Boolean> get() = _completeBtn
 
+
     fun setCompleteBtn(new: Boolean) {
         _completeBtn.value = new
     }
@@ -404,7 +405,6 @@ class CreateStudyViewModel : ViewModel() {
                         "MALE" -> setMale(true)
                         "NULL" -> setRegardlessOfGender(true)
                     }
-                    setRelativeMajor(result.major) // 통신용
                     val koreanMajor = function.convertToKoreanMajor(result.major)
                     setPostRelativeMajor(koreanMajor) // 화면 chip표시용
 
@@ -414,7 +414,7 @@ class CreateStudyViewModel : ViewModel() {
                     } else {
                         setSelectedFee(true)
                         howMuch.value = result.penalty.toString()
-                        whatFee.value = result.penaltyWay.toString()
+                        whatFee.value = result.penaltyWay
                     }
 
                     persons.value = result.studyPerson.toString()

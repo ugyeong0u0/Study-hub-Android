@@ -6,5 +6,6 @@ data class ContentXX(
     val major: String,
     val postId: Int,
     val remainingSeat: Int,
+    val studyId: Int,
     val title: String
 )

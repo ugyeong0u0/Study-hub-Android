@@ -53,8 +53,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/thirty_two"
             android:layout_marginEnd="@dimen/twenty"
-            android:background="@drawable/icon_threedot_vertical_gray"
-            android:visibility="visible" />
+            android:background="@drawable/icon_threedot_vertical_gray" />
 
     </RelativeLayout>
 </layout>

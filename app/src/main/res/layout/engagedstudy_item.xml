@@ -2,12 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="isCloseStudy"
-            type="boolean" />
-    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,12 +22,12 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_threeDot"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/thirty_two"
+            android:layout_height="@dimen/thirty_two"
             android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="@dimen/sixteen"
             android:layout_marginBottom="@dimen/sixteen"
-            android:background="@drawable/icon_threedot_horizontal_s_gray" />
+            android:background="@drawable/icon_delete_s_gray" />
 
         <TextView
             android:id="@+id/txt_title"
@@ -47,68 +41,43 @@
             tools:text="제목" />
 
         <TextView
-            android:id="@+id/txt_sub"
+            android:id="@+id/txt_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_title"
             android:layout_marginHorizontal="@dimen/sixteen"
             android:layout_marginBottom="@dimen/sixteen"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:textColor="@color/BG_80"
             android:textSize="14sp"
-            tools:text="서브제목" />
+            tools:text="내용" />
 
-        <TextView
-            android:id="@+id/txt_remainingSeats"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_sub"
-            android:layout_marginHorizontal="@dimen/sixteen"
-            android:layout_marginBottom="@dimen/twenty"
-            android:text="@string/txt_RemainingSeats"
-            android:textColor="@color/BG_70"
-            android:textSize="12sp" />
 
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/txt_remainingSeats"
+            android:layout_below="@+id/txt_content"
             android:background="@color/BG_70" />
 
-        <LinearLayout
-            android:id="@+id/layout_linear"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/goChatRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view"
-            android:orientation="horizontal">
+            android:layout_marginStart="@dimen/sixteen"
+            android:background="#00000000"
+            android:text="@string/txt_goChatRoom"
+            android:textColor="@color/BG_80" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_setEnd"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/sixteen"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:enabled="@{isCloseStudy? false : true}"
-                android:text="@string/endStudy"
-                android:textColor="@{isCloseStudy?@color/BG_60 :@color/O_50}" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_participant"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/sixteen"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:text="@string/participant"
-                android:textColor="@color/BG_80" />
-        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/twenty"
-            android:layout_below="@+id/layout_linear"
+            android:layout_below="@+id/goChatRoom"
             android:background="@color/BG_30" />
 
     </RelativeLayout>
+
 </layout>

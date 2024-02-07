@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.CallBackListener
@@ -68,6 +67,9 @@ class MainHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // 프로그래스바 제어, 데이터 받아오면 true, 프로그래스바는 false
+        viewModel.progressRecruiting.value = false
+        viewModel.progressDeadLine.value = false
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -85,7 +87,7 @@ class MainHomeFragment : Fragment() {
             4,
             Spanned.SPAN_INCLUSIVE_EXCLUSIVE
         )
-        binding.txtOnGoingStudy.text=spannableString
+        binding.txtOnGoingStudy.text = spannableString
 
         // 마감이 임박한 스터디 글자 span
         spannableString = SpannableString(binding.txtApproachingStudy.text)
@@ -95,7 +97,7 @@ class MainHomeFragment : Fragment() {
             2,
             Spanned.SPAN_INCLUSIVE_EXCLUSIVE
         )
-        binding.txtApproachingStudy.text=spannableString
+        binding.txtApproachingStudy.text = spannableString
 
 
         binding.iconH.setOnClickListener {
@@ -135,7 +137,7 @@ class MainHomeFragment : Fragment() {
         onRecruitingAdapter = ItemOnRecruitingAdapter(requireContext())
         binding.recyclerOnGoing.adapter = onRecruitingAdapter
         binding.recyclerOnGoing.layoutManager =
-            LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         // 리스트 업데이트
         updateRecruitingList()
 
@@ -159,7 +161,7 @@ class MainHomeFragment : Fragment() {
         binding.recyclerApproaching.adapter = deadlineAdapter
         binding.recyclerApproaching.layoutManager = LinearLayoutManager(requireContext())
 
-         // 리스트 업데이트
+        // 리스트 업데이트
         updateDeadlineList()
 
         deadlineAdapter.setOnItemClickListener(object : OnBookmarkClickListener {
@@ -177,16 +179,40 @@ class MainHomeFragment : Fragment() {
         })
 
         // 모집중 옆에있는 '전체'버튼 누를시 study탭으로 이동
-        binding.btnAll.setOnClickListener{
-            val bottomNavView: BottomNavigationView =requireActivity().findViewById(R.id.bottom_nav)
-            bottomNavView.selectedItemId=R.id.studyMainFragment
+        binding.btnAll.setOnClickListener {
+            val bottomNavView: BottomNavigationView =
+                requireActivity().findViewById(R.id.bottom_nav)
+            bottomNavView.selectedItemId = R.id.studyMainFragment
         }
+
+        // 프로그래스바 상태 관찰 및 업데이트
+        viewModel.progressRecruiting.observe(viewLifecycleOwner) {
+            if (it && viewModel.progressDeadLine.value == true) {
+                viewModel.updateProgressBar(false)
+            } else {
+                viewModel.updateProgressBar(true)
+            }
+        }
+        viewModel.progressDeadLine.observe(viewLifecycleOwner) {
+            if (it && viewModel.progressRecruiting.value == true) {
+                viewModel.updateProgressBar(false) // 프로그래스 바 안보이게
+            } else {
+                viewModel.updateProgressBar(true)
+            }
+        }
+        viewModel.visibleProgress.observe(viewLifecycleOwner) {
+            if (!it) {
+                binding.mainProgressBar.visibility = View.GONE
+            } else {
+                binding.mainProgressBar.visibility = View.VISIBLE
+            }
+        }
+
     }
 
     // 뒤로가기 누를 시 혹은 뷰 생성시 리스트 데이터 업데이트
-    private fun updateRecruitingList(){
-
-        Log.d("MainHomeFragment.kt : pdateRecruitingList시작","")
+    private fun updateRecruitingList() {
+        Log.d("MainHomeFragment.kt : pdateRecruitingList시작", "")
         viewModel.getRecruitingStudy(
             onRecruitingAdapter,
             false,
@@ -194,14 +220,16 @@ class MainHomeFragment : Fragment() {
             5,
             null,
             titleAndMajor = false,
-            object: CallBackListener{
+            object : CallBackListener {
                 override fun isSuccess(result: Boolean) {
-                    Log.d("MainHomeFragment.kt : updateRecruitingList","")
+                    Log.d("MainHomeFragment.kt : updateRecruitingList", "")
+                    viewModel.progressRecruiting.value = true // 로딩이 다됨을 표시
                 }
             }
         )
     }
-    private fun updateDeadlineList(){
+
+    private fun updateDeadlineList() {
         viewModel.getStudyPosts(
             deadlineAdapter,
             isHot = true,
@@ -209,9 +237,10 @@ class MainHomeFragment : Fragment() {
             4,
             null,
             titleaAndMajor = false,
-            object: CallBackListener{
+            object : CallBackListener {
                 override fun isSuccess(result: Boolean) {
-                    Log.d("MainHomeFragment.kt : updateDeadlineList callback","")
+                    Log.d("MainHomeFragment.kt : updateDeadlineList callback", "")
+                    viewModel.progressDeadLine.value = true // 로딩이 다 됨을 표시
                 }
             }
         )

@@ -78,6 +78,7 @@ class CurrentPasswordFragment : Fragment() {
                         if (result) {
                             // 비번 수정 페이지에 true값 보냄
                             val bundle = Bundle()
+                            bundle.putString("page", "changePassword")
                             bundle.putBoolean("auth", true)
                             findNavController().navigate(
                                 R.id.action_currentPasswordFragment_to_newPasswordFragment,
@@ -95,6 +96,13 @@ class CurrentPasswordFragment : Fragment() {
                     }
                 })
 
+        }
+        // 비번 잊었다 버튼 누를 시 비번 찾기로 이동(home~navigation.xml에 존재)
+        // mypage와 login 둘다에서 접근함으로 bundle로 page구분
+        binding.btnForgetPassword.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("page", "myPage")
+            findNavController().navigate(R.id.action_global_findPassByEmailFragment, bundle)
         }
     }
 

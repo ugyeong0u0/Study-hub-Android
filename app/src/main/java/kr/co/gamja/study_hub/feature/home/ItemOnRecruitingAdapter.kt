@@ -18,6 +18,7 @@ import kr.co.gamja.study_hub.global.Functions
 
 class ItemOnRecruitingAdapter(private val context: Context) :
     RecyclerView.Adapter<ItemOnRecruitingAdapter.MainHolder>() {
+    val tag: String =this.javaClass.simpleName
     var studyPosts: FindStudyResponseM? = null
     private lateinit var mOnBookmarkClickListener: OnBookmarkClickListener // 북마크 viewModel에 interface 선언
     private lateinit var mOnViewClickListener: OnViewClickListener // 뷰자체 클릭
@@ -57,6 +58,7 @@ class ItemOnRecruitingAdapter(private val context: Context) :
                 if (itemPosition != RecyclerView.NO_POSITION) {
                     studyPosts?.postDataByInquiries?.content?.get(itemPosition).let {
                         val bindingPostId = it?.postId
+//                        Log.e(tag,bindingPostId.toString())
                         mOnViewClickListener.onViewClick(bindingPostId)
                     }
                 }
