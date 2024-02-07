@@ -67,6 +67,16 @@ class Splash : AppCompatActivity() {
 
                         override fun onfail(isBoolean: Boolean) {
                             if (isBoolean) {
+                                Log.e(tagMsg, "3. 리프레시토큰 유효x ")
+                                Toast.makeText(this@Splash, "리프레쉬 토큰 만료", Toast.LENGTH_LONG)
+                                    .show()
+
+                                Log.d(tagMsg, "리프레시 토큰 지우기")
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    val dataStoreInstance = App.getInstance().getDataStore()
+                                    dataStoreInstance.clearDataStore() // 초기화 후
+                                }
+
                                 Handler().postDelayed({
                                     val intent = Intent(this@Splash, MainActivity::class.java)
                                     intent.putExtra("autoLogin", false)
@@ -74,14 +84,12 @@ class Splash : AppCompatActivity() {
                                     finish()
                                 }, 2000)
 
-
-                                Log.e(tagMsg, "3. 리프레시토큰 유효x ")
-                                Toast.makeText(this@Splash, "리프레쉬 토큰 만료", Toast.LENGTH_LONG)
-                                    .show()
                             }
                         }
                     })
                 } else {
+                    Log.d(tagMsg, "2. 리프레시 토큰 null임 ")
+
                     Handler().postDelayed({
                         val intent = Intent(this@Splash, MainActivity::class.java)
                         intent.putExtra("autoLogin", false)
@@ -89,7 +97,6 @@ class Splash : AppCompatActivity() {
                         finish()
                     }, 2000)
 
-                    Log.d(tagMsg, "2. 리프레시 토큰 null임 ")
                 }
             }
         }

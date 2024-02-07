@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
-import kr.co.gamja.study_hub.data.model.CommentsListResponse
-import kr.co.gamja.study_hub.data.model.StudyContentResponseM
+import kr.co.gamja.study_hub.data.model.*
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
+import kr.co.gamja.study_hub.data.repository.RetrofitManager
 import kr.co.gamja.study_hub.global.Functions
 
 class ContentViewModel : ViewModel() {
@@ -97,7 +97,33 @@ class ContentViewModel : ViewModel() {
     // 댓글 개수
     var totalComment = MutableLiveData<Int>()
 
+
+    // 댓글 등록
+    fun setUserComment(params: CallBackListener) {
+        val req = CommentRequest(studyComment.value!!, _postId.value!!)
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.setComment(req)
+                if (response.isSuccessful) {
+                    params.isSuccess(true)
+                } else {
+                    val errorResponse: ErrorResponse? = response.errorBody()?.let {
+                        val gson = Gson()
+                        gson.fromJson(it.charStream(), ErrorResponse::class.java)
+                    }
+                    if (errorResponse != null) {
+                        Log.e(tag, errorResponse.message)
+                        params.isSuccess(false)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(tag, "스터디 미리보기 댓글 Exception: ${e.message}")
+            }
+        }
+    }
+
     fun getStudyContent(adapter: ContentAdapter, postId: Int, params: CallBackListener) {
+        Log.i(tag, "postId$postId")
         viewModelScope.launch {
             try {
                 val response = AuthRetrofitManager.api.getStudyContent(postId)
@@ -118,7 +144,7 @@ class ContentViewModel : ViewModel() {
         // 상단 관련학과
         val koreanRelativeMajor = functions.convertToKoreanMajor(result.major)
         // 신청하기 때 쓸 studyId
-        _studyId.value=result.studyId
+        _studyId.value = result.studyId
 
         _majorData.value = koreanRelativeMajor
         // 제목
@@ -223,14 +249,14 @@ class ContentViewModel : ViewModel() {
     fun getCommentsList(adapter: CommentAdapter, postId: Int) {
         viewModelScope.launch {
             try {
-                val response = AuthRetrofitManager.api.getComments(postId, 0, 8)
+                val response = RetrofitManager.api.getPreviewChatList(postId)
                 Log.d(tag, "conmmentsList postID" + _postId.value.toString())
                 if (response.isSuccessful) {
                     Log.d(tag, "conmmentsList 코드 code" + response.code().toString())
-                    val result = response.body() as CommentsListResponse
-                    adapter.commentsList = result.content
+                    val result = response.body() as previewChatResponse
+                    adapter.commentsList = result
                     adapter.notifyDataSetChanged()
-                    totalComment.value = result.numberOfElements // 댓글 개수 저장
+                    totalComment.value = result.size// 댓글 개수 저장
                 }
             } catch (e: Exception) {
                 Log.e(tag, "conmmentsList 코드 Exception: ${e.message}")

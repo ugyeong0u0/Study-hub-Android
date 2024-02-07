@@ -11,6 +11,7 @@ import kr.co.gamja.study_hub.data.model.ErrorResponse
 import kr.co.gamja.study_hub.data.model.NewPasswordRequest
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
+import kr.co.gamja.study_hub.data.repository.RetrofitManager
 import kr.co.gamja.study_hub.feature.login.PASSWORD
 
 class NewPasswordViewModel : ViewModel() {
@@ -53,15 +54,16 @@ class NewPasswordViewModel : ViewModel() {
             val response = AuthRetrofitManager.api.putNewPassword(req)
             if (response.isSuccessful) {
                 params.isSuccess(true)
-            } else {
-                val errorResponse: ErrorResponse? = response.errorBody()?.let {
+            }
+            else {
+                params.isSuccess(false)
+               /* val errorResponse: ErrorResponse? = response.errorBody()?.let {
                     val gson = Gson()
                     gson.fromJson(it.charStream(), ErrorResponse::class.java)
                 }
                 if (errorResponse != null) {
                     Log.e(tag, errorResponse.message)
-                    params.isSuccess(false)
-                }
+                }*/
             }
         }
     }

@@ -18,7 +18,6 @@ import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.CallBackIntegerListener
 import kr.co.gamja.study_hub.databinding.FragmentCreateStudyBinding
-import kr.co.gamja.study_hub.feature.home.MainHomeFragmentDirections
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.CustomSnackBar
 import kr.co.gamja.study_hub.global.OnDialogClickListener
@@ -212,7 +211,7 @@ class CreateStudyFragment : Fragment() {
                             getString(R.string.alarm_completeAlter)
                         ).show()
                         val action =
-                            MainHomeFragmentDirections.actionGlobalStudyContentFragment(result)
+                            CreateStudyFragmentDirections.actionGlobalStudyContentFragment(result)
                         findNavController().navigate(action, navOptions) // 백스택에서 생성 페이지 제거
                     }
                 })
@@ -224,7 +223,7 @@ class CreateStudyFragment : Fragment() {
                             getString(R.string.alarm_completeCreateStudy)
                         ).show()
                         val action =
-                            MainHomeFragmentDirections.actionGlobalStudyContentFragment(result)
+                            CreateStudyFragmentDirections.actionGlobalStudyContentFragment(result)
                         findNavController().navigate(action, navOptions) // 백스택에서 생성 페이지 제거
                     }
                 })

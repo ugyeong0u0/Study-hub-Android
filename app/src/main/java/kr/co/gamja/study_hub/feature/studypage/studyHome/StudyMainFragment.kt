@@ -93,14 +93,18 @@ class StudyMainFragment : Fragment() {
         nonSelectedTextColor = ContextCompat.getColor(requireContext(), R.color.BG_90)
 
 
-        // 스터디 조회 리사이클러뷰 연결
-        adapter = StudyMainAdapter(requireContext())
+        // 스터디 조회 리사이클러뷰 연결 및 스터디 개수 확인 
+        adapter = StudyMainAdapter(requireContext()).apply {
+            addLoadStateListener { loadState->
+                val isEmptyList = loadState.refresh is LoadState.NotLoading && itemCount == 0
+                viewModel.isList.postValue(!isEmptyList)
+            }
+        }
         binding.recyclerStudyMain.adapter = adapter
         binding.recyclerStudyMain.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.setReloadTrigger()
         observeData()
-        viewModel.getStudyList() // 스터디 총개수
 
         // 툴바 설정
         val toolbar = binding.studyMainToolbar
@@ -134,7 +138,6 @@ class StudyMainFragment : Fragment() {
                 viewModel.setIsHot(false)
                 viewModel.setReloadTrigger()
                 observeData()
-                viewModel.getStudyList() // 스터디 게시글 총 개수 업데이트
                 allBtnEnable = true
                 popularBtnEnable = false
             }
@@ -147,7 +150,6 @@ class StudyMainFragment : Fragment() {
                 viewModel.setIsHot(true)
                 viewModel.setReloadTrigger()
                 observeData()
-                viewModel.getStudyList() // 스터디 게시글 총 개수 업데이트
                 allBtnEnable = false
                 popularBtnEnable = true
             }

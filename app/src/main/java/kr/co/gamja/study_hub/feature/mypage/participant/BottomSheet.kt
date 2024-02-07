@@ -49,7 +49,7 @@ class BottomSheet(userId : Int) : BottomSheetDialogFragment() {
             btnRefusal.setOnClickListener{
                 //tvR4 텍스트 메세지라면? 거절 사유 작성 화면으로 navigation
                 if (selectedReason == tvR4.text.toString()) {
-
+                    //RefusalFragment로 이동
                 } else {
                     //거절 api 사용
                 }

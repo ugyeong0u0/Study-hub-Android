@@ -131,7 +131,7 @@ class LoginFragment : Fragment() {
                             dataStoreInstance.setRefreshToken(refreshToken)
                             withContext(Dispatchers.Main) {
                                 findNavController().navigate(
-                                    R.id.action_login_to_nav_graph02_main,
+                                    R.id.action_global_mainHomeFragment2,
                                     null
                                 )
                             }
@@ -144,12 +144,19 @@ class LoginFragment : Fragment() {
 
         // 둘러보기 버튼 누름
         binding.btnTour.setOnClickListener {
-            findNavController().navigate(R.id.action_login_to_nav_graph02_main, null)
+            findNavController().navigate(R.id.action_global_mainHomeFragment2, null)
         }
 
         // 회원가입페이지로 연결
         binding.btnRegistration.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_agreementFragment, null)
+        }
+        // 로그인에서 비번 찾기 누를 시
+        binding.btnForgetPassword.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("page", "login")
+            // 로그인 프래그먼트로 이동
+            findNavController().navigate(R.id.action_global_findPassByEmailFragment, bundle)
         }
 
     }
