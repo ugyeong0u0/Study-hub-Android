@@ -136,12 +136,7 @@ class SearchFragment : Fragment() {
                 null
             )
         }
-        binding.iconAlarm.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_global_mainAlarmFragment,
-                null
-            )
-        }
+
         // 글자 입력시 돋보기 x자보이게 처리
         viewModel.searchWord.observe(viewLifecycleOwner) {
             viewModel.updateSearchImg()

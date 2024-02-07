@@ -116,12 +116,6 @@ class StudyMainFragment : Fragment() {
                 null
             )
         }
-        binding.iconAlarm.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_global_mainAlarmFragment,
-                null
-            )
-        }
 
         // 스터디 생성하기
         binding.btnFlaot.setOnClickListener {

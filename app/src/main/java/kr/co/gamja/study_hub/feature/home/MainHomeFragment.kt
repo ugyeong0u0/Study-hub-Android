@@ -118,12 +118,6 @@ class MainHomeFragment : Fragment() {
                 null
             )
         }
-        binding.iconAlarm.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_global_mainAlarmFragment,
-                null
-            )
-        }
 
         // 검색창으로 넘어감
         binding.btnSearch.setOnClickListener {
