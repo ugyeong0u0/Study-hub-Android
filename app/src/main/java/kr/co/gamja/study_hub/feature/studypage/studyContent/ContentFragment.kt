@@ -2,6 +2,7 @@ package kr.co.gamja.study_hub.feature.studypage.studyContent
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,16 +19,21 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.CallBackListener
+import kr.co.gamja.study_hub.data.repository.OnCommentClickListener
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentContentBinding
+import kr.co.gamja.study_hub.feature.studypage.allcomments.bottomsheet.CommentBottomSheetFragment
 import kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
 // 스터디 상세 보기 관련
 class ContentFragment : Fragment() {
+    val msgTag = this.javaClass.simpleName
     private lateinit var binding: FragmentContentBinding
     private val args: ContentFragmentArgs by navArgs()
-    private val viewModel: ContentViewModel by viewModels()
+    private val viewModel: ContentViewModel by activityViewModels() // CommentBottomSheetFragment 모달에서 수정, 삭제인지 확인 필요해서 activity~로 함
+    private var nowCommentId: Int = -1 // 현재 보고 있는 댓글 id -> 댓글 수정 삭제 모달에서 할 때 필요
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,8 +49,9 @@ class ContentFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         val contentAdapter = ContentAdapter(requireContext())
-        getContent(contentAdapter, args.postId)
 
+        getContent(contentAdapter, args.postId)
+//        Log.e(msgTag,args.postId.toString())
         // 툴바 설정
         val toolbar = binding.contentToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -101,10 +108,25 @@ class ContentFragment : Fragment() {
 
         // 댓글 조회
         val commentAdapter = CommentAdapter(requireContext())
+//        Log.e(msgTag, "getCommentsList위"+args.postId)
         viewModel.getCommentsList(adapter = commentAdapter, args.postId)
+
         binding.recyclerComment.adapter = commentAdapter
         binding.recyclerComment.layoutManager =
             LinearLayoutManager(requireContext())
+
+        // 댓글 세개의 점 아이콘 누를 시 (수정, 삭제, 닫기 모달있는)
+        commentAdapter.setOnItemClickListener(object : OnCommentClickListener {
+            override fun getCommentValue(whatItem: Int, itemValue: Int, comment: String) {
+//                Log.e(msgTag,"1. 댓글미리보기에서 댓글모달 눌림 ")
+                when (whatItem) {
+                    1 -> {
+                        nowCommentId = itemValue // 댓 id 저장
+                        goCommentModal(comment) // 수정 삭제 모달로 이동
+                    }
+                }
+            }
+        })
 
         // 댓글 전체 조회 페이지로
         binding.btnAllComment.setOnClickListener {
@@ -122,23 +144,71 @@ class ContentFragment : Fragment() {
             binding.btnCommentOk.isEnabled = isButtonEnabled
         }
         // 댓글 추가
-        binding.btnCommentOk.setOnClickListener{
-            viewModel.setUserComment(object : CallBackListener {
-                override fun isSuccess(result: Boolean) {
-                    if (result) {
-                        CustomSnackBar.make(
-                            binding.layoutRelative,
-                            getString(R.string.setComment), binding.btnNext, true, R.drawable.icon_check_green
-                        ).show()
-                        // 키보드 내리기
-                        hideKeyboardForResend()
-                        // editText에 입력된 글 지우기
-                        viewModel.studyComment.value = ""
-                        // 어댑터 리스트 재로딩
-                       viewModel.getCommentsList(adapter = commentAdapter, args.postId)
+        binding.btnCommentOk.setOnClickListener {
+//            Log.e(msgTag, "댓글 수정 눌림1 ${viewModel.isModify.value}")
+            // 댓글 수정인 경우
+            if (viewModel.isModify.value == true) {
+                Log.d(msgTag, "댓글 수정 눌림2")
+                viewModel.modifyComment(nowCommentId, object : CallBackListener {
+                    override fun isSuccess(result: Boolean) {
+                        if (result) {
+                            Log.i(msgTag, "댓글 수정 성공 callback")
+                            CustomSnackBar.make(
+                                binding.layoutRelative,
+                                getString(R.string.modifyComment), binding.btnNext, false
+                            ).show()
+                            // 키보드 내리기
+                            hideKeyboardForResend()
+                            // editText에 입력된 글 지우기
+                            viewModel.studyComment.value = ""
+                            // 수정 후 false
+                            viewModel.setModify(false)
+                            // 댓글 재로딩
+                            Log.i(msgTag, "댓 미리보기 댓수정 콜백 안 " + args.postId)
+                            viewModel.getCommentsList(adapter = commentAdapter, args.postId)
+                        }
                     }
-                }
-            })
+                })
+            } else { // 댓글 등록 경우
+                viewModel.setUserComment(object : CallBackListener {
+                    override fun isSuccess(result: Boolean) {
+                        if (result) {
+                            CustomSnackBar.make(
+                                binding.layoutRelative,
+                                getString(R.string.setComment),
+                                binding.btnNext,
+                                true,
+                                R.drawable.icon_check_green
+                            ).show()
+                            // 키보드 내리기
+                            hideKeyboardForResend()
+                            // editText에 입력된 글 지우기
+                            viewModel.studyComment.value = ""
+                            // 어댑터 리스트 재로딩
+//                            Log.e(msgTag,"댓미리보기 댓 추가 콜백 안 "+args.postId)
+                            viewModel.getCommentsList(adapter = commentAdapter, args.postId)
+                        }
+                    }
+                })
+            }
+        }
+
+        // bottomsheet에서 삭제 눌러서 왔을 경우
+        viewModel.isDelete.observe(viewLifecycleOwner) {
+            if (it) {
+//                Log.e(msgTag,"댓글 미리보기 댓 삭제 ")
+                viewModel.deleteComment(postId = nowCommentId, object : CallBackListener {
+                    override fun isSuccess(result: Boolean) {
+                        if (result) {
+                            viewModel.setDelete(false) // 삭제 후 false로 원상복귀
+                            viewModel.getCommentsList(
+                                adapter = commentAdapter,
+                                args.postId
+                            ) // 댓글 재로딩
+                        }
+                    }
+                })
+            }
         }
     }
 
@@ -159,6 +229,7 @@ class ContentFragment : Fragment() {
         })
     }
 
+    // 컨텐츠 수정 모달
     private fun getModal(postId: Int) {
         val bundle = Bundle()
         bundle.putInt("postId", postId)
@@ -167,6 +238,18 @@ class ContentFragment : Fragment() {
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         modal.show(parentFragmentManager, modal.tag)
     }
+
+    // 댓글 미리보기 삭제 수정 모달싯트로
+    private fun goCommentModal(comment: String) {
+        val modal = CommentBottomSheetFragment()
+        val bundle = Bundle()
+        bundle.putString("comment", comment)
+        bundle.putString("page", "contentFragment")
+        modal.arguments = bundle
+        modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
+        modal.show(parentFragmentManager, modal.tag)
+    }
+
     private fun hideKeyboardForResend() {
         val inputMethodManager =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
