@@ -134,6 +134,7 @@
             android:textColor="@color/BG_60"/>
 
         <Button
+            android:id="@+id/btnDone"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:background="@drawable/ablebtn_background_o_50_30_corner_6"
