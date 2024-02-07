@@ -382,5 +382,23 @@
         android:id="@+id/action_global_mainHomeFragment2"
         app:destination="@id/mainHomeFragment" />
 
+    <fragment
+        android:id="@+id/refusalReasonFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.participant.RefusalReasonFragment"
+        android:label="fragment_refusal"
+        tools:layout="@layout/fragment_refusal_reason">
+        <action
+            android:id="@+id/action_refusalReasonFragment_to_participantFragment"
+            app:destination="@+id/participantFragment"/>
+    </fragment>
 
+    <fragment
+        android:id="@+id/bottomReasonFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.participant.BottomSheet"
+        android:label="refusal_reason_bottom_fragment"
+        tools:layout="@layout/fragment_bottom_sheet">
+        <action
+            android:id="@+id/action_refusalBottomSheet_to_refusalReasonFragment"
+            app:destination="@+id/refusalReasonFragment"/>
+    </fragment>
 </navigation>

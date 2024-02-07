@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentRefusalReasonBinding
 
@@ -28,6 +29,11 @@ class RefusalReasonFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply{
+
+            //toolbar 뒤로가기 버튼 클릭 시
+            iconBack.setOnClickListener{
+                findNavController().navigateUp()
+            }
 
             //EdtiText 내용 변경 시 >> 숫자 변경 & EditText의 text가 0이 아니라면 button enable
             etRefusalReason.addTextChangedListener(object : TextWatcher {
@@ -50,7 +56,10 @@ class RefusalReasonFragment : Fragment() {
             
             //거절 선택 시 대기 Fragment로 이동 && success dialog 띄우기
             btnDone.setOnClickListener {
-
+                findNavController().navigate(
+                    R.id.action_refusalReasonFragment_to_participantFragment,
+                    null
+                )
             }
         }
     }

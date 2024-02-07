@@ -5,6 +5,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentBottomSheetListDialogBinding
 
@@ -50,6 +51,11 @@ class BottomSheet(userId : Int) : BottomSheetDialogFragment() {
                 //tvR4 텍스트 메세지라면? 거절 사유 작성 화면으로 navigation
                 if (selectedReason == tvR4.text.toString()) {
                     //RefusalFragment로 이동
+                    findNavController().navigate(
+                        R.id.action_refusalBottomSheet_to_refusalReasonFragment,
+                        null
+                    )
+                    dismiss()
                 } else {
                     //거절 api 사용
                 }
