@@ -381,6 +381,11 @@
     <action
         android:id="@+id/action_global_mainHomeFragment2"
         app:destination="@id/mainHomeFragment" />
+    <fragment
+        android:id="@+id/applicationHistoryFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.applicationhistory.ApplicationHistoryFragment"
+        android:label="fragment_application_history"
+        tools:layout="@layout/fragment_application_history" />
 
 
 </navigation>

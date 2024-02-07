@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<data>
+    <variable
+        name="viewModel"
+        type="kr.co.gamja.study_hub.feature.mypage.applicationhistory.ApplicationHistoryViewModel" />
+    <import type="android.view.View" />
+</data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/BG_30">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/applicationHistory_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
+
+                <TextView
+                    android:id="@+id/engagedStudy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/icon_back"
+                    android:gravity="center"
+                    android:text="@string/applyHistory"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/txt_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/applicationHistory_toolbar"
+            android:layout_marginStart="@dimen/twenty"
+            android:layout_marginTop="16dp"
+            android:text="@{@string/txt_all(viewModel.listSize)}"
+            android:textColor="@color/BG_80"
+            android:textSize="16sp"
+            tools:text="전체 2" />
+
+        <ImageView
+            android:id="@+id/img_emptyEngagedStudy"
+            android:layout_width="@dimen/twoHundred_ten"
+            android:layout_height="@dimen/twoHundred_ten"
+            android:layout_centerInParent="true"
+            android:src="@drawable/image_empty_apply"
+            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
+
+        <TextView
+            android:id="@+id/txt_binEngagedStudy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_emptyEngagedStudy"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/sixteen"
+            android:text="@string/empty_applyHistory_head"
+            android:textColor="@color/BG_70"
+            android:textSize="14sp"
+            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
+
+        <TextView
+            android:id="@+id/txt_sub_binBookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_binEngagedStudy"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/sixteen"
+            android:text="@string/empty_applyHistory_sub"
+            android:textColor="@color/BG_60"
+            android:textSize="14sp"
+            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_engagedStudy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_all"
+            android:layout_marginHorizontal="@dimen/twenty" />
+    </RelativeLayout>
+
+</layout>

@@ -232,4 +232,12 @@
     <string name="binEngagedStudy">참여한 스터디가 없어요</string>
     <string name="sub_binBookmark">나와 맞는 스터디를 찾아보세요!</string>
     <string name="txt_goChatRoom">채팅방으로 이동하기</string>
+
+<!--    신청내역-->
+    <string name="applyHistory">신청 내역</string>
+    <string name="empty_applyHistory_head">신청한 스터디가 없어요</string>
+    <string name="empty_applyHistory_sub">지금 스터디에 참여해보세요\!</string>
+    <string name="complete_deletion">삭제가 완료됐어요.</string>
+    <string name="txt_applicationContent">신청내용</string>
+    
 </resources>

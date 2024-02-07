@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bg_white_corner_6"
+        android:paddingTop="@dimen/sixteen">
+
+
+        <TextView
+            android:id="@+id/txt_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/sixteen"
+            android:layout_marginBottom="@dimen/sixteen"
+            android:textColor="@color/O_50"
+            android:textSize="12sp"
+            tools:text="수락여부" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_threeDot"
+            android:layout_width="@dimen/thirty_two"
+            android:layout_height="@dimen/thirty_two"
+            android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="@dimen/sixteen"
+            android:layout_marginBottom="@dimen/sixteen"
+            android:background="@drawable/icon_delete_s_gray" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_major"
+            android:layout_marginHorizontal="@dimen/sixteen"
+            android:layout_marginBottom="@dimen/eighteen"
+            android:textColor="@color/sysblack1"
+            android:textSize="16sp"
+            tools:text="제목" />
+
+        <LinearLayout
+            android:background="@drawable/background_bg_20_corner_6"
+            android:id="@+id/layout_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_title"
+            android:layout_marginHorizontal="@dimen/sixteen"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/fourteen"
+            android:layout_marginBottom="@dimen/twenty_four"
+            android:paddingVertical="@dimen/twenty">
+
+            <TextView
+                android:id="@+id/txt_contentHead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/txt_applicationContent"
+                android:textColor="@color/BG_60"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txt_contentSub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/twenty"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp"
+                tools:text="내용" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/twenty"
+            android:layout_below="@+id/layout_content"
+            android:background="@color/BG_30" />
+
+    </RelativeLayout>
+</layout>
