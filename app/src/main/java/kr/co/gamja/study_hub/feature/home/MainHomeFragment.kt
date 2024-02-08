@@ -22,16 +22,19 @@ import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.OnBookmarkClickListener
 import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentMainHomeBinding
+import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.CustomSnackBar
+import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 
 class MainHomeFragment : Fragment() {
+    val tagMsg = this.javaClass.simpleName
     private lateinit var binding: FragmentMainHomeBinding
     private val viewModel: HomeViewModel by viewModels()
     private var doubleBackPressed = false
     private lateinit var deadlineAdapter: ItemCloseDeadlineAdapter
     private lateinit var onRecruitingAdapter: ItemOnRecruitingAdapter
-
+    var isUser: Boolean = true // 로그인 유저(true)인지 아니면 둘러보기 유저인지(false)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,12 +70,25 @@ class MainHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         // 프로그래스바 제어, 데이터 받아오면 true, 프로그래스바는 false
         viewModel.progressRecruiting.value = false
         viewModel.progressDeadLine.value = false
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        // 둘러보기인지 누른 페이지 bundle로 받음
+        val receiveBundle = arguments
+        if (receiveBundle != null) {
+            isUser = receiveBundle.getBoolean("isUser")
+        } else Log.e(
+            tagMsg,
+            "둘러보기 아님 "
+        )
+        viewModel.isUserLogin.value = isUser
+
+
         // 툴바 설정
         val toolbar = binding.mainToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -113,9 +129,11 @@ class MainHomeFragment : Fragment() {
             )
         }
         binding.iconBookmark.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putBoolean("isUser", isUser)
             findNavController().navigate(
                 R.id.action_global_mainBookmarkFragment,
-                null
+                bundle
             )
         }
 
@@ -132,14 +150,34 @@ class MainHomeFragment : Fragment() {
         binding.recyclerOnGoing.adapter = onRecruitingAdapter
         binding.recyclerOnGoing.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        onRecruitingAdapter.isUserLogin = isUser // 북마크 로그인 유저만 되게 하기위함
         // 리스트 업데이트
         updateRecruitingList()
 
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         onRecruitingAdapter.setOnItemClickListener(object : OnBookmarkClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
-                viewModel.saveDeleteBookmarkItem(postId)
-                updateDeadlineList()
+                if (isUser) {
+                    viewModel.saveDeleteBookmarkItem(postId)
+                    updateDeadlineList()
+                } else {
+                    Log.d(tagMsg, "비회원이 북마크 누름")
+                    val head =
+                        requireContext().resources.getString(R.string.head_goLogin)
+                    val sub =
+                        requireContext().resources.getString(R.string.sub_goLogin)
+                    val yes =
+                        requireContext().resources.getString(R.string.txt_login)
+                    val no = requireContext().resources.getString(R.string.btn_cancel)
+                    val dialog =
+                        CustomDialog(requireContext(), head, sub, no, yes)
+                    dialog.showDialog()
+                    dialog.setOnClickListener(object : OnDialogClickListener {
+                        override fun onclickResult() { // 로그인하러가기 누를시
+                            findNavController().navigate(R.id.action_global_loginFragment, null)
+                        }
+                    })
+                }
             }
         })
         // 뷰클릭시
@@ -154,14 +192,35 @@ class MainHomeFragment : Fragment() {
         deadlineAdapter = ItemCloseDeadlineAdapter(requireContext())
         binding.recyclerApproaching.adapter = deadlineAdapter
         binding.recyclerApproaching.layoutManager = LinearLayoutManager(requireContext())
+        deadlineAdapter.isUserLogin = isUser // 로그인 여부 -> 북마크 색 변경 때문
 
         // 리스트 업데이트
         updateDeadlineList()
 
         deadlineAdapter.setOnItemClickListener(object : OnBookmarkClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
-                viewModel.saveDeleteBookmarkItem(postId)
-                updateRecruitingList()
+                if (isUser) {
+                    viewModel.saveDeleteBookmarkItem(postId)
+                    updateRecruitingList()
+
+                } else {
+                    Log.d(tagMsg, "비회원이 북마크 누름")
+                    val head =
+                        requireContext().resources.getString(R.string.head_goLogin)
+                    val sub =
+                        requireContext().resources.getString(R.string.sub_goLogin)
+                    val yes =
+                        requireContext().resources.getString(R.string.txt_login)
+                    val no = requireContext().resources.getString(R.string.btn_cancel)
+                    val dialog =
+                        CustomDialog(requireContext(), head, sub, no, yes)
+                    dialog.showDialog()
+                    dialog.setOnClickListener(object : OnDialogClickListener {
+                        override fun onclickResult() { // 로그인하러가기 누를시
+                            findNavController().navigate(R.id.action_global_loginFragment, null)
+                        }
+                    })
+                }
             }
         })
         // 뷰자체 클릭시 스터디 컨텐츠 글로 이동

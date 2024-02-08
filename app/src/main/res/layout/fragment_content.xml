@@ -171,7 +171,7 @@
                                 android:gravity="center"
                                 android:text="@{viewModel.fee}"
                                 android:textColor="@color/syswhite"
-                                android:textSize="14sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
                                 app:drawableTopCompat="@drawable/resized_icon_coin_gray_24" />
 
@@ -200,7 +200,7 @@
                                 android:gravity="center"
                                 android:text="@{viewModel.gender}"
                                 android:textColor="@color/syswhite"
-                                android:textSize="14sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
                                 app:drawableTopCompat="@drawable/resized_icon_gender_gray_24" />
 
