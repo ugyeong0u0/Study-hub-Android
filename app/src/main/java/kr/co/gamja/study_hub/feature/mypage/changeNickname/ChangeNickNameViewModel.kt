@@ -39,7 +39,7 @@ class ChangeNickNameViewModel : ViewModel() {
     fun isDuplicationNickname(params: CallBackListener) {
         viewModelScope.launch {
             val response =
-                RetrofitManager.api.getIsDuplicationNickname(nickname = nickname.value.toString())
+                RetrofitManager.api.checkNicknameDuplication(nickname = nickname.value.toString())
             if (response.isSuccessful) {
                 params.isSuccess(true)
             } else {
