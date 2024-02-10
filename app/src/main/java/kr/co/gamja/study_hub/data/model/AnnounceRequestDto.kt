@@ -1,7 +1,7 @@
 package kr.co.gamja.study_hub.data.model
 
-data class GetMyPostData(
-    val content: List<ContentXX>,
+data class AnnounceRequestDto(
+    val content: List<AnnouncementContentDto>,
     val empty: Boolean,
     val first: Boolean,
     val last: Boolean,

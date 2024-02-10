@@ -2,12 +2,12 @@ package kr.co.gamja.study_hub.feature.mypage.myStudy
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import kr.co.gamja.study_hub.data.model.ContentXXX
+import kr.co.gamja.study_hub.data.model.ContentXX
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
 import retrofit2.HttpException
 
-class MyStudyPagingSource(private val studyHybApi: StudyHubApi) : PagingSource<Int, ContentXXX>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ContentXXX> {
+class MyStudyPagingSource(private val studyHybApi: StudyHubApi) : PagingSource<Int, ContentXX>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ContentXX> {
         return try {
             // 페이지부터 시작
             val currentPageNumber = params.key ?: 0
@@ -33,7 +33,7 @@ class MyStudyPagingSource(private val studyHybApi: StudyHubApi) : PagingSource<I
     }
 
     // 새로 고침할 시 페이징시스템이 어떤 "페이지"에서 시작해야 할지 결정
-    override fun getRefreshKey(state: PagingState<Int, ContentXXX>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, ContentXX>): Int? {
         // prevKey == null -> anchorPage 첫 페이지
         // nextKey == null -> anchorPage 마지막 페이지.
         // prevKey && nextKey == null -> anchorPage 한 페이지 return null.

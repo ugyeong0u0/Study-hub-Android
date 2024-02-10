@@ -197,4 +197,11 @@ interface StudyHubApi {
 //        @Query("page") page: Int,
 //        @Query("size") size: Int
 //    ):Response<>
+
+    /** 공지사항 */
+    @GET("/api/v1/announce")
+    suspend fun getAnnounce(
+        @Query("page") page : Int,
+        @Query("size") size : Int,
+    ) : Response<AnnounceRequestDto>
 }
