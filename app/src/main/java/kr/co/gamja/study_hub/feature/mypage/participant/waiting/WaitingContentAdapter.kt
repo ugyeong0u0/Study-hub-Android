@@ -68,11 +68,11 @@ class WaitingContentAdapter(val context : Context) : RecyclerView.Adapter<Waitin
                 /** item.id가 참여 신청한 user의 id가 맞을까요? */
 
                 btnRefusal.setOnClickListener{
-                    onClickListener.onAcceptClick(item.id)
+                    onClickListener.onRefusalClick(item.id)
                 }
 
                 btnAccept.setOnClickListener{
-                    onClickListener.onRefusalClick(item.id)
+                    onClickListener.onAcceptClick(item.id)
                 }
             }
         }

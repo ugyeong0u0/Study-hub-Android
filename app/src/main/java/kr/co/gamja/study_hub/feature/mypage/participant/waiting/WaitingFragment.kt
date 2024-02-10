@@ -7,16 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentWaitingBinding
 import kr.co.gamja.study_hub.feature.mypage.participant.BottomSheet
 import kr.co.gamja.study_hub.feature.mypage.participant.ParticipantViewModel
-import kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment
+import kr.co.gamja.study_hub.global.RcvDecoration
 
 class WaitingFragment : Fragment() {
 
@@ -79,6 +79,7 @@ class WaitingFragment : Fragment() {
             //거절 선택 >> BottomFragment
             override fun onRefusalClick(userId : Int) {
                 val bottomSheetFragment = BottomSheet(userId)
+                bottomSheetFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
                 bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
 
 //                viewModel.refusal(studyId, userId)
@@ -89,5 +90,8 @@ class WaitingFragment : Fragment() {
         adapter.setOnClickListener(listener)
         binding.rcvContent.adapter = adapter
         binding.rcvContent.layoutManager = LinearLayoutManager(requireContext())
+        val itemSpace = resources.getDimensionPixelSize(R.dimen.thirty)
+        val deco = RcvDecoration(itemSpace)
+        binding.rcvContent.addItemDecoration(deco)
     }
 }

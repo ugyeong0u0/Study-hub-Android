@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentParticipationBinding
 import kr.co.gamja.study_hub.feature.mypage.participant.ParticipantViewModel
+import kr.co.gamja.study_hub.global.RcvDecoration
 
 class ParticipationFragment : Fragment() {
 
@@ -53,5 +54,8 @@ class ParticipationFragment : Fragment() {
         adapter = ParticipationAdapter(requireContext())
         binding.rcvContent.adapter = adapter
         binding.rcvContent.layoutManager = LinearLayoutManager(requireContext())
+        val space = resources.getDimensionPixelSize(R.dimen.thirty)
+        val itemDecoration = RcvDecoration(space)
+        binding.rcvContent.addItemDecoration(itemDecoration)
     }
 }

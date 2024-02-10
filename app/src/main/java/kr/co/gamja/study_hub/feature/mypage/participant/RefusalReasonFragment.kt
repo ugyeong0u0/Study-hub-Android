@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
@@ -30,6 +29,9 @@ class RefusalReasonFragment : Fragment() {
 
         binding.apply{
 
+            //textCount의 초기값
+            textCount = "0"
+
             //toolbar 뒤로가기 버튼 클릭 시
             iconBack.setOnClickListener{
                 findNavController().navigateUp()
@@ -46,7 +48,7 @@ class RefusalReasonFragment : Fragment() {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    textCount = etRefusalReason.text.toString().length
+                    textCount = etRefusalReason.text.toString().length.toString()
                 }
 
                 override fun afterTextChanged(s: Editable?) {

@@ -10,10 +10,12 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/refusalBottomDialog"
         android:layout_width="match_parent"
-        android:layout_height="390dp"
+        android:layout_height="400dp"
         android:background="@drawable/bottom_sheet_background"
         android:orientation="vertical"
+        android:layout_marginBottom="50dp"
         tools:context=".feature.mypage.participant.BottomSheet">
 
         <LinearLayout
@@ -45,7 +47,7 @@
                 android:id="@+id/lyTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:weight="1"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:layout_marginEnd="12dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -84,111 +86,52 @@
         <RadioGroup
             android:id="@+id/rgSelect"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="20dp">
 
-            <LinearLayout
+            <RadioButton
+                android:id="@+id/chb1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:paddingStart="16dp"
-                android:paddingEnd="20dp">
+                android:gravity="start|center_vertical"
+                android:button="@drawable/checkbox_background"
+                android:text="이 스터디의 목표와 맞지 않아요"
+                android:textSize="12sp"
+                android:textColor="@color/BG_70"/>
 
-                <RadioButton
-                    android:id="@+id/chb1"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:gravity="center"
-                    android:button="@drawable/checkbox_background"/>
-
-                <TextView
-                    android:id="@+id/tvR1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="이 스터디의 목표와 맞지 않아요"
-                    android:textSize="12sp"
-                    android:textColor="@color/BG_70"/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <RadioButton
+                android:id="@+id/chb2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:paddingStart="16dp"
-                android:paddingEnd="20dp">
+                android:gravity="start|center_vertical"
+                android:button="@drawable/checkbox_background"
+                android:text="팀원 조건과 맞지 않아요 (학과, 성별 등)"
+                android:textSize="12sp"
+                android:textColor="@color/BG_70"/>
 
-                <RadioButton
-                    android:id="@+id/chb2"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:gravity="center"
-                    android:button="@drawable/checkbox_background"/>
-
-                <TextView
-                    android:id="@+id/tvR2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="팀원 조건과 맞지 않아요 (학과, 성별 등)"
-                    android:textSize="12sp"
-                    android:textColor="@color/BG_70"/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <RadioButton
+                android:id="@+id/chb3"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:paddingStart="16dp"
-                android:paddingEnd="20dp">
+                android:gravity="start|center_vertical"
+                android:button="@drawable/checkbox_background"
+                android:text="소개글이 짧아서 어떤 분인지 알 수 없어요"
+                android:textSize="12sp"
+                android:textColor="@color/BG_70"/>
 
-                <RadioButton
-                    android:id="@+id/chb3"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:gravity="center"
-                    android:button="@drawable/checkbox_background"/>
-
-                <TextView
-                    android:id="@+id/tvR3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="소개글이 짧아서 어떤 분인지 알 수 없어요"
-                    android:textSize="12sp"
-                    android:textColor="@color/BG_70"/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <RadioButton
+                android:id="@+id/chb4"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:paddingStart="16dp"
-                android:paddingEnd="20dp">
-
-                <RadioButton
-                    android:id="@+id/chb4"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:button="@drawable/checkbox_background"/>
-
-                <TextView
-                    android:id="@+id/tvR4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="기타 (직접 작성)"
-                    android:textSize="12sp"
-                    android:textColor="@color/BG_70"/>
-
-            </LinearLayout>
+                android:gravity="start|center_vertical"
+                android:button="@drawable/checkbox_background"                    android:text="기타 (직접 작성)"
+                android:textSize="12sp"
+                android:textColor="@color/BG_70"/>
         </RadioGroup>
     </LinearLayout>
 </layout>
