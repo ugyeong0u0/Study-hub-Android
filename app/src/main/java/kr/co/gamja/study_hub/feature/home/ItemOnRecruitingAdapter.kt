@@ -18,6 +18,10 @@ import kr.co.gamja.study_hub.global.Functions
 
 class ItemOnRecruitingAdapter(private val context: Context) :
     RecyclerView.Adapter<ItemOnRecruitingAdapter.MainHolder>() {
+
+    val tag: String =this.javaClass.simpleName
+    var isUserLogin : Boolean =true // 유저인지 아닌지
+
     var studyPosts: FindStudyResponseM? = null
     private lateinit var mOnBookmarkClickListener: OnBookmarkClickListener // 북마크 viewModel에 interface 선언
     private lateinit var mOnViewClickListener: OnViewClickListener // 뷰자체 클릭
@@ -57,6 +61,7 @@ class ItemOnRecruitingAdapter(private val context: Context) :
                 if (itemPosition != RecyclerView.NO_POSITION) {
                     studyPosts?.postDataByInquiries?.content?.get(itemPosition).let {
                         val bindingPostId = it?.postId
+//                        Log.e(tag,bindingPostId.toString())
                         mOnViewClickListener.onViewClick(bindingPostId)
                     }
                 }
@@ -66,6 +71,8 @@ class ItemOnRecruitingAdapter(private val context: Context) :
         fun setPosts(studyItem: ContentXXXX?) {
             val postId: Int? = studyItem?.postId
             studyItem?.let {
+
+                Log.i(tag, "isUserLogin : $isUserLogin")
                 val functions = Functions()
                 val koreanMajor = functions.convertToKoreanMajor(it.major) // 학과명 한글로 변경
                 binding.txtMajor.text = koreanMajor
@@ -112,21 +119,27 @@ class ItemOnRecruitingAdapter(private val context: Context) :
                 // 북마크 여부
                 binding.isBookmark = it.bookmarked
 
-                //북마크 추가 버튼 클릭 리스너
-                binding.btnBookmark.setOnClickListener {
-                    when (binding.isBookmark) {
-                        true -> {
-                            binding.isBookmark = false
-                            binding.btnBookmark.tag = "0"
+                    //북마크 추가 버튼 클릭 리스너
+                    binding.btnBookmark.setOnClickListener {
+                        // 로그인 된 유저만 되도록
+                        if(isUserLogin){
+                            when (binding.isBookmark) {
+                                true -> {
+                                    binding.isBookmark = false
+                                    binding.btnBookmark.tag = "0"
+                                }
+                                false -> {
+                                    binding.isBookmark = true
+                                    binding.btnBookmark.tag = "1"
+                                }
+                            }
                         }
-                        false -> {
-                            binding.isBookmark = true
-                            binding.btnBookmark.tag = "1"
-                        }
+
+                        val tagId = binding.btnBookmark.tag.toString()
+                        mOnBookmarkClickListener.onItemClick(tagId, postId)
                     }
-                    val tagId = binding.btnBookmark.tag.toString()
-                    mOnBookmarkClickListener.onItemClick(tagId, postId)
-                }
+
+
             }
         }
     }

@@ -53,7 +53,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/content_toolbar"
-            android:layout_marginTop="@dimen/thirty_two"
             android:layout_marginBottom="40dp"
             android:orientation="vertical">
 
@@ -64,7 +63,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/thirty_two">
 
 
                     <TextView
@@ -171,7 +171,7 @@
                                 android:gravity="center"
                                 android:text="@{viewModel.fee}"
                                 android:textColor="@color/syswhite"
-                                android:textSize="14sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
                                 app:drawableTopCompat="@drawable/resized_icon_coin_gray_24" />
 
@@ -200,7 +200,7 @@
                                 android:gravity="center"
                                 android:text="@{viewModel.gender}"
                                 android:textColor="@color/syswhite"
-                                android:textSize="14sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
                                 app:drawableTopCompat="@drawable/resized_icon_gender_gray_24" />
 
@@ -523,14 +523,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/syswhite"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bookmark"
                 android:layout_width="@dimen/thirty_two"
                 android:layout_height="@dimen/thirty_two"
                 android:layout_marginStart="@dimen/twenty"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/sixteen"
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="@dimen/twenty_four"
                 android:background="@drawable/icon_bookmark_non_gray"
@@ -543,8 +544,8 @@
                 android:id="@+id/btn_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/eight"
                 android:layout_marginEnd="@dimen/twenty"
+                android:layout_marginTop="@dimen/sixteen"
                 android:layout_marginBottom="21dp"
                 android:background="@drawable/btn_background_o_50_corner_6"
                 android:text="@string/fsd_btn_next"

@@ -83,12 +83,6 @@ class MypageMainFragment : Fragment() {
                 }
             }
         })
-        binding.iconAlarm.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_global_mainAlarmFragment,
-                null
-            )
-        }
         // 회원 정보 보기 누를시
         binding.layoutUserInfo.setOnClickListener {
             findNavController().navigate(

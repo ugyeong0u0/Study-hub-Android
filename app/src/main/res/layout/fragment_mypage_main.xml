@@ -37,13 +37,6 @@
                     android:textColor="@color/syswhite"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
-                <ImageButton
-                    android:id="@+id/icon_alarm"
-                    android:layout_width="@dimen/resized_item"
-                    android:layout_height="@dimen/resized_item"
-                    android:layout_alignParentEnd="true"
-                    android:background="@drawable/icon_bell_non_white" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 

@@ -104,7 +104,10 @@ class AllCommentsFragment : Fragment() {
                         if (result) {
                             CustomSnackBar.make(
                                 binding.layoutRelative,
-                                getString(R.string.setComment), binding.viewDivideRecycler, true, R.drawable.icon_check_green
+                                getString(R.string.setComment),
+                                binding.viewDivideRecycler,
+                                true,
+                                R.drawable.icon_check_green
                             ).show()
                             // 키보드 내리기
                             hideKeyboardForResend()
@@ -119,6 +122,7 @@ class AllCommentsFragment : Fragment() {
                 })
             }
         }
+        // 댓글 세개의 점 아이콘 누를 시 (수정, 삭제, 닫기 모달있는)
         adapter.setOnItemClickListener(object : OnCommentClickListener {
             override fun getCommentValue(whatItem: Int, itemValue: Int, comment: String) {
                 when (whatItem) {
@@ -173,11 +177,12 @@ class AllCommentsFragment : Fragment() {
         }
     }
 
-    // 삭제 수정 모달싯트로
+    // 댓글 미리보기 삭제 수정 모달싯트로
     private fun getModal(comment: String) {
         val modal = CommentBottomSheetFragment()
         val bundle = Bundle()
         bundle.putString("comment", comment)
+        bundle.putString("page", "AllCommentsFragment")
         modal.arguments = bundle
         modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         modal.show(parentFragmentManager, modal.tag)
