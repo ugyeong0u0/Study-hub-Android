@@ -8,15 +8,14 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.model.ContentXXX
-import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
+import kr.co.gamja.study_hub.data.model.ContentXX
 import kr.co.gamja.study_hub.data.repository.OnPostingIdClickListener
 import kr.co.gamja.study_hub.databinding.WrittenstudyItemBinding
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.PostingId
 import kr.co.gamja.study_hub.global.Functions
 // todo("인터페이스 클래스담기는것으로 변경하기 ")
 class WrittenStudyAdapter(private val context: Context) :
-    PagingDataAdapter<ContentXXX, WrittenStudyAdapter.WrittenStudyHolder>(DIFF_CALLBACK) {
+    PagingDataAdapter<ContentXX, WrittenStudyAdapter.WrittenStudyHolder>(DIFF_CALLBACK) {
     private lateinit var mOnItemsClickListener: OnPostingIdClickListener// item 내부요소 구별 클릭리스너
     val whatItem = mapOf("shutdownStudy" to 1, "goParticipant" to 2, "goStudyPage" to 3)
     fun setOnItemClickListener(listener: OnPostingIdClickListener) {
@@ -24,14 +23,14 @@ class WrittenStudyAdapter(private val context: Context) :
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContentXXX>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContentXX>() {
             // 리스트 아이템이 같은지
-            override fun areItemsTheSame(oldItem: ContentXXX, newItem: ContentXXX): Boolean {
+            override fun areItemsTheSame(oldItem: ContentXX, newItem: ContentXX): Boolean {
                 return oldItem.postId == newItem.postId
             }
 
             // 리스트 아이템 안 객체의 내용이 같은지 - 내용 변경 확인
-            override fun areContentsTheSame(oldItem: ContentXXX, newItem: ContentXXX): Boolean {
+            override fun areContentsTheSame(oldItem: ContentXX, newItem: ContentXX): Boolean {
                 return oldItem == newItem
             }
         }
@@ -50,7 +49,7 @@ class WrittenStudyAdapter(private val context: Context) :
 
     inner class WrittenStudyHolder(val binding: WrittenstudyItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(content: ContentXXX) {
+        fun bind(content: ContentXX) {
             val functions = Functions()
             val postId: Int = content.postId
             val studyId= content.studyId

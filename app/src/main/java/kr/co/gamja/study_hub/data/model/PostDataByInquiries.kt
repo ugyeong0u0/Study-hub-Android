@@ -7,7 +7,7 @@ data class PostDataByInquiries(
     val last: Boolean,
     val number: Int,
     val numberOfElements: Int,
-    val pageable: PageableXXXXX,
+    val pageable: Pageable,
     val size: Int,
-    val sort: SortXXXXXX
+    val sort: Sort
 )

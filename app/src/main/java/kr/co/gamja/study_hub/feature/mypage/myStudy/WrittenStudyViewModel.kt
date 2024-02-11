@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
-import kr.co.gamja.study_hub.data.model.ContentXXX
+import kr.co.gamja.study_hub.data.model.ContentXX
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
@@ -32,7 +32,7 @@ class WrittenStudyViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     private val _listSize = MutableLiveData<Int>()
     val listSize: LiveData<Int> get() = _listSize
 
-    val myStudyFlow: Flow<PagingData<ContentXXX>> = _reloadTrigger.flatMapLatest {
+    val myStudyFlow: Flow<PagingData<ContentXX>> = _reloadTrigger.flatMapLatest {
 
         Pager(
             PagingConfig(

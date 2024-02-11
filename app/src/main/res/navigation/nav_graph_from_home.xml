@@ -201,6 +201,7 @@
         android:name="kr.co.gamja.study_hub.feature.mypage.uploadImg.UploadImageFragment"
         android:label="fragment_upload_image"
         tools:layout="@layout/fragment_upload_image" />
+
     <fragment
         android:id="@+id/writtenStudyFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.myStudy.WrittenStudyFragment"
@@ -210,16 +211,24 @@
             android:id="@+id/action_writtenStudyFragment_to_participantFragment"
             app:destination="@id/participantFragment" />
     </fragment>
+
+    <!-- Participant 페이지 -->
     <fragment
         android:id="@+id/participantFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.ParticipantFragment"
         android:label="fragment_participant"
-        tools:layout="@layout/fragment_participant" />
+        tools:layout="@layout/fragment_participant">
+        <action
+            android:id="@+id/action_participantFragment_to_refusalReasonFragment"
+            app:destination="@+id/refusalReasonFragment"/>
+
+    </fragment>
     <fragment
         android:id="@+id/waitingFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingFragment"
         android:label="fragment_waiting"
-        tools:layout="@layout/fragment_wating" />
+        tools:layout="@layout/fragment_waiting">
+    </fragment>
     <fragment
         android:id="@+id/participationFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.participation.ParticipationFragment"
@@ -230,6 +239,7 @@
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.refusal.RefusalFragment"
         android:label="fragment_refusal"
         tools:layout="@layout/fragment_refusal" />
+
     <fragment
         android:id="@+id/applicationFragment"
         android:name="kr.co.gamja.study_hub.feature.studypage.apply.ApplicationFragment"
@@ -379,5 +389,23 @@
         android:label="fragment_application_history"
         tools:layout="@layout/fragment_application_history" />
 
+    <fragment
+        android:id="@+id/refusalReasonFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.participant.RefusalReasonFragment"
+        android:label="fragment_refusal"
+        tools:layout="@layout/fragment_refusal_reason">
+        <action
+            android:id="@+id/action_refusalReasonFragment_to_participantFragment"
+            app:destination="@+id/participantFragment"/>
+    </fragment>
 
+    <fragment
+        android:id="@+id/bottomReasonFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.participant.BottomSheet"
+        android:label="refusal_reason_bottom_fragment"
+        tools:layout="@layout/fragment_bottom_sheet">
+        <action
+            android:id="@+id/action_refusalBottomSheet_to_refusalReasonFragment"
+            app:destination="@+id/refusalReasonFragment"/>
+    </fragment>
 </navigation>
