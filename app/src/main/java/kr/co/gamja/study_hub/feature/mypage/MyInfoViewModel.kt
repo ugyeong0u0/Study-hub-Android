@@ -48,7 +48,7 @@ class MyInfoViewModel : ViewModel() {
     // 참여자 수
     private val _participantData = MutableLiveData<String>()
     val participantData: LiveData<String> get() = _participantData
-    // 북마크 수
+    // 신청내역 수
     private val _bookmarkData = MutableLiveData<String>()
     val bookmarkData: LiveData<String> get() = _bookmarkData
 

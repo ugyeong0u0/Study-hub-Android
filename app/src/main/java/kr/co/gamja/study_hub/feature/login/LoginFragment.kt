@@ -130,9 +130,11 @@ class LoginFragment : Fragment() {
                             dataStoreInstance.setAccessToken(accessToken)
                             dataStoreInstance.setRefreshToken(refreshToken)
                             withContext(Dispatchers.Main) {
+                                val bundle = Bundle()
+                                bundle.putBoolean("isUser", true)
                                 findNavController().navigate(
                                     R.id.action_global_mainHomeFragment2,
-                                    null
+                                    bundle
                                 )
                             }
                         }

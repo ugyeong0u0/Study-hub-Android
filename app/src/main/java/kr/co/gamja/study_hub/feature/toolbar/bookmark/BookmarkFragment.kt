@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.feature.toolbar.bookmark
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,10 +25,11 @@ import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 class BookmarkFragment : Fragment() {
-    private val logMessage = this.javaClass.simpleName
+    private val tagMsg = this.javaClass.simpleName
     private lateinit var binding: FragmentBookmarkBinding
     private lateinit var viewModel: BookmarkViewModel
     private lateinit var adapter: BookmarkAdapter
+    var isUser: Boolean = true // 로그인 유저(true)인지 아니면 둘러보기 유저인지(false)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,14 +42,26 @@ class BookmarkFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val factory = BookmarkViewModelFactory(AuthRetrofitManager.api)
         viewModel = ViewModelProvider(this, factory = factory)[BookmarkViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        // 둘러보기인지 누른 페이지 bundle로 받음
+        val receiveBundle = arguments
+        if (receiveBundle != null) {
+            isUser = receiveBundle.getBoolean("isUser")
+//            Log.e(tagMsg, "유저인지$isUser")
+        } else Log.e(
+            tagMsg,
+            "a bundle from mainHomeFragment is error"
+        )
+        viewModel.isUserLogin.value = isUser // 회원 비회원인지 저장
         // 툴바 설정
         val toolbar = binding.bookMarkToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
+
 
         binding.iconBack.setOnClickListener {
             val navcontroller = findNavController()
@@ -114,11 +128,11 @@ class BookmarkFragment : Fragment() {
 }
 
 
-class BookmarkViewModelFactory(private val studyHubApi: StudyHubApi) :
+class BookmarkViewModelFactory(private val authApi: StudyHubApi) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(BookmarkViewModel::class.java)) {
-            return BookmarkViewModel(studyHubApi) as T
+            return BookmarkViewModel(authApi) as T
         }
         throw IllegalArgumentException("ViewModel class 모름")
     }

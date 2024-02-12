@@ -81,7 +81,9 @@ class MainHomeFragment : Fragment() {
         // 둘러보기인지 누른 페이지 bundle로 받음
         val receiveBundle = arguments
         if (receiveBundle != null) {
+//            Log.e(tagMsg, "값 받기 전 : 유저인지$isUser")
             isUser = receiveBundle.getBoolean("isUser")
+//            Log.e(tagMsg, "값 받은 후 : 유저인지$isUser")
         } else Log.e(
             tagMsg,
             "둘러보기 아님 "

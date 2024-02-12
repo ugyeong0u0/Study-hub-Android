@@ -5,21 +5,11 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.datastore.App
-import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.ActivityMainBinding
-import kr.co.gamja.study_hub.feature.login.LoginCallback
-import kr.co.gamja.study_hub.feature.splash.SplashViewModel
 
 class MainActivity : AppCompatActivity() {
     private val tag = this.javaClass.simpleName
@@ -39,11 +29,13 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         val navInflater = navController.navInflater
 
-        // splash에서 온 경우, 화면 재생성이 x splah 화면에서 온 로그인 여부에 따른
-            if (savedInstanceState == null && autoUserLoginResult) {
-                Log.i(tag,"splash 거쳐옴")
-                   navController.navigate(R.id.action_global_mainHomeFragment2) // 홈으로 가기
-            }
+        // splash에서 온 경우, 화면 재생성이 x splah 화면에서 온 로그인 여부에 따른, 자동로그인부분
+        if (savedInstanceState == null && autoUserLoginResult) {
+            Log.i(tag, "splash 거쳐옴")
+            val bundle = Bundle()
+            bundle.putBoolean("isUser", true)
+            navController.navigate(R.id.action_global_mainHomeFragment2, bundle) // 홈으로 가기
+        }
 
 
         binding.bottomNav.setupWithNavController(navController)
