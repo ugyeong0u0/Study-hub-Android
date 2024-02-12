@@ -19,8 +19,10 @@ import kr.co.gamja.study_hub.databinding.FragmentCurrentPasswordBinding
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
 class CurrentPasswordFragment : Fragment() {
+    val tagMsg = this.javaClass.simpleName
     private lateinit var binding: FragmentCurrentPasswordBinding
     private val viewModel: CurrentPasswordViewModel by activityViewModels()
+    private lateinit var userEmailForPass :String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +38,15 @@ class CurrentPasswordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        // 비번 찾을 때 req용 유저 이메일
+        val receiveBundle = arguments
+        if (receiveBundle != null) {
+            userEmailForPass = receiveBundle.getString("userEmail").toString()
+        } else Log.e(
+            tagMsg,
+            "a bundle from mainHomeFragment is error"
+        )
 
         // 툴바 설정
         val toolbar = binding.currentPasswordToolbar
@@ -80,6 +91,7 @@ class CurrentPasswordFragment : Fragment() {
                             val bundle = Bundle()
                             bundle.putString("page", "changePassword")
                             bundle.putBoolean("auth", true)
+                            bundle.putString("userEmail", userEmailForPass)
                             findNavController().navigate(
                                 R.id.action_currentPasswordFragment_to_newPasswordFragment,
                                 bundle

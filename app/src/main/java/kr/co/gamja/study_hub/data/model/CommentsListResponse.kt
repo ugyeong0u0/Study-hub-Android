@@ -7,7 +7,7 @@ data class CommentsListResponse(
     val last: Boolean,
     val number: Int,
     val numberOfElements: Int,
-    val pageable: PageableXX,
+    val pageable: Pageable,
     val size: Int,
-    val sort: SortXXX
+    val sort: Sort
 )

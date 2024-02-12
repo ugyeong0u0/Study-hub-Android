@@ -1,5 +1,6 @@
 package kr.co.gamja.study_hub.feature.studypage.studyHome
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import kr.co.gamja.study_hub.data.model.ContentXXXX
@@ -8,6 +9,7 @@ import retrofit2.HttpException
 
 class StudyMainPagingSource(private val studyHubApi: StudyHubApi, private val isHot: Boolean) :
     PagingSource<Int, ContentXXXX>() {
+    val tag : String = this.javaClass.simpleName
     override fun getRefreshKey(state: PagingState<Int, ContentXXXX>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)

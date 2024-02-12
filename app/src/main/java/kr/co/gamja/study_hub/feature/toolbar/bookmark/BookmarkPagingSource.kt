@@ -7,6 +7,7 @@ import kr.co.gamja.study_hub.data.repository.StudyHubApi
 import retrofit2.HttpException
 
 class BookmarkPagingSource(private val studyHubApi: StudyHubApi) : PagingSource<Int, ContentXX>() {
+    val tag: String = this.javaClass.simpleName
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ContentXX> {
         return try {
             val currentPageNumber = params.key ?: 0

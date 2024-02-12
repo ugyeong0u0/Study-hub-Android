@@ -1,14 +1,20 @@
 package kr.co.gamja.study_hub.feature.mypage.participant
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import kr.co.gamja.study_hub.feature.mypage.participant.participation.ParticipationFragment
 import kr.co.gamja.study_hub.feature.mypage.participant.refusal.RefusalFragment
 import kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingFragment
 
-class ParticipantPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment){
+class ParticipantPagerAdapter(fragment: Fragment, studyId : Int?, postId : Int?): FragmentStateAdapter(fragment){
     private val fragmentList = listOf(
-        WaitingFragment(),
+        WaitingFragment().apply{
+            arguments = Bundle().apply{
+                putInt("studyId", studyId ?: -1)
+                putInt("postId", postId ?: -1)
+            }
+        },
         ParticipationFragment(),
         RefusalFragment()
     )

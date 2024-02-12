@@ -60,7 +60,8 @@ class ApplicationFragment : Fragment() {
                             if (result) {
                                 CustomSnackBar.make(
                                     binding.layoutRelative,
-                                    getString(R.string.apply_ok)
+                                    getString(R.string.apply_ok),
+                                    binding.btnComplete
                                 ).show()
 
                                 val navOptions = NavOptions.Builder() // 백스택에서 제거

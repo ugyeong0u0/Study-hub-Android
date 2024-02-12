@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="date"
+            type="String" />
+
+        <variable
+            name="description"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lyItem"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@color/syswhite"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:text="@{title}"
+                android:textColor="@color/sysblack1"
+                android:textSize="14sp"
+                tools:text="새로운 서비스가 제공될 예정이에요" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{date}"
+                android:textColor="@color/BG_70"
+                android:textSize="12sp"
+                tools:text="2023. 9. 28" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/BG_30"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="24dp"
+            android:text="@{description}"
+            android:textColor="@color/BG_90"
+            android:textSize="14sp"
+            android:visibility="gone"
+            tools:text="안녕하세요. 새로운 소식을 가져왔어요!\n이번에 스터디 모집과 관련한 새로운 서비스가 추가될 예정입니다 \n바로 ~ 서비스 인데요, ~~~" />
+
+    </LinearLayout>
+
+</layout>

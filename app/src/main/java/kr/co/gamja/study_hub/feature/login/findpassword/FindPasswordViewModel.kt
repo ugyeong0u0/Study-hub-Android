@@ -6,13 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.EmailErrorResponse
 import kr.co.gamja.study_hub.data.model.EmailRequest
 import kr.co.gamja.study_hub.data.model.EmailValidRequest
 import kr.co.gamja.study_hub.data.model.EmailValidResponse
-import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 import kr.co.gamja.study_hub.feature.login.EMAIL
@@ -55,21 +53,24 @@ class FindPasswordViewModel : ViewModel() {
     fun initUserEmail() {
         userEmail.value = ""
     }
+
     // 인증번호 초기화
     fun initUserAuth() {
-       userAuth.value = ""
+        userAuth.value = ""
     }
+
     // 이메일 인증 중 화면 전환시 비동기로 하면 안됨(프레그먼트 붙여지기전임)
     val emailVerificationResult = MutableLiveData<Boolean>()
     val emailVerificationResultTwo = MutableLiveData<Boolean>()
 
     // 이메일 보낼때 비동기함수 끝났는지 여부 변수 초기화
-    fun initEmailVerification(){
-        emailVerificationResult.value=false
+    fun initEmailVerification() {
+        emailVerificationResult.value = false
     }
+
     // emailVerificationResult.value false시 observe때문에 놓음
-    fun initEmailVerificationTwo(result :Boolean){
-        emailVerificationResultTwo.value=result
+    fun initEmailVerificationTwo(result: Boolean) {
+        emailVerificationResultTwo.value = result
     }
 
 
@@ -77,18 +78,17 @@ class FindPasswordViewModel : ViewModel() {
     fun emailForFindPassword() {
         val emailReq = EmailRequest(userEmail.value.toString())
         Log.d(tag, "비밀번호 찾기 이메일인증 $emailReq")
-        // todo(로그인 화면에서 오는 경우 이상함 )
         viewModelScope.launch {
             try {
 //                Log.e(tag,"이메일 인증시작")
-                val response = AuthRetrofitManager.api.emailPassword(emailReq)
+                val response = RetrofitManager.api.emailPassword(emailReq)
                 if (response.isSuccessful) {
 //                    Log.e(tag,"이메일 인증끝 response.isSuccessful안 ")
                     Log.d(tag, "비번찾기-이메일 인증번호 보내기 성공")
-                    emailVerificationResult.postValue( true)
+                    emailVerificationResult.postValue(true)
                     emailVerificationResultTwo.postValue(true)
                 } else {
-                    emailVerificationResult.postValue( false)
+                    emailVerificationResult.postValue(false)
                     emailVerificationResultTwo.postValue(false)
                     Log.e(tag, "비번찾기-이메일 인증번호 보내기 실패")
                     val errorResponse: EmailErrorResponse? = response.errorBody()?.let {
@@ -103,7 +103,7 @@ class FindPasswordViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 Log.e(tag, "비번찾기-이메일 Exception: ${e.message}")
-                emailVerificationResult.postValue( false)
+                emailVerificationResult.postValue(false)
                 emailVerificationResultTwo.postValue(false)
             }
         }

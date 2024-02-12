@@ -130,9 +130,11 @@ class LoginFragment : Fragment() {
                             dataStoreInstance.setAccessToken(accessToken)
                             dataStoreInstance.setRefreshToken(refreshToken)
                             withContext(Dispatchers.Main) {
+                                val bundle = Bundle()
+                                bundle.putBoolean("isUser", true)
                                 findNavController().navigate(
                                     R.id.action_global_mainHomeFragment2,
-                                    null
+                                    bundle
                                 )
                             }
                         }
@@ -144,7 +146,9 @@ class LoginFragment : Fragment() {
 
         // 둘러보기 버튼 누름
         binding.btnTour.setOnClickListener {
-            findNavController().navigate(R.id.action_global_mainHomeFragment2, null)
+            val bundle = Bundle()
+            bundle.putBoolean("isUser", false)
+            findNavController().navigate(R.id.action_global_mainHomeFragment2, bundle)
         }
 
         // 회원가입페이지로 연결

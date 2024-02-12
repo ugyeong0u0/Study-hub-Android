@@ -15,6 +15,8 @@ import kr.co.gamja.study_hub.global.Functions
 class MyInfoViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
     private val functions = Functions()
+
+    // 유저 이메일
     private val _emailData = MutableLiveData<String>()
     val emailData: LiveData<String> get() = _emailData
 
@@ -48,7 +50,7 @@ class MyInfoViewModel : ViewModel() {
     // 참여자 수
     private val _participantData = MutableLiveData<String>()
     val participantData: LiveData<String> get() = _participantData
-    // 북마크 수
+    // 신청내역 수
     private val _bookmarkData = MutableLiveData<String>()
     val bookmarkData: LiveData<String> get() = _bookmarkData
 

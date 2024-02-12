@@ -25,6 +25,7 @@ class NewPasswordFragment : Fragment() {
     private var value = false
     private val tagMsg = this.javaClass.simpleName
     var fromPage: String = "" // 이메일로 비번찾기 페이지 bundle로 받음
+    private lateinit var userEmailForPass :String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -98,8 +99,8 @@ class NewPasswordFragment : Fragment() {
 
         binding.btnComplete.setOnClickListener {
             hideKeyboardForBtnComplete()
-            getValue() // frompage 값 가져옴
-            viewModel.changePassword(value, object : CallBackListener {
+            getValue() //  번들 값 : 유저 이메일, frompage 값 가져옴
+            viewModel.changePassword(value, email = userEmailForPass, object : CallBackListener {
                 override fun isSuccess(result: Boolean) {
                     if (result) {
                         CustomSnackBar.make(
@@ -134,12 +135,14 @@ class NewPasswordFragment : Fragment() {
         }
     }
 
+    // 번들 값 가져오기
     private fun getValue() {
         val receiveBundle = arguments
         if (receiveBundle != null) {
             value = receiveBundle.getBoolean("auth")
             fromPage = receiveBundle.getString("page").toString() // 페이지 어디서 왔는지
-            Log.e(tag, " value: $value fromPage : $fromPage")
+            userEmailForPass = receiveBundle.getString("userEmail").toString() // 유저 이메일
+            Log.i(tagMsg, " value: $value fromPage : $fromPage")
         } else Log.e(tag, "receiveBundle is Null")
     }
 

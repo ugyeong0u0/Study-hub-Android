@@ -11,9 +11,14 @@ import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
 import kr.co.gamja.study_hub.data.model.FindStudyResponseM
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
+import kr.co.gamja.study_hub.data.repository.RetrofitManager
+import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
+
+    // 둘러보기인지
+    var isUserLogin = MutableLiveData<Boolean>(true)
 
     // 프로그래스 보이기 안보이기 처리
     var progressRecruiting = MutableLiveData<Boolean>(false)
@@ -23,38 +28,55 @@ class HomeViewModel : ViewModel() {
     private val _visibleProgress = MutableLiveData<Boolean>(true)
     val visibleProgress: LiveData<Boolean> get() = _visibleProgress
 
-    fun updateProgressBar(result : Boolean){
-        _visibleProgress.value=result
+    fun updateProgressBar(result: Boolean) {
+        _visibleProgress.value = result
     }
 
     // ItemOnRecruitingAdapter 모집 중 리스트 값
-    fun getRecruitingStudy(adapter: ItemOnRecruitingAdapter,
-                           isHot: Boolean,
-                           page: Int,
-                           size: Int,
-                           inquiryText: String?,
-                           titleAndMajor: Boolean,
-                           params : CallBackListener){
-        viewModelScope.launch{
+    fun getRecruitingStudy(
+        adapter: ItemOnRecruitingAdapter,
+        isHot: Boolean,
+        page: Int,
+        size: Int,
+        inquiryText: String?,
+        titleAndMajor: Boolean,
+        params: CallBackListener
+    ) {
+        viewModelScope.launch {
             try {
-                val response =
-                    AuthRetrofitManager.api.getStudyPostAll(
-                        isHot,
-                        page,
-                        size,
-                        inquiryText,
-                        titleAndMajor
-                    )
+                val response: Response<FindStudyResponseM>
+                if (isUserLogin.value == true) {
+                    response =
+                        AuthRetrofitManager.api.getStudyPostAll(
+                            isHot,
+                            page,
+                            size,
+                            inquiryText,
+                            titleAndMajor
+                        )
+                } else {
+                    response =
+                        RetrofitManager.api.getStudyPostAll(
+                            isHot,
+                            page,
+                            size,
+                            inquiryText,
+                            titleAndMajor
+                        )
+                }
 
-                Log.d("HomeViewModel: ItemOnRecruitingAdapter viewModel응답코드 " , response.code().toString())
-                if(response.isSuccessful){
+                Log.d(
+                    "HomeViewModel: ItemOnRecruitingAdapter viewModel응답코드 ",
+                    response.code().toString()
+                )
+                if (response.isSuccessful) {
                     val result = response.body() as FindStudyResponseM
-                    Log.d("HomeViewModel: ItemOnRecruitingAdapter viewModel 안" , "")
+                    Log.d("HomeViewModel: ItemOnRecruitingAdapter viewModel 안", "")
                     adapter.studyPosts = result
                     adapter.notifyDataSetChanged()
                     params.isSuccess(true)
                 }
-            }catch (e : Exception){
+            } catch (e: Exception) {
                 Log.e(tag, "스터디 글 조회 Exception: ${e.message}")
             }
         }
@@ -68,22 +90,34 @@ class HomeViewModel : ViewModel() {
         size: Int,
         inquiryText: String?,
         titleaAndMajor: Boolean,
-        params : CallBackListener
+        params: CallBackListener
     ) {
         viewModelScope.launch {
             try {
-                val response =
-                    AuthRetrofitManager.api.getStudyPostAll(
-                        isHot,
-                        page,
-                        size,
-                        inquiryText,
-                        titleaAndMajor
-                    )
+                val response: Response<FindStudyResponseM>
+                if(isUserLogin.value==true){
+                    response =
+                        AuthRetrofitManager.api.getStudyPostAll(
+                            isHot,
+                            page,
+                            size,
+                            inquiryText,
+                            titleaAndMajor
+                        )
+                }else{
+                    response =
+                        RetrofitManager.api.getStudyPostAll(
+                            isHot,
+                            page,
+                            size,
+                            inquiryText,
+                            titleaAndMajor
+                        )
+                }
                 if (response.isSuccessful) {
                     val result = response.body() as FindStudyResponseM
                     if (adapter is ItemOnRecruitingAdapter) {
-                        Log.d("ItemOnRecruitingAdapter viewModel 안" , "")
+                        Log.d("ItemOnRecruitingAdapter viewModel 안", "")
                         adapter.studyPosts = result
                         adapter.notifyDataSetChanged()
                         params.isSuccess(true)
