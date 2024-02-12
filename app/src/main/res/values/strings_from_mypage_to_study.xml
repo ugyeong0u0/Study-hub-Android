@@ -20,6 +20,7 @@
     <string name="fsd_head_writer">작성자</string>
     <string name="fsd_head_recommend">이 글과 비슷한 스터디예요</string>
     <string name="fsd_btn_next">참여하기</string>
+    <string name="alreadyAppliedUser">수락대기 중</string>
     <string name="txt_study">스터디</string>
     <string name="txt_allComment">댓글 %1$d</string>
     <string name="inputComment">댓글을 입력해주세요</string>

@@ -17,6 +17,10 @@ class ContentViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
     private val functions = Functions()
 
+    // 스터디 신청된건지 여부 todo("연결하기 ")
+    private val _isAppliedStudy = MutableLiveData<Boolean>(false)
+    val isAppliedStudy: LiveData<Boolean> get() = _isAppliedStudy
+
     // studyId 신청하기 할 때 필요
     private val _studyId = MutableLiveData<Int>()
     val studyId: LiveData<Int> get() = _studyId
@@ -192,7 +196,7 @@ class ContentViewModel : ViewModel() {
 //        Log.e(tag, " getStudyContent의 postId$postId")
         viewModelScope.launch {
             try {
-                val response = RetrofitManager.api.getStudyContent(postId)
+                val response = AuthRetrofitManager.api.getStudyContent(postId)
 //                Log.e(tag, " response의 postId$response")
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponseM
@@ -209,6 +213,11 @@ class ContentViewModel : ViewModel() {
 
     // 컨텐츠 데이터 입력
     private fun getInformationOfStudy(result: StudyContentResponseM) {
+
+        // 유저의 신청여부
+        _isAppliedStudy.value=result.apply
+        Log.i(tag, "신청여부 서버값: ${result.apply} 라이브데이터 값 : ${isAppliedStudy.value}" )
+
         // 상단 관련학과
 //        Log.e(tag,result.major)
         val koreanRelativeMajor = functions.convertToKoreanMajor(result.major)
