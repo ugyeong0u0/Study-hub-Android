@@ -24,6 +24,7 @@ class FindPassByAuthFragment : Fragment() {
     private lateinit var binding: FragmentFindPassByAuthBinding
     private val viewModel: FindPasswordViewModel by activityViewModels()
     var fromPage: String = "" // 이메일로 비번찾기 페이지 bundle로 받음
+    private lateinit var userEmailForPass :String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +40,7 @@ class FindPassByAuthFragment : Fragment() {
 //        Log.e(msgTag,"이메일 인증코드 페이지")
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
         viewModel.initEmailVerificationTwo(false) // emailVerificationResult.value false시 observe때문에 놓음
         viewModel.initEmailVerification() // 이메일 보낼때 비동기함수 끝났는지 여부 변수 초기화
 
@@ -56,6 +58,7 @@ class FindPassByAuthFragment : Fragment() {
         val receiveBundle = arguments
         if (receiveBundle != null) {
             fromPage = receiveBundle.getString("page").toString()
+            userEmailForPass = receiveBundle.getString("userEmail").toString()
             Log.i(msgTag, "어떤 페이지에서 비밀번호 찾기로 왔는지 : {$fromPage}")
         } else Log.e(
             msgTag,
@@ -109,7 +112,7 @@ class FindPassByAuthFragment : Fragment() {
                         val bundle = Bundle()
                         bundle.putString("page", fromPage)
                         bundle.putBoolean("auth", true)
-
+                        bundle.putString("userEmail",userEmailForPass)
                         findNavController().navigate(
                             R.id.action_findPassByAuthFragment_to_newPasswordFragment,
                             bundle

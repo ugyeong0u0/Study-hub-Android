@@ -65,6 +65,7 @@ class MypageMainFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
         viewModel.getUsers()
+
         viewModel.imgData.observe(viewLifecycleOwner, Observer { img ->
             Glide.with(this).load(viewModel.imgData.value)
                 .apply(

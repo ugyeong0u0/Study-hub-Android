@@ -174,7 +174,7 @@ interface StudyHubApi {
     suspend fun putNewNickname(@Body changeNicknameRequest: ChangeNicknameRequest): Response<Unit>
 
     // 비번 수정 - 인가0
-    @PUT("/api/v1/users/password")
+    @PUT("/api/v2/users/password")
     suspend fun putNewPassword(@Body newPasswordRequest: NewPasswordRequest): Response<Unit>
 
     // 현재 비번 검사- 인가0

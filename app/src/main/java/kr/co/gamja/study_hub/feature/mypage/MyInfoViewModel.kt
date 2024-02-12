@@ -15,6 +15,8 @@ import kr.co.gamja.study_hub.global.Functions
 class MyInfoViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
     private val functions = Functions()
+
+    // 유저 이메일
     private val _emailData = MutableLiveData<String>()
     val emailData: LiveData<String> get() = _emailData
 
