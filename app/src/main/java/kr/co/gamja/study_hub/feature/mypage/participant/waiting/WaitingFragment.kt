@@ -78,12 +78,14 @@ class WaitingFragment : Fragment() {
 
             //거절 선택 >> BottomFragment
             override fun onRefusalClick(userId : Int) {
-                val bottomSheetFragment = BottomSheet(userId)
+                val bottomSheetFragment = BottomSheet()
+
+                val bundle = Bundle()
+                bundle.putInt("userId", userId)
+                bundle.putInt("studyId", studyId)
+                bottomSheetFragment.arguments = bundle
                 bottomSheetFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
                 bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-
-//                viewModel.refusal(studyId, userId)
-//                viewModel.fetchData(studyId, pageNum)
             }
         }
 

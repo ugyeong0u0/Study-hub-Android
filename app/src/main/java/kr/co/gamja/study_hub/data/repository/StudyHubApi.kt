@@ -37,20 +37,20 @@ interface StudyHubApi {
     ) : Response<Unit>
 
     //스터디 참여 신청 정보
-    @GET("/api/v1/study")
+    @GET("/api/v2/study")
     suspend fun getRegisterList(
         @Query("page") page : Int,
         @Query("size") size : Int,
         @Query("studyId") studyId : Int?,
     ) : Response<GetRegisterListDto>
 
-
-
-
-    //스터디 참여 신청 거절
-    @PUT("/api/v1/study-reject")
-    suspend fun rejectStudy(
-        @Body body : StudyRejectRequestDto
+    //스터디 참여 신청 정보 조회
+    @GET("/api/v1/study-request")
+    suspend fun getStudyApplyInfo(
+        @Query("inspection") inspection : String,
+        @Query("page") page : Int,
+        @Query("size") size : Int,
+        @Query("studyId") study : Int
     ) : Response<Unit>
 
     /** bookmark-controller */

@@ -9,17 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentBottomSheetListDialogBinding
 
-class BottomSheet(userId : Int) : BottomSheetDialogFragment() {
+class BottomSheet() : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentBottomSheetListDialogBinding
-
-    private var isChecked = false
+    private val viewModel : ParticipantViewModel by viewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         //dialog height 수정
@@ -75,18 +75,34 @@ class BottomSheet(userId : Int) : BottomSheetDialogFragment() {
                 btnRefusal.isEnabled = true
             }
 
+            val userId = arguments?.getInt("userId") ?: -1
+             val studyId = arguments?.getInt("studyId") ?: -1
+
             //거절 버튼
             btnRefusal.setOnClickListener{
                 //tvR4 텍스트 메세지라면? 거절 사유 작성 화면으로 navigation
                 if (selectedReason == chb4.text.toString()) {
+                    val bundle = Bundle()
+                    bundle.putInt("userId", userId)
+                    bundle.putInt("studyId", studyId)
+                    arguments = bundle
                     //RefusalFragment로 이동
                     findNavController().navigate(
                         R.id.action_participantFragment_to_refusalReasonFragment,
-                        null
+                        arguments
                     )
                     dismiss()
                 } else {
-                    //거절 api 사용
+                    if (userId != -1 &&  studyId != -1){
+                        //거절 api 사용
+                        viewModel.reject(
+                            rejectReason = selectedReason,
+                            studyId = studyId,
+                            userId = userId
+                        )
+
+                        /** dialog 띄우기? */
+                    }
                 }
             }
 

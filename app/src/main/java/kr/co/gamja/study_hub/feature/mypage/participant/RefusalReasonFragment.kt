@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentRefusalReasonBinding
@@ -15,6 +16,8 @@ import kr.co.gamja.study_hub.databinding.FragmentRefusalReasonBinding
 class RefusalReasonFragment : Fragment() {
 
     private lateinit var binding : FragmentRefusalReasonBinding
+
+    private val viewModel : ParticipantViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +29,9 @@ class RefusalReasonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val studyId = arguments?.getInt("studyId") ?: -1
+        val userId = arguments?.getInt("userId") ?: -1
 
         binding.apply{
 
@@ -58,6 +64,11 @@ class RefusalReasonFragment : Fragment() {
             
             //거절 선택 시 대기 Fragment로 이동 && success dialog 띄우기
             btnDone.setOnClickListener {
+                viewModel.reject(
+                    rejectReason = etRefusalReason.text.toString(),
+                    studyId = studyId,
+                    userId = userId,
+                )
                 findNavController().navigate(
                     R.id.action_refusalReasonFragment_to_participantFragment,
                     null
