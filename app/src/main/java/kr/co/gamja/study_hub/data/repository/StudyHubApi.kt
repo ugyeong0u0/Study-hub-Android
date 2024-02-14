@@ -14,7 +14,7 @@ interface StudyHubApi {
     suspend fun participatingMyStudy(
         @Query("page") page: Int,
         @Query("size") size: Int
-    ):Response<Any>
+    ):Response<ParticipatedStudyRequestDto>
 
     // 스터디 신청하기
     @POST("/api/v1/study")

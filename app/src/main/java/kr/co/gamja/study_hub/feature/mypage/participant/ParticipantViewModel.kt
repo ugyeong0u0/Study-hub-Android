@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.ApplyAccpetRequest
 import kr.co.gamja.study_hub.data.model.ApplyRejectDto
 import kr.co.gamja.study_hub.data.model.RegisterListContent
-import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
 class ParticipantViewModel : ViewModel() {
@@ -39,14 +38,15 @@ class ParticipantViewModel : ViewModel() {
         studyId : Int,
         page : Int,
     ) {
+        Log.d("Participant", "study id : ${studyId}")
         viewModelScope.launch(Dispatchers.IO){
             //신청 리스트 받아오기
             try {
-                val response = AuthRetrofitManager.api.participatingMyStudy(page, 8)
+                val response = RetrofitManager.api.getRegisterList(page, 8, studyId)
                 Log.d("Participant", "${ response.body() }")
                 if (response.isSuccessful){
                     val result = response.body() ?: throw NullPointerException("Result is NULL")
-                    val datas = result.
+                    val datas = result.applyUserData.content
 
                     val waitingData = mutableListOf<RegisterListContent>()
                     val acceptData = mutableListOf<RegisterListContent>()
