@@ -30,6 +30,8 @@ import kr.co.gamja.study_hub.global.OnDialogClickListener
 class MyInfoFragment : Fragment(), SecondCallBackListener {
     private lateinit var binding: FragmentMyInfoBinding
     private val msgTag = this.javaClass.simpleName
+    private val viewModel: MyInfoViewModel by activityViewModels()
+
     override fun isSuccess(result: Boolean) { // 사진 변경 완료시 snackBar띄움
         if (result) {
             CustomSnackBar.make(
@@ -39,7 +41,6 @@ class MyInfoFragment : Fragment(), SecondCallBackListener {
         }
     }
 
-    private val viewModel: MyInfoViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -106,9 +107,11 @@ class MyInfoFragment : Fragment(), SecondCallBackListener {
         }
         // 비번 변경 페이지로 이동
         binding.btnTxtPassword.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("userEmail", viewModel.emailData.value)
             findNavController().navigate(
                 R.id.action_myInfoFragment_to_currentPasswordFragment,
-                null
+                bundle
             )
         }
         // 회원 탈퇴 페이지로 이동

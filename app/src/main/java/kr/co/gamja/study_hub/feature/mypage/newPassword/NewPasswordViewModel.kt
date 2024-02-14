@@ -32,6 +32,7 @@ class NewPasswordViewModel : ViewModel() {
     val errorRePassword: LiveData<Boolean?> get() = _errorRePassword
 
 
+
     // 완료 버튼 enable
     fun updateEnableBtn() {
         if (password.value.toString().matches(PASSWORD.toRegex())) { // 1번 비번부터 입력된 경우
@@ -47,11 +48,11 @@ class NewPasswordViewModel : ViewModel() {
         }
     }
 
-    fun changePassword(auth: Boolean, params: CallBackListener) {
-        val req = NewPasswordRequest(auth, rePassword.value.toString())
+    fun changePassword(auth: Boolean, email : String, params: CallBackListener) {
+        val req = NewPasswordRequest(auth,email, rePassword.value.toString())
         Log.d(tag, req.toString())
         viewModelScope.launch {
-            val response = AuthRetrofitManager.api.putNewPassword(req)
+            val response = RetrofitManager.api.putNewPassword(req)
             if (response.isSuccessful) {
                 params.isSuccess(true)
             }

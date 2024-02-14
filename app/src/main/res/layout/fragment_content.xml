@@ -63,8 +63,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="@dimen/thirty_two">
+                    android:layout_marginTop="@dimen/thirty_two"
+                    android:orientation="vertical">
 
 
                     <TextView
@@ -523,8 +523,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/syswhite"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bookmark"
@@ -544,11 +544,12 @@
                 android:id="@+id/btn_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/twenty"
                 android:layout_marginTop="@dimen/sixteen"
+                android:layout_marginEnd="@dimen/twenty"
                 android:layout_marginBottom="21dp"
-                android:background="@drawable/btn_background_o_50_corner_6"
-                android:text="@string/fsd_btn_next"
+                android:background="@{viewModel.isAppliedStudy?@drawable/btn_background_o_30_corner_6:@drawable/btn_background_o_50_corner_6}"
+                android:text="@{viewModel.isAppliedStudy?@string/alreadyAppliedUser:@string/fsd_btn_next}"
+                android:enabled="@{viewModel.isAppliedStudy?false:true}"
                 android:textColor="@color/syswhite"
                 android:textSize="16sp" />
         </LinearLayout>

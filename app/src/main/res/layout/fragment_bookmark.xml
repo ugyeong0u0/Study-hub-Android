@@ -99,7 +99,7 @@
             android:text="@string/txt_sub_binBookmark"
             android:textColor="@color/BG_60"
             android:textSize="14sp"
-            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}"/>
+            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyler_bookmark"

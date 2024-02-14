@@ -65,6 +65,7 @@ class MypageMainFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
         viewModel.getUsers()
+
         viewModel.imgData.observe(viewLifecycleOwner, Observer { img ->
             Glide.with(this).load(viewModel.imgData.value)
                 .apply(
@@ -97,10 +98,10 @@ class MypageMainFragment : Fragment() {
                 null
             )
         }
-        // 북마크 페이지로 이동
+        // 신청 내역 페이지로 이동
         binding.btnUserBookmark.setOnClickListener {
             findNavController().navigate(
-                R.id.action_global_mainBookmarkFragment,
+                R.id.action_global_applicationHistoryFragment,
                 null
             )
         }
