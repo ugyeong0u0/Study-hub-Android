@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kr.co.gamja.study_hub.data.model.ApplyAccpetRequest
+import kr.co.gamja.study_hub.data.model.ApplyRejectDto
 import kr.co.gamja.study_hub.data.model.RegisterListContent
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
@@ -78,7 +80,11 @@ class ParticipantViewModel : ViewModel() {
     ){
         viewModelScope.launch(Dispatchers.IO){
             try{
-                val response = RetrofitManager.api.editApplyInfo("ACCEPT", studyId, userId)
+                val requestDto = ApplyAccpetRequest(
+                    rejectedUserId = userId,
+                    studyId = studyId
+                )
+                val response = RetrofitManager.api.applyAccept(requestDto)
                 if (response.isSuccessful){
                     if (response.code() != 200) {
                         when (response.code()) {
@@ -98,13 +104,19 @@ class ParticipantViewModel : ViewModel() {
     }
 
     //거절
-    fun refusal(
+    fun reject(
+        rejectReason : String,
         studyId : Int,
         userId : Int
     ){
         viewModelScope.launch(Dispatchers.IO){
             try {
-                val response = RetrofitManager.api.editApplyInfo("REJECT", studyId, userId)
+                val requestDto = ApplyRejectDto(
+                    rejectReason = rejectReason,
+                    rejectedUserId = userId,
+                    studyId = studyId
+                )
+                val response = RetrofitManager.api.applyReject(requestDto)
                 if (response.isSuccessful){
                     if (response.code() != 200) {
                         when (response.code()) {
