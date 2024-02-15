@@ -42,7 +42,7 @@ class AnnouncementAdapter : RecyclerView.Adapter<AnnouncementAdapter.Announcemen
                 description = item.content
 
                 /** date에 대한 값이 전해지는 것이 없음 */
-                date = "2024. 2. 10"
+                date = "${item.createdDate[0]}. ${item.createdDate[1]}. ${item.createdDate[2]}"
                 
                 //layout 클릭 시 확장
                 lyItem.setOnClickListener{

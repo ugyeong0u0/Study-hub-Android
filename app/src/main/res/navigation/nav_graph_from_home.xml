@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_mypageMainFragment_to_complaintFragment"
             app:destination="@id/complaintFragment" />
+        <action
+            android:id="@+id/action_mypageMainFragment_to_announcementFragment"
+            app:destination="@+id/announcementFragment"/>
     </fragment>
     <fragment
         android:id="@+id/manualFragment"
@@ -142,6 +145,11 @@
     <action
         android:id="@+id/action_global_createStudyFragment"
         app:destination="@id/createStudyFragment" />
+    <fragment
+        android:id="@+id/announcementFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.announcement.AnnouncementFragment"
+        android:label="fragment_announcement"
+        tools:layout="@layout/fragment_annoucement"/>
     <fragment
         android:id="@+id/relativeMajorFragment"
         android:name="kr.co.gamja.study_hub.feature.studypage.createStudy.RelativeMajorFragment"
