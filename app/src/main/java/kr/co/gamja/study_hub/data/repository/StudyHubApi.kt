@@ -9,7 +9,7 @@ import retrofit2.http.*
 interface StudyHubApi {
 
     /** apply-controller */
-//     내가 참여한 스터디 목록
+    //내가 참여한 스터디 목록
     @GET("/api/v1/participated-study")
     suspend fun participatingMyStudy(
         @Query("page") page: Int,
