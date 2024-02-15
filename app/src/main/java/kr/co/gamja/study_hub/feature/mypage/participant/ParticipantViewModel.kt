@@ -35,6 +35,7 @@ class ParticipantViewModel : ViewModel() {
 
     //waitingList 갱신
     fun fetchData(
+        inspection : String,
         studyId : Int,
         page : Int,
     ) {
@@ -42,28 +43,23 @@ class ParticipantViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO){
             //신청 리스트 받아오기
             try {
-                val response = RetrofitManager.api.getRegisterList(page, 8, studyId)
+                val response = RetrofitManager.api.getRegisterList(inspection, page, 8, studyId)
                 Log.d("Participant", "${ response.body() }")
                 if (response.isSuccessful){
                     val result = response.body() ?: throw NullPointerException("Result is NULL")
                     val datas = result.applyUserData.content
 
-                    val waitingData = mutableListOf<RegisterListContent>()
-                    val acceptData = mutableListOf<RegisterListContent>()
-                    val rejectData = mutableListOf<RegisterListContent>()
+                    val tmpData = mutableListOf<RegisterListContent>()
 
                     datas.forEach{ data ->
-                        when (data.inspection) {
-                            "STANDBY" -> waitingData.add(data)
-                            "ACCEPT" -> acceptData.add(data)
-                            "REJECT" -> rejectData.add(data)
-                            else -> throw IllegalArgumentException("This type does not exist")
-                        }
+                        tmpData.add(data)
                     }
 
-                    _participantWaitingList.postValue(waitingData)
-                    _acceptList.postValue(acceptData)
-                    _refuseList.postValue(rejectData)
+                    when(inspection){
+                        "STANDBY" -> _participantWaitingList.postValue(tmpData)
+                        "ACCEPT" -> _acceptList.postValue(tmpData)
+                        "REJECT" -> _refuseList.postValue(tmpData)
+                    }
 
                     Log.d("ParticipantViewModel", "fetchWaitingList is Success")
                 } else {

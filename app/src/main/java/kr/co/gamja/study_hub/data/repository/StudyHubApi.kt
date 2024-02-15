@@ -39,6 +39,7 @@ interface StudyHubApi {
     //스터디 참여 신청 정보
     @GET("/api/v2/study")
     suspend fun getRegisterList(
+        @Query("inspection") inspection : String,
         @Query("page") page : Int,
         @Query("size") size : Int,
         @Query("studyId") studyId : Int?,

@@ -56,7 +56,7 @@ class WaitingFragment : Fragment() {
             }
         })
 
-        viewModel.fetchData(studyId, pageNum)
+        viewModel.fetchData("STANDBY", studyId, pageNum)
     }
 
     //RecyclerView 초기화
@@ -73,7 +73,7 @@ class WaitingFragment : Fragment() {
             /** 수락 선택 >> Dialog 띄워야 함 */
             override fun onAcceptClick(userId : Int) {
                 viewModel.accept(studyId, userId)
-                viewModel.fetchData(studyId, pageNum)
+                viewModel.fetchData("STANDBY", studyId, pageNum)
             }
 
             //거절 선택 >> BottomFragment

@@ -15,8 +15,16 @@ class ParticipantPagerAdapter(fragment: Fragment, studyId : Int?, postId : Int?)
                 putInt("postId", postId ?: -1)
             }
         },
-        ParticipationFragment(),
-        RefusalFragment()
+        ParticipationFragment().apply{
+            arguments = Bundle().apply{
+                putInt("studyId", studyId ?: -1)
+            }
+        },
+        RefusalFragment().apply{
+            arguments = Bundle().apply{
+                putInt("studyId", studyId ?: -1)
+            }
+        }
     )
     override fun getItemCount(): Int = fragmentList.size // fragment 개수
 

@@ -21,6 +21,8 @@ class RefusalFragment : Fragment() {
     private lateinit var adapter : RefusalAdapter
     private val viewModel : ParticipantViewModel by viewModels()
 
+    private var page = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +37,11 @@ class RefusalFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
+
+        val studyId = arguments?.getInt("studyId") ?: throw NullPointerException("Arguments is NULL")
+
+        //data fetch
+        viewModel.fetchData("REJECT", studyId, page)
 
         //observing
         viewModel.refuseList.observe(viewLifecycleOwner, Observer{
