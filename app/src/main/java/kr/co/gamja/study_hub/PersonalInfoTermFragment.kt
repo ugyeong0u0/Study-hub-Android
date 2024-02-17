@@ -15,5 +15,5 @@ class PersonalInfoTermFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_personal_info_term, container, false)
     }
-    
+
 }

@@ -1,7 +1,7 @@
 package kr.co.gamja.study_hub.data.model
 
 data class UsersResponse(
-    val bookmarkCount: Int,
+    val applyCount: Int,
     val email: String,
     val gender: String,
     val imageUrl: String,
