@@ -408,4 +408,9 @@
             android:id="@+id/action_refusalBottomSheet_to_refusalReasonFragment"
             app:destination="@+id/refusalReasonFragment"/>
     </fragment><action android:id="@+id/action_global_applicationHistoryFragment" app:destination="@id/applicationHistoryFragment"/>
+    <fragment
+        android:id="@+id/serviceUseTermFragment"
+        android:name="kr.co.gamja.study_hub.ServiceUseTermFragment"
+        android:label="fragment_service_use_term"
+        tools:layout="@layout/fragment_service_use_term" />
 </navigation>

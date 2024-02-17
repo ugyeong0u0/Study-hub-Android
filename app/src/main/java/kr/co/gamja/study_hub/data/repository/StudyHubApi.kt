@@ -217,4 +217,6 @@ interface StudyHubApi {
     // 댓글 수정하기
     @PUT("/api/v1/comments")
     suspend fun correctComment(@Body commentCorrectRequest: CommentCorrectRequest): Response<Unit>
+
+
 }
