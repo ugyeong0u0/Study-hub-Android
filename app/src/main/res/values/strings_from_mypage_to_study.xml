@@ -169,6 +169,7 @@
 
 <!--    서비스 이용약관-->
     <string name="service_term">서비스이용약관</string>
+    <string name="personal_info_term">개인정보처리방침</string>
 
 </resources>
 
