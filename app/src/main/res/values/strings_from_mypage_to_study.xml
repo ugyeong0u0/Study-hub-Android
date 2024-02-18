@@ -45,7 +45,7 @@
     <string name="txt_joinNumber_sub">최대 50명 참여 가능</string>
     <string name="txt_aboutPNumber">스터디 인원을 알려주세요</string>
     <string name="txt_persons">명</string>
-    <string name="error_persons">1명부터 가능해요</string>
+    <string name="error_persons">1명부터 50명 이하로 가능해요</string>
     <string name="txt_gender_sub">참여자의 성별 선택</string>
     <string name="txt_gender_all">무관</string>
     <string name="txt_gender_male">남자만</string>
@@ -62,7 +62,7 @@
     <string name="edit_kindOfFee">지각비, 결석비</string>
     <string name="edit_howMuchFee">금액을 알려주세요</string>
     <string name="txt_howMuchFee">얼마인가요?</string>
-    <string name="txt_limitFee">최대 %1$d원</string>
+    <string name="txt_limitFee">최대 99\,999원</string>
     <string name="txt_startDay">시작하는 날</string>
     <string name="txt_endDay">종료하는 날</string>
     <string name="txt_choice">선택하기</string>

@@ -474,12 +474,14 @@ class CreateStudyViewModel : ViewModel() {
         Log.d(tag, "버튼 확인 호출됨")
         if (!urlEditText.value.isNullOrEmpty() && !studyTitle.value.isNullOrEmpty() && !studyContent.value.isNullOrEmpty()
             && !persons.value.isNullOrEmpty() && persons.value.toString()
-                .toInt() > 0 && !editStartDay.value.isNullOrEmpty() && !editEndDay.value.isNullOrEmpty()
+                .toInt() > 0 && persons.value.toString()
+                .toInt() <= 50 && !editStartDay.value.isNullOrEmpty() && !editEndDay.value.isNullOrEmpty()
             && !relativeMajor.value.isNullOrEmpty() && relativeMajor.value != "null" && !gender.value.isNullOrEmpty() && !meetMethod.value.isNullOrEmpty()
         ) {
             if (selectedFee.value == true) {
                 if (!whatFee.value.isNullOrEmpty() && !howMuch.value.isNullOrEmpty() && howMuch.value.toString()
-                        .toInt() > 0
+                        .toInt() > 0 && howMuch.value.toString()
+                        .toInt() <= 99999
                 ) {
                     Log.d(tag, "통신시작" + selectedFee.value.toString())
                     setCompleteBtn(true)

@@ -23,6 +23,8 @@ import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
 import kr.co.gamja.study_hub.databinding.FragmentEngagedStudyBinding
 import kr.co.gamja.study_hub.feature.mypage.applicationhistory.ApplicationHistoryViewModel
+import kr.co.gamja.study_hub.global.CustomDialog
+import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 class EngagedStudyFragment : Fragment() {
     val msg = this.javaClass.simpleName
@@ -73,6 +75,18 @@ class EngagedStudyFragment : Fragment() {
                 when(whatItem){
                     1 ->{
                         //todo("지우기 눌림")
+                        val head = requireContext().resources.getString(R.string.deleteEngagedStudy_title)
+                        val sub = requireContext().resources.getString(R.string.deleteEngagedStudy_sub)
+                        val no = requireContext().resources.getString(R.string.btn_cancel)
+                        val yes = requireContext().resources.getString(R.string.btn_delete)
+                        val dialog = CustomDialog(requireContext(), head, sub, no, yes)
+                        dialog.showDialog()
+                        dialog.setOnClickListener(object : OnDialogClickListener {
+                            override fun onclickResult() {
+                                // TODO("삭제 누를 시 통신")
+
+                            }
+                        })
                     }
                 }
             }

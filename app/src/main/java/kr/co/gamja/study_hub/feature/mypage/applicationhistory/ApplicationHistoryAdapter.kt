@@ -68,7 +68,7 @@ class ApplicationHistoryAdapter(private val context: Context) :
 
             }
 
-            // 삭제 버튼 todo("postId로 변경필수 ")
+            // 삭제 버튼
             binding.btnDelete.setOnClickListener {
                 mOnItemsClickListener.getItemValue(whatItem["delete"]!!, itemStudyId!!)
             }
