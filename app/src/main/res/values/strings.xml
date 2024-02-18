@@ -242,7 +242,6 @@
     <string name="waitingForOk">수락대기중</string>
     <string name="rejectReason">거절 이유 확인하기</string>
 
-    
-
-
+<!--    거절이유확인-->
+    <string name="txt_reasonForRefusal">스터디 팀장의 거절 이유예요🥲</string>
 </resources>

@@ -418,4 +418,9 @@
         android:name="kr.co.gamja.study_hub.PersonalInfoTermFragment"
         android:label="fragment_personal_info_term"
         tools:layout="@layout/fragment_personal_info_term" />
+    <fragment
+        android:id="@+id/checkRefusalReasonFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.refusalreason.CheckRefusalReasonFragment"
+        android:label="fragment_check_refusal_reason"
+        tools:layout="@layout/fragment_check_refusal_reason" />
 </navigation>
