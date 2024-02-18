@@ -1,5 +1,7 @@
 package kr.co.gamja.study_hub.feature.mypage.engagedStudy
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,12 +32,13 @@ class EngagedStudyFragment : Fragment() {
     val msg = this.javaClass.simpleName
     private lateinit var binding: FragmentEngagedStudyBinding
     private lateinit var viewModel: EngagedStudyViewModel
-    private lateinit var adapter : EngagedStudyAdapter
+    private lateinit var adapter: EngagedStudyAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_engaged_study, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_engaged_study, container, false)
         return binding.root
     }
 
@@ -43,19 +46,19 @@ class EngagedStudyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val factory = EngagedStudyViewModelFactory(AuthRetrofitManager.api)
-        viewModel= ViewModelProvider(this,factory)[EngagedStudyViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[EngagedStudyViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        adapter=EngagedStudyAdapter(requireContext()).apply {
+        adapter = EngagedStudyAdapter(requireContext()).apply {
             addLoadStateListener { loadState ->
                 val isEmptyList = loadState.refresh is LoadState.NotLoading && itemCount == 0
                 viewModel.isList.postValue(!isEmptyList)
             }
         }
 
-        binding.recyclerEngagedStudy.adapter =adapter
-        binding.recyclerEngagedStudy.layoutManager =LinearLayoutManager(requireContext())
+        binding.recyclerEngagedStudy.adapter = adapter
+        binding.recyclerEngagedStudy.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.setReloadTrigger()
 
@@ -69,14 +72,16 @@ class EngagedStudyFragment : Fragment() {
         binding.iconBack.setOnClickListener {
             findNavController().navigateUp() // 뒤로 가기
         }
-        // 클릭 이벤트 x 겨우
-        adapter.setOnItemsClickListener(object : OnItemsClickListener{
+        // 클릭 이벤트 x 눌렀을 때 - 변수명 변경 못함
+        adapter.setOnItemsClickListener(object : OnItemsClickListener {
             override fun getItemValue(whatItem: Int, itemValue: Int) {
-                when(whatItem){
-                    1 ->{
+                when (whatItem) {
+                    1 -> {
                         //todo("지우기 눌림")
-                        val head = requireContext().resources.getString(R.string.deleteEngagedStudy_title)
-                        val sub = requireContext().resources.getString(R.string.deleteEngagedStudy_sub)
+                        val head =
+                            requireContext().resources.getString(R.string.deleteEngagedStudy_title)
+                        val sub =
+                            requireContext().resources.getString(R.string.deleteEngagedStudy_sub)
                         val no = requireContext().resources.getString(R.string.btn_cancel)
                         val yes = requireContext().resources.getString(R.string.btn_delete)
                         val dialog = CustomDialog(requireContext(), head, sub, no, yes)
@@ -91,15 +96,18 @@ class EngagedStudyFragment : Fragment() {
                 }
             }
         })
-
-        adapter.setCallBackStringListener( object : CallBackStringListener{
+        // 크롬통해 카카오톡으로 가기
+        adapter.setCallBackStringListener(object : CallBackStringListener {
             override fun isSuccess(result: String) {
-                // todo 링크로 가기
+                val url = result
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
             }
         })
 
     }
-    private fun observeData(){
+
+    private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.engagedStudyFlow.collectLatest { pagingData ->
                 adapter.submitData(pagingData)

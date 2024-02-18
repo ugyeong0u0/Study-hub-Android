@@ -117,11 +117,11 @@ class AgreementFragment : Fragment() {
             }
         }
         // 서비스 이용약관 클릭시
-        binding.layoutService.setOnClickListener {
+        binding.arrowService.setOnClickListener {
             findNavController().navigate(R.id.action_global_serviceUseTermFragment, null)
         }
         // 개인정보 이용약관
-        binding.layoutPersonalInfo.setOnClickListener {
+        binding.arrowPersonalInfo.setOnClickListener {
             findNavController().navigate(R.id.action_global_personalInfoTermFragment, null)
         }
 

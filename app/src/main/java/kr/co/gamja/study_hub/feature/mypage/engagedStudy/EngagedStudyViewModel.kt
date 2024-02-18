@@ -1,5 +1,6 @@
 package kr.co.gamja.study_hub.feature.mypage.engagedStudy
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,10 +12,15 @@ import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.ContentX
+import kr.co.gamja.study_hub.data.model.GetBookmarkResponse
+import kr.co.gamja.study_hub.data.model.ParticipatedStudyRequestDto
+import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
+import retrofit2.Response
 
-class EngagedStudyViewModel(studyHubApi: StudyHubApi) :ViewModel() {
+class EngagedStudyViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     private val tag = this.javaClass.simpleName
 
     // 리스트 개수
@@ -27,22 +33,18 @@ class EngagedStudyViewModel(studyHubApi: StudyHubApi) :ViewModel() {
     fun setReloadTrigger() {
         _reloadTrigger.value = Unit
     }
+
     // 리스트 있는지 여부
-    var isList=MutableLiveData<Boolean>(true)
+    var isList = MutableLiveData<Boolean>(true)
 
-    // todo("참여 스터디 리스트 총 개수 가져오기")
-    fun getEngagedStudy(){
-
-    }
-
-    val engagedStudyFlow : Flow<PagingData<ContentX>> = _reloadTrigger.flatMapLatest {
+    val engagedStudyFlow: Flow<PagingData<ContentX>> = _reloadTrigger.flatMapLatest {
         Pager(
             PagingConfig(
                 pageSize = 10,
                 enablePlaceholders = false,
                 initialLoadSize = 10
             )
-        ){
+        ) {
             EngagedStudyPagingSource(studyHubApi)
         }.flow.cachedIn(viewModelScope)
     }

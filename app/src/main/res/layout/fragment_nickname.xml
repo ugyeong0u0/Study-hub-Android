@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
 
         <variable
             name="viewModel"
             type="kr.co.gamja.study_hub.feature.signup.nickname.NicknameViewModel" />
+
         <import type="android.view.View" />
     </data>
 
@@ -107,11 +109,11 @@
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:maxLength="10"
-                android:singleLine = "true"
+                android:singleLine="true"
+                android:text="@={viewModel.nickname}"
                 android:textColor="@color/syswhite"
                 android:textColorHint="@color/G_80"
-                android:textSize="16sp"
-                android:text="@={viewModel.nickname}"/>
+                android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_NicknameOverlapCheck"
@@ -133,9 +135,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/edit_nickName"
                 android:layout_marginHorizontal="@dimen/twenty"
+                android:text="@{viewModel.nicknameError!=null?(viewModel.nicknameError?@string/texterror_nickname:@string/txtok_nickname):@string/txterror_empty}"
                 android:textColor="@{viewModel.nicknameError!=null?(viewModel.nicknameError?@color/R_50:@color/GN_10):@color/G_100}"
                 android:textSize="14sp"
-                android:text="@{viewModel.nicknameError!=null?(viewModel.nicknameError?@string/texterror_nickname:@string/txtok_nickname):@string/txterror_empty}"
                 android:visibility="@{viewModel.nicknameError!=null?(viewModel.nicknameError?View.VISIBLE:View.VISIBLE):View.INVISIBLE}"
                 tools:text="에러" />
 
@@ -145,9 +147,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/edit_nickName"
                 android:layout_alignEnd="@+id/error_nickName"
+                android:text="@{@string/txt_limitOfNickNameLength(viewModel.nicknameLength)}"
                 android:textColor="@color/syswhite"
                 android:textSize="12sp"
-                android:text="@{@string/txt_limitOfNickNameLength(viewModel.nicknameLength)}"
                 tools:text="%d/10" />
 
             <TextView
@@ -198,6 +200,7 @@
                 android:layout_height="55dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginHorizontal="@dimen/twenty"
+                android:layout_marginBottom="@dimen/twenty_four"
                 android:backgroundTint="@color/O_50"
                 android:enabled="false"
                 android:text="@string/btn_nextpage"

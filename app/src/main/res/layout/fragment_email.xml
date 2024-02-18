@@ -189,6 +189,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginHorizontal="@dimen/twenty"
             android:backgroundTint="@color/O_50"
+            android:textSize="16sp"
+            android:layout_marginBottom="@dimen/twenty_four"
             android:text="@string/btn_nextpage"
             android:textColor="@color/syswhite" />
     </RelativeLayout>
