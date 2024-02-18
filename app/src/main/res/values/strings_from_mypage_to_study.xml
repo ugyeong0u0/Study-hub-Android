@@ -10,7 +10,7 @@
 
     <!--    리사이클러뷰 아이템-->
     <string name="txt_leftNumber">%1$d자리 남았어요</string>
-    <string name="txt_people_number">%1$d\/%1$d명</string>
+    <string name="txt_people_number">%1$d\/%2$d명</string>
 
     <!--    스터디_세부내용-->
     <string name="fsd_txt_introduce">소개</string>

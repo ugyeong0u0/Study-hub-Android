@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <data>
+        <variable
+            name="isDeny"
+            type="boolean" />
+        <import type="android.view.View" />
+    </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,12 +20,15 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/sixteen"
             android:layout_marginBottom="@dimen/sixteen"
-            android:textColor="@color/O_50"
+            android:background="@{isDeny?@drawable/bg_30_corner_6 :@drawable/bg_black_radius_4 }"
+            android:padding="8dp"
+            android:textColor="@{isDeny?@color/BG_70:@color/syswhite}"
             android:textSize="12sp"
+            android:text="@{isDeny?@string/refusal : @string/waitingForOk}"
             tools:text="수락여부" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_threeDot"
+            android:id="@+id/btn_delete"
             android:layout_width="@dimen/thirty_two"
             android:layout_height="@dimen/thirty_two"
             android:layout_alignParentEnd="true"
@@ -40,15 +48,15 @@
             tools:text="제목" />
 
         <LinearLayout
-            android:background="@drawable/background_bg_20_corner_6"
             android:id="@+id/layout_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_title"
             android:layout_marginHorizontal="@dimen/sixteen"
+            android:layout_marginBottom="@dimen/twenty_four"
+            android:background="@drawable/background_bg_20_corner_6"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/fourteen"
-            android:layout_marginBottom="@dimen/twenty_four"
             android:paddingVertical="@dimen/twenty">
 
             <TextView
@@ -70,12 +78,25 @@
                 android:textColor="@color/BG_80"
                 android:textSize="14sp"
                 tools:text="내용" />
+
         </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_rejectReason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg_white_stroke_bg_50"
+            android:text="@string/rejectReason"
+            android:visibility="@{isDeny?View.VISIBLE:View.GONE}"
+            android:layout_marginHorizontal="@dimen/sixteen"
+            android:layout_marginBottom="@dimen/twenty"
+            android:layout_below="@+id/layout_content"
+            />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/twenty"
-            android:layout_below="@+id/layout_content"
+            android:layout_below="@+id/btn_rejectReason"
             android:background="@color/BG_30" />
 
     </RelativeLayout>
