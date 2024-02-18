@@ -230,4 +230,5 @@ interface StudyHubApi {
     // 유저 신청내역
     @GET("/api/v1/study-request")
     suspend fun getUserApplyHistory(@Query("page") page: Int, @Query("size") size: Int) : Response<ApplicationHistoryResponse>
+
 }
