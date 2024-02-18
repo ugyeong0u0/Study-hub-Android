@@ -213,6 +213,7 @@ class ContentViewModel : ViewModel() {
 
     // 컨텐츠 데이터 입력
     private fun getInformationOfStudy(result: StudyContentResponseM) {
+        //1. 작성자인지 보기 2.신청여부 보기
 
         // 유저의 신청여부
         _isAppliedStudy.value=result.apply

@@ -83,16 +83,16 @@
             android:gravity="top|start"
             android:hint="@string/txt_exampleOfNickname"
             android:imeOptions="actionNext"
+            android:inputType="text|textNoSuggestions"
             android:maxLength="10"
             android:maxLines="1"
-            android:paddingLeft="14dp"
-            android:paddingTop="20dp"
-            android:paddingRight="14dp"
-            android:paddingBottom="20dp"
+            android:paddingStart="@dimen/fourteen"
+            android:paddingTop="13dp"
+            android:paddingEnd="@dimen/fourteen"
+            android:paddingBottom="13dp"
             android:text="@={viewModel.nickname}"
             android:textColor="@color/sysblack1"
-            android:textSize="14sp"
-            android:inputType="text|textNoSuggestions"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/txt_limitOfNickname"

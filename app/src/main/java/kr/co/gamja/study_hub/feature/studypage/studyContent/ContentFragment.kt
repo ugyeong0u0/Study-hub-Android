@@ -91,6 +91,7 @@ class ContentFragment : Fragment() {
         // 신청하기 페이지로 이동
         binding.btnNext.setOnClickListener {
             val bundle = Bundle()
+            bundle.putString("whatPage","content") // 스터디 컨테츠 페이지에서 왔음을 알림, 신청후 백스택제거 때문
             bundle.putInt("studyId", viewModel.studyId.value?.toInt() ?: 0)
             bundle.putInt("postId", args.postId)
             findNavController().navigate(R.id.action_global_applicationFragment, bundle)
