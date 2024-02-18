@@ -1,18 +1,25 @@
 package kr.co.gamja.study_hub.feature.mypage.participant
 
+import android.app.ActionBar
 import android.app.Dialog
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
+import android.view.Gravity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentBottomSheetListDialogBinding
 
@@ -99,14 +106,18 @@ class BottomSheet() : BottomSheetDialogFragment() {
 
                         Log.d("Participant", "userId = ${userId} studyId = ${studyId}")
 
-                        //거절 api 사용
-                        viewModel.reject(
-                            rejectReason = selectedReason,
-                            studyId = studyId,
-                            userId = userId
-                        )
+//                        //거절 api 사용
+//                        viewModel.reject(
+//                            rejectReason = selectedReason,
+//                            studyId = studyId,
+//                            userId = userId
+//                        )
 
-                        /** dialog 띄우기? */
+                        //dialog 띄우기
+                        val customToast = CustomToast()
+
+                        customToast.show(requireActivity().supportFragmentManager, "Toast")
+                        dismiss()
                     }
                 }
             }
