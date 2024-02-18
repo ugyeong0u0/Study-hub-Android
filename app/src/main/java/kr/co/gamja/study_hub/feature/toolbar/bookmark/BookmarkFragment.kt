@@ -54,7 +54,7 @@ class BookmarkFragment : Fragment() {
 //            Log.e(tagMsg, "유저인지$isUser")
         } else Log.e(
             tagMsg,
-            "a bundle from mainHomeFragment is error"
+            "a bundle from mainHomeFragment is error" // todo("로그아웃 후 재로그인한 경우도 여기로 가는데 문제는 없음 ")
         )
         viewModel.isUserLogin.value = isUser // 회원 비회원인지 저장
         // 툴바 설정
@@ -90,6 +90,7 @@ class BookmarkFragment : Fragment() {
                     }
                     2 -> { // 신청하기 일 때
                         val bundle = Bundle()
+                        bundle.putString("whatPage","bookmark") // 북마크 페이지에서 왔음을 알림, 신청후 백스택제거 때문
                         bundle.putInt("postId", postingId.postId)
                         bundle.putInt("studyId", postingId.studyId)
                         findNavController().navigate(R.id.action_global_applicationFragment, bundle)

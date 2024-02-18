@@ -142,13 +142,13 @@
                 android:textColor="@color/syswhite"
                 android:textSize="16sp" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/arrow_service"
                 android:layout_width="@dimen/resized_item"
                 android:layout_height="@dimen/resized_item"
                 android:layout_alignEnd="@id/radio_service"
                 android:layout_marginTop="13dp"
-                android:src="@drawable/icon_arrow_right_gray" />
+                android:background="@drawable/icon_arrow_right_gray" />
         </RelativeLayout>
 
 
@@ -179,22 +179,23 @@
                 android:textColor="@color/syswhite"
                 android:textSize="16sp" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/arrow_personalInfo"
                 android:layout_width="@dimen/resized_item"
                 android:layout_height="@dimen/resized_item"
                 android:layout_alignEnd="@id/radio_personalInfo"
                 android:layout_marginTop="13dp"
-                android:src="@drawable/icon_arrow_right_gray" />
+                android:background="@drawable/icon_arrow_right_gray" />
 
         </RelativeLayout>
 
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_next"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/twenty_four"
             android:layout_marginHorizontal="@dimen/twenty"
             android:background="@{viewModel.allConsent?@drawable/solid_o_50_corner_6:@drawable/background_o_deactivation_corner_4}"
             android:enabled="@{viewModel.allConsent?true:false}"

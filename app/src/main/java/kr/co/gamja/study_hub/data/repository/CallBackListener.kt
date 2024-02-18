@@ -7,6 +7,10 @@ interface CallBackListener {
     fun isSuccess(result: Boolean)
 }
 
+interface CallBackStringListener{
+    fun isSuccess(result: String)
+}
+
 // 단일 성공여부 정수 리턴 콜백
 interface CallBackIntegerListener {
     fun isSuccess(result: Int)
@@ -27,7 +31,7 @@ interface OnItemsClickListener {
     // 아이템 구분 map key에 맞는 int 값과 itemId
     fun getItemValue(whatItem: Int, itemValue: Int)
 }
-// 북마크용 리스너
+// 북마크용 리스너, 신청내역에도 쓰임
 interface OnBookmarkClickListener {
     fun onItemClick(tagId: String?, postId: Int? = 0)
 }

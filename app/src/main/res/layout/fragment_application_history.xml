@@ -8,6 +8,7 @@
     <import type="android.view.View" />
 </data>
     <RelativeLayout
+        android:id="@+id/layout_relative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/BG_30">
@@ -50,11 +51,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/applicationHistory_toolbar"
             android:layout_marginStart="@dimen/twenty"
-            android:layout_marginTop="16dp"
+            android:layout_marginVertical="12dp"
             android:text="@{@string/txt_all(viewModel.listSize)}"
             android:textColor="@color/BG_80"
             android:textSize="16sp"
-            tools:text="전체 2" />
+            tools:text="전체 2"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/img_emptyEngagedStudy"
@@ -62,7 +64,7 @@
             android:layout_height="@dimen/twoHundred_ten"
             android:layout_centerInParent="true"
             android:src="@drawable/image_empty_apply"
-            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
+            android:visibility="@{viewModel.isList?View.INVISIBLE:View.VISIBLE}" />
 
         <TextView
             android:id="@+id/txt_binEngagedStudy"
@@ -74,7 +76,7 @@
             android:text="@string/empty_applyHistory_head"
             android:textColor="@color/BG_70"
             android:textSize="14sp"
-            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
+            android:visibility="@{viewModel.isList?View.INVISIBLE:View.VISIBLE}" />
 
         <TextView
             android:id="@+id/txt_sub_binBookmark"
@@ -86,13 +88,14 @@
             android:text="@string/empty_applyHistory_sub"
             android:textColor="@color/BG_60"
             android:textSize="14sp"
-            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
+            android:visibility="@{viewModel.isList?View.INVISIBLE:View.VISIBLE}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_engagedStudy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_all"
+            android:layout_marginTop="50dp"
             android:layout_marginHorizontal="@dimen/twenty" />
     </RelativeLayout>
 

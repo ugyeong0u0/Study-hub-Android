@@ -96,6 +96,8 @@ class FindPassByEmailFragment : Fragment() {
                     if (fromPage.equals("login")) {
                         // 로그인 프래그먼트로 이동
                         findNavController().navigate(R.id.action_global_loginFragment)
+                    }else{ // 그왼 그냥 뒤로 가기
+                        findNavController().navigateUp()
                     }
                 }
             })

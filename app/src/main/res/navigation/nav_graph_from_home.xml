@@ -5,6 +5,7 @@
     android:id="@+id/nav_graph_from_home"
     app:startDestination="@id/loginFragment">
 
+    <!-- Home page -->
     <fragment
         android:id="@+id/mainHomeFragment"
         android:name="kr.co.gamja.study_hub.feature.home.MainHomeFragment"
@@ -22,8 +23,18 @@
         <action
             android:id="@+id/action_mainFragment01_self"
             app:destination="@id/mainHomeFragment" />
-
     </fragment>
+    <fragment
+        android:id="@+id/manualFragment"
+        android:name="kr.co.gamja.study_hub.feature.home.ManualFragment"
+        android:label="fragment_main03"
+        tools:layout="@layout/fragment_manual">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="false" />
+    </fragment>
+
+    <!-- Search page -->
     <fragment
         android:id="@+id/searchFragment"
         android:name="kr.co.gamja.study_hub.feature.home.search.SearchFragment"
@@ -35,234 +46,22 @@
         <action
             android:id="@+id/action_search_to_content"
             app:destination="@+id/studyContentFragment" />
-
     </fragment>
 
+    <!-- login page -->
     <fragment
-        android:id="@+id/studyMainFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.studyHome.StudyMainFragment"
-        android:label="fragment_study01"
-        tools:layout="@layout/fragment_study_main">
-        <argument
-            android:name="showBottomNav"
-            android:defaultValue="true" />
-        <action
-            android:id="@+id/action_StudyFragment01_to_studyDetailFragment"
-            app:destination="@id/studyContentFragment" />
-        <action
-            android:id="@+id/action_StudyFragment01_to_createStudyFragment"
-            app:destination="@id/createStudyFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/mypageMainFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.MypageMainFragment"
-        android:label="fragment_mypage01"
-        tools:layout="@layout/fragment_mypage_main">
-        <argument
-            android:name="showBottomNav"
-            android:defaultValue="true" />
-        <action
-            android:id="@+id/action_mypageMainFragment_to_writtenStudyFragment"
-            app:destination="@id/writtenStudyFragment" />
-        <action
-            android:id="@+id/action_mypageMainFragment_to_engagedStudyFragment"
-            app:destination="@id/engagedStudyFragment" />
-        <action
-            android:id="@+id/action_mypageMainFragment_to_complaintFragment"
-            app:destination="@id/complaintFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/manualFragment"
-        android:name="kr.co.gamja.study_hub.feature.home.ManualFragment"
-        android:label="fragment_main03"
-        tools:layout="@layout/fragment_manual">
+        android:id="@+id/loginFragment"
+        android:name="kr.co.gamja.study_hub.feature.login.LoginFragment"
+        android:label=" "
+        tools:layout="@layout/fragment_login">
         <argument
             android:name="showBottomNav"
             android:defaultValue="false" />
-    </fragment>
-    <fragment
-        android:id="@+id/bookmarkFragment"
-        android:name="kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkFragment"
-        android:label="fragment_main_bookmark"
-        tools:layout="@layout/fragment_bookmark" />
-    <fragment
-        android:id="@+id/studyContentFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragment"
-        android:label="fragment_study_detail"
-        tools:layout="@layout/fragment_content">
-        <argument
-            android:name="postId"
-            app:argType="integer" />
         <action
-            android:id="@+id/action_studyContentFragment_to_allCommentsFragment"
-            app:destination="@id/allCommentsFragment" />
-    </fragment>
-    <action
-        android:id="@+id/action_global_mainBookmarkFragment"
-        app:destination="@id/bookmarkFragment" />
-    <fragment
-        android:id="@+id/createStudyFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.createStudy.CreateStudyFragment"
-        android:label="fragment_create_study"
-        tools:layout="@layout/fragment_create_study">
-        <action
-            android:id="@+id/action_createStudyFragment_to_relativeMajorFragment"
-            app:destination="@id/relativeMajorFragment" />
-        <action
-            android:id="@+id/action_createStudyFragment_to_calendarFragment"
-            app:destination="@id/calendarFragment" />
-        <action
-            android:id="@+id/action_createStudyFragment_to_studyContentFragment"
-            app:destination="@id/studyContentFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/bottomSheetFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment"
-        android:label="fragment_bottom_sheet"
-        tools:layout="@layout/fragment_bottom_sheet" />
-    <fragment
-        android:id="@+id/myInfoFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.MyInfoFragment"
-        android:label="fragment_my_info"
-        tools:layout="@layout/fragment_my_info">
-        <action
-            android:id="@+id/action_myInfoFragment_to_changeNicknameFragment"
-            app:destination="@id/changeNicknameFragment" />
-        <action
-            android:id="@+id/action_myInfoFragment_to_changeMajorFragment"
-            app:destination="@id/changeMajorFragment" />
-        <action
-            android:id="@+id/action_myInfoFragment_to_currentPasswordFragment"
-            app:destination="@id/currentPasswordFragment" />
-        <action
-            android:id="@+id/action_myInfoFragment_to_withdrawalFragment"
-            app:destination="@id/withdrawalFragment" />
+            android:id="@+id/action_loginFragment_to_agreementFragment"
+            app:destination="@id/agreementFragment" />
 
     </fragment>
-    <action
-        android:id="@+id/action_global_createStudyFragment"
-        app:destination="@id/createStudyFragment" />
-    <fragment
-        android:id="@+id/relativeMajorFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.createStudy.RelativeMajorFragment"
-        android:label="fragment_relative_major"
-        tools:layout="@layout/fragment_relative_major" />
-    <fragment
-        android:id="@+id/calendarFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.createStudy.CalendarFragment"
-        android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
-    <fragment
-        android:id="@+id/changeNicknameFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.changeNickname.ChangeNicknameFragment"
-        android:label="fragment_change_nickname"
-        tools:layout="@layout/fragment_change_nickname" />
-    <fragment
-        android:id="@+id/changeMajorFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.changeMajor.ChangeMajorFragment"
-        android:label="fragment_change_major"
-        tools:layout="@layout/fragment_change_major" />
-    <fragment
-        android:id="@+id/currentPasswordFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.currentPassword.CurrentPasswordFragment"
-        android:label="fragment_current_password"
-        tools:layout="@layout/fragment_current_password">
-        <action
-            android:id="@+id/action_currentPasswordFragment_to_newPasswordFragment"
-            app:destination="@id/newPasswordFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/newPasswordFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.newPassword.NewPasswordFragment"
-        android:label="fragment_new_password"
-        tools:layout="@layout/fragment_new_password" />
-    <action
-        android:id="@+id/action_global_myInfoFragment"
-        app:destination="@id/myInfoFragment" />
-    <fragment
-        android:id="@+id/withdrawalFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.withdrawal.WithdrawalFragment"
-        android:label="fragment_withdrawal"
-        tools:layout="@layout/fragment_withdrawal">
-        <action
-            android:id="@+id/action_withdrawalFragment_to_confirmingWithdrawalFragment"
-            app:destination="@id/confirmingWithdrawalFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/confirmingWithdrawalFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.withdrawal.ConfirmingWithdrawalFragment"
-        android:label="fragment_confirming_withdrawal"
-        tools:layout="@layout/fragment_confirming_withdrawal" />
-    <action
-        android:id="@+id/action_global_studyContentFragment"
-        app:destination="@id/studyContentFragment" />
-    <fragment
-        android:id="@+id/uploadImageFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.uploadImg.UploadImageFragment"
-        android:label="fragment_upload_image"
-        tools:layout="@layout/fragment_upload_image" />
-
-    <fragment
-        android:id="@+id/writtenStudyFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.myStudy.WrittenStudyFragment"
-        android:label="fragment_written_study"
-        tools:layout="@layout/fragment_written_study">
-        <action
-            android:id="@+id/action_writtenStudyFragment_to_participantFragment"
-            app:destination="@id/participantFragment" />
-    </fragment>
-
-    <!-- Participant 페이지 -->
-    <fragment
-        android:id="@+id/participantFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.participant.ParticipantFragment"
-        android:label="fragment_participant"
-        tools:layout="@layout/fragment_participant">
-        <action
-            android:id="@+id/action_participantFragment_to_refusalReasonFragment"
-            app:destination="@+id/refusalReasonFragment"/>
-
-    </fragment>
-    <fragment
-        android:id="@+id/waitingFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingFragment"
-        android:label="fragment_waiting"
-        tools:layout="@layout/fragment_waiting">
-    </fragment>
-    <fragment
-        android:id="@+id/participationFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.participant.participation.ParticipationFragment"
-        android:label="fragment_participation"
-        tools:layout="@layout/fragment_participation" />
-    <fragment
-        android:id="@+id/refusalFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.participant.refusal.RefusalFragment"
-        android:label="fragment_refusal"
-        tools:layout="@layout/fragment_refusal" />
-
-    <fragment
-        android:id="@+id/applicationFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.apply.ApplicationFragment"
-        android:label="fragment_application"
-        tools:layout="@layout/fragment_application" />
-    <action
-        android:id="@+id/action_global_applicationFragment"
-        app:destination="@id/applicationFragment" />
-    <fragment
-        android:id="@+id/engagedStudyFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.engagedStudy.EngagedStudyFragment"
-        android:label="fragment_engaged_study"
-        tools:layout="@layout/fragment_engaged_study" />
-    <fragment
-        android:id="@+id/allCommentsFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.allcomments.AllCommentsFragment"
-        android:label="fragment_all_comments"
-        tools:layout="@layout/fragment_all_comments" />
-    <fragment
-        android:id="@+id/commentBottomSheetFragment"
-        android:name="kr.co.gamja.study_hub.feature.studypage.allcomments.bottomsheet.CommentBottomSheetFragment"
-        android:label="fragment_comment_bottom_sheet"
-        tools:layout="@layout/fragment_comment_bottom_sheet" />
     <fragment
         android:id="@+id/findPassByEmailFragment"
         android:name="kr.co.gamja.study_hub.feature.login.findpassword.FindPassByEmailFragment"
@@ -281,31 +80,178 @@
             android:id="@+id/action_findPassByAuthFragment_to_newPasswordFragment"
             app:destination="@id/newPasswordFragment" />
     </fragment>
-    <action
-        android:id="@+id/action_global_findPassByEmailFragment"
-        app:destination="@id/findPassByEmailFragment" />
+
+    <!-- MyPage page -->
     <fragment
         android:id="@+id/complaintFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.aboutstudyhub.ComplaintFragment"
         android:label="fragment_complaint"
         tools:layout="@layout/fragment_complaint" />
-    <action
-        android:id="@+id/action_global_mypageMainFragment"
-        app:destination="@id/mypageMainFragment" />
-
-
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="kr.co.gamja.study_hub.feature.login.LoginFragment"
-        android:label=" "
-        tools:layout="@layout/fragment_login">
+        android:id="@+id/announcementFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.announcement.AnnouncementFragment"
+        android:label="fragment_announcement"
+        tools:layout="@layout/fragment_annoucement" />
+    <fragment
+        android:id="@+id/applicationHistoryFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.applicationhistory.ApplicationHistoryFragment"
+        android:label="fragment_application_history"
+        tools:layout="@layout/fragment_application_history" />
+    <fragment
+        android:id="@+id/changeMajorFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.changeMajor.ChangeMajorFragment"
+        android:label="fragment_change_major"
+        tools:layout="@layout/fragment_change_major" />
+    <fragment
+        android:id="@+id/changeNicknameFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.changeNickname.ChangeNicknameFragment"
+        android:label="fragment_change_nickname"
+        tools:layout="@layout/fragment_change_nickname" />
+    <fragment
+        android:id="@+id/currentPasswordFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.currentPassword.CurrentPasswordFragment"
+        android:label="fragment_current_password"
+        tools:layout="@layout/fragment_current_password">
+        <action
+            android:id="@+id/action_currentPasswordFragment_to_newPasswordFragment"
+            app:destination="@id/newPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/engagedStudyFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.engagedStudy.EngagedStudyFragment"
+        android:label="fragment_engaged_study"
+        tools:layout="@layout/fragment_engaged_study" />
+    <fragment
+        android:id="@+id/writtenStudyFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.myStudy.WrittenStudyFragment"
+        android:label="fragment_written_study"
+        tools:layout="@layout/fragment_written_study">
+        <action
+            android:id="@+id/action_writtenStudyFragment_to_participantFragment"
+            app:destination="@id/participantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.newPassword.NewPasswordFragment"
+        android:label="fragment_new_password"
+        tools:layout="@layout/fragment_new_password" />
+    <fragment
+        android:id="@+id/participantFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.participant.ParticipantFragment"
+        android:label="fragment_participant"
+        tools:layout="@layout/fragment_participant">
+        <action
+            android:id="@+id/action_participantFragment_to_refusalReasonFragment"
+            app:destination="@+id/refusalReasonFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/waitingFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingFragment"
+        android:label="fragment_waiting"
+        tools:layout="@layout/fragment_waiting"></fragment>
+    <fragment
+        android:id="@+id/participationFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.participant.participation.ParticipationFragment"
+        android:label="fragment_participation"
+        tools:layout="@layout/fragment_participation" />
+    <fragment
+        android:id="@+id/refusalFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.participant.refusal.RefusalFragment"
+        android:label="fragment_refusal"
+        tools:layout="@layout/fragment_refusal" />
+    <fragment
+        android:id="@+id/bottomReasonFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.participant.BottomSheet"
+        android:label="refusal_reason_bottom_fragment"
+        tools:layout="@layout/fragment_bottom_sheet">
+        <action
+            android:id="@+id/action_refusalBottomSheet_to_refusalReasonFragment"
+            app:destination="@+id/refusalReasonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/refusalReasonFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.participant.RefusalReasonFragment"
+        android:label="fragment_refusal"
+        tools:layout="@layout/fragment_refusal_reason">
+        <action
+            android:id="@+id/action_refusalReasonFragment_to_participantFragment"
+            app:destination="@+id/participantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadImageFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.uploadImg.UploadImageFragment"
+        android:label="fragment_upload_image"
+        tools:layout="@layout/fragment_upload_image" />
+    <fragment
+        android:id="@+id/withdrawalFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.withdrawal.WithdrawalFragment"
+        android:label="fragment_withdrawal"
+        tools:layout="@layout/fragment_withdrawal">
+        <action
+            android:id="@+id/action_withdrawalFragment_to_confirmingWithdrawalFragment"
+            app:destination="@id/confirmingWithdrawalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmingWithdrawalFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.withdrawal.ConfirmingWithdrawalFragment"
+        android:label="fragment_confirming_withdrawal"
+        tools:layout="@layout/fragment_confirming_withdrawal" />
+    <action
+        android:id="@+id/action_global_studyContentFragment"
+        app:destination="@id/studyContentFragment" />
+    <fragment
+        android:id="@+id/myInfoFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.MyInfoFragment"
+        android:label="fragment_my_info"
+        tools:layout="@layout/fragment_my_info">
+        <action
+            android:id="@+id/action_myInfoFragment_to_changeNicknameFragment"
+            app:destination="@id/changeNicknameFragment" />
+        <action
+            android:id="@+id/action_myInfoFragment_to_changeMajorFragment"
+            app:destination="@id/changeMajorFragment" />
+        <action
+            android:id="@+id/action_myInfoFragment_to_currentPasswordFragment"
+            app:destination="@id/currentPasswordFragment" />
+        <action
+            android:id="@+id/action_myInfoFragment_to_withdrawalFragment"
+            app:destination="@id/withdrawalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mypageMainFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.MypageMainFragment"
+        android:label="fragment_mypage01"
+        tools:layout="@layout/fragment_mypage_main">
         <argument
             android:name="showBottomNav"
-            android:defaultValue="false" />
+            android:defaultValue="true" />
         <action
-            android:id="@+id/action_loginFragment_to_agreementFragment"
-            app:destination="@id/agreementFragment" />
+            android:id="@+id/action_mypageMainFragment_to_writtenStudyFragment"
+            app:destination="@id/writtenStudyFragment" />
+        <action
+            android:id="@+id/action_mypageMainFragment_to_engagedStudyFragment"
+            app:destination="@id/engagedStudyFragment" />
+        <action
+            android:id="@+id/action_mypageMainFragment_to_complaintFragment"
+            app:destination="@id/complaintFragment" />
+        <action
+            android:id="@+id/action_mypageMainFragment_to_announcementFragment"
+            app:destination="@+id/announcementFragment" />
+        <action
+            android:id="@+id/action_mypageMainFragment_to_manualFragment"
+            app:destination="@id/manualFragment" />
+    </fragment>
 
+    <!-- signup page -->
+    <fragment
+        android:id="@+id/agreementFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.agreement.AgreementFragment"
+        android:label="fragment_agreement"
+        tools:layout="@layout/fragment_agreement">
+        <action
+            android:id="@+id/action_agreementFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
     </fragment>
     <fragment
         android:id="@+id/emailFragment"
@@ -320,18 +266,17 @@
             app:destination="@id/passwordFragment" />
     </fragment>
     <fragment
-        android:id="@+id/passwordFragment"
-        android:name="kr.co.gamja.study_hub.feature.signup.password.PasswordFragment"
+        android:id="@+id/majorFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.major.MajorFragment"
         android:label="@string/word_registration"
-        tools:layout="@layout/fragment_password">
+        tools:layout="@layout/fragment_major">
         <argument
             android:name="showBottomNav"
             android:defaultValue="false" />
         <action
-            android:id="@+id/action_createAccountFragment02_to_createAccountFragment03"
-            app:destination="@id/nicknameFragment" />
+            android:id="@+id/action_createAccountFragment04_to_createAccountFragmentEnd05"
+            app:destination="@id/signupEndFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/nicknameFragment"
         android:name="kr.co.gamja.study_hub.feature.signup.nickname.NicknameFragment"
@@ -345,16 +290,16 @@
             app:destination="@id/majorFragment" />
     </fragment>
     <fragment
-        android:id="@+id/majorFragment"
-        android:name="kr.co.gamja.study_hub.feature.signup.major.MajorFragment"
+        android:id="@+id/passwordFragment"
+        android:name="kr.co.gamja.study_hub.feature.signup.password.PasswordFragment"
         android:label="@string/word_registration"
-        tools:layout="@layout/fragment_major">
+        tools:layout="@layout/fragment_password">
         <argument
             android:name="showBottomNav"
             android:defaultValue="false" />
         <action
-            android:id="@+id/action_createAccountFragment04_to_createAccountFragmentEnd05"
-            app:destination="@id/signupEndFragment" />
+            android:id="@+id/action_createAccountFragment02_to_createAccountFragment03"
+            app:destination="@id/nicknameFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupEndFragment"
@@ -368,44 +313,139 @@
             android:id="@+id/action_create05EndFragment_to_login"
             app:destination="@id/loginFragment" />
     </fragment>
+
+    <!-- study page -->
+    <fragment
+        android:id="@+id/allCommentsFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.allcomments.AllCommentsFragment"
+        android:label="fragment_all_comments"
+        tools:layout="@layout/fragment_all_comments" />
+    <fragment
+        android:id="@+id/commentBottomSheetFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.allcomments.bottomsheet.CommentBottomSheetFragment"
+        android:label="fragment_comment_bottom_sheet"
+        tools:layout="@layout/fragment_comment_bottom_sheet" />
+    <fragment
+        android:id="@+id/applicationFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.apply.ApplicationFragment"
+        android:label="fragment_application"
+        tools:layout="@layout/fragment_application" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.createStudy.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/createStudyFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.createStudy.CreateStudyFragment"
+        android:label="fragment_create_study"
+        tools:layout="@layout/fragment_create_study">
+        <action
+            android:id="@+id/action_createStudyFragment_to_relativeMajorFragment"
+            app:destination="@id/relativeMajorFragment" />
+        <action
+            android:id="@+id/action_createStudyFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_createStudyFragment_to_studyContentFragment"
+            app:destination="@id/studyContentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/relativeMajorFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.createStudy.RelativeMajorFragment"
+        android:label="fragment_relative_major"
+        tools:layout="@layout/fragment_relative_major" />
+    <fragment
+        android:id="@+id/studyContentFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragment"
+        android:label="fragment_study_detail"
+        tools:layout="@layout/fragment_content">
+        <argument
+            android:name="postId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_studyContentFragment_to_allCommentsFragment"
+            app:destination="@id/allCommentsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bottomSheetFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment"
+        android:label="fragment_bottom_sheet"
+        tools:layout="@layout/fragment_bottom_sheet" />
+    <fragment
+        android:id="@+id/studyMainFragment"
+        android:name="kr.co.gamja.study_hub.feature.studypage.studyHome.StudyMainFragment"
+        android:label="fragment_study01"
+        tools:layout="@layout/fragment_study_main">
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="true" />
+        <action
+
+            android:id="@+id/action_StudyFragment01_to_studyDetailFragment"
+            app:destination="@id/studyContentFragment" />
+        <action
+            android:id="@+id/action_StudyFragment01_to_createStudyFragment"
+            app:destination="@id/createStudyFragment" />
+    </fragment>
+
+    <!-- bookmark page -->
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="kr.co.gamja.study_hub.feature.toolbar.bookmark.BookmarkFragment"
+        android:label="fragment_main_bookmark"
+        tools:layout="@layout/fragment_bookmark" />
+
+    <!-- global action -->
+    <action
+        android:id="@+id/action_global_mainBookmarkFragment"
+        app:destination="@id/bookmarkFragment" />
+    <action
+        android:id="@+id/action_global_createStudyFragment"
+        app:destination="@id/createStudyFragment" />
+    <action
+        android:id="@+id/action_global_myInfoFragment"
+        app:destination="@id/myInfoFragment" />
+    <action
+        android:id="@+id/action_global_applicationFragment"
+        app:destination="@id/applicationFragment" />
+    <action
+        android:id="@+id/action_global_findPassByEmailFragment"
+        app:destination="@id/findPassByEmailFragment" />
+    <action
+        android:id="@+id/action_global_mypageMainFragment"
+        app:destination="@id/mypageMainFragment" />
     <action
         android:id="@+id/action_global_loginFragment"
         app:destination="@id/loginFragment" />
-    <fragment
-        android:id="@+id/agreementFragment"
-        android:name="kr.co.gamja.study_hub.feature.signup.agreement.AgreementFragment"
-        android:label="fragment_agreement"
-        tools:layout="@layout/fragment_agreement">
-        <action
-            android:id="@+id/action_agreementFragment_to_emailFragment"
-            app:destination="@id/emailFragment" />
-    </fragment>
     <action
         android:id="@+id/action_global_mainHomeFragment2"
         app:destination="@id/mainHomeFragment" />
+    <action
+        android:id="@+id/action_global_applicationHistoryFragment"
+        app:destination="@id/applicationHistoryFragment" />
     <fragment
-        android:id="@+id/applicationHistoryFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.applicationhistory.ApplicationHistoryFragment"
-        android:label="fragment_application_history"
-        tools:layout="@layout/fragment_application_history" />
-
+        android:id="@+id/serviceUseTermFragment"
+        android:name="kr.co.gamja.study_hub.ServiceUseTermFragment"
+        android:label="fragment_service_use_term"
+        tools:layout="@layout/fragment_service_use_term" />
     <fragment
-        android:id="@+id/refusalReasonFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.participant.RefusalReasonFragment"
-        android:label="fragment_refusal"
-        tools:layout="@layout/fragment_refusal_reason">
-        <action
-            android:id="@+id/action_refusalReasonFragment_to_participantFragment"
-            app:destination="@+id/participantFragment"/>
-    </fragment>
-
+        android:id="@+id/personalInfoTermFragment"
+        android:name="kr.co.gamja.study_hub.PersonalInfoTermFragment"
+        android:label="fragment_personal_info_term"
+        tools:layout="@layout/fragment_personal_info_term" />
     <fragment
-        android:id="@+id/bottomReasonFragment"
-        android:name="kr.co.gamja.study_hub.feature.mypage.participant.BottomSheet"
-        android:label="refusal_reason_bottom_fragment"
-        tools:layout="@layout/fragment_bottom_sheet">
-        <action
-            android:id="@+id/action_refusalBottomSheet_to_refusalReasonFragment"
-            app:destination="@+id/refusalReasonFragment"/>
-    </fragment><action android:id="@+id/action_global_applicationHistoryFragment" app:destination="@id/applicationHistoryFragment"/>
+        android:id="@+id/checkRefusalReasonFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.refusalreason.CheckRefusalReasonFragment"
+        android:label="fragment_check_refusal_reason"
+        tools:layout="@layout/fragment_check_refusal_reason" />
+    <action
+        android:id="@+id/action_global_personalInfoTermFragment"
+        app:destination="@id/personalInfoTermFragment" />
+    <action
+        android:id="@+id/action_global_serviceUseTermFragment"
+        app:destination="@id/serviceUseTermFragment" />
+    <action
+        android:id="@+id/action_global_checkRefusalReasonFragment"
+        app:destination="@id/checkRefusalReasonFragment" />
 </navigation>

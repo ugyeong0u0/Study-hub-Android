@@ -147,6 +147,7 @@ class CreateStudyFragment : Fragment() {
             } else {
                 binding.radioGroup.check(R.id.radio_no)
             }
+            viewModel.setButtonEnable()
         }
 
         with(viewModel) {
@@ -164,12 +165,15 @@ class CreateStudyFragment : Fragment() {
                 viewModel.setButtonEnable()
             }
             persons.observe(viewLifecycleOwner) {
-                viewModel.setButtonEnable()
                 if (!viewModel.persons.value.isNullOrEmpty())
-                    if (viewModel.persons.value.toString().toInt() == 0) {
+                    if (viewModel.persons.value.toString()
+                            .toInt() == 0 || viewModel.persons.value.toString().toInt() > 50
+                    ) {
                         viewModel.setErrorPersons(true)
-                    } else
+                    } else {
                         viewModel.setErrorPersons(false)
+                        viewModel.setButtonEnable()
+                    }
             }
             gender.observe(viewLifecycleOwner) {
                 viewModel.setButtonEnable()
@@ -203,12 +207,15 @@ class CreateStudyFragment : Fragment() {
             val navOptions = NavOptions.Builder()
                 .setPopUpTo(R.id.createStudyFragment, true)
                 .build()
+            val activity = requireActivity() as AppCompatActivity
+            val bottomView = activity.findViewById<View>(R.id.bottom_nav)
+
             if (isCorrectStudyRequest) { // 스터디 수정 api 호출
                 viewModel.correctStudy(currentPostId, object : CallBackIntegerListener {
                     override fun isSuccess(result: Int) {
                         CustomSnackBar.make(
                             binding.layoutLinear,
-                            getString(R.string.alarm_completeAlter)
+                            getString(R.string.alarm_completeAlter), bottomView
                         ).show()
                         val action =
                             CreateStudyFragmentDirections.actionGlobalStudyContentFragment(result)
@@ -220,7 +227,7 @@ class CreateStudyFragment : Fragment() {
                     override fun isSuccess(result: Int) {
                         CustomSnackBar.make(
                             binding.layoutLinear,
-                            getString(R.string.alarm_completeCreateStudy)
+                            getString(R.string.alarm_completeCreateStudy), bottomView
                         ).show()
                         val action =
                             CreateStudyFragmentDirections.actionGlobalStudyContentFragment(result)

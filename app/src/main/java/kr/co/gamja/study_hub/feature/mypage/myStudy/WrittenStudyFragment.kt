@@ -96,6 +96,7 @@ class WrittenStudyFragment : Fragment() {
                     2 -> {
                         Log.d(tag, "참여자 버튼 눌림")
                         val bundle = Bundle()
+                        Log.d("Participant", "${postingId.studyId}")
                         bundle.putInt("postId", postingId.postId)
                         bundle.putInt("studyId",postingId.studyId)
                         navController.navigate(R.id.action_writtenStudyFragment_to_participantFragment,bundle)

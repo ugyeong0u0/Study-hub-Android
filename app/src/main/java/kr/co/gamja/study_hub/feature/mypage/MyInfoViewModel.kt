@@ -88,7 +88,7 @@ class MyInfoViewModel : ViewModel() {
                     _imgData.value = result.imageUrl
                     _isImgData.value = true
                     _writtenData.value=result.postCount.toString()
-                    _bookmarkData.value=result.bookmarkCount.toString()
+                    _bookmarkData.value=result.applyCount.toString() // 북마크수가 아니라 신청내역수임(변수명 변경해야함)
                     _participantData.value=result.participateCount.toString()
                     onClickListener.myInfoCallbackResult(true)
                 } else {

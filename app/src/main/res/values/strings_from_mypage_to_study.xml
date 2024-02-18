@@ -10,7 +10,7 @@
 
     <!--    리사이클러뷰 아이템-->
     <string name="txt_leftNumber">%1$d자리 남았어요</string>
-    <string name="txt_people_number">%1$d\/%1$d명</string>
+    <string name="txt_people_number">%1$d\/%2$d명</string>
 
     <!--    스터디_세부내용-->
     <string name="fsd_txt_introduce">소개</string>
@@ -45,7 +45,7 @@
     <string name="txt_joinNumber_sub">최대 50명 참여 가능</string>
     <string name="txt_aboutPNumber">스터디 인원을 알려주세요</string>
     <string name="txt_persons">명</string>
-    <string name="error_persons">1명부터 가능해요</string>
+    <string name="error_persons">1명부터 50명 이하로 가능해요</string>
     <string name="txt_gender_sub">참여자의 성별 선택</string>
     <string name="txt_gender_all">무관</string>
     <string name="txt_gender_male">남자만</string>
@@ -62,7 +62,7 @@
     <string name="edit_kindOfFee">지각비, 결석비</string>
     <string name="edit_howMuchFee">금액을 알려주세요</string>
     <string name="txt_howMuchFee">얼마인가요?</string>
-    <string name="txt_limitFee">최대 %1$d원</string>
+    <string name="txt_limitFee">최대 99\,999원</string>
     <string name="txt_startDay">시작하는 날</string>
     <string name="txt_endDay">종료하는 날</string>
     <string name="txt_choice">선택하기</string>
@@ -167,7 +167,9 @@
     <string name="sub_goLogin">계속하려면 로그인을 해주세요!</string>
     <string name="txt_login">로그인</string>
 
-
+<!--    서비스 이용약관-->
+    <string name="service_term">서비스이용약관</string>
+    <string name="personal_info_term">개인정보처리방침</string>
 
 </resources>
 

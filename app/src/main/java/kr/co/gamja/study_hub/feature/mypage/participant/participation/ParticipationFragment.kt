@@ -21,6 +21,9 @@ class ParticipationFragment : Fragment() {
     private lateinit var adapter : ParticipationAdapter
 
     private val viewModel : ParticipantViewModel by viewModels()
+
+    private var page = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +36,11 @@ class ParticipationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
+
+        val studyId = arguments?.getInt("studyId") ?: throw NullPointerException("arguments is null")
+
+        //data fetch
+        viewModel.fetchData("ACCEPT", studyId, page)
 
         //observing
         viewModel.acceptList.observe(viewLifecycleOwner, Observer{

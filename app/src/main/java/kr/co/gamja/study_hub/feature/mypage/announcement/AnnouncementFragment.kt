@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.gamja.study_hub.databinding.FragmentAnnoucementBinding
 
@@ -47,6 +48,11 @@ class AnnouncementFragment : Fragment() {
 
         //recyclerView 설정
         initRecyclerView()
+
+        //back button
+        binding.iconBack.setOnClickListener{
+            findNavController().navigateUp()
+        }
     }
 
     //RecyclerView 초기화
