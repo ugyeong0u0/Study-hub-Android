@@ -39,7 +39,7 @@ class WaitingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val studyId = arguments?.getInt("studyId") ?: -1
-        val postId = arguments?.getInt("postId") ?: -1
+
         initRecyclerView(studyId)
 
         //observing

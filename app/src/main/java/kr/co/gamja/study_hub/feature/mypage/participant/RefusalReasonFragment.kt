@@ -69,9 +69,16 @@ class RefusalReasonFragment : Fragment() {
                     studyId = studyId,
                     userId = userId,
                 )
+
+                // Navigation back stack에서 현재 프래그먼트를 제거
+                findNavController().popBackStack(R.id.participantFragment, false)
+
+                val bundle = Bundle()
+                bundle.putInt("studyId", studyId)
+                arguments = bundle
                 findNavController().navigate(
                     R.id.action_refusalReasonFragment_to_participantFragment,
-                    null
+                    arguments
                 )
             }
         }

@@ -73,10 +73,12 @@ class BottomSheet() : BottomSheetDialogFragment() {
 
                 isChecked = true
                 btnRefusal.isEnabled = true
+
+                Log.d("Participant", "check value : ${selectedReason}")
             }
 
             val userId = arguments?.getInt("userId") ?: -1
-             val studyId = arguments?.getInt("studyId") ?: -1
+            val studyId = arguments?.getInt("studyId") ?: -1
 
             //거절 버튼
             btnRefusal.setOnClickListener{
