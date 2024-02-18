@@ -96,6 +96,9 @@ class BottomSheet() : BottomSheetDialogFragment() {
                     dismiss()
                 } else {
                     if (userId != -1 &&  studyId != -1){
+
+                        Log.d("Participant", "userId = ${userId} studyId = ${studyId}")
+
                         //거절 api 사용
                         viewModel.reject(
                             rejectReason = selectedReason,

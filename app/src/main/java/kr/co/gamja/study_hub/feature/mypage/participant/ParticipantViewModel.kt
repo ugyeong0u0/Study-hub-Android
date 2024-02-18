@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.ApplyAccpetRequest
 import kr.co.gamja.study_hub.data.model.ApplyRejectDto
 import kr.co.gamja.study_hub.data.model.RegisterListContent
+import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
 class ParticipantViewModel : ViewModel() {
@@ -82,7 +83,7 @@ class ParticipantViewModel : ViewModel() {
                     rejectedUserId = userId,
                     studyId = studyId
                 )
-                val response = RetrofitManager.api.applyAccept(requestDto)
+                val response = AuthRetrofitManager.api.applyAccept(requestDto)
                 if (response.isSuccessful){
                     if (response.code() != 200) {
                         when (response.code()) {
@@ -114,7 +115,7 @@ class ParticipantViewModel : ViewModel() {
                     rejectedUserId = userId,
                     studyId = studyId
                 )
-                val response = RetrofitManager.api.applyReject(requestDto)
+                val response = AuthRetrofitManager.api.applyReject(requestDto)
                 if (response.isSuccessful){
                     if (response.code() != 200) {
                         when (response.code()) {
