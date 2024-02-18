@@ -220,15 +220,14 @@
         tools:layout="@layout/fragment_participant">
         <action
             android:id="@+id/action_participantFragment_to_refusalReasonFragment"
-            app:destination="@+id/refusalReasonFragment"/>
+            app:destination="@+id/refusalReasonFragment" />
 
     </fragment>
     <fragment
         android:id="@+id/waitingFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingFragment"
         android:label="fragment_waiting"
-        tools:layout="@layout/fragment_waiting">
-    </fragment>
+        tools:layout="@layout/fragment_waiting"></fragment>
     <fragment
         android:id="@+id/participationFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.participation.ParticipationFragment"
@@ -396,7 +395,7 @@
         tools:layout="@layout/fragment_refusal_reason">
         <action
             android:id="@+id/action_refusalReasonFragment_to_participantFragment"
-            app:destination="@+id/participantFragment"/>
+            app:destination="@+id/participantFragment" />
     </fragment>
 
     <fragment
@@ -406,8 +405,11 @@
         tools:layout="@layout/fragment_bottom_sheet">
         <action
             android:id="@+id/action_refusalBottomSheet_to_refusalReasonFragment"
-            app:destination="@+id/refusalReasonFragment"/>
-    </fragment><action android:id="@+id/action_global_applicationHistoryFragment" app:destination="@id/applicationHistoryFragment"/>
+            app:destination="@+id/refusalReasonFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_applicationHistoryFragment"
+        app:destination="@id/applicationHistoryFragment" />
     <fragment
         android:id="@+id/serviceUseTermFragment"
         android:name="kr.co.gamja.study_hub.ServiceUseTermFragment"
