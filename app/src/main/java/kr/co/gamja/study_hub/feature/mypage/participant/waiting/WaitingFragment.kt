@@ -56,7 +56,7 @@ class WaitingFragment : Fragment() {
             }
         })
 
-        viewModel.fetchData(studyId, pageNum)
+        viewModel.fetchData("STANDBY", studyId, pageNum)
     }
 
     //RecyclerView 초기화
@@ -73,17 +73,19 @@ class WaitingFragment : Fragment() {
             /** 수락 선택 >> Dialog 띄워야 함 */
             override fun onAcceptClick(userId : Int) {
                 viewModel.accept(studyId, userId)
-                viewModel.fetchData(studyId, pageNum)
+                viewModel.fetchData("STANDBY", studyId, pageNum)
             }
 
             //거절 선택 >> BottomFragment
             override fun onRefusalClick(userId : Int) {
-                val bottomSheetFragment = BottomSheet(userId)
+                val bottomSheetFragment = BottomSheet()
+
+                val bundle = Bundle()
+                bundle.putInt("userId", userId)
+                bundle.putInt("studyId", studyId)
+                bottomSheetFragment.arguments = bundle
                 bottomSheetFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
                 bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-
-//                viewModel.refusal(studyId, userId)
-//                viewModel.fetchData(studyId, pageNum)
             }
         }
 

@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kr.co.gamja.study_hub.data.model.ApplyAccpetRequest
+import kr.co.gamja.study_hub.data.model.ApplyRejectDto
 import kr.co.gamja.study_hub.data.model.RegisterListContent
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
@@ -33,33 +35,31 @@ class ParticipantViewModel : ViewModel() {
 
     //waitingList 갱신
     fun fetchData(
+        inspection : String,
         studyId : Int,
         page : Int,
     ) {
+        Log.d("Participant", "study id : ${studyId}")
         viewModelScope.launch(Dispatchers.IO){
             //신청 리스트 받아오기
             try {
-                val response = RetrofitManager.api.getRegisterList(page, 5, studyId)
+                val response = RetrofitManager.api.getRegisterList(inspection, page, 8, studyId)
+                Log.d("Participant", "${ response.body() }")
                 if (response.isSuccessful){
                     val result = response.body() ?: throw NullPointerException("Result is NULL")
                     val datas = result.applyUserData.content
 
-                    val waitingData = mutableListOf<RegisterListContent>()
-                    val acceptData = mutableListOf<RegisterListContent>()
-                    val rejectData = mutableListOf<RegisterListContent>()
+                    val tmpData = mutableListOf<RegisterListContent>()
 
                     datas.forEach{ data ->
-                        when (data.inspection) {
-                            "STANDBY" -> waitingData.add(data)
-                            "ACCEPT" -> acceptData.add(data)
-                            "REJECT" -> rejectData.add(data)
-                            else -> throw IllegalArgumentException("This type does not exist")
-                        }
+                        tmpData.add(data)
                     }
 
-                    _participantWaitingList.postValue(waitingData)
-                    _acceptList.postValue(acceptData)
-                    _refuseList.postValue(rejectData)
+                    when(inspection){
+                        "STANDBY" -> _participantWaitingList.postValue(tmpData)
+                        "ACCEPT" -> _acceptList.postValue(tmpData)
+                        "REJECT" -> _refuseList.postValue(tmpData)
+                    }
 
                     Log.d("ParticipantViewModel", "fetchWaitingList is Success")
                 } else {
@@ -78,7 +78,11 @@ class ParticipantViewModel : ViewModel() {
     ){
         viewModelScope.launch(Dispatchers.IO){
             try{
-                val response = RetrofitManager.api.editApplyInfo("ACCEPT", studyId, userId)
+                val requestDto = ApplyAccpetRequest(
+                    rejectedUserId = userId,
+                    studyId = studyId
+                )
+                val response = RetrofitManager.api.applyAccept(requestDto)
                 if (response.isSuccessful){
                     if (response.code() != 200) {
                         when (response.code()) {
@@ -98,13 +102,19 @@ class ParticipantViewModel : ViewModel() {
     }
 
     //거절
-    fun refusal(
+    fun reject(
+        rejectReason : String,
         studyId : Int,
         userId : Int
     ){
         viewModelScope.launch(Dispatchers.IO){
             try {
-                val response = RetrofitManager.api.editApplyInfo("REJECT", studyId, userId)
+                val requestDto = ApplyRejectDto(
+                    rejectReason = rejectReason,
+                    rejectedUserId = userId,
+                    studyId = studyId
+                )
+                val response = RetrofitManager.api.applyReject(requestDto)
                 if (response.isSuccessful){
                     if (response.code() != 200) {
                         when (response.code()) {

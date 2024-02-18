@@ -9,28 +9,12 @@ import retrofit2.http.*
 interface StudyHubApi {
 
     /** apply-controller */
-    // 내가 참여한 스터디 목록
-//    @GET("/api/v1/participated-study")
-//    suspend fun participatingMyStudy(
-//        @Query("page") page: Int,
-//        @Query("size") size: Int
-//    ):Response<>
-
-    //스터디 참여 신청 정보
-    @GET("/api/v1/study")
-    suspend fun getRegisterList(
-        @Query("page") page : Int,
-        @Query("size") size : Int,
-        @Query("studyId") studyId : Int?,
-    ) : Response<GetRegisterListDto>
-
-    //스터디 참여 신청 정보 수정
-    @PUT("/api/v1/study")
-    suspend fun editApplyInfo(
-        @Query("inspection") inspection : String,
-        @Query("studyId") studyId : Int,
-        @Query("userId") userId : Int
-    ) : Response<Unit>
+    //내가 참여한 스터디 목록
+    @GET("/api/v1/participated-study")
+    suspend fun participatingMyStudy(
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ):Response<ParticipatedStudyRequestDto>
 
     // 스터디 신청하기
     @POST("/api/v1/study")
@@ -39,10 +23,35 @@ interface StudyHubApi {
         @Query("studyId") studyInt: Int
     ): Response<Unit>
 
-    //스터디 참여 신청 거절
+    //스터디 참여 신청 정보 수락
+    @PUT("/api/v1/study-accept")
+    suspend fun applyAccept(
+        @Body dto : ApplyAccpetRequest
+    ) : Response<Unit>
+
+
+    //스터디 참여 신청 정보 거절
     @PUT("/api/v1/study-reject")
-    suspend fun rejectStudy(
-        @Body body : StudyRejectRequestDto
+    suspend fun applyReject(
+        @Body dto : ApplyRejectDto
+    ) : Response<Unit>
+
+    //스터디 참여 신청 정보
+    @GET("/api/v2/study")
+    suspend fun getRegisterList(
+        @Query("inspection") inspection : String,
+        @Query("page") page : Int,
+        @Query("size") size : Int,
+        @Query("studyId") studyId : Int?,
+    ) : Response<GetRegisterListDto>
+
+    //스터디 참여 신청 정보 조회
+    @GET("/api/v1/study-request")
+    suspend fun getStudyApplyInfo(
+        @Query("inspection") inspection : String,
+        @Query("page") page : Int,
+        @Query("size") size : Int,
+        @Query("studyId") study : Int
     ) : Response<Unit>
 
     /** bookmark-controller */

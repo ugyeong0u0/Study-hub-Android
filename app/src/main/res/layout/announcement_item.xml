@@ -61,7 +61,7 @@
             android:textColor="@color/BG_90"
             android:textSize="14sp"
             android:visibility="gone"
-            tools:text="안녕하세요. 새로운 소식을 가져왔어요!\n이번에 스터디 모집과 관련한 새로운 서비스가 추가될 예정입니다 \n바로 ~ 서비스 인데요, ~~~" />
+            tools:text="안녕하세요. 새로운 소식을 가져왔어요!\n이번에 스터디 모집과 관련한 새로운 서비스가 추가될 예정입니다\n바로 ~ 서비스 인데요, ~~~"/>
 
     </LinearLayout>
 

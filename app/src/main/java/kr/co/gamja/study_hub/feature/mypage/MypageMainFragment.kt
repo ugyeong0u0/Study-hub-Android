@@ -119,5 +119,12 @@ class MypageMainFragment : Fragment() {
                 null
             )
         }
+        //공지사항
+        binding.btnNotice.setOnClickListener{
+            findNavController().navigate(
+                R.id.action_mypageMainFragment_to_announcementFragment,
+                null
+            )
+        }
     }
 }
