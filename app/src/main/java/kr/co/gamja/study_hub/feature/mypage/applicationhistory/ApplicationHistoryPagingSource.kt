@@ -2,21 +2,21 @@ package kr.co.gamja.study_hub.feature.mypage.applicationhistory
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import kr.co.gamja.study_hub.data.model.ContentX
+import kr.co.gamja.study_hub.data.model.ContentXXXXX
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
 import retrofit2.HttpException
 
 class ApplicationHistoryPagingSource(private val studyHubApi: StudyHubApi) :
-    PagingSource<Int, ContentX>() {
+    PagingSource<Int, ContentXXXXX>() {
     val tag: String = this.javaClass.simpleName
-    override fun getRefreshKey(state: PagingState<Int, ContentX>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, ContentXXXXX>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ContentX> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ContentXXXXX> {
         return try {
             val currentPageNumber = params.key ?: 0
             val response = studyHubApi.getUserApplyHistory(currentPageNumber, params.loadSize)

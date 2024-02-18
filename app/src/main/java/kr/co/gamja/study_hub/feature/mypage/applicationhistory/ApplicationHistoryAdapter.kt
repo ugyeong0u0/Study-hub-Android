@@ -2,17 +2,16 @@ package kr.co.gamja.study_hub.feature.mypage.applicationhistory
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import kr.co.gamja.study_hub.data.model.ContentX
+import kr.co.gamja.study_hub.data.model.ContentXXXXX
 import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
 import kr.co.gamja.study_hub.databinding.ApplicationHistoryItemBinding
 
 class ApplicationHistoryAdapter(private val context: Context) :
-    PagingDataAdapter<ContentX, ApplicationHistoryAdapter.ApplicationHistoryHolder>(
+    PagingDataAdapter<ContentXXXXX, ApplicationHistoryAdapter.ApplicationHistoryHolder>(
         DIFF_CALLBACK
     ) {
 
@@ -22,12 +21,12 @@ class ApplicationHistoryAdapter(private val context: Context) :
     val tag: String = this.javaClass.simpleName
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContentX>() {
-            override fun areItemsTheSame(oldItem: ContentX, newItem: ContentX): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContentXXXXX>() {
+            override fun areItemsTheSame(oldItem: ContentXXXXX, newItem: ContentXXXXX): Boolean {
                 return oldItem.studyId == newItem.studyId
             }
 
-            override fun areContentsTheSame(oldItem: ContentX, newItem: ContentX): Boolean {
+            override fun areContentsTheSame(oldItem: ContentXXXXX, newItem: ContentXXXXX): Boolean {
                 return oldItem == newItem
             }
         }
@@ -53,7 +52,7 @@ class ApplicationHistoryAdapter(private val context: Context) :
 
     inner class ApplicationHistoryHolder(val binding: ApplicationHistoryItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun setData(item: ContentX?) {
+        fun setData(item: ContentXXXXX?) {
             val itemStudyId: Int? = item?.studyId
             item?.let {
                 when (it.inspection) {

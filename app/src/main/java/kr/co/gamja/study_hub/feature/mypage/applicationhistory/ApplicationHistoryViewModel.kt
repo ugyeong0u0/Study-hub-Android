@@ -11,7 +11,7 @@ import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
-import kr.co.gamja.study_hub.data.model.ContentX
+import kr.co.gamja.study_hub.data.model.ContentXXXXX
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
 
 class ApplicationHistoryViewModel(studyHubApi: StudyHubApi) : ViewModel() {
@@ -32,7 +32,7 @@ class ApplicationHistoryViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     var isList=MutableLiveData<Boolean>(true)
 
 
-    val applicationHistoryFlow: Flow<PagingData<ContentX>> = _reloadTrigger.flatMapLatest {
+    val applicationHistoryFlow: Flow<PagingData<ContentXXXXX>> = _reloadTrigger.flatMapLatest {
         Pager(
             PagingConfig(
                 pageSize = 10,
