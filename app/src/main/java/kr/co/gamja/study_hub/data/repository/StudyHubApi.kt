@@ -226,4 +226,8 @@ interface StudyHubApi {
     // 댓글 수정하기
     @PUT("/api/v1/comments")
     suspend fun correctComment(@Body commentCorrectRequest: CommentCorrectRequest): Response<Unit>
+
+    // 유저 신청내역
+    @GET("/api/v1/study-request")
+    suspend fun getUserApplyHistory(@Query("page") page: Int, @Query("size") size: Int) : Response<ApplicationHistoryResponse>
 }

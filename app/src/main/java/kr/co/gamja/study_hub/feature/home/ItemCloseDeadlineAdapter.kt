@@ -104,7 +104,6 @@ class ItemCloseDeadlineAdapter(private val context: Context) :
                 // 북마크 여부에 따른 색 변경
                 binding.isBookmark = it.bookmarked
 
-
                     //북마크 추가
                     binding.btnBookmark.setOnClickListener {
                         // 로그인 된 유저만 되도록

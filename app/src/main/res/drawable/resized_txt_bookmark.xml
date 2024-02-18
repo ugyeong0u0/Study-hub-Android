@@ -3,5 +3,5 @@
     <item
         android:width="75dp"
         android:height="13dp"
-        android:drawable="@drawable/txt_bookmark"/>
+        android:drawable="@drawable/profile_part_request_text_"/>
 </layer-list>

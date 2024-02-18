@@ -142,15 +142,14 @@
         tools:layout="@layout/fragment_participant">
         <action
             android:id="@+id/action_participantFragment_to_refusalReasonFragment"
-            app:destination="@+id/refusalReasonFragment"/>
+            app:destination="@+id/refusalReasonFragment" />
 
     </fragment>
     <fragment
         android:id="@+id/waitingFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingFragment"
         android:label="fragment_waiting"
-        tools:layout="@layout/fragment_waiting">
-    </fragment>
+        tools:layout="@layout/fragment_waiting"></fragment>
     <fragment
         android:id="@+id/participationFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.participation.ParticipationFragment"
@@ -379,6 +378,7 @@
             android:name="showBottomNav"
             android:defaultValue="true" />
         <action
+
             android:id="@+id/action_StudyFragment01_to_studyDetailFragment"
             app:destination="@id/studyContentFragment" />
         <action
@@ -421,4 +421,23 @@
     <action
         android:id="@+id/action_global_applicationHistoryFragment"
         app:destination="@id/applicationHistoryFragment"/>
+
+    <action
+        android:id="@+id/action_global_applicationHistoryFragment"
+        app:destination="@id/applicationHistoryFragment" />
+    <fragment
+        android:id="@+id/serviceUseTermFragment"
+        android:name="kr.co.gamja.study_hub.ServiceUseTermFragment"
+        android:label="fragment_service_use_term"
+        tools:layout="@layout/fragment_service_use_term" />
+    <fragment
+        android:id="@+id/personalInfoTermFragment"
+        android:name="kr.co.gamja.study_hub.PersonalInfoTermFragment"
+        android:label="fragment_personal_info_term"
+        tools:layout="@layout/fragment_personal_info_term" />
+    <fragment
+        android:id="@+id/checkRefusalReasonFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.refusalreason.CheckRefusalReasonFragment"
+        android:label="fragment_check_refusal_reason"
+        tools:layout="@layout/fragment_check_refusal_reason" />
 </navigation>
