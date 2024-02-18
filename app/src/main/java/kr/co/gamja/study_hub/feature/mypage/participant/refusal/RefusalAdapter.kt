@@ -53,6 +53,7 @@ class RefusalAdapter(val context : Context) : RecyclerView.Adapter<RefusalAdapte
                 createdDate.text = date
                 userMajor.text = Functions().convertToKoreanMajor(item.major)
                 userNickname.text = item.nickname
+                reasonOfRefusal.text = item.introduce
             }
         }
     }
