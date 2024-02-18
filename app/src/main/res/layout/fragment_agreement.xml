@@ -142,13 +142,13 @@
                 android:textColor="@color/syswhite"
                 android:textSize="16sp" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/arrow_service"
                 android:layout_width="@dimen/resized_item"
                 android:layout_height="@dimen/resized_item"
                 android:layout_alignEnd="@id/radio_service"
                 android:layout_marginTop="13dp"
-                android:src="@drawable/icon_arrow_right_gray" />
+                android:background="@drawable/icon_arrow_right_gray" />
         </RelativeLayout>
 
 
@@ -179,13 +179,13 @@
                 android:textColor="@color/syswhite"
                 android:textSize="16sp" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/arrow_personalInfo"
                 android:layout_width="@dimen/resized_item"
                 android:layout_height="@dimen/resized_item"
                 android:layout_alignEnd="@id/radio_personalInfo"
                 android:layout_marginTop="13dp"
-                android:src="@drawable/icon_arrow_right_gray" />
+                android:background="@drawable/icon_arrow_right_gray" />
 
         </RelativeLayout>
 

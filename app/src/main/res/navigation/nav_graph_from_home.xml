@@ -91,7 +91,7 @@
         android:id="@+id/announcementFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.announcement.AnnouncementFragment"
         android:label="fragment_announcement"
-        tools:layout="@layout/fragment_annoucement"/>
+        tools:layout="@layout/fragment_annoucement" />
     <fragment
         android:id="@+id/applicationHistoryFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.applicationhistory.ApplicationHistoryFragment"
@@ -167,7 +167,7 @@
         tools:layout="@layout/fragment_bottom_sheet">
         <action
             android:id="@+id/action_refusalBottomSheet_to_refusalReasonFragment"
-            app:destination="@+id/refusalReasonFragment"/>
+            app:destination="@+id/refusalReasonFragment" />
     </fragment>
     <fragment
         android:id="@+id/refusalReasonFragment"
@@ -176,7 +176,7 @@
         tools:layout="@layout/fragment_refusal_reason">
         <action
             android:id="@+id/action_refusalReasonFragment_to_participantFragment"
-            app:destination="@+id/participantFragment"/>
+            app:destination="@+id/participantFragment" />
     </fragment>
     <fragment
         android:id="@+id/uploadImageFragment"
@@ -237,7 +237,10 @@
             app:destination="@id/complaintFragment" />
         <action
             android:id="@+id/action_mypageMainFragment_to_announcementFragment"
-            app:destination="@+id/announcementFragment"/>
+            app:destination="@+id/announcementFragment" />
+        <action
+            android:id="@+id/action_mypageMainFragment_to_manualFragment"
+            app:destination="@id/manualFragment" />
     </fragment>
 
     <!-- signup page -->
@@ -420,7 +423,7 @@
         app:destination="@id/mainHomeFragment" />
     <action
         android:id="@+id/action_global_applicationHistoryFragment"
-        app:destination="@id/applicationHistoryFragment"/>
+        app:destination="@id/applicationHistoryFragment" />
     <fragment
         android:id="@+id/serviceUseTermFragment"
         android:name="kr.co.gamja.study_hub.ServiceUseTermFragment"
@@ -436,4 +439,10 @@
         android:name="kr.co.gamja.study_hub.feature.mypage.refusalreason.CheckRefusalReasonFragment"
         android:label="fragment_check_refusal_reason"
         tools:layout="@layout/fragment_check_refusal_reason" />
+    <action
+        android:id="@+id/action_global_personalInfoTermFragment"
+        app:destination="@id/personalInfoTermFragment" />
+    <action
+        android:id="@+id/action_global_serviceUseTermFragment"
+        app:destination="@id/serviceUseTermFragment" />
 </navigation>

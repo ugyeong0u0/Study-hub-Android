@@ -116,7 +116,14 @@ class AgreementFragment : Fragment() {
                 binding.layoutAllAgree.tag = "0"
             }
         }
-
+        // 서비스 이용약관 클릭시
+        binding.layoutService.setOnClickListener {
+            findNavController().navigate(R.id.action_global_serviceUseTermFragment, null)
+        }
+        // 개인정보 이용약관
+        binding.layoutPersonalInfo.setOnClickListener {
+            findNavController().navigate(R.id.action_global_personalInfoTermFragment, null)
+        }
 
     }
 

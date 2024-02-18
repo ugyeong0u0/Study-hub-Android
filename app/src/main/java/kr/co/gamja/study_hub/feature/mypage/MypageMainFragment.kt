@@ -120,11 +120,26 @@ class MypageMainFragment : Fragment() {
             )
         }
         //공지사항
-        binding.btnNotice.setOnClickListener{
+        binding.btnNotice.setOnClickListener {
             findNavController().navigate(
                 R.id.action_mypageMainFragment_to_announcementFragment,
                 null
             )
+        }
+
+        // 이용방법으로 가기
+        binding.btnUsingGuide.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_mypageMainFragment_to_manualFragment, null
+            )
+        }
+        // 개인정보이용약관
+        binding.btnUerTerms.setOnClickListener {
+            findNavController().navigate(R.id.action_global_personalInfoTermFragment, null)
+        }
+        // 이용약관
+        binding.btnTerms.setOnClickListener{
+            findNavController().navigate(R.id.action_global_serviceUseTermFragment, null)
         }
     }
 }

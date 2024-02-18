@@ -17,7 +17,7 @@ class ContentViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
     private val functions = Functions()
 
-    // 스터디 신청된건지 여부 todo("연결하기 ")
+    // 스터디 신청된건지 여부
     private val _isAppliedStudy = MutableLiveData<Boolean>(false)
     val isAppliedStudy: LiveData<Boolean> get() = _isAppliedStudy
 
