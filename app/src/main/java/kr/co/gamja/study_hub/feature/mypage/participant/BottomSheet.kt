@@ -59,6 +59,9 @@ class BottomSheet() : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        //선택 사유
+        var selectedReason = ""
+
         binding.apply{
 
             //초기 거절 비활성화
@@ -67,17 +70,15 @@ class BottomSheet() : BottomSheetDialogFragment() {
             //거절 선택 가능
             isChecked = isChecked
 
-            //선택 사유
-            var selectedReason = ""
-
             //radio group 내 button의 check 상태 변경 listener
             rgSelect.setOnCheckedChangeListener { group, checkedId ->
                 Log.d("TEST STUDY","SetOnCheckedChangedListener")
-                selectedReason = if (checkedId == R.id.chb1) chb1.text.toString()
-                else if (checkedId == R.id.chb2) chb2.text.toString()
-                else if (checkedId == R.id.chb3) chb3.text.toString()
-                else chb4.text.toString()
-
+                selectedReason = when (checkedId){
+                    R.id.chb1 -> chb1.text.toString()
+                    R.id.chb2 -> chb2.text.toString()
+                    R.id.chb3 -> chb3.text.toString()
+                    else -> chb4.text.toString()
+                }
                 isChecked = true
                 btnRefusal.isEnabled = true
 
@@ -86,6 +87,7 @@ class BottomSheet() : BottomSheetDialogFragment() {
 
             val userId = arguments?.getInt("userId") ?: -1
             val studyId = arguments?.getInt("studyId") ?: -1
+            val page = arguments?.getInt("page") ?: -1
 
             //거절 버튼
             btnRefusal.setOnClickListener{
@@ -102,16 +104,16 @@ class BottomSheet() : BottomSheetDialogFragment() {
                     )
                     dismiss()
                 } else {
-                    if (userId != -1 &&  studyId != -1){
+                    if (userId != -1 &&  studyId != -1 && page != -1){
 
                         Log.d("Participant", "userId = ${userId} studyId = ${studyId}")
 
-//                        //거절 api 사용
-//                        viewModel.reject(
-//                            rejectReason = selectedReason,
-//                            studyId = studyId,
-//                            userId = userId
-//                        )
+                        //거절 api 사용
+                        viewModel.reject(
+                            rejectReason = selectedReason,
+                            studyId = studyId,
+                            userId = userId
+                        )
 
                         //dialog 띄우기
                         val customToast = CustomToast()
@@ -120,6 +122,7 @@ class BottomSheet() : BottomSheetDialogFragment() {
                         dismiss()
                     }
                 }
+                viewModel.fetchData("STANDBY", studyId, page)
             }
 
             //bottom sheet dialog 닫기

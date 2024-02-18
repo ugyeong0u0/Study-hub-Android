@@ -1,5 +1,6 @@
 package kr.co.gamja.study_hub.feature.mypage.participant
 
+import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,18 +17,18 @@ import kr.co.gamja.study_hub.data.repository.RetrofitManager
 class ParticipantViewModel : ViewModel() {
 
     //대기 목록
-    private val _participantWaitingList = MutableLiveData<List<RegisterListContent>>()
-    val participantWaitingList : LiveData<List<RegisterListContent>>
+    private val _participantWaitingList = MutableLiveData<MutableList<RegisterListContent>>()
+    val participantWaitingList : LiveData<MutableList<RegisterListContent>>
         get() = _participantWaitingList
 
     //참가자
-    private val _acceptList = MutableLiveData<List<RegisterListContent>>()
-    val acceptList : LiveData<List<RegisterListContent>>
+    private val _acceptList = MutableLiveData<MutableList<RegisterListContent>>()
+    val acceptList : LiveData<MutableList<RegisterListContent>>
         get() = _acceptList
 
     //거절 목록
-    private val _refuseList = MutableLiveData<List<RegisterListContent>>()
-    val refuseList : LiveData<List<RegisterListContent>>
+    private val _refuseList = MutableLiveData<MutableList<RegisterListContent>>()
+    val refuseList : LiveData<MutableList<RegisterListContent>>
         get() = _refuseList
 
     private val _errMsg = MutableLiveData<String>()
@@ -55,11 +56,23 @@ class ParticipantViewModel : ViewModel() {
                     datas.forEach{ data ->
                         tmpData.add(data)
                     }
-
+                    Log.d("ParticipantViewModel", "fetch data ~ing")
                     when(inspection){
-                        "STANDBY" -> _participantWaitingList.postValue(tmpData)
-                        "ACCEPT" -> _acceptList.postValue(tmpData)
-                        "REJECT" -> _refuseList.postValue(tmpData)
+                        "STANDBY" -> {
+                            Log.d("ParticipantViewModel", "start ${_participantWaitingList.value}")
+                            _participantWaitingList.value?.clear()
+                            Log.d("ParticipantViewModel", "clear ${_participantWaitingList.value}")
+                            _participantWaitingList.postValue(tmpData)
+                            Log.d("ParticipantViewModel", "fetch ${_participantWaitingList.value}")
+                        }
+                        "ACCEPT" -> {
+                            _acceptList.value?.clear()
+                            _acceptList.postValue(tmpData)
+                        }
+                        "REJECT" -> {
+                            _refuseList.value?.clear()
+                            _refuseList.postValue(tmpData)
+                        }
                     }
 
                     Log.d("ParticipantViewModel", "fetchWaitingList is Success")

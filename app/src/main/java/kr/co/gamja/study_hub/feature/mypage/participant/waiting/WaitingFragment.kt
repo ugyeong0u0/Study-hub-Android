@@ -25,7 +25,7 @@ class WaitingFragment : Fragment() {
 
     private val viewModel : ParticipantViewModel by viewModels()
 
-    private var pageNum = 0
+    private var page = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +56,7 @@ class WaitingFragment : Fragment() {
             }
         })
 
-        viewModel.fetchData("STANDBY", studyId, pageNum)
+        viewModel.fetchData("STANDBY", studyId, page)
     }
 
     //RecyclerView 초기화
@@ -73,7 +73,7 @@ class WaitingFragment : Fragment() {
             /** 수락 선택 >> Dialog 띄워야 함 */
             override fun onAcceptClick(userId : Int) {
                 viewModel.accept(studyId, userId)
-                viewModel.fetchData("STANDBY", studyId, pageNum)
+                viewModel.fetchData("STANDBY", studyId, page)
             }
 
             //거절 선택 >> BottomFragment
@@ -83,6 +83,7 @@ class WaitingFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putInt("userId", userId)
                 bundle.putInt("studyId", studyId)
+                bundle.putInt("page", page)
                 bottomSheetFragment.arguments = bundle
                 bottomSheetFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
                 bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
