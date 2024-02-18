@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.mypage.refusalreason.CheckRefusalReasonViewModel" />
+    </data>
+
     <LinearLayout
         android:id="@+id/refusalReasonFragment"
         android:layout_width="match_parent"
@@ -65,6 +71,7 @@
             android:layout_marginBottom="@dimen/fourteen"
             android:textColor="@color/BG_80"
             android:textSize="14sp"
+            android:text="@{viewModel.title}"
             tools:text="제목 " />
 
         <TextView
@@ -86,6 +93,7 @@
             android:paddingVertical="@dimen/twenty"
             android:textColor="@color/G_80"
             android:textSize="14sp"
+            android:text="@{viewModel.reason}"
             tools:text="거절사유" />
 
         <View

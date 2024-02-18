@@ -235,4 +235,9 @@ interface StudyHubApi {
     @GET("/api/v1/study-request")
     suspend fun getUserApplyHistory(@Query("page") page: Int, @Query("size") size: Int) : Response<ApplicationHistoryResponse>
 
+//    reject controller
+    // 단일 거절 이유 보기
+    @GET("/api/v1/reject")
+    suspend fun getDenyReason(@Query("studyId") studyId: Int) : Response<CheckDenyReasonResponse>
+
 }

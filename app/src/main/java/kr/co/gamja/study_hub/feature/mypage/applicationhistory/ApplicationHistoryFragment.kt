@@ -101,11 +101,13 @@ class ApplicationHistoryFragment : Fragment() {
                             }
                         })
                     }
-                    2 -> {// todo()
-                        Log.e(msg, "거절 이유 눌림")
-
+                    2 -> {
+                        Log.i(msg, "거절 이유 눌림")
+                        val bundle =Bundle()
+                        bundle.putInt("studyId", itemValue)
+                        findNavController().navigate(R.id.action_global_checkRefusalReasonFragment, bundle)
                     }
-                    3 -> { // todo()
+                    3 -> { // todo(postId필요)
                         Log.e(msg, "컨텐츠 보기 눌림")
                     }
                 }

@@ -61,7 +61,7 @@ class ApplicationHistoryAdapter(private val context: Context) :
                     }
                     "REJECT" -> {
                         binding.isDeny = true
-                    } // todo(필터 걸어야함)
+                    }
                 }
                 binding.txtTitle.text = it.studyTitle
                 binding.txtContentSub.text = it.introduce
