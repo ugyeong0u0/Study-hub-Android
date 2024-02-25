@@ -112,6 +112,10 @@ interface StudyHubApi {
         @Query("size") size : Int,
     ) : Response<AnnounceRequestDto>
 
+    // 이용약관 조회
+    @GET("/api/v1/terms-of-use")
+    suspend fun  getUserTerm():Response<UseTermResponse>
+
     /** notification-controller */
 
     /** study-post-controller */
@@ -239,5 +243,6 @@ interface StudyHubApi {
     // 단일 거절 이유 보기
     @GET("/api/v1/reject")
     suspend fun getDenyReason(@Query("studyId") studyId: Int) : Response<CheckDenyReasonResponse>
+
 
 }
