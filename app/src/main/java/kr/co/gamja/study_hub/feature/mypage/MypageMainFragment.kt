@@ -94,7 +94,7 @@ class MypageMainFragment : Fragment() {
         })
         // 회원 정보 보기 누를시
         binding.layoutUserInfo.setOnClickListener {
-            Log.e(tagMsg, "MyInfo로 넘어가는 레이아웃 클릭됨")
+            Log.i(tagMsg, "MyInfo로 넘어가는 레이아웃 클릭됨")
             if (viewModel.isUserLogin.value==true) {
                 findNavController().navigate(
                     R.id.action_global_myInfoFragment,

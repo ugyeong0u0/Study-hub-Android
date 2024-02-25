@@ -19,6 +19,8 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.*
 import kr.co.gamja.study_hub.databinding.FragmentApplicationHistoryBinding
+import kr.co.gamja.study_hub.feature.studypage.apply.ApplicationFragmentDirections
+import kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragmentDirections
 import kr.co.gamja.study_hub.feature.studypage.studyHome.StudyMainViewModel
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.CustomSnackBar
@@ -103,12 +105,21 @@ class ApplicationHistoryFragment : Fragment() {
                     }
                     2 -> {
                         Log.i(msg, "거절 이유 눌림")
-                        val bundle =Bundle()
+                        val bundle = Bundle()
                         bundle.putInt("studyId", itemValue)
-                        findNavController().navigate(R.id.action_global_checkRefusalReasonFragment, bundle)
+                        findNavController().navigate(
+                            R.id.action_global_checkRefusalReasonFragment,
+                            bundle
+                        )
                     }
-                    3 -> { // todo(postId필요)
-                        Log.e(msg, "컨텐츠 보기 눌림")
+                    3 -> {
+                        Log.i(msg, "컨텐츠 보기 눌림")
+
+                        val action = ApplicationFragmentDirections.actionGlobalStudyContentFragment(
+                            true,
+                            itemValue
+                        )
+                        findNavController().navigate(action)
                     }
                 }
             }

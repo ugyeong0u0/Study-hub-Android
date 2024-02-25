@@ -115,7 +115,6 @@ class ContentFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         contentAdapter.setViewClickListener(object : OnViewClickListener {
             override fun onViewClick(postId: Int?) {
-//                todo
 //                val bundle = Bundle()
 //                bundle.putInt("postId", postId!!)
 

@@ -54,6 +54,7 @@ class ApplicationHistoryAdapter(private val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun setData(item: ContentXXXXX?) {
             val itemStudyId: Int? = item?.studyId
+            val itemPostId: Int?=item?.postId
             item?.let {
                 when (it.inspection) {
                     "STANDBY" -> {
@@ -77,9 +78,8 @@ class ApplicationHistoryAdapter(private val context: Context) :
                 mOnItemsClickListener.getItemValue(whatItem["rejectReason"]!!, itemStudyId!!)
             }
             // 뷰자체 클릭
-            // todo("postId로 변경필수 ")
             itemView.setOnClickListener {
-                mOnItemsClickListener.getItemValue(whatItem["seeContent"]!!, itemStudyId!!)
+                mOnItemsClickListener.getItemValue(whatItem["seeContent"]!!,itemPostId!!)
             }
         }
     }
