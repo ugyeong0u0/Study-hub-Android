@@ -16,6 +16,10 @@ class SearchViewModel: ViewModel() {
 
     val tag = this.javaClass.simpleName
     // editText 입력 단어 - 통신 보낼 변수
+
+    // 둘러보기인지
+    var isUserLogin = MutableLiveData<Boolean>(true)
+
     val searchWord = MutableLiveData<String>()
     private val _searchImg =MutableLiveData<Boolean>(true)
     val searchImg:LiveData<Boolean> get() =_searchImg

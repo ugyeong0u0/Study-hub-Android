@@ -26,6 +26,8 @@ class StudyMainAdapter(private val context: Context) :
     ) {
     private lateinit var mOnBookmarkClickListener: OnBookmarkClickListener // 북마크 viewModel에 interface 선언
     private lateinit var mOnViewClickListener: OnViewClickListener // 뷰 자체 클릭
+    val tag = this.javaClass.simpleName
+    var isUserLogin : Boolean =false // 유저인지 아닌지
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContentXXXX>() {
@@ -124,15 +126,17 @@ class StudyMainAdapter(private val context: Context) :
             }
             //북마크 추가
             binding.btnBookmark.setOnClickListener {
-
-                when (binding.isBookmark) {
-                    true -> {
-                        binding.isBookmark = false
-                        binding.btnBookmark.tag = "0"
-                    }
-                    false -> {
-                        binding.isBookmark = true
-                        binding.btnBookmark.tag = "1"
+                Log.e(tag, "회원여부 $isUserLogin")
+                if(isUserLogin){
+                    when (binding.isBookmark) {
+                        true -> {
+                            binding.isBookmark = false
+                            binding.btnBookmark.tag = "0"
+                        }
+                        false -> {
+                            binding.isBookmark = true
+                            binding.btnBookmark.tag = "1"
+                        }
                     }
                 }
 

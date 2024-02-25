@@ -218,7 +218,7 @@ class CreateStudyFragment : Fragment() {
                             getString(R.string.alarm_completeAlter), bottomView
                         ).show()
                         val action =
-                            CreateStudyFragmentDirections.actionGlobalStudyContentFragment(result)
+                            CreateStudyFragmentDirections.actionGlobalStudyContentFragment(true,result)
                         findNavController().navigate(action, navOptions) // 백스택에서 생성 페이지 제거
                     }
                 })
@@ -230,7 +230,10 @@ class CreateStudyFragment : Fragment() {
                             getString(R.string.alarm_completeCreateStudy), bottomView
                         ).show()
                         val action =
-                            CreateStudyFragmentDirections.actionGlobalStudyContentFragment(result)
+                            CreateStudyFragmentDirections.actionGlobalStudyContentFragment(
+                                true,
+                                result
+                            )
                         findNavController().navigate(action, navOptions) // 백스택에서 생성 페이지 제거
                     }
                 })

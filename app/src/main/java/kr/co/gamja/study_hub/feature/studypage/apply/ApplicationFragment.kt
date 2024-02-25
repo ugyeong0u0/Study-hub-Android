@@ -80,7 +80,7 @@ class ApplicationFragment : Fragment() {
                                     }
                                 }
                                 val action =
-                                    ApplicationFragmentDirections.actionGlobalStudyContentFragment(
+                                    ApplicationFragmentDirections.actionGlobalStudyContentFragment(true,
                                         postId!!
                                     ) // 컨텐츠로 가니까 단건조회에 쓸 postId필요
                                 findNavController().navigate(action, navOptions) // 백스택에서 생성 페이지 제거

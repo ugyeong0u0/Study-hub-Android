@@ -139,13 +139,6 @@
                     android:layout_marginTop="22dp"
                     android:scrollbars="vertical" />
 
-                <ProgressBar
-                    android:id="@+id/studyRecyclerProgressBar"
-                    style="@style/CustomProgressBar"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    app:layout_anchor="@id/recycler_studyMain"
-                    app:layout_anchorGravity="bottom|center_horizontal"/>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btn_flaot"

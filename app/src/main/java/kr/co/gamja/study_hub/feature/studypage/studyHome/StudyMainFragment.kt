@@ -27,9 +27,12 @@ import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.*
 import kr.co.gamja.study_hub.databinding.FragmentStudyMainBinding
 import kr.co.gamja.study_hub.feature.home.MainHomeFragmentDirections
+import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.CustomSnackBar
+import kr.co.gamja.study_hub.global.OnDialogClickListener
 import kotlin.properties.Delegates
 
+// todo 스터디 컨텐츠 가는거 비회원 추가하기
 class StudyMainFragment : Fragment() {
     private val msgTag = this.javaClass.simpleName
     private lateinit var binding: FragmentStudyMainBinding
@@ -81,10 +84,19 @@ class StudyMainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // todo("회원 비회원 여부")
-        val factory = StudyMainViewModelFactory(AuthRetrofitManager.api)
+        val factory = StudyMainViewModelFactory(AuthRetrofitManager.api, RetrofitManager.api)
         viewModel = ViewModelProvider(this, factory)[StudyMainViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        // 회원 비회원 여부 결정
+        viewModel.isUserOrNotUser(object : CallBackListener {
+            override fun isSuccess(result: Boolean) {
+                Log.e(msgTag,"1"+viewModel.isUserLogin.value!!.toString())
+            }
+        })
+
+
         selectedDrawable =
             ResourcesCompat.getDrawable(resources, R.drawable.bg_black_radius_20, null)!!
         nonSelectedDrawable =
@@ -93,11 +105,18 @@ class StudyMainFragment : Fragment() {
         nonSelectedTextColor = ContextCompat.getColor(requireContext(), R.color.BG_90)
 
 
-        // 스터디 조회 리사이클러뷰 연결 및 스터디 개수 확인 
+        // 스터디 조회 리사이클러뷰 연결 및 스터디 개수 확인
         adapter = StudyMainAdapter(requireContext()).apply {
-            addLoadStateListener { loadState->
+            Log.e(msgTag,"2"+viewModel.isUserLogin.value!!.toString())
+            addLoadStateListener { loadState ->
                 val isEmptyList = loadState.refresh is LoadState.NotLoading && itemCount == 0
                 viewModel.isList.postValue(!isEmptyList)
+            }
+        }
+        viewModel.isUserLogin.observe(viewLifecycleOwner){
+            if(it){
+                adapter.isUserLogin=it
+                Log.e(msgTag,"2"+viewModel.isUserLogin.value!!.toString())
             }
         }
         binding.recyclerStudyMain.adapter = adapter
@@ -110,19 +129,29 @@ class StudyMainFragment : Fragment() {
         val toolbar = binding.studyMainToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
+
         binding.iconBookmark.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putBoolean("isUser", viewModel.isUserLogin.value!!)
             findNavController().navigate(
                 R.id.action_global_mainBookmarkFragment,
-                null
+                bundle
             )
         }
 
         // 스터디 생성하기
         binding.btnFlaot.setOnClickListener {
-            // 스터디 새로 생성함을 알리는 bundle(수정하기랑 구분하기 위해)
-            val bundle = Bundle()
-            bundle.putBoolean("isCorrectStudy", false)
-            findNavController().navigate(R.id.action_StudyFragment01_to_createStudyFragment, bundle)
+            if (viewModel.isUserLogin.value == true) {
+                // 스터디 새로 생성함을 알리는 bundle(수정하기랑 구분하기 위해)
+                val bundle = Bundle()
+                bundle.putBoolean("isCorrectStudy", false)
+                findNavController().navigate(
+                    R.id.action_StudyFragment01_to_createStudyFragment,
+                    bundle
+                )
+            } else {
+                needLogin()
+            }
         }
 
         // 스터디 전체 조회 버튼
@@ -152,30 +181,36 @@ class StudyMainFragment : Fragment() {
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         adapter.setOnBookmarkClickListener(object : OnBookmarkClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
-                Log.i("북마크4 onItemClickListener콜백1", "")
-                viewModel.saveDeleteBookmarkItem(postId, object : CallBackListener {
-                    override fun isSuccess(result: Boolean) {
-                        Log.i("북마크5 onItemClickListener콜백2", "")
-                        if (result)
-                            Log.d(msgTag, "회원인 경우")
-                        else
-                            Log.d(msgTag, ",비회원인 경우")
-                    }
-                })
+
+                if (viewModel.isUserLogin.value == true) {
+                    Log.i("북마크4 onItemClickListener콜백1", "")
+                    viewModel.saveDeleteBookmarkItem(postId, object : CallBackListener {
+                        override fun isSuccess(result: Boolean) {
+                            Log.i("북마크5 onItemClickListener콜백2", "")
+                            if (result)
+                                Log.d(msgTag, "회원인 경우")
+                            else
+                                Log.d(msgTag, "비회원인 경우")
+                        }
+                    })
+                } else {
+                    needLogin() // 비회원
+                }
             }
         })
         // 리스트 아이템 자체 클릭
         adapter.setViewClickListener(object : OnViewClickListener {
             override fun onViewClick(postId: Int?) {
-                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(postId!!)
+                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(
+                    viewModel.isUserLogin.value!!, postId!!
+                )
                 findNavController().navigate(action)
             }
         })
 
         lifecycleScope.launch {
             adapter.loadStateFlow.collectLatest { loadState ->
-                binding.studyRecyclerProgressBar.isVisible = loadState.refresh is LoadState.Loading
-                binding.mainHomeProgressBar.isVisible=loadState.refresh is LoadState.Loading
+                binding.mainHomeProgressBar.isVisible = loadState.refresh is LoadState.Loading
             }
         }
     }
@@ -224,12 +259,34 @@ class StudyMainFragment : Fragment() {
             }
         }
     }
+
+    fun needLogin() {
+        Log.d(msgTag, "비회원 누름")
+        val head =
+            requireContext().resources.getString(R.string.head_goLogin)
+        val sub =
+            requireContext().resources.getString(R.string.sub_goLogin)
+        val yes =
+            requireContext().resources.getString(R.string.txt_login)
+        val no = requireContext().resources.getString(R.string.btn_cancel)
+        val dialog =
+            CustomDialog(requireContext(), head, sub, no, yes)
+        dialog.showDialog()
+        dialog.setOnClickListener(object : OnDialogClickListener {
+            override fun onclickResult() { // 로그인하러가기 누를시
+                findNavController().navigate(R.id.action_global_loginFragment, null)
+            }
+        })
+    }
 }
 
-class StudyMainViewModelFactory(private val studyHubApi: StudyHubApi) : ViewModelProvider.Factory {
+class StudyMainViewModelFactory(
+    private val studyHubApiAuth: StudyHubApi,
+    private val studyHubApi: StudyHubApi
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom((StudyMainViewModel::class.java)))
-            return StudyMainViewModel(studyHubApi) as T
+            return StudyMainViewModel(studyHubApiAuth, studyHubApi) as T
         throw IllegalArgumentException("ViewModel class 모름")
     }
 

@@ -54,7 +54,7 @@ class BookmarkFragment : Fragment() {
 //            Log.e(tagMsg, "유저인지$isUser")
         } else Log.e(
             tagMsg,
-            "a bundle from mainHomeFragment is error" // todo("로그아웃 후 재로그인한 경우도 여기로 가는데 문제는 없음 ")
+            "a bundle from BookmarkFragment is error" // todo("로그아웃 후 재로그인한 경우도 여기로 가는데 문제는 없음 ")
         )
         viewModel.isUserLogin.value = isUser // 회원 비회원인지 저장
         // 툴바 설정
@@ -85,7 +85,7 @@ class BookmarkFragment : Fragment() {
                 when (whatItem) {
                     1 -> {
                         val action =
-                            BookmarkFragmentDirections.actionGlobalStudyContentFragment(postingId.postId)
+                            BookmarkFragmentDirections.actionGlobalStudyContentFragment(viewModel.isUserLogin.value!!,postingId.postId )
                         findNavController().navigate(action)
                     }
                     2 -> { // 신청하기 일 때

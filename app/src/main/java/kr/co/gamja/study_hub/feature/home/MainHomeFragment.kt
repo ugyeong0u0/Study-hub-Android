@@ -13,6 +13,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +31,7 @@ import kr.co.gamja.study_hub.global.OnDialogClickListener
 class MainHomeFragment : Fragment() {
     val tagMsg = this.javaClass.simpleName
     private lateinit var binding: FragmentMainHomeBinding
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
     private var doubleBackPressed = false
     private lateinit var deadlineAdapter: ItemCloseDeadlineAdapter
     private lateinit var onRecruitingAdapter: ItemOnRecruitingAdapter
@@ -132,7 +133,7 @@ class MainHomeFragment : Fragment() {
         }
         binding.iconBookmark.setOnClickListener {
             val bundle = Bundle()
-            bundle.putBoolean("isUser", isUser)
+            bundle.putBoolean("isUser", viewModel.isUserLogin.value!!)
             findNavController().navigate(
                 R.id.action_global_mainBookmarkFragment,
                 bundle
@@ -141,25 +142,29 @@ class MainHomeFragment : Fragment() {
 
         // 검색창으로 넘어감
         binding.btnSearch.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment01_to_mainFragment02, null)
+            val bundle = Bundle()
+            bundle.putBoolean("isUser", viewModel.isUserLogin.value!!)
+            findNavController().navigate(R.id.action_mainFragment01_to_mainFragment02, bundle)
         }
         // 설명으로 넘어감
         binding.btnGoGuide.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment01_to_mainFragment03, null)
+            val bundle = Bundle()
+            bundle.putBoolean("isUser", viewModel.isUserLogin.value!!)
+            findNavController().navigate(R.id.action_mainFragment01_to_mainFragment03, bundle)
         }
         // 모집중 스터디 어댑터 연결
         onRecruitingAdapter = ItemOnRecruitingAdapter(requireContext())
         binding.recyclerOnGoing.adapter = onRecruitingAdapter
         binding.recyclerOnGoing.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        onRecruitingAdapter.isUserLogin = isUser // 북마크 로그인 유저만 되게 하기위함
+        onRecruitingAdapter.isUserLogin = viewModel.isUserLogin.value!! // 북마크 로그인 유저만 되게 하기위함
         // 리스트 업데이트
         updateRecruitingList()
 
         // 북마크 삭제 저장 api연결- 북마크 뷰모델 공유
         onRecruitingAdapter.setOnItemClickListener(object : OnBookmarkClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
-                if (isUser) {
+                if (viewModel.isUserLogin.value!!) {
                     viewModel.saveDeleteBookmarkItem(postId)
                     updateDeadlineList()
                 } else {
@@ -185,7 +190,7 @@ class MainHomeFragment : Fragment() {
         // 뷰클릭시
         onRecruitingAdapter.setViewClickListener(object : OnViewClickListener {
             override fun onViewClick(postId: Int?) {
-                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(postId!!)
+                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(viewModel.isUserLogin.value!!,postId!!)
                 findNavController().navigate(action)
             }
         })
@@ -194,14 +199,14 @@ class MainHomeFragment : Fragment() {
         deadlineAdapter = ItemCloseDeadlineAdapter(requireContext())
         binding.recyclerApproaching.adapter = deadlineAdapter
         binding.recyclerApproaching.layoutManager = LinearLayoutManager(requireContext())
-        deadlineAdapter.isUserLogin = isUser // 로그인 여부 -> 북마크 색 변경 때문
+        deadlineAdapter.isUserLogin = viewModel.isUserLogin.value!! // 로그인 여부 -> 북마크 색 변경 때문
 
         // 리스트 업데이트
         updateDeadlineList()
 
         deadlineAdapter.setOnItemClickListener(object : OnBookmarkClickListener {
             override fun onItemClick(tagId: String?, postId: Int?) {
-                if (isUser) {
+                if (viewModel.isUserLogin.value!!) {
                     viewModel.saveDeleteBookmarkItem(postId)
                     updateRecruitingList()
 
@@ -228,7 +233,7 @@ class MainHomeFragment : Fragment() {
         // 뷰자체 클릭시 스터디 컨텐츠 글로 이동
         deadlineAdapter.setViewClickListener(object : OnViewClickListener {
             override fun onViewClick(postId: Int?) {
-                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(postId!!)
+                val action = MainHomeFragmentDirections.actionGlobalStudyContentFragment(viewModel.isUserLogin.value!!,postId!!)
                 findNavController().navigate(action)
             }
         })

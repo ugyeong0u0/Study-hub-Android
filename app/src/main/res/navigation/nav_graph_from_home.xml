@@ -360,6 +360,10 @@
         android:name="kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragment"
         android:label="fragment_study_detail"
         tools:layout="@layout/fragment_content">
+
+        <argument
+            android:name="isUser"
+            app:argType="boolean" />
         <argument
             android:name="postId"
             app:argType="integer" />

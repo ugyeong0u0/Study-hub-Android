@@ -12,10 +12,15 @@ import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 import kr.co.gamja.study_hub.global.Functions
+import retrofit2.Response
 
 class ContentViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
+
     private val functions = Functions()
+
+    // 둘러보기인지
+    var isUserLogin = MutableLiveData<Boolean>(true)
 
     // 스터디 신청된건지 여부
     private val _isAppliedStudy = MutableLiveData<Boolean>(false)
@@ -196,7 +201,13 @@ class ContentViewModel : ViewModel() {
 //        Log.e(tag, " getStudyContent의 postId$postId")
         viewModelScope.launch {
             try {
-                val response = AuthRetrofitManager.api.getStudyContent(postId)
+                val response: Response<StudyContentResponseM>
+                if (isUserLogin.value == true) {
+                    response = AuthRetrofitManager.api.getStudyContent(postId)
+
+                } else {
+                    response = RetrofitManager.api.getStudyContent(postId)
+                }
 //                Log.e(tag, " response의 postId$response")
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponseM
@@ -216,8 +227,8 @@ class ContentViewModel : ViewModel() {
         //1. 작성자인지 보기 2.신청여부 보기
 
         // 유저의 신청여부
-        _isAppliedStudy.value=result.apply
-        Log.i(tag, "신청여부 서버값: ${result.apply} 라이브데이터 값 : ${isAppliedStudy.value}" )
+        _isAppliedStudy.value = result.apply
+        Log.i(tag, "신청여부 서버값: ${result.apply} 라이브데이터 값 : ${isAppliedStudy.value}")
 
         // 상단 관련학과
 //        Log.e(tag,result.major)
@@ -329,7 +340,13 @@ class ContentViewModel : ViewModel() {
     fun getCommentsList(adapter: CommentAdapter, postId: Int) {
         viewModelScope.launch {
             try {
-                val response = AuthRetrofitManager.api.getPreviewChatList(postId)
+                val response: Response<previewChatResponse>
+                if (isUserLogin.value == true) {
+
+                    response = AuthRetrofitManager.api.getPreviewChatList(postId)
+                } else {
+                    response = RetrofitManager.api.getPreviewChatList(postId)
+                }
                 Log.d(tag, "commentsList postID$postId")
                 if (response.isSuccessful) {
                     Log.d(tag, "commentsList 코드 code" + response.code().toString())

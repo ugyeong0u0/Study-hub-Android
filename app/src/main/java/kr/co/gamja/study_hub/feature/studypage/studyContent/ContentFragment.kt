@@ -24,7 +24,9 @@ import kr.co.gamja.study_hub.data.repository.OnViewClickListener
 import kr.co.gamja.study_hub.databinding.FragmentContentBinding
 import kr.co.gamja.study_hub.feature.studypage.allcomments.bottomsheet.CommentBottomSheetFragment
 import kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment
+import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.CustomSnackBar
+import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 // 스터디 상세 보기 관련
 class ContentFragment : Fragment() {
@@ -48,9 +50,11 @@ class ContentFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        viewModel.isUserLogin.value = args.isUser
         val contentAdapter = ContentAdapter(requireContext())
 
         getContent(contentAdapter, args.postId)
+
 //        Log.e(msgTag,args.postId.toString())
         // 툴바 설정
         val toolbar = binding.contentToolbar
@@ -79,22 +83,31 @@ class ContentFragment : Fragment() {
 
         // 북마크 저장
         binding.bookmark.setOnClickListener {
-            if (binding.bookmark.tag == "1") {
-                binding.bookmark.tag = "0"
-                binding.bookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
+            if (viewModel.isUserLogin.value!!) {
+                if (binding.bookmark.tag == "1") {
+                    binding.bookmark.tag = "0"
+                    binding.bookmark.setBackgroundResource(R.drawable.baseline_bookmark_border_24_unselected)
+                } else {
+                    binding.bookmark.tag = "1"
+                    binding.bookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
+                }
+                viewModel.saveBookmark()
             } else {
-                binding.bookmark.tag = "1"
-                binding.bookmark.setBackgroundResource(R.drawable.baseline_bookmark_24_selected)
+                needLogin() // 비회원으로
             }
-            viewModel.saveBookmark()
         }
         // 신청하기 페이지로 이동
         binding.btnNext.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("whatPage","content") // 스터디 컨테츠 페이지에서 왔음을 알림, 신청후 백스택제거 때문
-            bundle.putInt("studyId", viewModel.studyId.value?.toInt() ?: 0)
-            bundle.putInt("postId", args.postId)
-            findNavController().navigate(R.id.action_global_applicationFragment, bundle)
+            if (viewModel.isUserLogin.value!!) {
+                val bundle = Bundle()
+                bundle.putString("whatPage", "content") // 스터디 컨테츠 페이지에서 왔음을 알림, 신청후 백스택제거 때문
+                bundle.putInt("studyId", viewModel.studyId.value?.toInt() ?: 0)
+                bundle.putInt("postId", args.postId)
+                findNavController().navigate(R.id.action_global_applicationFragment, bundle)
+            } else {
+                needLogin()
+            }
+
         }
 
         binding.recyclerRecommend.adapter = contentAdapter
@@ -102,7 +115,14 @@ class ContentFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         contentAdapter.setViewClickListener(object : OnViewClickListener {
             override fun onViewClick(postId: Int?) {
-                val action = ContentFragmentDirections.actionGlobalStudyContentFragment(postId!!)
+//                todo
+//                val bundle = Bundle()
+//                bundle.putInt("postId", postId!!)
+
+                val action = ContentFragmentDirections.actionGlobalStudyContentFragment(
+                    viewModel.isUserLogin.value!!,
+                    postId!!
+                )
                 findNavController().navigate(action)
             }
         })
@@ -131,12 +151,17 @@ class ContentFragment : Fragment() {
 
         // 댓글 전체 조회 페이지로
         binding.btnAllComment.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putInt("postId", args.postId) // 현재 포스팅 id 전달
-            findNavController().navigate(
-                R.id.action_studyContentFragment_to_allCommentsFragment,
-                bundle
-            )
+            if (viewModel.isUserLogin.value == true) {
+                val bundle = Bundle()
+                bundle.putInt("postId", args.postId) // 현재 포스팅 id 전달
+                findNavController().navigate(
+                    R.id.action_studyContentFragment_to_allCommentsFragment,
+                    bundle
+                )
+            } else {
+                needLogin()
+            }
+
         }
 
         // 댓글 관찰 -> 버튼 활성화 여부 결정
@@ -146,52 +171,57 @@ class ContentFragment : Fragment() {
         }
         // 댓글 추가
         binding.btnCommentOk.setOnClickListener {
+            if (viewModel.isUserLogin.value == true) {
 //            Log.e(msgTag, "댓글 수정 눌림1 ${viewModel.isModify.value}")
-            // 댓글 수정인 경우
-            if (viewModel.isModify.value == true) {
-                Log.d(msgTag, "댓글 수정 눌림2")
-                viewModel.modifyComment(nowCommentId, object : CallBackListener {
-                    override fun isSuccess(result: Boolean) {
-                        if (result) {
-                            Log.i(msgTag, "댓글 수정 성공 callback")
-                            CustomSnackBar.make(
-                                binding.layoutRelative,
-                                getString(R.string.modifyComment), binding.btnNext, false
-                            ).show()
-                            // 키보드 내리기
-                            hideKeyboardForResend()
-                            // editText에 입력된 글 지우기
-                            viewModel.studyComment.value = ""
-                            // 수정 후 false
-                            viewModel.setModify(false)
-                            // 댓글 재로딩
-                            Log.i(msgTag, "댓 미리보기 댓수정 콜백 안 " + args.postId)
-                            viewModel.getCommentsList(adapter = commentAdapter, args.postId)
+                // 댓글 수정인 경우
+                if (viewModel.isModify.value == true) {
+                    Log.d(msgTag, "댓글 수정 눌림2")
+                    viewModel.modifyComment(nowCommentId, object : CallBackListener {
+                        override fun isSuccess(result: Boolean) {
+                            if (result) {
+                                Log.i(msgTag, "댓글 수정 성공 callback")
+                                CustomSnackBar.make(
+                                    binding.layoutRelative,
+                                    getString(R.string.modifyComment), binding.btnNext, false
+                                ).show()
+                                // 키보드 내리기
+                                hideKeyboardForResend()
+                                // editText에 입력된 글 지우기
+                                viewModel.studyComment.value = ""
+                                // 수정 후 false
+                                viewModel.setModify(false)
+                                // 댓글 재로딩
+                                Log.i(msgTag, "댓 미리보기 댓수정 콜백 안 " + args.postId)
+                                viewModel.getCommentsList(adapter = commentAdapter, args.postId)
+                            }
                         }
-                    }
-                })
-            } else { // 댓글 등록 경우
-                viewModel.setUserComment(object : CallBackListener {
-                    override fun isSuccess(result: Boolean) {
-                        if (result) {
-                            CustomSnackBar.make(
-                                binding.layoutRelative,
-                                getString(R.string.setComment),
-                                binding.btnNext,
-                                true,
-                                R.drawable.icon_check_green
-                            ).show()
-                            // 키보드 내리기
-                            hideKeyboardForResend()
-                            // editText에 입력된 글 지우기
-                            viewModel.studyComment.value = ""
-                            // 어댑터 리스트 재로딩
+                    })
+                } else { // 댓글 등록 경우
+                    viewModel.setUserComment(object : CallBackListener {
+                        override fun isSuccess(result: Boolean) {
+                            if (result) {
+                                CustomSnackBar.make(
+                                    binding.layoutRelative,
+                                    getString(R.string.setComment),
+                                    binding.btnNext,
+                                    true,
+                                    R.drawable.icon_check_green
+                                ).show()
+                                // 키보드 내리기
+                                hideKeyboardForResend()
+                                // editText에 입력된 글 지우기
+                                viewModel.studyComment.value = ""
+                                // 어댑터 리스트 재로딩
 //                            Log.e(msgTag,"댓미리보기 댓 추가 콜백 안 "+args.postId)
-                            viewModel.getCommentsList(adapter = commentAdapter, args.postId)
+                                viewModel.getCommentsList(adapter = commentAdapter, args.postId)
+                            }
                         }
-                    }
-                })
+                    })
+                }
+            } else {
+                needLogin()
             }
+
         }
 
         // bottomsheet에서 삭제 눌러서 왔을 경우
@@ -258,5 +288,24 @@ class ContentFragment : Fragment() {
         if (currentFocusView != null) {
             inputMethodManager.hideSoftInputFromWindow(currentFocusView.windowToken, 0)
         }
+    }
+
+    fun needLogin() {
+        Log.d(msgTag, "비회원 누름")
+        val head =
+            requireContext().resources.getString(R.string.head_goLogin)
+        val sub =
+            requireContext().resources.getString(R.string.sub_goLogin)
+        val yes =
+            requireContext().resources.getString(R.string.txt_login)
+        val no = requireContext().resources.getString(R.string.btn_cancel)
+        val dialog =
+            CustomDialog(requireContext(), head, sub, no, yes)
+        dialog.showDialog()
+        dialog.setOnClickListener(object : OnDialogClickListener {
+            override fun onclickResult() { // 로그인하러가기 누를시
+                findNavController().navigate(R.id.action_global_loginFragment, null)
+            }
+        })
     }
 }
