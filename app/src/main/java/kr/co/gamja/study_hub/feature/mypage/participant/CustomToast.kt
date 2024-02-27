@@ -10,11 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import kr.co.gamja.study_hub.databinding.ToastLayoutBinding
 
 class CustomToast() : DialogFragment(){
 
     private lateinit var binding : ToastLayoutBinding
+
+    private val viewModel : ParticipantViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +42,13 @@ class CustomToast() : DialogFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val studyId = arguments?.getInt("studyId") ?: -1
+        val page = arguments?.getInt("page") ?: -1
+
+        if (studyId != -1 && page == -1){
+            viewModel.fetchData("STANDBY", studyId, page)
+        }
 
         Handler(Looper.getMainLooper()).postDelayed({
             dismiss()

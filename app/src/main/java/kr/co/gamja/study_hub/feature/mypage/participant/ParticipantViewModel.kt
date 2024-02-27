@@ -8,27 +8,30 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kr.co.gamja.study_hub.data.model.ApplyAccpetRequest
 import kr.co.gamja.study_hub.data.model.ApplyRejectDto
 import kr.co.gamja.study_hub.data.model.RegisterListContent
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
+import okhttp3.internal.notify
+import kotlin.reflect.typeOf
 
 class ParticipantViewModel : ViewModel() {
 
     //대기 목록
-    private val _participantWaitingList = MutableLiveData<MutableList<RegisterListContent>>()
-    val participantWaitingList : LiveData<MutableList<RegisterListContent>>
+    private val _participantWaitingList = MutableLiveData<List<RegisterListContent>>()
+    val participantWaitingList : LiveData<List<RegisterListContent>>
         get() = _participantWaitingList
 
     //참가자
-    private val _acceptList = MutableLiveData<MutableList<RegisterListContent>>()
-    val acceptList : LiveData<MutableList<RegisterListContent>>
+    private val _acceptList = MutableLiveData<List<RegisterListContent>>()
+    val acceptList : LiveData<List<RegisterListContent>>
         get() = _acceptList
 
     //거절 목록
-    private val _refuseList = MutableLiveData<MutableList<RegisterListContent>>()
-    val refuseList : LiveData<MutableList<RegisterListContent>>
+    private val _refuseList = MutableLiveData<List<RegisterListContent>>()
+    val refuseList : LiveData<List<RegisterListContent>>
         get() = _refuseList
 
     private val _errMsg = MutableLiveData<String>()
@@ -42,45 +45,50 @@ class ParticipantViewModel : ViewModel() {
         page : Int,
     ) {
         Log.d("Participant", "study id : ${studyId}")
-        viewModelScope.launch(Dispatchers.IO){
-            //신청 리스트 받아오기
-            try {
-                val response = RetrofitManager.api.getRegisterList(inspection, page, 8, studyId)
-                Log.d("Participant", "${ response.body() }")
-                if (response.isSuccessful){
-                    val result = response.body() ?: throw NullPointerException("Result is NULL")
-                    val datas = result.applyUserData.content
+        runBlocking{
+            viewModelScope.launch(Dispatchers.IO){
+                //신청 리스트 받아오기
+                try {
+                    val response = RetrofitManager.api.getRegisterList(inspection, page, 8, studyId)
+                    Log.d("Participant", "${ response.body() }")
+                    if (response.isSuccessful){
+                        val result = response.body() ?: throw NullPointerException("Result is NULL")
+                        val datas = result.applyUserData.content
 
-                    val tmpData = mutableListOf<RegisterListContent>()
+                        val tmpData = mutableListOf<RegisterListContent>()
 
-                    datas.forEach{ data ->
-                        tmpData.add(data)
+                        datas.forEach{ data ->
+                            tmpData.add(data)
+                        }
+                        Log.d("ParticipantViewModel", "fetch data ~ing")
+                        Log.d("ParticipantViewModel", "new data : ${tmpData}")
+                        when(inspection){
+                            "STANDBY" -> {
+                                Log.d("ParticipantViewModel", "waiting start ${_participantWaitingList}")
+                                Log.d("ParticipantViewModel", "${ participantWaitingList.value }")
+                                _participantWaitingList.postValue(tmpData)
+                                Log.d("ParticipantViewModel", "waiting fetch ${_participantWaitingList}")
+                                Log.d("ParticipantViewModel", "${ participantWaitingList.value }")
+                            }
+                            "ACCEPT" -> {
+                                Log.d("ParticipantViewModel", "accept start ${_participantWaitingList.value}")
+                                _acceptList.postValue(tmpData)
+                                Log.d("ParticipantViewModel", "accept fetch ${_participantWaitingList.value}")
+                            }
+                            "REJECT" -> {
+                                Log.d("ParticipantViewModel", "reject start ${_participantWaitingList.value}")
+                                _refuseList.postValue(tmpData)
+                                Log.d("ParticipantViewModel", "reject fetch ${_participantWaitingList.value}")
+                            }
+                        }
+
+                        Log.d("ParticipantViewModel", "fetchWaitingList is Success")
+                    } else {
+                        Log.d("ParticipantViewModel", "fetchWaitingList is Failed")
                     }
-                    Log.d("ParticipantViewModel", "fetch data ~ing")
-                    when(inspection){
-                        "STANDBY" -> {
-                            Log.d("ParticipantViewModel", "start ${_participantWaitingList.value}")
-                            _participantWaitingList.value?.clear()
-                            Log.d("ParticipantViewModel", "clear ${_participantWaitingList.value}")
-                            _participantWaitingList.postValue(tmpData)
-                            Log.d("ParticipantViewModel", "fetch ${_participantWaitingList.value}")
-                        }
-                        "ACCEPT" -> {
-                            _acceptList.value?.clear()
-                            _acceptList.postValue(tmpData)
-                        }
-                        "REJECT" -> {
-                            _refuseList.value?.clear()
-                            _refuseList.postValue(tmpData)
-                        }
-                    }
-
-                    Log.d("ParticipantViewModel", "fetchWaitingList is Success")
-                } else {
-                    Log.d("ParticipantViewModel", "fetchWaitingList is Failed")
+                } catch (e : Exception) {
+                    throw IllegalArgumentException(e)
                 }
-            } catch (e : Exception) {
-                throw IllegalArgumentException(e)
             }
         }
     }

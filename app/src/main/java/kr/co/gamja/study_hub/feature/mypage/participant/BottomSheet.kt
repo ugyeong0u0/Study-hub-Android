@@ -102,6 +102,7 @@ class BottomSheet() : BottomSheetDialogFragment() {
                         R.id.action_participantFragment_to_refusalReasonFragment,
                         arguments
                     )
+                    viewModel.fetchData("STANDBY", studyId, page)
                     dismiss()
                 } else {
                     if (userId != -1 &&  studyId != -1 && page != -1){
@@ -115,14 +116,22 @@ class BottomSheet() : BottomSheetDialogFragment() {
                             userId = userId
                         )
 
+                        Log.d("Paricipant BottomSheet", "fetchData start")
+                        viewModel.fetchData("STANDBY", studyId, page)
+                        Log.d("Participant BottomSheet", "fetchData done")
+
                         //dialog 띄우기
                         val customToast = CustomToast()
+                        val bundle = Bundle()
+                        bundle.putInt("studyId", studyId)
+                        bundle.putInt("page", page)
+                        arguments = bundle
 
                         customToast.show(requireActivity().supportFragmentManager, "Toast")
+
                         dismiss()
                     }
                 }
-                viewModel.fetchData("STANDBY", studyId, page)
             }
 
             //bottom sheet dialog 닫기
