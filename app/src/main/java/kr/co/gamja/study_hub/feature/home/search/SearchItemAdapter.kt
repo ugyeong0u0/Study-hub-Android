@@ -12,10 +12,12 @@ import kr.co.gamja.study_hub.data.model.ContentXXXX
 import kr.co.gamja.study_hub.databinding.SearchItemBinding
 import kr.co.gamja.study_hub.global.Functions
 
-class SearchItemAdapter(private val context : Context, private val contentList : MutableList<ContentXXXX>) :
+class SearchItemAdapter(private val context : Context) :
     RecyclerView.Adapter<SearchItemAdapter.SearchItemViewHolder>(){
 
     private lateinit var listener : OnViewClickListener
+
+    private var contentList : MutableList<ContentXXXX> = mutableListOf()
 
     override fun getItemViewType(position: Int): Int {
         return position
