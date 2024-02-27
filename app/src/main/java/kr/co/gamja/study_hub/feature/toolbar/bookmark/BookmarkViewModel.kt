@@ -32,7 +32,7 @@ class BookmarkViewModel(private val authApi: StudyHubApi) : ViewModel() {
 
     val myBookmarkFlow : kotlinx.coroutines.flow.Flow<PagingData<ContentXX>>
         get() = if (isUserLogin.value == true) {
-            Log.e(tag, "회원 북마크 ")
+//            Log.e(tag, "회원 북마크 ")
             Pager(
                 PagingConfig(
                     pageSize = 10,

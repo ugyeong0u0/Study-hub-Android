@@ -54,6 +54,10 @@ interface StudyHubApi {
         @Query("studyId") study : Int
     ) : Response<Unit>
 
+    // 신청내역에서 신청한 스터디 삭제하기
+    @DELETE("/api/v1/study/{studyId}")
+    suspend fun deleteStudyHistory(@Path("studyId") studyId : Int) : Response<Unit>
+
     /** bookmark-controller */
     //북마크 여부 조회
     @GET("/api/v1/bookmark/{postId}")
@@ -107,6 +111,10 @@ interface StudyHubApi {
         @Query("page") page : Int,
         @Query("size") size : Int,
     ) : Response<AnnounceRequestDto>
+
+    // 이용약관 조회
+    @GET("/api/v1/terms-of-use")
+    suspend fun  getUserTerm():Response<UseTermResponse>
 
     /** notification-controller */
 
@@ -230,4 +238,11 @@ interface StudyHubApi {
     // 유저 신청내역
     @GET("/api/v1/study-request")
     suspend fun getUserApplyHistory(@Query("page") page: Int, @Query("size") size: Int) : Response<ApplicationHistoryResponse>
+
+//    reject controller
+    // 단일 거절 이유 보기
+    @GET("/api/v1/reject")
+    suspend fun getDenyReason(@Query("studyId") studyId: Int) : Response<CheckDenyReasonResponse>
+
+
 }

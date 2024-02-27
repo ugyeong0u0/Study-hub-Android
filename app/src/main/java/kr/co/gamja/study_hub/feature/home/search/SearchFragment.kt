@@ -54,6 +54,15 @@ class SearchFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        val receiveBundle = arguments
+        if (receiveBundle != null) {
+            viewModel.isUserLogin.value= receiveBundle.getBoolean("isUser")
+//            Log.e(tagMsg, "유저인지$isUser")
+        } else Log.e(
+            msgTag,
+            "a bundle from mainHomeFragment is error" // todo("로그아웃 후 재로그인한 경우도 여기로 가는데 문제는 없음 ")
+        )
+
         val itemList = MutableLiveData<List<ContentXXXX>>()
 
         //검색 결과 리스트
@@ -172,7 +181,7 @@ class SearchFragment : Fragment() {
         searchItemAdapter = SearchItemAdapter(requireContext(), itemList.value?.toMutableList() ?: mutableListOf())
         searchItemAdapter.setOnClickListener(object : SearchItemAdapter.OnViewClickListener{
             override fun onClick(action: Int) {
-                val navigateAction = ContentFragmentDirections.actionGlobalStudyContentFragment(action)
+                val navigateAction = ContentFragmentDirections.actionGlobalStudyContentFragment(viewModel.isUserLogin.value!!,action)
                 findNavController().navigate(
                     navigateAction
                 )

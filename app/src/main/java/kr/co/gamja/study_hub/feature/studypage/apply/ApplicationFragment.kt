@@ -19,6 +19,7 @@ import kr.co.gamja.study_hub.global.CustomSnackBar
 class ApplicationFragment : Fragment() {
     private lateinit var binding: FragmentApplicationBinding
     private val viewModel: ApplicationViewModel by viewModels()
+    lateinit var navOptions: NavOptions
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,10 +32,10 @@ class ApplicationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
+        val page = arguments?.getString("whatPage") // 신청후 백스택때문
         val studyId = arguments?.getInt("studyId") // 스터디 조회에서 신청으로 넘어왔을 때 받은 studyId
         val postId = arguments?.getInt("postId")
-        Log.d("postId,studyId", postId.toString()+" : "+ studyId.toString())
+        Log.d("postId,studyId", postId.toString() + " : " + studyId.toString())
 
         // 툴바 설정
         val toolbar = binding.applicationToolbar
@@ -64,12 +65,24 @@ class ApplicationFragment : Fragment() {
                                     binding.btnComplete
                                 ).show()
 
-                                val navOptions = NavOptions.Builder() // 백스택에서 제거
-                                    .setPopUpTo(R.id.studyContentFragment, true)
-                                    .build()
-
+                                when (page) {
+                                    "content" -> {
+                                        Log.i(tag, "신청 page로 들어온 페이지 : content")
+                                        navOptions = NavOptions.Builder() // 백스택에서 제거
+                                            .setPopUpTo(R.id.studyContentFragment, true)
+                                            .build()
+                                    }
+                                    "bookmark" -> {
+                                        Log.i(tag, "신청 page로 들어온 페이지 : bookmark")
+                                        navOptions = NavOptions.Builder() // 백스택에서 제거
+                                            .setPopUpTo(R.id.bookmarkFragment, false)
+                                            .build()
+                                    }
+                                }
                                 val action =
-                                    ApplicationFragmentDirections.actionGlobalStudyContentFragment(postId!!) // 컨텐츠로 가니까 단건조회에 쓸 postId필요
+                                    ApplicationFragmentDirections.actionGlobalStudyContentFragment(true,
+                                        postId!!
+                                    ) // 컨텐츠로 가니까 단건조회에 쓸 postId필요
                                 findNavController().navigate(action, navOptions) // 백스택에서 생성 페이지 제거
                             }
                         }

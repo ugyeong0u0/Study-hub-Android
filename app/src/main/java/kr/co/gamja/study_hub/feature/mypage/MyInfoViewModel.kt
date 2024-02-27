@@ -16,6 +16,9 @@ class MyInfoViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
     private val functions = Functions()
 
+    // 둘러보기인지
+    var isUserLogin = MutableLiveData<Boolean>(false) // 회원인지 비동기값 얻어오는데 시간걸려서 애초 초기값 false로 줌
+
     // 유저 이메일
     private val _emailData = MutableLiveData<String>()
     val emailData: LiveData<String> get() = _emailData
@@ -45,17 +48,17 @@ class MyInfoViewModel : ViewModel() {
     val isImgData: LiveData<Boolean> get() = _isImgData
 
     // 마이페이지 게시글 수
-    private val _writtenData = MutableLiveData<String>()
+    private val _writtenData = MutableLiveData<String>("0")
     val writtenData: LiveData<String> get() = _writtenData
     // 참여자 수
-    private val _participantData = MutableLiveData<String>()
+    private val _participantData = MutableLiveData<String>("0")
     val participantData: LiveData<String> get() = _participantData
     // 신청내역 수
-    private val _bookmarkData = MutableLiveData<String>()
+    private val _bookmarkData = MutableLiveData<String>("0")
     val bookmarkData: LiveData<String> get() = _bookmarkData
 
     private lateinit var onClickListener: MyInfoCallbackListener
-    fun setOnClickListener(listener: MyInfoCallbackListener) {
+    fun mSetOnClickListener(listener: MyInfoCallbackListener) {
         onClickListener = listener
     }
 
@@ -67,6 +70,7 @@ class MyInfoViewModel : ViewModel() {
         _writtenData.value="0" // 게시글 수
         _participantData.value="0"// 참여자 수
         _bookmarkData.value="0" // 북마크 수
+        isUserLogin.value=false
     }
 
     // 회원조회
@@ -91,6 +95,7 @@ class MyInfoViewModel : ViewModel() {
                     _bookmarkData.value=result.applyCount.toString() // 북마크수가 아니라 신청내역수임(변수명 변경해야함)
                     _participantData.value=result.participateCount.toString()
                     onClickListener.myInfoCallbackResult(true)
+                    isUserLogin.value=true
                 } else {
                     Log.e(tag, "회원조회 실패")
                     onClickListener.myInfoCallbackResult(false)

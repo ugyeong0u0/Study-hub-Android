@@ -2,54 +2,71 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <ScrollView
+        <variable
+            name="viewModel"
+            type="kr.co.gamja.study_hub.feature.mypage.useterm.UseTermViewModel" />
+    </data>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="@color/syswhite">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/serviceUse_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sysblack2">
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/serviceUse_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/sysblack2">
+                <ImageButton
+                    android:id="@+id/icon_back"
+                    android:layout_width="@dimen/resized_item"
+                    android:layout_height="@dimen/resized_item"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_arrow_left_l_white" />
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/word_serviceUseTerm"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp">
+                    android:layout_toEndOf="@id/icon_back"
+                    android:gravity="center"
+                    android:text="@string/service_term"
+                    android:textColor="@color/syswhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
 
-                    <ImageButton
-                        android:id="@+id/icon_back"
-                        android:layout_width="@dimen/resized_item"
-                        android:layout_height="@dimen/resized_item"
-                        android:layout_alignParentStart="true"
-                        android:background="@drawable/icon_arrow_left_l_white" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/syswhite">
 
-                    <TextView
-                        android:id="@+id/word_serviceUseTerm"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/icon_back"
-                        android:gravity="center"
-                        android:text="@string/service_term"
-                        android:textColor="@color/syswhite"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-            </androidx.appcompat.widget.Toolbar>
-
-            <TextView
-                android:id="@+id/serviceUseTerm_content"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/twenty"
+                    android:layout_marginTop="@dimen/twenty_four"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
 </layout>

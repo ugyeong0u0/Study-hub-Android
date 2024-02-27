@@ -54,6 +54,7 @@ class ApplicationHistoryAdapter(private val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun setData(item: ContentXXXXX?) {
             val itemStudyId: Int? = item?.studyId
+            val itemPostId: Int?=item?.postId
             item?.let {
                 when (it.inspection) {
                     "STANDBY" -> {
@@ -61,14 +62,14 @@ class ApplicationHistoryAdapter(private val context: Context) :
                     }
                     "REJECT" -> {
                         binding.isDeny = true
-                    } // todo(필터 걸어야함)
+                    }
                 }
                 binding.txtTitle.text = it.studyTitle
                 binding.txtContentSub.text = it.introduce
 
             }
 
-            // 삭제 버튼 todo("postId로 변경필수 ")
+            // 삭제 버튼
             binding.btnDelete.setOnClickListener {
                 mOnItemsClickListener.getItemValue(whatItem["delete"]!!, itemStudyId!!)
             }
@@ -77,9 +78,8 @@ class ApplicationHistoryAdapter(private val context: Context) :
                 mOnItemsClickListener.getItemValue(whatItem["rejectReason"]!!, itemStudyId!!)
             }
             // 뷰자체 클릭
-            // todo("postId로 변경필수 ")
             itemView.setOnClickListener {
-                mOnItemsClickListener.getItemValue(whatItem["seeContent"]!!, itemStudyId!!)
+                mOnItemsClickListener.getItemValue(whatItem["seeContent"]!!,itemPostId!!)
             }
         }
     }

@@ -72,12 +72,7 @@ class BookmarkAdapter(val context: Context) :
                 binding.txtAvailable.text = it.remainingSeat.toString()
                 // 스터디 마감 여부 todo("테스트 해보기 ")
                 if (it.close) {
-                    binding.btnJoin.setBackgroundColor(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.BG_40
-                        )
-                    )
+                    binding.btnJoin.setBackgroundResource(R.drawable.stroke_bg_40_solid_white_corner6)
                     binding.btnJoin.text = context.getString(R.string.btn_end)
                     binding.btnJoin.setTextColor(ContextCompat.getColor(context, R.color.BG_60))
                 } else {

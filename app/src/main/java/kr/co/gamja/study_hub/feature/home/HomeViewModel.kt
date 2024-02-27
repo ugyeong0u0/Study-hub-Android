@@ -18,7 +18,7 @@ class HomeViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
 
     // 둘러보기인지
-    var isUserLogin = MutableLiveData<Boolean>(true)
+    var isUserLogin = MutableLiveData<Boolean>(true) // todo(mainhomefr이 떨어지더라도 메뉴얼fr에서 살아있는지 확인)
 
     // 프로그래스 보이기 안보이기 처리
     var progressRecruiting = MutableLiveData<Boolean>(false)

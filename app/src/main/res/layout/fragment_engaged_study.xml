@@ -59,7 +59,8 @@
             android:text="@{@string/txt_all(viewModel.listSize)}"
             android:textColor="@color/BG_80"
             android:textSize="16sp"
-            tools:text="전체 2" />
+            tools:text="전체 2"
+            android:visibility="gone"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_deleteAll"
@@ -80,7 +81,7 @@
             android:layout_height="@dimen/twoHundred_ten"
             android:layout_centerInParent="true"
             android:src="@drawable/image_empty_participate"
-            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
+            android:visibility="@{viewModel.isList?View.INVISIBLE:View.VISIBLE}" />
 
         <TextView
             android:id="@+id/txt_binEngagedStudy"
@@ -92,7 +93,7 @@
             android:text="@string/binEngagedStudy"
             android:textColor="@color/BG_70"
             android:textSize="14sp"
-            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
+            android:visibility="@{viewModel.isList?View.INVISIBLE:View.VISIBLE}" />
 
         <TextView
             android:id="@+id/txt_sub_binBookmark"
@@ -104,7 +105,7 @@
             android:text="@string/sub_binBookmark"
             android:textColor="@color/BG_60"
             android:textSize="14sp"
-            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
+            android:visibility="@{viewModel.isList?View.INVISIBLE:View.VISIBLE}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_engagedStudy"

@@ -7,6 +7,10 @@ interface CallBackListener {
     fun isSuccess(result: Boolean)
 }
 
+interface CallBackStringListener{
+    fun isSuccess(result: String)
+}
+
 // 단일 성공여부 정수 리턴 콜백
 interface CallBackIntegerListener {
     fun isSuccess(result: Int)

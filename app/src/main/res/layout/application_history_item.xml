@@ -87,6 +87,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_bg_white_stroke_bg_50"
             android:text="@string/rejectReason"
+            android:textColor="@color/BG_80"
+            android:textSize="14sp"
             android:visibility="@{isDeny?View.VISIBLE:View.GONE}"
             android:layout_marginHorizontal="@dimen/sixteen"
             android:layout_marginBottom="@dimen/twenty"

@@ -17,12 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
-import kr.co.gamja.study_hub.data.repository.OnBookmarkClickListener
-import kr.co.gamja.study_hub.data.repository.OnItemsClickListener
-import kr.co.gamja.study_hub.data.repository.StudyHubApi
+import kr.co.gamja.study_hub.data.repository.*
 import kr.co.gamja.study_hub.databinding.FragmentApplicationHistoryBinding
+import kr.co.gamja.study_hub.feature.studypage.apply.ApplicationFragmentDirections
+import kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragmentDirections
 import kr.co.gamja.study_hub.feature.studypage.studyHome.StudyMainViewModel
+import kr.co.gamja.study_hub.global.CustomDialog
+import kr.co.gamja.study_hub.global.CustomSnackBar
+import kr.co.gamja.study_hub.global.OnDialogClickListener
 
 class ApplicationHistoryFragment : Fragment() {
     val msg = this.javaClass.simpleName
@@ -76,15 +78,48 @@ class ApplicationHistoryFragment : Fragment() {
             override fun getItemValue(whatItem: Int, itemValue: Int) {
                 when (whatItem) {
                     1 -> {
-                        // todo()
                         Log.e(msg, "지우기 눌림")
+                        val head =
+                            requireContext().resources.getString(R.string.deleteEngagedStudy_title)
+                        val sub =
+                            requireContext().resources.getString(R.string.deleteApplyHistory_sub)
+                        val no = requireContext().resources.getString(R.string.btn_cancel)
+                        val yes = requireContext().resources.getString(R.string.btn_delete)
+                        val dialog = CustomDialog(requireContext(), head, sub, no, yes)
+                        dialog.showDialog()
+                        dialog.setOnClickListener(object : OnDialogClickListener {
+                            override fun onclickResult() {
+                                viewModel.deleteApplyStudy(itemValue, object : CallBackListener {
+                                    override fun isSuccess(result: Boolean) {
+                                        if (result) {
+                                            CustomSnackBar.make(
+                                                binding.layoutRelative,
+                                                getString(R.string.complete_deletion), null, true
+                                            ).show()
+                                            adapter.refresh() // 리사이클러뷰 refresh
+                                        }
+                                    }
+                                })
+                            }
+                        })
                     }
-                    2 -> {// todo()
-                        Log.e(msg, "거절 이유 눌림")
+                    2 -> {
+                        Log.i(msg, "거절 이유 눌림")
+                        val bundle = Bundle()
+                        bundle.putInt("studyId", itemValue)
+                        findNavController().navigate(
+                            R.id.action_global_checkRefusalReasonFragment,
+                            bundle
+                        )
+                    }
+                    3 -> {
+                        Log.i(msg, "컨텐츠 보기 눌림")
 
-                    }
-                    3 -> { // todo()
-                        Log.e(msg, "컨텐츠 보기 눌림")
+                        val action = ApplicationFragmentDirections.actionGlobalStudyContentFragment(
+                            true,
+                            itemValue
+                        )
+                        findNavController().navigate(action)
                     }
                 }
             }
