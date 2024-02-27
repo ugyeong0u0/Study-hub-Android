@@ -15,8 +15,14 @@ class RefusalAdapter(val context : Context) : RecyclerView.Adapter<RefusalAdapte
 
     private val itemList = mutableListOf<RegisterListContent>()
 
-    fun submitList(itemList : List<RegisterListContent>){
-        this.itemList.clear()
+    private var page = 0
+
+    fun submitList(itemList : List<RegisterListContent>, page : Int){
+        if (this.page < page){
+            this.page += 1
+        } else {
+            this.itemList.clear()
+        }
         this.itemList.addAll(itemList)
         notifyDataSetChanged()
     }
