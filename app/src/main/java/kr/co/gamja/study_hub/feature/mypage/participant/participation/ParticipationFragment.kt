@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentParticipationBinding
 import kr.co.gamja.study_hub.feature.mypage.participant.ParticipantViewModel
@@ -44,7 +45,7 @@ class ParticipationFragment : Fragment() {
 
         //observing
         viewModel.acceptList.observe(viewLifecycleOwner, Observer{
-            adapter.submitList(it)
+            adapter.submitList(it, page)
             if (it.isEmpty()){
                 binding.imgEmptyParticipation.visibility = View.VISIBLE
                 binding.tvComment.visibility = View.VISIBLE
@@ -62,6 +63,20 @@ class ParticipationFragment : Fragment() {
         adapter = ParticipationAdapter(requireContext())
         binding.rcvContent.adapter = adapter
         binding.rcvContent.layoutManager = LinearLayoutManager(requireContext())
+        binding.rcvContent.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+
+                if (visibleItemCount + firstVisibleItem >= totalItemCount) {
+                    page += 1
+                }
+            }
+        })
         val space = resources.getDimensionPixelSize(R.dimen.thirty)
         val itemDecoration = RcvDecoration(space)
         binding.rcvContent.addItemDecoration(itemDecoration)

@@ -15,8 +15,14 @@ class RefusalAdapter(val context : Context) : RecyclerView.Adapter<RefusalAdapte
 
     private val itemList = mutableListOf<RegisterListContent>()
 
-    fun submitList(itemList : List<RegisterListContent>){
-        this.itemList.clear()
+    private var page = 0
+
+    fun submitList(itemList : List<RegisterListContent>, page : Int){
+        if (this.page < page){
+            this.page += 1
+        } else {
+            this.itemList.clear()
+        }
         this.itemList.addAll(itemList)
         notifyDataSetChanged()
     }
@@ -48,11 +54,13 @@ class RefusalAdapter(val context : Context) : RecyclerView.Adapter<RefusalAdapte
                         ).circleCrop()
                     ).into(binding.imgProfile)
 
-                /** 여기도 마찬가지로 거절된 날짜를 보여 줘야 할 것 같은데 현재는 신청을 보낸 날짜로 되어 있습니다. */
                 val date = "${item.createdDate[0]}년 ${item.createdDate[1]}월 ${item.createdDate[2]}일"
                 createdDate.text = date
                 userMajor.text = Functions().convertToKoreanMajor(item.major)
                 userNickname.text = item.nickname
+
+                /** 여기는 거절 사유가 더 적절하지 않을까나 */
+                reasonOfRefusal.text = item.introduce
             }
         }
     }
