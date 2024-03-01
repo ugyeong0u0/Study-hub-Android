@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.delay
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentBottomSheetListDialogBinding
 
