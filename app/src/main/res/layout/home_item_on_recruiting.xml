@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="244dp"
-        android:layout_height="185dp"
+        android:layout_height="195dp"
         android:layout_marginEnd="@dimen/sixteen"
         android:background="@drawable/btn_bg_white_stroke_bg_50"
         android:orientation="vertical">
@@ -101,9 +101,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/sixteen"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="@dimen/eighteen"
+            android:layout_marginBottom="@dimen/ten"
+
             android:background="@drawable/backgroundword_stroke_gray"
-            android:maxLines="2"
+            android:maxLines="1"
             android:padding="6dp"
             android:textColor="@color/BG_80"
             android:textSize="12sp"
