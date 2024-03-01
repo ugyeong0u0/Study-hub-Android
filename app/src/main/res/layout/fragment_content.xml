@@ -495,6 +495,13 @@
                             android:layout_height="8dp"
                             android:layout_below="@+id/btn_commentOk"
                             android:background="@color/BG_30" />
+                        <View
+                            android:id="@+id/view_forEmpty"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:layout_below="@+id/view_divideComment"
+                            android:visibility="@{viewModel.emptyRecommendStudy?View.VISIBLE:View.GONE}"
+                            />
 
                         <TextView
                             android:id="@+id/head_recommend"
@@ -506,7 +513,8 @@
                             android:layout_marginBottom="24dp"
                             android:text="@string/fsd_head_recommend"
                             android:textColor="@color/sysblack1"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:visibility="@{viewModel.emptyRecommendStudy?View.GONE:View.VISIBLE}" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_recommend"
@@ -514,7 +522,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/head_recommend"
                             android:layout_marginHorizontal="@dimen/twenty"
-                            android:layout_marginBottom="40dp" />
+                            android:layout_marginBottom="40dp"
+                            android:visibility="@{viewModel.emptyRecommendStudy?View.GONE:View.VISIBLE}"/>
                     </RelativeLayout>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>

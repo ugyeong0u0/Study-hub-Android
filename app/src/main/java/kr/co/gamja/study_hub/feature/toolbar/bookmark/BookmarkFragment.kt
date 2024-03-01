@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -103,7 +105,6 @@ class BookmarkFragment : Fragment() {
         viewModel.getBookmarkList() // 북마크 총 개수 업데이트
 
         // 전체 삭제
-        // TODO("리스트 값이 있을 때만 삭제 버튼 가능하게 기능 추가 ")
         binding.btnDeleteAll.setOnClickListener {
             val head = requireContext().resources.getString(R.string.q_deleteBookmark)
             val no = requireContext().resources.getString(R.string.btn_cancel)
@@ -112,9 +113,17 @@ class BookmarkFragment : Fragment() {
             dialog.showDialog()
             dialog.setOnClickListener(object : OnDialogClickListener {
                 override fun onclickResult() {
-                    // TODO("삭제 누를 시 통신")
+                    viewModel.deleteAllBookmark()
+                    adapter.refresh()
+                    viewModel.setBookmarkCountReset() // 전체 삭제니 북마크 개수 0개로 변경함
                 }
             })
+        }
+
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collectLatest { loadState ->
+                binding.bookmarkProgressBar.isVisible = loadState.refresh is LoadState.Loading
+            }
         }
 
     }

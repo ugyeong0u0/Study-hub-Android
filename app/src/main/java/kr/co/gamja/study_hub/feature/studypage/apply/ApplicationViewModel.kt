@@ -33,7 +33,6 @@ class ApplicationViewModel: ViewModel() {
             }
         }
     }
-    // todo("신청하기 api")
     fun applyStudy(studyId:Int,params:CallBackListener){
         viewModelScope.launch {
             try {

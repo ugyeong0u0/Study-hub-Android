@@ -61,24 +61,24 @@ class WrittenStudyAdapter(private val context: Context) :
             // 마감 색 여부
             binding.isCloseStudy=content.close
 
-            binding.btnSetEnd.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View?) {
-                    // 마감 클릭시
-                    mOnItemsClickListener.getItemValue(whatItem["shutdownStudy"]!!, PostingId(postId, studyId))
-                }
-            })
-            binding.btnParticipant.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View?) {
-                    // 참여자 클릭시
-                    mOnItemsClickListener.getItemValue(whatItem["goParticipant"]!!, PostingId(postId, studyId))
-                }
-            })
-            binding.btnThreeDot.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View?) {
-                    // 스터디 수정 클릭시
-                    mOnItemsClickListener.getItemValue(whatItem["goStudyPage"]!!, PostingId(postId, studyId))
-                }
-            })
+            binding.btnSetEnd.setOnClickListener { // 마감 클릭시
+                mOnItemsClickListener.getItemValue(
+                    whatItem["shutdownStudy"]!!,
+                    PostingId(postId, studyId)
+                )
+            }
+            binding.btnParticipant.setOnClickListener { // 참여자 클릭시
+                mOnItemsClickListener.getItemValue(
+                    whatItem["goParticipant"]!!,
+                    PostingId(postId, studyId)
+                )
+            }
+            itemView.setOnClickListener { // 스터디 수정 클릭시
+                mOnItemsClickListener.getItemValue(
+                    whatItem["goStudyPage"]!!,
+                    PostingId(postId, studyId)
+                )
+            }
         }
     }
 }

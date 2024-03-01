@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -124,6 +125,12 @@ class ApplicationHistoryFragment : Fragment() {
                 }
             }
         })
+
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collectLatest { loadState ->
+                binding.applicationHistoryProgressBar.isVisible = loadState.refresh is LoadState.Loading
+            }
+        }
     }
 
     private fun observeData() {

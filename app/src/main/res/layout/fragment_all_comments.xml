@@ -53,11 +53,9 @@
             android:id="@+id/recycle_comments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/comment_toolbar"
-            android:layout_marginHorizontal="@dimen/twenty"
-            android:layout_marginTop="@dimen/ten"
             android:layout_above="@+id/view_divideRecycler"
-            />
+            android:layout_below="@+id/comment_toolbar"
+            android:layout_marginHorizontal="13dp" />
 
         <View
             android:id="@+id/view_divideRecycler"

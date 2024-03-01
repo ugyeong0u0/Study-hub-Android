@@ -63,11 +63,11 @@ class EngagedStudyAdapter(private val context: Context) :
                 binding.txtTitle.text=it.title
                 binding.txtContent.text =it.content
             }
-            // threeDot이 아니라 x 임
-            binding.btnThreeDot.setOnClickListener{
-                // todo studyId로 변경하기
-                mOnItemsClickListener.getItemValue(whatItem["delete"]!!, postId!!)
-            }
+//            // threeDot이 아니라 x 임
+//            binding.btnThreeDot.setOnClickListener{
+//                // todo studyId로 변경하기
+//                mOnItemsClickListener.getItemValue(whatItem["delete"]!!, postId!!)
+//            }
             // 채팅방으로 가기
             binding.goChatRoom.setOnClickListener{
                 mCallBackStringListener.isSuccess(chatLink!!)

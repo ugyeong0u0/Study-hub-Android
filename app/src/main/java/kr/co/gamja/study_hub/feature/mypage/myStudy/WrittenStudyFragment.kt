@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -19,6 +21,7 @@ import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.*
 import kr.co.gamja.study_hub.databinding.FragmentWrittenStudyBinding
 import kr.co.gamja.study_hub.feature.mypage.MyInfoFragment
+import kr.co.gamja.study_hub.feature.studypage.apply.ApplicationFragmentDirections
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.PostingId
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
@@ -104,11 +107,22 @@ class WrittenStudyFragment : Fragment() {
                     }
                     // 스터디 수정 클릭시
                     3 -> {
-                        Log.d(tag, "스터디 수정 버튼 눌림")
+                        Log.d(tag, "스터디 수정 버튼 눌림 -> 배포땜에 스터디 상세 보기로 변경")
+                        val action = ApplicationFragmentDirections.actionGlobalStudyContentFragment(
+                            true,
+                            postingId.postId
+                        )
+                        findNavController().navigate(action)
                     }
                 }
             }
         })
+
+        lifecycleScope.launch {
+            writtenStudyAdapter.loadStateFlow.collectLatest { loadState ->
+                binding.writtenProgressBar.isVisible = loadState.refresh is LoadState.Loading
+            }
+        }
 
     }
 

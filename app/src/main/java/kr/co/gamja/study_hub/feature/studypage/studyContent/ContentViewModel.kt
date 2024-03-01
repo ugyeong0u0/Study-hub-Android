@@ -124,6 +124,10 @@ class ContentViewModel : ViewModel() {
         _isModify.value = result
     }
 
+    // 추천스터디가 없을 경우
+    private var _emptyRecommendStudy = MutableLiveData<Boolean>()
+    val emptyRecommendStudy: LiveData<Boolean> get() = _emptyRecommendStudy
+
 
     // 댓글 등록
     fun setUserComment(params: CallBackListener) {
@@ -316,6 +320,8 @@ class ContentViewModel : ViewModel() {
         adapter.studyPosts = result.relatedPost
         Log.d(tag + ": 추천리스트", result.postId.toString() + ":" + result.relatedPost.toString())
         adapter.notifyDataSetChanged()
+
+        _emptyRecommendStudy.value = result.relatedPost.isEmpty()
     }
 
     // 북마크 저장/삭제

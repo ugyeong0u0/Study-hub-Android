@@ -27,10 +27,14 @@ class BookmarkViewModel(private val authApi: StudyHubApi) : ViewModel() {
     var isUserLogin = MutableLiveData<Boolean>(true)
 
     // 리스트 개수
-    private val _listSize = MutableLiveData<Int>()
+    private val _listSize = MutableLiveData<Int>(1)
     val listSize: LiveData<Int> get() = _listSize
 
-    val myBookmarkFlow : kotlinx.coroutines.flow.Flow<PagingData<ContentXX>>
+    fun setBookmarkCountReset(){
+        _listSize.value=0
+    }
+
+    val myBookmarkFlow: kotlinx.coroutines.flow.Flow<PagingData<ContentXX>>
         get() = if (isUserLogin.value == true) {
 //            Log.e(tag, "회원 북마크 ")
             Pager(
@@ -85,6 +89,19 @@ class BookmarkViewModel(private val authApi: StudyHubApi) : ViewModel() {
                 }
             } catch (e: Exception) {
                 Log.e(tag, "북마크 저장삭제 Exception: ${e.message}")
+            }
+        }
+    }
+
+    fun deleteAllBookmark() {
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.deleteAll()
+                if (response.isSuccessful) {
+                    Log.d(tag, "북마크 전체 삭제 code" + response.code().toString())
+                }
+            } catch (e: Exception) {
+                Log.e(tag, "북마크 전체 삭제 Exception: ${e.message}")
             }
         }
     }

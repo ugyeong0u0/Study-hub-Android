@@ -103,6 +103,13 @@
             android:textSize="14sp"
             android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
 
+        <ProgressBar
+            android:id="@+id/bookmarkProgressBar"
+            style="@style/CustomProgressBar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyler_bookmark"
             android:layout_width="match_parent"

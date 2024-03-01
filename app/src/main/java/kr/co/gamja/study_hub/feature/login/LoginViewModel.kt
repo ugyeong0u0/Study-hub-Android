@@ -12,7 +12,7 @@ import kr.co.gamja.study_hub.data.model.LoginRequest
 import kr.co.gamja.study_hub.data.model.LoginResponse
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
-const val EMAIL = "^[a-zA-Z0-9+-\\_.]+(@inu\\.ac\\.kr)$"
+const val EMAIL = "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+\$"
 const val PASSWORD = """^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{10,15}$"""
 
 class LoginViewModel : ViewModel() {

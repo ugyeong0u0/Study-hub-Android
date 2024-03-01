@@ -67,6 +67,10 @@ interface StudyHubApi {
     @POST("/api/v1/bookmark/{postId}")
     suspend fun saveDeleteBookmark(@Path("postId") postId: Int?): Response<BookmarkSaveDeleteResponse>
 
+    // 북마크 전체 삭제
+    @DELETE("/api/v1/bookmark")
+    suspend fun deleteAll():Response<Unit>
+
     /** email-controller */
 
     //이메일 인증코드 전송

@@ -199,6 +199,7 @@
     <string name="txt_sub_binBookmark">관심있는 스터디를 저장해 보세요!</string>
     <string name="q_deleteBookmark">북마크를 모두 삭제할까요?</string>
     <string name="btn_cancel">취소</string>
+    <string name="already_existStudy">이미 신청한 스터디입니다.</string>
 
 
     <!--    작성한 글-->
@@ -249,4 +250,5 @@
 <!--    참여한스터디-->
     <string name="deleteEngagedStudy_title">이 스터디를 삭제할까요?</string>
     <string name="deleteEngagedStudy_sub">삭제하면 채팅방을 다시 찾을 수 없어요</string>
+
 </resources>
