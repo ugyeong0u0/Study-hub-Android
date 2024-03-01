@@ -12,8 +12,10 @@ import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.BookmarkSaveDeleteResponse
+import kr.co.gamja.study_hub.data.model.ContentXX
 import kr.co.gamja.study_hub.data.model.ContentXXXX
 import kr.co.gamja.study_hub.data.model.FindStudyResponseM
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
@@ -21,8 +23,12 @@ import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 import kr.co.gamja.study_hub.data.repository.StudyHubApi
 
-class StudyMainViewModel(studyHubApi: StudyHubApi) : ViewModel() {
+class StudyMainViewModel(val studyHubApiAuth: StudyHubApi, val studyHubApi: StudyHubApi) :
+    ViewModel() {
     private val tag = this.javaClass.simpleName
+
+    // 둘러보기인지
+    var isUserLogin = MutableLiveData<Boolean>(false)
 
     // 프로그래스바 로딩여부
     var studyProBar = MutableLiveData<Boolean>(true)
@@ -45,19 +51,36 @@ class StudyMainViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     }
 
     // 리스트 있는지 여부
-    var isList=MutableLiveData<Boolean>(true)
+    var isList = MutableLiveData<Boolean>(true)
 
-    val studyMainFlow: Flow<PagingData<ContentXXXX>> = _reloadTrigger.flatMapLatest {
-        Pager(
-            PagingConfig(
-                pageSize = 10,
-                enablePlaceholders = false,
-                initialLoadSize = 10
-            )
-        ) {
-            StudyMainPagingSource(studyHubApi, _isHotStudy.value ?: false)
-        }.flow.cachedIn(viewModelScope)
-    }
+    val studyMainFlow: Flow<PagingData<ContentXXXX>>
+        get() = if (isUserLogin.value == true) {
+            _reloadTrigger.flatMapLatest {
+                Pager(
+                    PagingConfig(
+                        pageSize = 10,
+                        enablePlaceholders = false,
+                        initialLoadSize = 10
+                    )
+                ) {
+                    StudyMainPagingSource(studyHubApiAuth, _isHotStudy.value ?: false)
+                }.flow.cachedIn(viewModelScope)
+            }
+
+        } else {
+            Log.e(tag, "비회원 스터디 탭 ")
+            _reloadTrigger.flatMapLatest {
+                Pager(
+                    PagingConfig(
+                        pageSize = 10,
+                        enablePlaceholders = false,
+                        initialLoadSize = 10
+                    )
+                ) {
+                    StudyMainPagingSource(studyHubApi, _isHotStudy.value ?: false)
+                }.flow.cachedIn(viewModelScope)
+            }
+        }
 
     fun saveDeleteBookmarkItem(postId: Int?, params: CallBackListener) {
         viewModelScope.launch {
@@ -74,6 +97,23 @@ class StudyMainViewModel(studyHubApi: StudyHubApi) : ViewModel() {
                 }
             } catch (e: Exception) {
                 Log.e(tag, "북마크 저장삭제 Exception: ${e.message}")
+            }
+        }
+    }
+
+    // 회원인지 확인만 함 -> 회원 단권 조회로 함
+    fun isUserOrNotUser(params: CallBackListener) {
+        viewModelScope.launch {
+            try {
+                val response = AuthRetrofitManager.api.getUserInfo()
+                isUserLogin.value = response.isSuccessful
+                Log.e(tag,"유저로그인"+isUserLogin.value.toString())
+            } catch (e: Exception) {
+                isUserLogin.value = false
+                Log.e(tag, "회원인지 아닌지 확인 불가 Exception: ${e.message}")
+            }
+            finally {
+                params.isSuccess(true)
             }
         }
     }

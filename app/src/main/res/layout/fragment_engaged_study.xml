@@ -73,7 +73,8 @@
             android:background="#00000000"
             android:text="@string/btn_allDelete"
             android:textColor="@color/BG_70"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="invisible"/>
 
         <ImageView
             android:id="@+id/img_emptyEngagedStudy"
@@ -106,6 +107,13 @@
             android:textColor="@color/BG_60"
             android:textSize="14sp"
             android:visibility="@{viewModel.isList?View.INVISIBLE:View.VISIBLE}" />
+
+        <ProgressBar
+            android:id="@+id/engagedStudyProgressBar"
+            style="@style/CustomProgressBar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_engagedStudy"

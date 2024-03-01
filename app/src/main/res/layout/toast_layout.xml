@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="96dp"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/background_black_corner_10"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="24dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:srcCompat="@drawable/icon_check_green" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="거절이 완료됐어요."
+            android:textSize="14sp"
+            android:textColor="@color/G_10"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"/>
+
+</LinearLayout>

@@ -4,5 +4,6 @@ data class ContentXXXXX(
     val inspection: String,
     val introduce: String,
     val studyId: Int,
-    val studyTitle: String
+    val studyTitle: String,
+    val postId: Int
 )

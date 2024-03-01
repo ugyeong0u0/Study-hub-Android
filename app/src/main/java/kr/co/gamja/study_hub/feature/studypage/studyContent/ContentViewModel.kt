@@ -12,10 +12,15 @@ import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
 import kr.co.gamja.study_hub.global.Functions
+import retrofit2.Response
 
 class ContentViewModel : ViewModel() {
     val tag: String = this.javaClass.simpleName
+
     private val functions = Functions()
+
+    // 둘러보기인지
+    var isUserLogin = MutableLiveData<Boolean>(true)
 
     // 스터디 신청된건지 여부
     private val _isAppliedStudy = MutableLiveData<Boolean>(false)
@@ -119,6 +124,10 @@ class ContentViewModel : ViewModel() {
         _isModify.value = result
     }
 
+    // 추천스터디가 없을 경우
+    private var _emptyRecommendStudy = MutableLiveData<Boolean>()
+    val emptyRecommendStudy: LiveData<Boolean> get() = _emptyRecommendStudy
+
 
     // 댓글 등록
     fun setUserComment(params: CallBackListener) {
@@ -196,7 +205,13 @@ class ContentViewModel : ViewModel() {
 //        Log.e(tag, " getStudyContent의 postId$postId")
         viewModelScope.launch {
             try {
-                val response = AuthRetrofitManager.api.getStudyContent(postId)
+                val response: Response<StudyContentResponseM>
+                if (isUserLogin.value == true) {
+                    response = AuthRetrofitManager.api.getStudyContent(postId)
+
+                } else {
+                    response = RetrofitManager.api.getStudyContent(postId)
+                }
 //                Log.e(tag, " response의 postId$response")
                 if (response.isSuccessful) {
                     val result = response.body() as StudyContentResponseM
@@ -216,8 +231,8 @@ class ContentViewModel : ViewModel() {
         //1. 작성자인지 보기 2.신청여부 보기
 
         // 유저의 신청여부
-        _isAppliedStudy.value=result.apply
-        Log.i(tag, "신청여부 서버값: ${result.apply} 라이브데이터 값 : ${isAppliedStudy.value}" )
+        _isAppliedStudy.value = result.apply
+        Log.i(tag, "신청여부 서버값: ${result.apply} 라이브데이터 값 : ${isAppliedStudy.value}")
 
         // 상단 관련학과
 //        Log.e(tag,result.major)
@@ -305,6 +320,8 @@ class ContentViewModel : ViewModel() {
         adapter.studyPosts = result.relatedPost
         Log.d(tag + ": 추천리스트", result.postId.toString() + ":" + result.relatedPost.toString())
         adapter.notifyDataSetChanged()
+
+        _emptyRecommendStudy.value = result.relatedPost.isEmpty()
     }
 
     // 북마크 저장/삭제
@@ -329,7 +346,13 @@ class ContentViewModel : ViewModel() {
     fun getCommentsList(adapter: CommentAdapter, postId: Int) {
         viewModelScope.launch {
             try {
-                val response = AuthRetrofitManager.api.getPreviewChatList(postId)
+                val response: Response<previewChatResponse>
+                if (isUserLogin.value == true) {
+
+                    response = AuthRetrofitManager.api.getPreviewChatList(postId)
+                } else {
+                    response = RetrofitManager.api.getPreviewChatList(postId)
+                }
                 Log.d(tag, "commentsList postID$postId")
                 if (response.isSuccessful) {
                     Log.d(tag, "commentsList 코드 code" + response.code().toString())

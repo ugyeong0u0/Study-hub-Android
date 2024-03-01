@@ -1,5 +1,6 @@
 package kr.co.gamja.study_hub.feature.mypage.participant
 
+import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,10 +8,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kr.co.gamja.study_hub.data.model.ApplyAccpetRequest
 import kr.co.gamja.study_hub.data.model.ApplyRejectDto
 import kr.co.gamja.study_hub.data.model.RegisterListContent
+import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
+import okhttp3.internal.notify
+import kotlin.reflect.typeOf
 
 class ParticipantViewModel : ViewModel() {
 
@@ -40,33 +45,50 @@ class ParticipantViewModel : ViewModel() {
         page : Int,
     ) {
         Log.d("Participant", "study id : ${studyId}")
-        viewModelScope.launch(Dispatchers.IO){
-            //신청 리스트 받아오기
-            try {
-                val response = RetrofitManager.api.getRegisterList(inspection, page, 8, studyId)
-                Log.d("Participant", "${ response.body() }")
-                if (response.isSuccessful){
-                    val result = response.body() ?: throw NullPointerException("Result is NULL")
-                    val datas = result.applyUserData.content
+        runBlocking{
+            viewModelScope.launch(Dispatchers.IO){
+                //신청 리스트 받아오기
+                try {
+                    val response = RetrofitManager.api.getRegisterList(inspection, page, 8, studyId)
+                    Log.d("Participant", "${ response.body() }")
+                    if (response.isSuccessful){
+                        val result = response.body() ?: throw NullPointerException("Result is NULL")
+                        val datas = result.applyUserData.content
 
-                    val tmpData = mutableListOf<RegisterListContent>()
+                        val tmpData = mutableListOf<RegisterListContent>()
 
-                    datas.forEach{ data ->
-                        tmpData.add(data)
+                        datas.forEach{ data ->
+                            tmpData.add(data)
+                        }
+                        Log.d("ParticipantViewModel", "fetch data ~ing")
+                        Log.d("ParticipantViewModel", "new data : ${tmpData}")
+                        when(inspection){
+                            "STANDBY" -> {
+                                Log.d("ParticipantViewModel", "waiting start ${_participantWaitingList}")
+                                Log.d("ParticipantViewModel", "${ participantWaitingList.value }")
+                                _participantWaitingList.postValue(tmpData)
+                                Log.d("ParticipantViewModel", "waiting fetch ${_participantWaitingList}")
+                                Log.d("ParticipantViewModel", "${ participantWaitingList.value }")
+                            }
+                            "ACCEPT" -> {
+                                Log.d("ParticipantViewModel", "accept start ${_participantWaitingList.value}")
+                                _acceptList.postValue(tmpData)
+                                Log.d("ParticipantViewModel", "accept fetch ${_participantWaitingList.value}")
+                            }
+                            "REJECT" -> {
+                                Log.d("ParticipantViewModel", "reject start ${_participantWaitingList.value}")
+                                _refuseList.postValue(tmpData)
+                                Log.d("ParticipantViewModel", "reject fetch ${_participantWaitingList.value}")
+                            }
+                        }
+
+                        Log.d("ParticipantViewModel", "fetchWaitingList is Success")
+                    } else {
+                        Log.d("ParticipantViewModel", "fetchWaitingList is Failed")
                     }
-
-                    when(inspection){
-                        "STANDBY" -> _participantWaitingList.postValue(tmpData)
-                        "ACCEPT" -> _acceptList.postValue(tmpData)
-                        "REJECT" -> _refuseList.postValue(tmpData)
-                    }
-
-                    Log.d("ParticipantViewModel", "fetchWaitingList is Success")
-                } else {
-                    Log.d("ParticipantViewModel", "fetchWaitingList is Failed")
+                } catch (e : Exception) {
+                    throw IllegalArgumentException(e)
                 }
-            } catch (e : Exception) {
-                throw IllegalArgumentException(e)
             }
         }
     }
@@ -82,7 +104,7 @@ class ParticipantViewModel : ViewModel() {
                     rejectedUserId = userId,
                     studyId = studyId
                 )
-                val response = RetrofitManager.api.applyAccept(requestDto)
+                val response = AuthRetrofitManager.api.applyAccept(requestDto)
                 if (response.isSuccessful){
                     if (response.code() != 200) {
                         when (response.code()) {
@@ -114,7 +136,7 @@ class ParticipantViewModel : ViewModel() {
                     rejectedUserId = userId,
                     studyId = studyId
                 )
-                val response = RetrofitManager.api.applyReject(requestDto)
+                val response = AuthRetrofitManager.api.applyReject(requestDto)
                 if (response.isSuccessful){
                     if (response.code() != 200) {
                         when (response.code()) {

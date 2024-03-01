@@ -73,7 +73,7 @@ class MyInfoFragment : Fragment(), SecondCallBackListener {
                 .into(binding.imgProfile)
         })
 
-        viewModel.setOnClickListener(object : MyInfoCallbackListener {
+        viewModel.mSetOnClickListener(object : MyInfoCallbackListener {
             override fun myInfoCallbackResult(isSuccess: Boolean) {
                 if (!isSuccess)
                     deleteLoginData(true)
@@ -94,6 +94,7 @@ class MyInfoFragment : Fragment(), SecondCallBackListener {
             dialog.setOnClickListener(object : OnDialogClickListener {
                 override fun onclickResult() { // 로그아웃 "네" 누르면
                     deleteLoginData(true) // 로그인 요청 페이지로 이동
+                    viewModel.init() // 회원정보 초기화
                 }
             })
         }

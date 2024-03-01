@@ -360,6 +360,10 @@
         android:name="kr.co.gamja.study_hub.feature.studypage.studyContent.ContentFragment"
         android:label="fragment_study_detail"
         tools:layout="@layout/fragment_content">
+
+        <argument
+            android:name="isUser"
+            app:argType="boolean" />
         <argument
             android:name="postId"
             app:argType="integer" />
@@ -426,12 +430,12 @@
         app:destination="@id/applicationHistoryFragment" />
     <fragment
         android:id="@+id/serviceUseTermFragment"
-        android:name="kr.co.gamja.study_hub.ServiceUseTermFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.useterm.ServiceUseTermFragment"
         android:label="fragment_service_use_term"
         tools:layout="@layout/fragment_service_use_term" />
     <fragment
         android:id="@+id/personalInfoTermFragment"
-        android:name="kr.co.gamja.study_hub.PersonalInfoTermFragment"
+        android:name="kr.co.gamja.study_hub.feature.mypage.useterm.PersonalInfoTermFragment"
         android:label="fragment_personal_info_term"
         tools:layout="@layout/fragment_personal_info_term" />
     <fragment

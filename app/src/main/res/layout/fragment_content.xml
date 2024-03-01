@@ -15,7 +15,8 @@
     <RelativeLayout
         android:id="@+id/layout_relative"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/syswhite">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/content_toolbar"
@@ -51,7 +52,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/content_toolbar"
             android:layout_marginBottom="40dp"
             android:orientation="vertical">
@@ -63,7 +64,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/thirty_two"
+                    android:background="@color/sysblack2"
                     android:orientation="vertical">
 
 
@@ -72,6 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginTop="@dimen/thirty_two"
                         android:layout_marginRight="20dp"
                         android:text="@{viewModel.writingDate}"
                         android:textColor="@color/G_70"
@@ -493,6 +495,13 @@
                             android:layout_height="8dp"
                             android:layout_below="@+id/btn_commentOk"
                             android:background="@color/BG_30" />
+                        <View
+                            android:id="@+id/view_forEmpty"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:layout_below="@+id/view_divideComment"
+                            android:visibility="@{viewModel.emptyRecommendStudy?View.VISIBLE:View.GONE}"
+                            />
 
                         <TextView
                             android:id="@+id/head_recommend"
@@ -504,7 +513,8 @@
                             android:layout_marginBottom="24dp"
                             android:text="@string/fsd_head_recommend"
                             android:textColor="@color/sysblack1"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:visibility="@{viewModel.emptyRecommendStudy?View.GONE:View.VISIBLE}" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_recommend"
@@ -512,7 +522,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/head_recommend"
                             android:layout_marginHorizontal="@dimen/twenty"
-                            android:layout_marginBottom="40dp" />
+                            android:layout_marginBottom="40dp"
+                            android:visibility="@{viewModel.emptyRecommendStudy?View.GONE:View.VISIBLE}"/>
                     </RelativeLayout>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
@@ -524,7 +535,8 @@
             android:layout_alignParentBottom="true"
             android:background="@color/syswhite"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="@{viewModel.isWriter?View.GONE:View.VISIBLE}">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bookmark"
@@ -538,7 +550,8 @@
                 android:paddingHorizontal="8dp"
                 android:paddingTop="@dimen/sixteen"
                 android:paddingBottom="15dp"
-                android:tag="0" />
+                android:tag="0"
+                android:visibility="@{viewModel.isWriter?View.GONE:View.VISIBLE}" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_next"
@@ -548,10 +561,11 @@
                 android:layout_marginEnd="@dimen/twenty"
                 android:layout_marginBottom="10dp"
                 android:background="@{viewModel.isAppliedStudy?@drawable/btn_background_o_30_corner_6:@drawable/btn_background_o_50_corner_6}"
-                android:text="@{viewModel.isAppliedStudy?@string/alreadyAppliedUser:@string/fsd_btn_next}"
                 android:enabled="@{viewModel.isAppliedStudy?false:true}"
+                android:text="@{viewModel.isAppliedStudy?@string/alreadyAppliedUser:@string/fsd_btn_next}"
                 android:textColor="@color/syswhite"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="@{viewModel.isWriter?View.GONE:View.VISIBLE}" />
         </LinearLayout>
 
     </RelativeLayout>

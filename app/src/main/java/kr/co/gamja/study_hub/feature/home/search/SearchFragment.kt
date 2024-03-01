@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -35,7 +36,7 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private val viewModel: SearchViewModel by viewModels()
 
-    private lateinit var searchItemAdapter: SearchItemAdapter
+    private lateinit var searchItemAdapter : SearchItemAdapter
     private var page = 0
 
     //글자수 처리를 위한 변수
@@ -54,15 +55,32 @@ class SearchFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val itemList = MutableLiveData<List<ContentXXXX>>()
+        //만약 search 내용이 있다면 데이터를 fetch
+        val beforeSearchContent = arguments?.getString("search content")
+
+        if (beforeSearchContent != null) {
+            viewModel.fetchStudys(
+                searchContent = beforeSearchContent,
+                isHot = false,
+                isDepartment = false
+            )
+        }
+
+        val receiveBundle = arguments
+        if (receiveBundle != null) {
+            viewModel.isUserLogin.value= receiveBundle.getBoolean("isUser")
+//            Log.e(tagMsg, "유저인지$isUser")
+        } else Log.e(
+            msgTag,
+            "a bundle from mainHomeFragment is error" // todo("로그아웃 후 재로그인한 경우도 여기로 가는데 문제는 없음 ")
+        )
 
         //검색 결과 리스트
         viewModel.studys.observe(viewLifecycleOwner) { studys ->
-            itemList.postValue(studys)
             searchItemAdapter.updateList(studys)
             binding.isEmpty = studys.isEmpty()
             binding.cntItem = "${studys.size}개"
-            Log.d("SearchFragment", "itemlist : ${itemList.value}")
+            Log.d("SearchFragment", "itemlist : ${studys}")
         }
 
         //버튼 확인
@@ -126,11 +144,11 @@ class SearchFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
         binding.iconBack.setOnClickListener {
-            val navcontroller = findNavController()
-            navcontroller.navigateUp() // 뒤로 가기
+            findNavController().navigateUp() // 뒤로 가기
         }
 
         binding.iconBookmark.setOnClickListener {
+            saveSearchContent(binding.editSearch.text.toString())
             findNavController().navigate(
                 R.id.action_global_mainBookmarkFragment,
                 null
@@ -169,10 +187,11 @@ class SearchFragment : Fragment() {
 
         //recyclerView 설정
         // 모집중 스터디 어댑터 연결
-        searchItemAdapter = SearchItemAdapter(requireContext(), itemList.value?.toMutableList() ?: mutableListOf())
+        searchItemAdapter = SearchItemAdapter(requireContext())
         searchItemAdapter.setOnClickListener(object : SearchItemAdapter.OnViewClickListener{
             override fun onClick(action: Int) {
-                val navigateAction = ContentFragmentDirections.actionGlobalStudyContentFragment(action)
+                saveSearchContent(binding.editSearch.text.toString())
+                val navigateAction = ContentFragmentDirections.actionGlobalStudyContentFragment(viewModel.isUserLogin.value!!,action)
                 findNavController().navigate(
                     navigateAction
                 )
@@ -218,5 +237,12 @@ class SearchFragment : Fragment() {
                 viewModel.fetchStudys(searchContent, isHot, isDepartment)
             }
         }
+    }
+
+    //검색 내용 저장
+    fun saveSearchContent(content : String) {
+        val bundle = Bundle()
+        bundle.putString("search content", content)
+        arguments = bundle
     }
 }

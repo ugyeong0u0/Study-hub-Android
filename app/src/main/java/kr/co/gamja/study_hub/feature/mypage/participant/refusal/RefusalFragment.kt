@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentParticipationBinding
 import kr.co.gamja.study_hub.databinding.FragmentRefusalBinding
@@ -45,7 +46,7 @@ class RefusalFragment : Fragment() {
 
         //observing
         viewModel.refuseList.observe(viewLifecycleOwner, Observer{
-            adapter.submitList(it)
+            adapter.submitList(it, page)
             if (it.isEmpty()){
                 binding.imgEmptyParticipation.visibility = View.VISIBLE
                 binding.tvComment.visibility = View.VISIBLE
@@ -63,5 +64,19 @@ class RefusalFragment : Fragment() {
         adapter = RefusalAdapter(requireContext())
         binding.rcvContent.adapter = adapter
         binding.rcvContent.layoutManager = LinearLayoutManager(requireContext())
+        binding.rcvContent.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+
+                if (visibleItemCount + firstVisibleItem >= totalItemCount) {
+                    page += 1
+                }
+            }
+        })
     }
 }

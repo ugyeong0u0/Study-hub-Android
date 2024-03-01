@@ -14,12 +14,16 @@ class WaitingContentAdapter(val context : Context) : RecyclerView.Adapter<Waitin
 
     private lateinit var onClickListener : OnClickListener
 
-    private lateinit var onUpdateReasonListener : OnUpdateReasonListener
-
     private val itemList = mutableListOf<RegisterListContent>()
 
-    fun submitList(itemList : List<RegisterListContent>){
-        this.itemList.clear()
+    private var page = 0
+
+    fun submitList(itemList : List<RegisterListContent>, page : Int){
+        if (this.page < page){
+            this.page += 1
+        } else {
+            this.itemList.clear()
+        }
         this.itemList.addAll(itemList)
         notifyDataSetChanged()
     }
@@ -45,10 +49,6 @@ class WaitingContentAdapter(val context : Context) : RecyclerView.Adapter<Waitin
         fun onRefusalClick(userId : Int)
     }
 
-    interface OnUpdateReasonListener {
-        fun updateReason(reason : String)
-    }
-
     inner class ContentHolder(val binding: WaitingItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item : RegisterListContent){
@@ -71,13 +71,12 @@ class WaitingContentAdapter(val context : Context) : RecyclerView.Adapter<Waitin
 
                 application.text = item.introduce
 
-                /** item.id가 참여 신청한 user의 id가 맞을까요? */
-
                 btnRefusal.setOnClickListener{
                     onClickListener.onRefusalClick(item.id)
                 }
 
                 btnAccept.setOnClickListener{
+                    /** dialog를 띄워야 함 */
                     onClickListener.onAcceptClick(item.id)
                 }
             }

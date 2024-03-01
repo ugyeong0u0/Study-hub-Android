@@ -67,6 +67,10 @@ interface StudyHubApi {
     @POST("/api/v1/bookmark/{postId}")
     suspend fun saveDeleteBookmark(@Path("postId") postId: Int?): Response<BookmarkSaveDeleteResponse>
 
+    // 북마크 전체 삭제
+    @DELETE("/api/v1/bookmark")
+    suspend fun deleteAll():Response<Unit>
+
     /** email-controller */
 
     //이메일 인증코드 전송
@@ -111,6 +115,10 @@ interface StudyHubApi {
         @Query("page") page : Int,
         @Query("size") size : Int,
     ) : Response<AnnounceRequestDto>
+
+    // 이용약관 조회
+    @GET("/api/v1/terms-of-use")
+    suspend fun  getUserTerm():Response<UseTermResponse>
 
     /** notification-controller */
 
@@ -239,5 +247,6 @@ interface StudyHubApi {
     // 단일 거절 이유 보기
     @GET("/api/v1/reject")
     suspend fun getDenyReason(@Query("studyId") studyId: Int) : Response<CheckDenyReasonResponse>
+
 
 }

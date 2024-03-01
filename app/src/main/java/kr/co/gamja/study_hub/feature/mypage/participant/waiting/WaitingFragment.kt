@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentWaitingBinding
 import kr.co.gamja.study_hub.feature.mypage.participant.BottomSheet
@@ -25,7 +26,7 @@ class WaitingFragment : Fragment() {
 
     private val viewModel : ParticipantViewModel by viewModels()
 
-    private var pageNum = 0
+    private var page = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,12 +40,12 @@ class WaitingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val studyId = arguments?.getInt("studyId") ?: -1
-        val postId = arguments?.getInt("postId") ?: -1
+
         initRecyclerView(studyId)
 
         //observing
         viewModel.participantWaitingList.observe(viewLifecycleOwner, Observer{
-            adapter.submitList(it)
+            adapter.submitList(it, page)
             if (it.isEmpty()){
                 binding.imgEmptyParticipation.visibility = View.VISIBLE
                 binding.tvComment.visibility = View.VISIBLE
@@ -56,7 +57,7 @@ class WaitingFragment : Fragment() {
             }
         })
 
-        viewModel.fetchData("STANDBY", studyId, pageNum)
+        viewModel.fetchData("STANDBY", studyId, page)
     }
 
     //RecyclerView 초기화
@@ -73,7 +74,7 @@ class WaitingFragment : Fragment() {
             /** 수락 선택 >> Dialog 띄워야 함 */
             override fun onAcceptClick(userId : Int) {
                 viewModel.accept(studyId, userId)
-                viewModel.fetchData("STANDBY", studyId, pageNum)
+                viewModel.fetchData("STANDBY", studyId, page)
             }
 
             //거절 선택 >> BottomFragment
@@ -83,6 +84,7 @@ class WaitingFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putInt("userId", userId)
                 bundle.putInt("studyId", studyId)
+                bundle.putInt("page", page)
                 bottomSheetFragment.arguments = bundle
                 bottomSheetFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
                 bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
@@ -92,6 +94,20 @@ class WaitingFragment : Fragment() {
         adapter.setOnClickListener(listener)
         binding.rcvContent.adapter = adapter
         binding.rcvContent.layoutManager = LinearLayoutManager(requireContext())
+        binding.rcvContent.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+
+                if (visibleItemCount + firstVisibleItem >= totalItemCount) {
+                    page += 1
+                }
+            }
+        })
         val itemSpace = resources.getDimensionPixelSize(R.dimen.thirty)
         val deco = RcvDecoration(itemSpace)
         binding.rcvContent.addItemDecoration(deco)

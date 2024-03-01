@@ -90,6 +90,14 @@
             android:textSize="14sp"
             android:visibility="@{viewModel.isList?View.INVISIBLE:View.VISIBLE}" />
 
+        <ProgressBar
+            android:id="@+id/applicationHistoryProgressBar"
+            style="@style/CustomProgressBar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"/>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_engagedStudy"
             android:layout_width="match_parent"
