@@ -68,9 +68,8 @@ class Splash : AppCompatActivity() {
                         override fun onfail(isBoolean: Boolean) {
                             if (isBoolean) {
                                 Log.e(tagMsg, "3. 리프레시토큰 유효x ")
-                                Toast.makeText(this@Splash, "리프레쉬 토큰 만료", Toast.LENGTH_LONG)
-                                    .show()
-
+//                                Toast.makeText(this@Splash, "리프레쉬 토큰 만료", Toast.LENGTH_LONG)
+//                                    .show()
                                 Log.d(tagMsg, "리프레시 토큰 지우기")
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val dataStoreInstance = App.getInstance().getDataStore()

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -42,7 +43,6 @@ class ContentFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_content, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,7 +63,18 @@ class ContentFragment : Fragment() {
 
         binding.iconBack.setOnClickListener {
             findNavController().navigateUp() // 뒤로 가기
+            viewModel.studyComment.value = "" // 댓글 지우기
         }
+        // 뒤로갈 시 댓글 지우기
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    viewModel.studyComment.value = "" // 입력된 댓글 지우기
+                    findNavController().navigateUp() // 뒤로 가기
+                }
+            })
+
         binding.iconThreeDot.setOnClickListener {
             getModal(args.postId)
         }
