@@ -211,6 +211,7 @@ class StudyMainFragment : Fragment() {
         lifecycleScope.launch {
             adapter.loadStateFlow.collectLatest { loadState ->
                 binding.mainHomeProgressBar.isVisible = loadState.refresh is LoadState.Loading
+                binding.iconBookmark.isEnabled = !binding.mainHomeProgressBar.isVisible
             }
         }
     }

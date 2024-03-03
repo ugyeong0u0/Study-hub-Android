@@ -65,10 +65,8 @@ class ParticipantViewModel : ViewModel() {
                         when(inspection){
                             "STANDBY" -> {
                                 Log.d("ParticipantViewModel", "waiting start ${_participantWaitingList}")
-                                Log.d("ParticipantViewModel", "${ participantWaitingList.value }")
                                 _participantWaitingList.postValue(tmpData)
                                 Log.d("ParticipantViewModel", "waiting fetch ${_participantWaitingList}")
-                                Log.d("ParticipantViewModel", "${ participantWaitingList.value }")
                             }
                             "ACCEPT" -> {
                                 Log.d("ParticipantViewModel", "accept start ${_participantWaitingList.value}")
@@ -98,27 +96,29 @@ class ParticipantViewModel : ViewModel() {
         studyId : Int,
         userId : Int
     ){
-        viewModelScope.launch(Dispatchers.IO){
-            try{
-                val requestDto = ApplyAccpetRequest(
-                    rejectedUserId = userId,
-                    studyId = studyId
-                )
-                val response = AuthRetrofitManager.api.applyAccept(requestDto)
-                if (response.isSuccessful){
-                    if (response.code() != 200) {
-                        when (response.code()) {
-                            401 -> _errMsg.postValue("Unauthorized")
-                            403 -> _errMsg.postValue("Forbidden")
-                            404 -> _errMsg.postValue("Not Found")
+        runBlocking{
+            viewModelScope.launch(Dispatchers.IO){
+                try{
+                    val requestDto = ApplyAccpetRequest(
+                        rejectedUserId = userId,
+                        studyId = studyId
+                    )
+                    val response = AuthRetrofitManager.api.applyAccept(requestDto)
+                    if (response.isSuccessful){
+                        if (response.code() != 200) {
+                            when (response.code()) {
+                                401 -> _errMsg.postValue("Unauthorized")
+                                403 -> _errMsg.postValue("Forbidden")
+                                404 -> _errMsg.postValue("Not Found")
+                            }
                         }
+                    } else {
+                        Log.d("ParticipantViewModel", "response is ${response}")
+                        Log.d("ParticipantViewModel", "Accept is Failed")
                     }
-                } else {
-                    Log.d("ParticipantViewModel", "response is ${response}")
-                    Log.d("ParticipantViewModel", "Accept is Failed")
+                } catch (e: Exception){
+                    throw IllegalArgumentException(e)
                 }
-            } catch (e: Exception){
-                throw IllegalArgumentException(e)
             }
         }
     }
@@ -129,27 +129,30 @@ class ParticipantViewModel : ViewModel() {
         studyId : Int,
         userId : Int
     ){
-        viewModelScope.launch(Dispatchers.IO){
-            try {
-                val requestDto = ApplyRejectDto(
-                    rejectReason = rejectReason,
-                    rejectedUserId = userId,
-                    studyId = studyId
-                )
-                val response = AuthRetrofitManager.api.applyReject(requestDto)
-                if (response.isSuccessful){
-                    if (response.code() != 200) {
-                        when (response.code()) {
-                            401 -> _errMsg.postValue("Unauthorized")
-                            403 -> _errMsg.postValue("Forbidden")
-                            404 -> _errMsg.postValue("Not Found")
+        runBlocking{
+            viewModelScope.launch(Dispatchers.IO){
+                try {
+                    val requestDto = ApplyRejectDto(
+                        rejectReason = rejectReason,
+                        rejectedUserId = userId,
+                        studyId = studyId
+                    )
+
+                    val response = AuthRetrofitManager.api.applyReject(requestDto)
+                    if (response.isSuccessful){
+                        if (response.code() != 200) {
+                            when (response.code()) {
+                                401 -> _errMsg.postValue("Unauthorized")
+                                403 -> _errMsg.postValue("Forbidden")
+                                404 -> _errMsg.postValue("Not Found")
+                            }
                         }
+                    } else {
+                        Log.d("ParticipantViewModel", "Refusal is Failed")
                     }
-                } else {
-                    Log.d("ParticipantViewModel", "Refusal is Failed")
+                } catch (e : Exception) {
+                    throw IllegalArgumentException(e)
                 }
-            } catch (e : Exception) {
-                throw IllegalArgumentException(e)
             }
         }
     }

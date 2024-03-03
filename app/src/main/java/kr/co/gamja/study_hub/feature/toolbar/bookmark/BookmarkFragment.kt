@@ -53,12 +53,13 @@ class BookmarkFragment : Fragment() {
         val receiveBundle = arguments
         if (receiveBundle != null) {
             isUser = receiveBundle.getBoolean("isUser")
-//            Log.e(tagMsg, "유저인지$isUser")
+//            Log.e(tagMsg, "유저인지1 $isUser")
         } else Log.e(
             tagMsg,
             "a bundle from BookmarkFragment is error" // todo("로그아웃 후 재로그인한 경우도 여기로 가는데 문제는 없음 ")
         )
         viewModel.isUserLogin.value = isUser // 회원 비회원인지 저장
+//        Log.e("북마크 회원인지2 ", viewModel.isUserLogin.value.toString())
         // 툴바 설정
         val toolbar = binding.bookMarkToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -87,12 +88,15 @@ class BookmarkFragment : Fragment() {
                 when (whatItem) {
                     1 -> {
                         val action =
-                            BookmarkFragmentDirections.actionGlobalStudyContentFragment(viewModel.isUserLogin.value!!,postingId.postId )
+                            BookmarkFragmentDirections.actionGlobalStudyContentFragment(
+                                viewModel.isUserLogin.value!!,
+                                postingId.postId
+                            )
                         findNavController().navigate(action)
                     }
                     2 -> { // 신청하기 일 때
                         val bundle = Bundle()
-                        bundle.putString("whatPage","bookmark") // 북마크 페이지에서 왔음을 알림, 신청후 백스택제거 때문
+                        bundle.putString("whatPage", "bookmark") // 북마크 페이지에서 왔음을 알림, 신청후 백스택제거 때문
                         bundle.putInt("postId", postingId.postId)
                         bundle.putInt("studyId", postingId.studyId)
                         findNavController().navigate(R.id.action_global_applicationFragment, bundle)
@@ -121,8 +125,12 @@ class BookmarkFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            adapter.loadStateFlow.collectLatest { loadState ->
-                binding.bookmarkProgressBar.isVisible = loadState.refresh is LoadState.Loading
+            if (viewModel.isUserLogin.value == true) {
+                adapter.loadStateFlow.collectLatest { loadState ->
+                    binding.bookmarkProgressBar.isVisible = loadState.refresh is LoadState.Loading
+                }
+            } else {
+                binding.bookmarkProgressBar.isVisible = false
             }
         }
 
