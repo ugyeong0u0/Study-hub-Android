@@ -15,4 +15,4 @@
 ![13_Recruit](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/95032a3c-879d-4152-9da3-35ec6b8cc8d5)
 ![14_Manage](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/4c039daf-7d9f-48e5-9b14-bab7f2f07a73)
 ![15_Alarm](https://github.com/ugyeong0u0/Study-hub-Android/assets/120684605/eceee9a3-5d39-490c-a0c9-0509b14f917d)
-![Uploading End.png…]()
+![End](https://github.com/study-hub-inu/Study-hub-Android/assets/120684605/bad0bf2d-c6b9-4fcf-8f65-a212d18e7098)
