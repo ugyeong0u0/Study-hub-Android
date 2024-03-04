@@ -23,19 +23,21 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentBottomSheetListDialogBinding
 
 class BottomSheet() : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentBottomSheetListDialogBinding
-    private val viewModel : ParticipantViewModel by viewModels()
+    private val viewModel: ParticipantViewModel by viewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         //dialog height 수정
         val bottomSheetDialog = BottomSheetDialog(requireContext(), theme)
         bottomSheetDialog.setOnShowListener { dialog ->
             val bottomSheet =
-                (dialog as BottomSheetDialog).findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet) ?: throw NullPointerException("Bottom Dialog is NULL")
+                (dialog as BottomSheetDialog).findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
+                    ?: throw NullPointerException("Bottom Dialog is NULL")
             val behavior = BottomSheetBehavior.from(bottomSheet)
 
             // 화면 높이의 40%로 설정
@@ -64,7 +66,7 @@ class BottomSheet() : BottomSheetDialogFragment() {
         //선택 사유
         var selectedReason = ""
 
-        binding.apply{
+        binding.apply {
 
             //초기 거절 비활성화
             btnRefusal.isEnabled = false
@@ -74,8 +76,8 @@ class BottomSheet() : BottomSheetDialogFragment() {
 
             //radio group 내 button의 check 상태 변경 listener
             rgSelect.setOnCheckedChangeListener { group, checkedId ->
-                Log.d("TEST STUDY","SetOnCheckedChangedListener")
-                selectedReason = when (checkedId){
+                Log.d("TEST STUDY", "SetOnCheckedChangedListener")
+                selectedReason = when (checkedId) {
                     R.id.chb1 -> chb1.text.toString()
                     R.id.chb2 -> chb2.text.toString()
                     R.id.chb3 -> chb3.text.toString()
@@ -92,7 +94,7 @@ class BottomSheet() : BottomSheetDialogFragment() {
             val page = arguments?.getInt("page") ?: -1
 
             //거절 버튼
-            btnRefusal.setOnClickListener{
+            btnRefusal.setOnClickListener {
                 //tvR4 텍스트 메세지라면? 거절 사유 작성 화면으로 navigation
                 if (selectedReason == chb4.text.toString()) {
                     val bundle = Bundle()
@@ -101,16 +103,16 @@ class BottomSheet() : BottomSheetDialogFragment() {
                     arguments = bundle
                     //RefusalFragment로 이동
                     findNavController().navigate(
-                            R.id.action_participantFragment_to_refusalReasonFragment,
-                            arguments
+                        R.id.action_participantFragment_to_refusalReasonFragment,
+                        arguments
                     )
                     dismiss()
                 } else {
-                    if (userId != -1 &&  studyId != -1 && page != -1){
+                    if (userId != -1 && studyId != -1 && page != -1) {
 
                         Log.d("Participant", "userId = ${userId} studyId = ${studyId}")
 
-                        runBlocking{
+                        /*runBlocking{
                             Log.d("Participant", "run BLocking")
                             //거절 api 사용
                             viewModel.reject(
@@ -119,24 +121,39 @@ class BottomSheet() : BottomSheetDialogFragment() {
                                 userId = userId
                             ).join()
                             Log.d("Participant", "done run blocking")
-                        }
-                        //dialog 띄우기
-                        val customToast = CustomToast()
-                        val bundle = Bundle()
-                        bundle.putInt("studyId", studyId)
-                        bundle.putInt("page", page)
-                        arguments = bundle
+                        }*/
+                        viewModel.reject(
+                            rejectReason = selectedReason,
+                            studyId = studyId,
+                            userId = userId,
+                            object : CallBackListener {
+                                override fun isSuccess(result: Boolean) {
+                                    if (result) {
+                                        //dialog 띄우기
+                                        val customToast = CustomToast()
+                                        val bundle = Bundle()
+                                        bundle.putInt("studyId", studyId)
+                                        bundle.putInt("page", page)
+                                        arguments = bundle
 
-                        customToast.show(requireActivity().supportFragmentManager, "Toast")
+                                        customToast.show(
+                                            requireActivity().supportFragmentManager,
+                                            "Toast"
+                                        )
 
-                        Log.d("Participant", "dismiss")
-                        dismiss()
+                                        Log.d("Participant", "dismiss")
+                                        dismiss()
+                                    }
+                                }
+                            }
+                        )
+
                     }
                 }
             }
 
             //bottom sheet dialog 닫기
-            btnClose.setOnClickListener{
+            btnClose.setOnClickListener {
                 dismiss()
             }
         }

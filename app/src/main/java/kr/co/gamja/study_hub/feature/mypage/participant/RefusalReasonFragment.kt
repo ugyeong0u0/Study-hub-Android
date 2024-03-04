@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentRefusalReasonBinding
 
 class RefusalReasonFragment : Fragment() {
@@ -68,24 +69,28 @@ class RefusalReasonFragment : Fragment() {
                     rejectReason = etRefusalReason.text.toString(),
                     studyId = studyId,
                     userId = userId,
+                    object : CallBackListener{
+                        override fun isSuccess(result: Boolean) {
+                            //dialog 띄우기
+                            val customToast = CustomToast()
+
+                            customToast.show(requireActivity().supportFragmentManager, "Toast")
+
+                            val bundle = Bundle()
+                            bundle.putInt("studyId", studyId)
+                            arguments = bundle
+
+                            // Navigation back stack에서 현재 프래그먼트를 제거
+                            findNavController().popBackStack(R.id.participantFragment, false)
+
+                            findNavController().navigate(
+                                R.id.action_global_to_participantFragment,
+                                arguments
+                            )
+                        }
+                    }
                 )
 
-                //dialog 띄우기
-                val customToast = CustomToast()
-
-                customToast.show(requireActivity().supportFragmentManager, "Toast")
-
-                val bundle = Bundle()
-                bundle.putInt("studyId", studyId)
-                arguments = bundle
-
-                // Navigation back stack에서 현재 프래그먼트를 제거
-                findNavController().popBackStack(R.id.participantFragment, false)
-
-                findNavController().navigate(
-                    R.id.action_global_to_participantFragment,
-                    arguments
-                )
             }
         }
     }
