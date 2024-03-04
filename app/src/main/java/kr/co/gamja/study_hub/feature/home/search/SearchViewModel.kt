@@ -15,12 +15,13 @@ import kr.co.gamja.study_hub.data.repository.RetrofitManager
 class SearchViewModel: ViewModel() {
 
     val tag = this.javaClass.simpleName
-    // editText 입력 단어 - 통신 보낼 변수
+
+    //검색된 내용
+    private var keyword = ""
 
     // 둘러보기인지
     var isUserLogin = MutableLiveData<Boolean>(true)
 
-    val searchWord = MutableLiveData<String>()
     private val _searchImg =MutableLiveData<Boolean>(true)
     val searchImg:LiveData<Boolean> get() =_searchImg
 
@@ -31,11 +32,11 @@ class SearchViewModel: ViewModel() {
 
     // 텍스트 지우기 검색 이미지 활성화
     fun updateSearchImg(){
-        _searchImg.value = searchWord.value.toString().isEmpty()
+        _searchImg.value = keyword == ""
     }
 
     // 단어를 가지고 검색
-    fun fetchStudys(searchContent: String, isHot : Boolean, isDepartment: Boolean){
+    fun fetchStudys(isHot : Boolean, isDepartment: Boolean){
         runBlocking{
             viewModelScope.launch(Dispatchers.IO) {
                 try {
@@ -43,7 +44,7 @@ class SearchViewModel: ViewModel() {
                         hot = isHot,
                         page = 0,
                         size = 10,
-                        inquiryText = searchContent,
+                        inquiryText = keyword,
                         titleAndMajor = !isDepartment
                     )
                     if (response.isSuccessful){
@@ -61,12 +62,8 @@ class SearchViewModel: ViewModel() {
         }
     }
 
-    fun resetList() {
-        _studys.postValue(listOf())
-    }
-
     //데이터 추가
-    suspend fun addSearchData(isHot : Boolean, searchContent: String, isDepartment: Boolean, page : Int) =
+    suspend fun addSearchData(isHot : Boolean, isDepartment: Boolean, page : Int) =
         viewModelScope.async(Dispatchers.IO) {
 
             Log.d(tag,"addSearchData : ${_studys.value}")
@@ -75,8 +72,8 @@ class SearchViewModel: ViewModel() {
                 val response = RetrofitManager.api.getStudyPostAll(
                     hot = isHot,
                     page = page,
-                    size = 8,
-                    inquiryText = searchContent,
+                    size = 10,
+                    inquiryText = keyword,
                     titleAndMajor = !isDepartment
                 )
 
@@ -95,4 +92,12 @@ class SearchViewModel: ViewModel() {
                 return@async e.message
             }
         }.await()
+
+    //검색어 저장
+    fun saveKeyword(keyword : String) {
+        this.keyword = keyword
+    }
+
+    //검색어 불러오기
+    fun getKeyword() = keyword
 }

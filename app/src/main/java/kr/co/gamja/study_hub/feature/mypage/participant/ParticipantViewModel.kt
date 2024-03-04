@@ -2,6 +2,7 @@ package kr.co.gamja.study_hub.feature.mypage.participant
 
 import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.util.Log
+import androidx.datastore.dataStore
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,11 +10,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kr.co.gamja.study_hub.data.model.ApplyAccpetRequest
+import kr.co.gamja.study_hub.data.model.ApplyAcceptRequest
 import kr.co.gamja.study_hub.data.model.ApplyRejectDto
 import kr.co.gamja.study_hub.data.model.RegisterListContent
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
+import okhttp3.Authenticator
 import okhttp3.internal.notify
 import kotlin.reflect.typeOf
 
@@ -44,49 +46,40 @@ class ParticipantViewModel : ViewModel() {
         studyId : Int,
         page : Int,
     ) {
-        Log.d("Participant", "study id : ${studyId}")
-        runBlocking{
-            viewModelScope.launch(Dispatchers.IO){
-                //신청 리스트 받아오기
-                try {
-                    val response = RetrofitManager.api.getRegisterList(inspection, page, 8, studyId)
-                    Log.d("Participant", "${ response.body() }")
-                    if (response.isSuccessful){
-                        val result = response.body() ?: throw NullPointerException("Result is NULL")
-                        val datas = result.applyUserData.content
+        viewModelScope.launch(Dispatchers.IO){
+            //신청 리스트 받아오기
+            try {
+                Log.d("Participant", "fetch start")
+                val response =
+                    if (inspection == "REJECT") AuthRetrofitManager.api.getRegisterListReject(page = page, size = 10, studyId = studyId)
+                    else RetrofitManager.api.getRegisterList(inspection, page, 10, studyId)
 
-                        val tmpData = mutableListOf<RegisterListContent>()
+                if (response.isSuccessful){
+                    val result = response.body() ?: throw NullPointerException("Result is NULL")
+                    val datas = result.applyUserData.content
 
-                        datas.forEach{ data ->
-                            tmpData.add(data)
-                        }
-                        Log.d("ParticipantViewModel", "fetch data ~ing")
-                        Log.d("ParticipantViewModel", "new data : ${tmpData}")
-                        when(inspection){
-                            "STANDBY" -> {
-                                Log.d("ParticipantViewModel", "waiting start ${_participantWaitingList}")
-                                _participantWaitingList.postValue(tmpData)
-                                Log.d("ParticipantViewModel", "waiting fetch ${_participantWaitingList}")
-                            }
-                            "ACCEPT" -> {
-                                Log.d("ParticipantViewModel", "accept start ${_participantWaitingList.value}")
-                                _acceptList.postValue(tmpData)
-                                Log.d("ParticipantViewModel", "accept fetch ${_participantWaitingList.value}")
-                            }
-                            "REJECT" -> {
-                                Log.d("ParticipantViewModel", "reject start ${_participantWaitingList.value}")
-                                _refuseList.postValue(tmpData)
-                                Log.d("ParticipantViewModel", "reject fetch ${_participantWaitingList.value}")
-                            }
-                        }
+                    val tmpData = mutableListOf<RegisterListContent>()
 
-                        Log.d("ParticipantViewModel", "fetchWaitingList is Success")
-                    } else {
-                        Log.d("ParticipantViewModel", "fetchWaitingList is Failed")
+                    datas.forEach{ data ->
+                        tmpData.add(data)
                     }
-                } catch (e : Exception) {
-                    throw IllegalArgumentException(e)
+                    when(inspection){
+                        "STANDBY" -> {
+                            _participantWaitingList.postValue(tmpData)
+                        }
+                        "ACCEPT" -> {
+                            _acceptList.postValue(tmpData)
+                        }
+                        "REJECT" -> {
+                            _refuseList.postValue(tmpData)
+                        }
+                    }
+                } else {
+                    Log.d("ParticipantViewModel", "fetchWaitingList is Failed")
                 }
+                Log.d("Participant", "fetch done")
+            } catch (e : Exception) {
+                throw IllegalArgumentException(e)
             }
         }
     }
@@ -96,29 +89,27 @@ class ParticipantViewModel : ViewModel() {
         studyId : Int,
         userId : Int
     ){
-        runBlocking{
-            viewModelScope.launch(Dispatchers.IO){
-                try{
-                    val requestDto = ApplyAccpetRequest(
-                        rejectedUserId = userId,
-                        studyId = studyId
-                    )
-                    val response = AuthRetrofitManager.api.applyAccept(requestDto)
-                    if (response.isSuccessful){
-                        if (response.code() != 200) {
-                            when (response.code()) {
-                                401 -> _errMsg.postValue("Unauthorized")
-                                403 -> _errMsg.postValue("Forbidden")
-                                404 -> _errMsg.postValue("Not Found")
-                            }
+        viewModelScope.launch(Dispatchers.IO){
+            try{
+                val requestDto = ApplyAcceptRequest(
+                    rejectedUserId = userId,
+                    studyId = studyId
+                )
+                val response = AuthRetrofitManager.api.applyAccept(requestDto)
+                if (response.isSuccessful){
+                    if (response.code() != 200) {
+                        when (response.code()) {
+                            401 -> _errMsg.postValue("Unauthorized")
+                            403 -> _errMsg.postValue("Forbidden")
+                            404 -> _errMsg.postValue("Not Found")
                         }
-                    } else {
-                        Log.d("ParticipantViewModel", "response is ${response}")
-                        Log.d("ParticipantViewModel", "Accept is Failed")
                     }
-                } catch (e: Exception){
-                    throw IllegalArgumentException(e)
+                } else {
+                    Log.d("ParticipantViewModel", "response is ${response}")
+                    Log.d("ParticipantViewModel", "Accept is Failed")
                 }
+            } catch (e: Exception){
+                throw IllegalArgumentException(e)
             }
         }
     }
@@ -129,30 +120,31 @@ class ParticipantViewModel : ViewModel() {
         studyId : Int,
         userId : Int
     ){
-        runBlocking{
-            viewModelScope.launch(Dispatchers.IO){
-                try {
-                    val requestDto = ApplyRejectDto(
-                        rejectReason = rejectReason,
-                        rejectedUserId = userId,
-                        studyId = studyId
-                    )
-
-                    val response = AuthRetrofitManager.api.applyReject(requestDto)
-                    if (response.isSuccessful){
-                        if (response.code() != 200) {
-                            when (response.code()) {
-                                401 -> _errMsg.postValue("Unauthorized")
-                                403 -> _errMsg.postValue("Forbidden")
-                                404 -> _errMsg.postValue("Not Found")
-                            }
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val requestDto = ApplyRejectDto(
+                    rejectReason = rejectReason,
+                    rejectedUserId = userId,
+                    studyId = studyId
+                )
+                val response = AuthRetrofitManager.api.applyReject(requestDto)
+                Log.d("Participant", "${response.body()}")
+                if (response.isSuccessful){
+                    if (response.code() != 200) {
+                        when (response.code()) {
+                            401 -> _errMsg.postValue("Unauthorized")
+                            403 -> _errMsg.postValue("Forbidden")
+                            404 -> _errMsg.postValue("Not Found")
+                            else -> Log.e("Error", "${response.body()}")
                         }
                     } else {
-                        Log.d("ParticipantViewModel", "Refusal is Failed")
+                        Log.d("Participant", "${response.errorBody()}")
                     }
-                } catch (e : Exception) {
-                    throw IllegalArgumentException(e)
+                } else {
+                    Log.d("ParticipantViewModel", "Refusal is Failed")
                 }
+            } catch (e : Exception) {
+                throw IllegalArgumentException(e.message)
             }
         }
     }

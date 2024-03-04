@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -16,8 +17,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.navigateUp
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
@@ -34,13 +37,10 @@ import kr.co.gamja.study_hub.global.ExtensionFragment.Companion.hideKeyboard
 class SearchFragment : Fragment() {
     private val msgTag = this.javaClass.simpleName
     private lateinit var binding: FragmentSearchBinding
-    private val viewModel: SearchViewModel by viewModels()
+    private lateinit var viewModel: SearchViewModel
 
     private lateinit var searchItemAdapter : SearchItemAdapter
     private var page = 0
-
-    //글자수 처리를 위한 변수
-    private var lastLength = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,36 +52,44 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //viewModel 초기화
+        viewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
+
+        //keyword로 받은 데이터가 있다면 view model에 저장
+        val keyword = arguments?.getString("keyword")
+
+        if (keyword != null) {
+            viewModel.saveKeyword(keyword)
+
+        }
+        binding.keyword = viewModel.getKeyword()
+
+        //검색 결과 리스트
+        viewModel.studys.observe(viewLifecycleOwner) { studys ->
+            Log.d("SearchFragment", "${studys}")
+            searchItemAdapter.updateList(studys)
+            binding.isEmpty = studys.isEmpty()
+            binding.cntItem = "${studys.size}개"
+        }
+
+        //ViewCreated 시 list update
+        viewModel.fetchStudys(
+            isHot = false,
+            isDepartment = false
+        )
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
-        //만약 search 내용이 있다면 데이터를 fetch
-        val beforeSearchContent = arguments?.getString("search content")
-
-        if (beforeSearchContent != null) {
-            viewModel.fetchStudys(
-                searchContent = beforeSearchContent,
-                isHot = false,
-                isDepartment = false
-            )
-        }
 
         val receiveBundle = arguments
         if (receiveBundle != null) {
             viewModel.isUserLogin.value= receiveBundle.getBoolean("isUser")
-//            Log.e(tagMsg, "유저인지$isUser")
+        //Log.e(tagMsg, "유저인지$isUser")
         } else Log.e(
             msgTag,
             "a bundle from mainHomeFragment is error" // todo("로그아웃 후 재로그인한 경우도 여기로 가는데 문제는 없음 ")
         )
-
-        //검색 결과 리스트
-        viewModel.studys.observe(viewLifecycleOwner) { studys ->
-            searchItemAdapter.updateList(studys)
-            binding.isEmpty = studys.isEmpty()
-            binding.cntItem = "${studys.size}개"
-            Log.d("SearchFragment", "itemlist : ${studys}")
-        }
 
         //버튼 확인
         binding.isAll = true
@@ -94,9 +102,8 @@ class SearchFragment : Fragment() {
             binding.isHot = false
             binding.isDepartment = false
             //조회 순서 그대로
-            val textToString = binding.editSearch.text.toString()
-            if (textToString.length > 0){
-                viewModel.fetchStudys(textToString, false, false)
+            if (binding.editSearch.text.toString().length > 0){
+                viewModel.fetchStudys(false, false)
             }
         }
         
@@ -106,9 +113,8 @@ class SearchFragment : Fragment() {
             binding.isHot = true
             binding.isDepartment = false
             //인기 순서
-            val textToString = binding.editSearch.text.toString()
-            if (textToString.length > 0){
-                viewModel.fetchStudys(textToString, true, false)
+            if (binding.editSearch.text.toString().length > 0){
+                viewModel.fetchStudys(true, false)
             }
         }
         
@@ -118,26 +124,11 @@ class SearchFragment : Fragment() {
             binding.isHot = false
             binding.isDepartment = true
             //학과 순으로 순서 변경
-            val textToString = binding.editSearch.text.toString()
-            if (textToString.length > 0){
-                viewModel.fetchStudys(textToString, false, true)
+            if (binding.editSearch.text.toString().length > 0){
+                viewModel.fetchStudys( false, true)
             }
         }
-        
-        // 에딧텍스트 자판 내리기
-        binding.root.setOnTouchListener { v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    this.hideKeyboard()
-                    v.performClick()
-                    true
-                }
-                else -> false
-            }
-        }
+
         // 툴바 설정
         val toolbar = binding.searchMainToolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -148,49 +139,51 @@ class SearchFragment : Fragment() {
         }
 
         binding.iconBookmark.setOnClickListener {
-            saveSearchContent(binding.editSearch.text.toString())
             findNavController().navigate(
                 R.id.action_global_mainBookmarkFragment,
                 null
             )
         }
-
-        // 글자 입력시 돋보기 x자보이게 처리
-        viewModel.searchWord.observe(viewLifecycleOwner) {
-            viewModel.updateSearchImg()
-        }
-        // editText 검색어 지우기
+        // SearchingFragment로 이동
         binding.btnTextDelete.setOnClickListener {
-            binding.editSearch.text.clear()
-            viewModel.resetList()
+            //초기화
+            findNavController().navigate(
+                R.id.action_search_to_search_recommend,
+                null
+            )
         }
 
-        //검색 클릭 시
-        binding.editSearch.addTextChangedListener (object: TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        //editSearch가 Focus되면 navigateUp()
+        binding.editSearch.setOnTouchListener { _, event ->
+            if (event.action == KeyEvent.ACTION_DOWN) {
+                val bundle = Bundle()
+                bundle.putString("beforeKeyword", viewModel.getKeyword())
+                arguments = bundle
+                findNavController().navigate(
+                    R.id.action_search_to_search_recommend,
+                    arguments
+                )
+                return@setOnTouchListener true
             }
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!s.isNullOrEmpty()){
-                    if (s.length > lastLength){
-                        val isHot = binding.isHot ?: false
-                        val isDepartment = binding.isDepartment ?: false
-                        onUpdateStudys(s.toString(), isHot, isDepartment)
-                    } else {
-                        viewModel.resetList()
-                    }
-                }
-                lastLength = s?.length ?: 0
-            }
-            override fun afterTextChanged(s: Editable?) {
-            }
-        })
+            false
+        }
+
+        binding.editSearch.setOnClickListener{
+            //이전 데이터를 가지고 있어야 함
+            val bundle = Bundle()
+            bundle.putString("beforeKeyword", viewModel.getKeyword())
+            arguments = bundle
+            findNavController().navigate(
+                R.id.action_search_to_search_recommend,
+                arguments
+            )
+        }
 
         //recyclerView 설정
         // 모집중 스터디 어댑터 연결
         searchItemAdapter = SearchItemAdapter(requireContext())
         searchItemAdapter.setOnClickListener(object : SearchItemAdapter.OnViewClickListener{
             override fun onClick(action: Int) {
-                saveSearchContent(binding.editSearch.text.toString())
                 val navigateAction = ContentFragmentDirections.actionGlobalStudyContentFragment(viewModel.isUserLogin.value!!,action)
                 findNavController().navigate(
                     navigateAction
@@ -215,11 +208,9 @@ class SearchFragment : Fragment() {
                         page += 1
                         lifecycleScope.launch(Dispatchers.IO){
                             val isHot = binding.isHot ?: false
-                            val searchContent = binding.editSearch.text.toString()
                             val isDepartment = binding.isDepartment ?: false
                             viewModel.addSearchData(
                                 isHot = isHot,
-                                searchContent = searchContent,
                                 isDepartment = !isDepartment,
                                 page = page
                             )
@@ -228,21 +219,5 @@ class SearchFragment : Fragment() {
                 }
             })
         }
-    }
-
-    fun onUpdateStudys(s : String, isHot: Boolean, isDepartment: Boolean){
-        if (s.length != 0){
-            val searchContent = s.substring(0,s.length-1)
-            if (searchContent.length != 0){
-                viewModel.fetchStudys(searchContent, isHot, isDepartment)
-            }
-        }
-    }
-
-    //검색 내용 저장
-    fun saveSearchContent(content : String) {
-        val bundle = Bundle()
-        bundle.putString("search content", content)
-        arguments = bundle
     }
 }

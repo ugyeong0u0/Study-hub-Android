@@ -41,7 +41,6 @@ class SearchItemAdapter(private val context : Context) :
         holder: SearchItemViewHolder,
         position: Int
     ) {
-        Log.d("Adapter","itemlist : ${contentList}")
         holder.bind(contentList[position])
     }
 

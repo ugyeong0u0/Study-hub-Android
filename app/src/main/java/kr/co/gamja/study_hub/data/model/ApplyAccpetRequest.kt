@@ -1,6 +1,6 @@
 package kr.co.gamja.study_hub.data.model
 
-data class ApplyAccpetRequest(
+data class ApplyAcceptRequest(
     val rejectedUserId : Int,
     val studyId : Int
 )

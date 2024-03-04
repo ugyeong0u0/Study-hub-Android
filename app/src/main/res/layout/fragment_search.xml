@@ -22,6 +22,9 @@
         <variable
             name="cntItem"
             type="String"/>
+        <variable
+            name="keyword"
+            type="String" />
         <import type="android.view.View" />
     </data>
 
@@ -77,22 +80,11 @@
             android:paddingTop="13dp"
             android:paddingRight="14dp"
             android:paddingBottom="13dp"
-            android:text="@={viewModel.searchWord}"
+            android:text="@={keyword}"
             android:textColor="@color/sysblack1"
             android:textColorHint="@color/BG_70"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchMain_toolbar" />
-
-        <ImageView
-            android:id="@+id/icon_search"
-            android:layout_width="@dimen/twenty_four"
-            android:layout_height="@dimen/twenty_four"
-            android:layout_marginTop="29dp"
-            android:layout_marginEnd="@dimen/fourteen"
-            android:src="@drawable/icon_search_l_black"
-            android:visibility="@{viewModel.searchImg?View.VISIBLE:View.GONE}"
-            app:layout_constraintRight_toRightOf="@+id/edit_search"
             app:layout_constraintTop_toBottomOf="@+id/searchMain_toolbar" />
 
         <androidx.appcompat.widget.AppCompatButton

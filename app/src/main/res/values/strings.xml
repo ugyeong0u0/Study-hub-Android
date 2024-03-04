@@ -244,10 +244,10 @@
     <string name="rejectReason">거절 이유 확인하기</string>
     <string name="deleteApplyHistory_sub">삭제하면 신청이 취소돼요</string>
 
-<!--    거절이유확인-->
+    <!--    거절이유확인-->
     <string name="txt_reasonForRefusal">스터디 팀장의 거절 이유예요🥲</string>
-    
-<!--    참여한스터디-->
+
+    <!--    참여한스터디-->
     <string name="deleteEngagedStudy_title">이 스터디를 삭제할까요?</string>
     <string name="deleteEngagedStudy_sub">삭제하면 채팅방을 다시 찾을 수 없어요</string>
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lyRecommend"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/syswhite"
+    android:orientation="horizontal"
+    android:paddingVertical="12dp"
+    android:paddingStart="8dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:srcCompat="@drawable/icon_search_s_gray"
+        android:layout_marginEnd="8dp"/>
+
+    <TextView
+        android:id="@+id/tvRecommend"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text=""
+        android:textSize="14sp"
+        android:textColor="@color/sysblack1"
+        tools:text="디자인학부"/>
+
+</LinearLayout>

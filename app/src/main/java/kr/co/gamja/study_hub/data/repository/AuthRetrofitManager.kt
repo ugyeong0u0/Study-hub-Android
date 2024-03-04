@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.data.repository
 
 import com.google.gson.GsonBuilder
+import kr.co.gamja.study_hub.global.NullOnEmptyConverterFactory
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -16,6 +17,7 @@ object AuthRetrofitManager {
     val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(createClientAuth())
+        .addConverterFactory(NullOnEmptyConverterFactory())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 

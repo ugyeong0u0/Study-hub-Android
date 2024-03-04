@@ -82,7 +82,7 @@ class RefusalReasonFragment : Fragment() {
                 bundle.putInt("studyId", studyId)
                 arguments = bundle
                 findNavController().navigate(
-                    R.id.action_refusalReasonFragment_to_participantFragment,
+                    R.id.action_global_to_participantFragment,
                     arguments
                 )
             }
