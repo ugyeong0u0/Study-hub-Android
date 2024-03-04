@@ -26,7 +26,7 @@ interface StudyHubApi {
     //스터디 참여 신청 정보 수락
     @PUT("/api/v1/study-accept")
     suspend fun applyAccept(
-        @Body dto : ApplyAccpetRequest
+        @Body dto : ApplyAcceptRequest
     ) : Response<Any>
 
 

@@ -10,7 +10,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kr.co.gamja.study_hub.data.model.ApplyAccpetRequest
+import kr.co.gamja.study_hub.data.model.ApplyAcceptRequest
 import kr.co.gamja.study_hub.data.model.ApplyRejectDto
 import kr.co.gamja.study_hub.data.model.RegisterListContent
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
@@ -91,7 +91,7 @@ class ParticipantViewModel : ViewModel() {
     ){
         viewModelScope.launch(Dispatchers.IO){
             try{
-                val requestDto = ApplyAccpetRequest(
+                val requestDto = ApplyAcceptRequest(
                     rejectedUserId = userId,
                     studyId = studyId
                 )

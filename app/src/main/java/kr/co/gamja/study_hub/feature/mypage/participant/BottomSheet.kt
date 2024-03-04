@@ -110,12 +110,12 @@ class BottomSheet() : BottomSheetDialogFragment() {
 
                         Log.d("Participant", "userId = ${userId} studyId = ${studyId}")
 
-//                        //거절 api 사용
-//                        viewModel.reject(
-//                            rejectReason = selectedReason,
-//                            studyId = studyId,
-//                            userId = userId
-//                        )
+                        //거절 api 사용
+                        viewModel.reject(
+                            rejectReason = selectedReason,
+                            studyId = studyId,
+                            userId = userId
+                        )
                         //dialog 띄우기
                         val customToast = CustomToast()
                         val bundle = Bundle()
