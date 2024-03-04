@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kr.co.gamja.study_hub.data.model.ApplyAcceptRequest
@@ -119,9 +120,10 @@ class ParticipantViewModel : ViewModel() {
         rejectReason : String,
         studyId : Int,
         userId : Int
-    ){
-        viewModelScope.launch(Dispatchers.IO){
+    ) : Job {
+        return viewModelScope.launch{
             try {
+                Log.d("Participant", "viewModelScope Launch")
                 val requestDto = ApplyRejectDto(
                     rejectReason = rejectReason,
                     rejectedUserId = userId,
@@ -143,6 +145,7 @@ class ParticipantViewModel : ViewModel() {
                 } else {
                     Log.d("ParticipantViewModel", "Refusal is Failed")
                 }
+                Log.d("Participant", "Done")
             } catch (e : Exception) {
                 throw IllegalArgumentException(e.message)
             }

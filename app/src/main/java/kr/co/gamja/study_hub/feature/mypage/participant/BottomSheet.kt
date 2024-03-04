@@ -101,8 +101,8 @@ class BottomSheet() : BottomSheetDialogFragment() {
                     arguments = bundle
                     //RefusalFragment로 이동
                     findNavController().navigate(
-                        R.id.action_participantFragment_to_refusalReasonFragment,
-                        arguments
+                            R.id.action_participantFragment_to_refusalReasonFragment,
+                            arguments
                     )
                     dismiss()
                 } else {
@@ -110,12 +110,16 @@ class BottomSheet() : BottomSheetDialogFragment() {
 
                         Log.d("Participant", "userId = ${userId} studyId = ${studyId}")
 
-                        //거절 api 사용
-                        viewModel.reject(
-                            rejectReason = selectedReason,
-                            studyId = studyId,
-                            userId = userId
-                        )
+                        runBlocking{
+                            Log.d("Participant", "run BLocking")
+                            //거절 api 사용
+                            viewModel.reject(
+                                rejectReason = selectedReason,
+                                studyId = studyId,
+                                userId = userId
+                            ).join()
+                            Log.d("Participant", "done run blocking")
+                        }
                         //dialog 띄우기
                         val customToast = CustomToast()
                         val bundle = Bundle()
@@ -125,6 +129,7 @@ class BottomSheet() : BottomSheetDialogFragment() {
 
                         customToast.show(requireActivity().supportFragmentManager, "Toast")
 
+                        Log.d("Participant", "dismiss")
                         dismiss()
                     }
                 }
