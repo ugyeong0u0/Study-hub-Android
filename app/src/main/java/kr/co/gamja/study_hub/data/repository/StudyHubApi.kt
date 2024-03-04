@@ -27,14 +27,14 @@ interface StudyHubApi {
     @PUT("/api/v1/study-accept")
     suspend fun applyAccept(
         @Body dto : ApplyAccpetRequest
-    ) : Response<Unit>
+    ) : Response<Any>
 
 
     //스터디 참여 신청 정보 거절
     @PUT("/api/v1/study-reject")
     suspend fun applyReject(
         @Body dto : ApplyRejectDto
-    ) : Response<Unit>
+    ) : Response<Any>
 
     //스터디 참여 신청 정보
     @GET("/api/v2/study")

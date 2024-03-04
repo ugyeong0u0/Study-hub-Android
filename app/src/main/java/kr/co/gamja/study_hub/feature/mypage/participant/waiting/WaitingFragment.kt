@@ -39,9 +39,14 @@ class WaitingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val studyId = arguments?.getInt("studyId") ?: -1
 
         initRecyclerView(studyId)
+
+        if (studyId != -1) {
+            viewModel.fetchData(inspection = "STANDBY", studyId = studyId, page = page)
+        }
 
         //observing
         viewModel.participantWaitingList.observe(viewLifecycleOwner, Observer{
@@ -56,8 +61,6 @@ class WaitingFragment : Fragment() {
                 binding.rcvContent.visibility = View.VISIBLE
             }
         })
-
-        viewModel.fetchData("STANDBY", studyId, page)
     }
 
     //RecyclerView 초기화

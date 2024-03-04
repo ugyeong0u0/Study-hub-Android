@@ -463,4 +463,7 @@
     <action
         android:id="@+id/action_global_checkRefusalReasonFragment"
         app:destination="@id/checkRefusalReasonFragment" />
+    <action
+        android:id="@+id/action_global_to_participantFragment"
+        app:destination="@+id/participantFragment"/>
 </navigation>

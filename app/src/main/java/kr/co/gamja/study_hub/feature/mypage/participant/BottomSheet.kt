@@ -21,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentBottomSheetListDialogBinding
 
@@ -103,24 +104,18 @@ class BottomSheet() : BottomSheetDialogFragment() {
                         R.id.action_participantFragment_to_refusalReasonFragment,
                         arguments
                     )
-                    viewModel.fetchData("STANDBY", studyId, page)
                     dismiss()
                 } else {
                     if (userId != -1 &&  studyId != -1 && page != -1){
 
                         Log.d("Participant", "userId = ${userId} studyId = ${studyId}")
 
-                        //거절 api 사용
-                        viewModel.reject(
-                            rejectReason = selectedReason,
-                            studyId = studyId,
-                            userId = userId
-                        )
-
-                        Log.d("Paricipant BottomSheet", "fetchData start")
-                        viewModel.fetchData("STANDBY", studyId, page)
-                        Log.d("Participant BottomSheet", "fetchData done")
-
+//                        //거절 api 사용
+//                        viewModel.reject(
+//                            rejectReason = selectedReason,
+//                            studyId = studyId,
+//                            userId = userId
+//                        )
                         //dialog 띄우기
                         val customToast = CustomToast()
                         val bundle = Bundle()
