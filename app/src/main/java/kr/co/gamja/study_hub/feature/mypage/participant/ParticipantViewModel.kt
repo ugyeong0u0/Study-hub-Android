@@ -44,13 +44,11 @@ class ParticipantViewModel : ViewModel() {
         studyId : Int,
         page : Int,
     ) {
-        Log.d("Participant", "study id : ${studyId}")
         runBlocking{
             viewModelScope.launch(Dispatchers.IO){
                 //신청 리스트 받아오기
                 try {
                     val response = RetrofitManager.api.getRegisterList(inspection, page, 8, studyId)
-                    Log.d("Participant", "${ response.body() }")
                     if (response.isSuccessful){
                         val result = response.body() ?: throw NullPointerException("Result is NULL")
                         val datas = result.applyUserData.content
@@ -60,27 +58,17 @@ class ParticipantViewModel : ViewModel() {
                         datas.forEach{ data ->
                             tmpData.add(data)
                         }
-                        Log.d("ParticipantViewModel", "fetch data ~ing")
-                        Log.d("ParticipantViewModel", "new data : ${tmpData}")
                         when(inspection){
                             "STANDBY" -> {
-                                Log.d("ParticipantViewModel", "waiting start ${_participantWaitingList}")
                                 _participantWaitingList.postValue(tmpData)
-                                Log.d("ParticipantViewModel", "waiting fetch ${_participantWaitingList}")
                             }
                             "ACCEPT" -> {
-                                Log.d("ParticipantViewModel", "accept start ${_participantWaitingList.value}")
                                 _acceptList.postValue(tmpData)
-                                Log.d("ParticipantViewModel", "accept fetch ${_participantWaitingList.value}")
                             }
                             "REJECT" -> {
-                                Log.d("ParticipantViewModel", "reject start ${_participantWaitingList.value}")
                                 _refuseList.postValue(tmpData)
-                                Log.d("ParticipantViewModel", "reject fetch ${_participantWaitingList.value}")
                             }
                         }
-
-                        Log.d("ParticipantViewModel", "fetchWaitingList is Success")
                     } else {
                         Log.d("ParticipantViewModel", "fetchWaitingList is Failed")
                     }

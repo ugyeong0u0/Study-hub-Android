@@ -16,7 +16,7 @@
             android:defaultValue="true" />
         <action
             android:id="@+id/action_mainFragment01_to_mainFragment02"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchRecommendFragment" />
         <action
             android:id="@+id/action_mainFragment01_to_mainFragment03"
             app:destination="@id/manualFragment" />
@@ -36,6 +36,15 @@
 
     <!-- Search page -->
     <fragment
+        android:id="@+id/searchRecommendFragment"
+        android:name="kr.co.gamja.study_hub.feature.home.search.SearchingFragment"
+        android:label="fragment_search_recommend"
+        tools:layout="@layout/fragment_searching">
+        <action
+            android:id="@+id/action_search_recommend_to_search_main"
+            app:destination="@+id/searchFragment"/>
+    </fragment>
+    <fragment
         android:id="@+id/searchFragment"
         android:name="kr.co.gamja.study_hub.feature.home.search.SearchFragment"
         android:label="fragment_main02"
@@ -46,6 +55,9 @@
         <action
             android:id="@+id/action_search_to_content"
             app:destination="@+id/studyContentFragment" />
+        <action
+            android:id="@+id/action_search_to_search_recommend"
+            app:destination="@+id/searchRecommendFragment"/>
     </fragment>
 
     <!-- login page -->
@@ -143,13 +155,12 @@
         <action
             android:id="@+id/action_participantFragment_to_refusalReasonFragment"
             app:destination="@+id/refusalReasonFragment" />
-
     </fragment>
     <fragment
         android:id="@+id/waitingFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingFragment"
         android:label="fragment_waiting"
-        tools:layout="@layout/fragment_waiting"></fragment>
+        tools:layout="@layout/fragment_waiting"/>
     <fragment
         android:id="@+id/participationFragment"
         android:name="kr.co.gamja.study_hub.feature.mypage.participant.participation.ParticipationFragment"

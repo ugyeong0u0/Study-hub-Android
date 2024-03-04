@@ -45,6 +45,15 @@ interface StudyHubApi {
         @Query("studyId") studyId : Int?,
     ) : Response<GetRegisterListDto>
 
+    //스터디 참여 신청 정보 (거절)
+    @GET("/api/v3/study")
+    suspend fun getRegisterListReject(
+        @Query("inspection") inspection : String = "REJECT",
+        @Query("page") page : Int,
+        @Query("size") size : Int = 10,
+        @Query("studyId") studyId : Int
+    ) : Response<GetRegisterListDto>
+
     //스터디 참여 신청 정보 조회
     @GET("/api/v1/study-request")
     suspend fun getStudyApplyInfo(
@@ -126,6 +135,9 @@ interface StudyHubApi {
     // 스터디 수정
     @PUT("/api/v1/study-posts")
     suspend fun correctMyStudy(@Body correctStudyRequest: CorrectStudyRequest): Response<Int>
+
+    @GET("/api/v1/study-post/recommend")
+    suspend fun getSearchRecommends(@Query("keyword") keyword : String) : Response<SearchRecommendResponseDto>
 
     // 스터디 생성
     @POST("/api/v1/study-posts")
@@ -243,7 +255,7 @@ interface StudyHubApi {
     @GET("/api/v1/study-request")
     suspend fun getUserApplyHistory(@Query("page") page: Int, @Query("size") size: Int) : Response<ApplicationHistoryResponse>
 
-//    reject controller
+    //reject controller
     // 단일 거절 이유 보기
     @GET("/api/v1/reject")
     suspend fun getDenyReason(@Query("studyId") studyId: Int) : Response<CheckDenyReasonResponse>
