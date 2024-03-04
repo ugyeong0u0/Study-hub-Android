@@ -70,9 +70,6 @@ class RefusalReasonFragment : Fragment() {
                     userId = userId,
                 )
 
-                // Navigation back stack에서 현재 프래그먼트를 제거
-                findNavController().popBackStack(R.id.participantFragment, false)
-
                 //dialog 띄우기
                 val customToast = CustomToast()
 
@@ -81,6 +78,10 @@ class RefusalReasonFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putInt("studyId", studyId)
                 arguments = bundle
+
+                // Navigation back stack에서 현재 프래그먼트를 제거
+                findNavController().popBackStack(R.id.participantFragment, false)
+
                 findNavController().navigate(
                     R.id.action_global_to_participantFragment,
                     arguments
