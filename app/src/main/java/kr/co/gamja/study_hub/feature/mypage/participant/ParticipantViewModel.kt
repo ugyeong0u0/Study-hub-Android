@@ -1,25 +1,16 @@
 package kr.co.gamja.study_hub.feature.mypage.participant
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.L
-import android.util.Log
-import androidx.datastore.dataStore
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kr.co.gamja.study_hub.data.model.*
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.RetrofitManager
-import okhttp3.Authenticator
-import okhttp3.internal.notify
-import kotlin.reflect.typeOf
-
 class ParticipantViewModel : ViewModel() {
 
     //대기 목록
@@ -50,7 +41,6 @@ class ParticipantViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             //신청 리스트 받아오기
             try {
-                Log.d("Participant", "fetch start")
                 val response =
                     if (inspection == "REJECT") AuthRetrofitManager.api.getRegisterListReject(
                         page = page,
@@ -80,9 +70,8 @@ class ParticipantViewModel : ViewModel() {
                         }
                     }
                 } else {
-                    Log.d("ParticipantViewModel", "fetchWaitingList is Failed")
+                    /** fetch data 실패 로직 */
                 }
-                Log.d("Participant", "fetch done")
             } catch (e: Exception) {
                 throw IllegalArgumentException(e)
             }
@@ -110,8 +99,7 @@ class ParticipantViewModel : ViewModel() {
                         }
                     }
                 } else {
-                    Log.d("ParticipantViewModel", "response is ${response}")
-                    Log.d("ParticipantViewModel", "Accept is Failed")
+                    /** accept api 실패 로직 */
                 }
             } catch (e: Exception) {
                 throw IllegalArgumentException(e)
@@ -127,28 +115,14 @@ class ParticipantViewModel : ViewModel() {
     ) {
         viewModelScope.launch {
             try {
-                Log.d("Participant", "viewModelScope Launch")
                 val requestDto = ApplyRejectDto(
                     rejectReason = rejectReason,
                     rejectedUserId = userId,
                     studyId = studyId
                 )
                 val response = AuthRetrofitManager.api.applyReject(requestDto)
-                Log.d("Participant", "${response.body()}")
                 if (response.isSuccessful) {
-                    val result = response.body()
                     params.isSuccess(true)
-                    Log.e("ParticipantViewModel 거절된 userID : ", result.toString())
-                    /*if (response.code() != 200) {
-                        when (response.code()) {
-                            401 -> _errMsg.postValue("Unauthorized")
-                            403 -> _errMsg.postValue("Forbidden")
-                            404 -> _errMsg.postValue("Not Found")
-                            else -> Log.e("Error", "${response.body()}")
-                        }
-                    } else {
-                        Log.d("Participant", "${response.errorBody()}")
-                    }*/
                 } else {
                     params.isSuccess(false)
                     val errorResponse: DuplicationNicknameErrorResponse? =
@@ -161,63 +135,11 @@ class ParticipantViewModel : ViewModel() {
                         }
                     if (errorResponse != null) {
                         val status = errorResponse.message
-                        Log.e("ParticipantViewModel의 error message : ", status)
                     }
-
-                    Log.d("ParticipantViewModel", "Refusal is Failed")
                 }
-                Log.d("Participant", "Done")
             } catch (e: Exception) {
                 throw IllegalArgumentException(e.message)
             }
         }
     }
-
-    //거절
-    /*fun reject(
-        rejectReason: String,
-        studyId: Int,
-        userId: Int
-    ): Job {
-        return viewModelScope.launch {
-            try {
-                Log.d("Participant", "viewModelScope Launch")
-                val requestDto = ApplyRejectDto(
-                    rejectReason = rejectReason,
-                    rejectedUserId = userId,
-                    studyId = studyId
-                )
-                val response = AuthRetrofitManager.api.applyReject(requestDto)
-                Log.d("Participant", "${response.body()}")
-                if (response.isSuccessful) {
-                    val result = response.body()
-                    Log.e("ParticipantViewModel의 error message : ", result.toString())
-                    *//*if (response.code() != 200) {
-                        when (response.code()) {
-                            401 -> _errMsg.postValue("Unauthorized")
-                            403 -> _errMsg.postValue("Forbidden")
-                            404 -> _errMsg.postValue("Not Found")
-                            else -> Log.e("Error", "${response.body()}")
-                        }
-                    } else {
-                        Log.d("Participant", "${response.errorBody()}")
-                    }*//*
-                } else {
-                    val errorResponse: DuplicationNicknameErrorResponse? = response.errorBody()?.let {
-                        val gson = Gson()
-                        gson.fromJson(it.charStream(), DuplicationNicknameErrorResponse::class.java)
-                    }
-                    if (errorResponse != null) {
-                        val status = errorResponse.message
-                        Log.e("ParticipantViewModel의 error message : ", status)
-                    }
-
-                    Log.d("ParticipantViewModel", "Refusal is Failed")
-                }
-                Log.d("Participant", "Done")
-            } catch (e: Exception) {
-                throw IllegalArgumentException(e.message)
-            }
-        }
-    }*/
 }
