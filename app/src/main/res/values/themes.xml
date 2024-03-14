@@ -31,6 +31,6 @@
     <style name="CustomProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/my_process</item>
     </style>
-    
+
 
 </resources>
