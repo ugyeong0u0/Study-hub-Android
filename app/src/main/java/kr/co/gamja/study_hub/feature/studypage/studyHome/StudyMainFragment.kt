@@ -211,7 +211,8 @@ class StudyMainFragment : Fragment() {
         lifecycleScope.launch {
             adapter.loadStateFlow.collectLatest { loadState ->
                 binding.mainHomeProgressBar.isVisible = loadState.refresh is LoadState.Loading
-                binding.iconBookmark.isEnabled = !binding.mainHomeProgressBar.isVisible
+                binding.iconBookmark.isEnabled = !binding.mainHomeProgressBar.isVisible // 로딩바가 끝나야 북마크버튼 클릭가능
+                binding.btnFlaot.isEnabled=!binding.mainHomeProgressBar.isVisible // 로딩바가 끝나야 스터디 생성가능
             }
         }
     }
