@@ -14,18 +14,20 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentBottomSheetListDialogBinding
+import kr.co.gamja.study_hub.feature.mypage.participant.participation.ParticipationViewModel
+import kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingViewModel
 
 class BottomSheet() : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentBottomSheetListDialogBinding
-    private val viewModel: ParticipantViewModel by viewModels()
+    private val viewModel: WaitingViewModel by viewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         //dialog height 수정
         val bottomSheetDialog = BottomSheetDialog(requireContext(), theme)
         bottomSheetDialog.setOnShowListener { dialog ->
             val bottomSheet =
-                (dialog as BottomSheetDialog).findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
+                (dialog as BottomSheetDialog).findViewById<FrameLayout>(R.id.refusalBottomDialog)
                     ?: throw NullPointerException("Bottom Dialog is NULL")
             val behavior = BottomSheetBehavior.from(bottomSheet)
 

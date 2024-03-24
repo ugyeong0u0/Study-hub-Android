@@ -10,13 +10,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentWaitingBinding
 import kr.co.gamja.study_hub.feature.mypage.participant.BottomSheet
-import kr.co.gamja.study_hub.feature.mypage.participant.ParticipantViewModel
 import kr.co.gamja.study_hub.global.RcvDecoration
 
 class WaitingFragment : Fragment() {
@@ -24,7 +22,7 @@ class WaitingFragment : Fragment() {
     private lateinit var binding : FragmentWaitingBinding
     private lateinit var adapter : WaitingContentAdapter
 
-    private val viewModel : ParticipantViewModel by viewModels()
+    private val viewModel : WaitingViewModel by viewModels()
 
     private var page = 0
 
@@ -45,7 +43,7 @@ class WaitingFragment : Fragment() {
         initRecyclerView(studyId)
 
         if (studyId != -1) {
-            viewModel.fetchData(inspection = "STANDBY", studyId = studyId, page = page)
+            viewModel.fetchData(isAdd = false, studyId = studyId, page = page)
         }
 
         //observing
@@ -77,7 +75,8 @@ class WaitingFragment : Fragment() {
             /** 수락 선택 >> Dialog 띄워야 함 */
             override fun onAcceptClick(userId : Int) {
                 viewModel.accept(studyId, userId)
-                viewModel.fetchData("STANDBY", studyId, page)
+                viewModel.fetchData(false, studyId, page)
+                page = 0
             }
 
             //거절 선택 >> BottomFragment
@@ -109,6 +108,7 @@ class WaitingFragment : Fragment() {
                 if (visibleItemCount + firstVisibleItem >= totalItemCount) {
                     page += 1
                 }
+                viewModel.fetchData(true, studyId, page)
             }
         })
         val itemSpace = resources.getDimensionPixelSize(R.dimen.thirty)

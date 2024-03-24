@@ -1,7 +1,6 @@
 package kr.co.gamja.study_hub.feature.mypage.participant.participation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.databinding.FragmentParticipationBinding
-import kr.co.gamja.study_hub.feature.mypage.participant.ParticipantViewModel
 import kr.co.gamja.study_hub.global.RcvDecoration
 
 class ParticipationFragment : Fragment() {
@@ -21,7 +19,7 @@ class ParticipationFragment : Fragment() {
     private lateinit var binding : FragmentParticipationBinding
     private lateinit var adapter : ParticipationAdapter
 
-    private val viewModel : ParticipantViewModel by viewModels()
+    private val viewModel : ParticipationViewModel by viewModels()
 
     private var page = 0
 
@@ -36,12 +34,12 @@ class ParticipationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerView()
-
         val studyId = arguments?.getInt("studyId") ?: throw NullPointerException("arguments is null")
 
+        initRecyclerView(studyId)
+
         //data fetch
-        viewModel.fetchData("ACCEPT", studyId, page)
+        viewModel.fetchData(false, studyId, page)
 
         //observing
         viewModel.acceptList.observe(viewLifecycleOwner, Observer{
@@ -59,7 +57,7 @@ class ParticipationFragment : Fragment() {
     }
 
     //RecyclerView 초기화
-    private fun initRecyclerView(){
+    private fun initRecyclerView(studyId : Int){
         adapter = ParticipationAdapter(requireContext())
         binding.rcvContent.adapter = adapter
         binding.rcvContent.layoutManager = LinearLayoutManager(requireContext())
@@ -75,6 +73,7 @@ class ParticipationFragment : Fragment() {
                 if (visibleItemCount + firstVisibleItem >= totalItemCount) {
                     page += 1
                 }
+                viewModel.fetchData(true, studyId, page)
             }
         })
         val space = resources.getDimensionPixelSize(R.dimen.thirty)
