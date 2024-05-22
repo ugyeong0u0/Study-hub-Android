@@ -474,7 +474,7 @@ class CreateStudyViewModel : ViewModel() {
         Log.d(tag, "버튼 확인 호출됨")
         if (!urlEditText.value.isNullOrEmpty() && !studyTitle.value.isNullOrEmpty() && !studyContent.value.isNullOrEmpty()
             && !persons.value.isNullOrEmpty() && persons.value.toString()
-                .toInt() > 0 && persons.value.toString()
+                .toInt() >=2 && persons.value.toString()
                 .toInt() <= 50 && !editStartDay.value.isNullOrEmpty() && !editEndDay.value.isNullOrEmpty()
             && !relativeMajor.value.isNullOrEmpty() && relativeMajor.value != "null" && !gender.value.isNullOrEmpty() && !meetMethod.value.isNullOrEmpty()
         ) {
