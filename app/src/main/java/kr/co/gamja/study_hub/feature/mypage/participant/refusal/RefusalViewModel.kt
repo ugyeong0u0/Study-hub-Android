@@ -55,4 +55,40 @@ class RefusalViewModel : ViewModel() {
             }
         }
     }
+
+    fun reject(
+        rejectReason: String,
+        studyId: Int,
+        userId: Int,
+        params: CallBackListener
+    ) {
+        viewModelScope.launch {
+            try {
+                val requestDto = ApplyRejectDto(
+                    rejectReason = rejectReason,
+                    rejectedUserId = userId,
+                    studyId = studyId
+                )
+                val response = AuthRetrofitManager.api.applyReject(requestDto)
+                if (response.isSuccessful) {
+                    params.isSuccess(true)
+                } else {
+                    params.isSuccess(false)
+                    val errorResponse: DuplicationNicknameErrorResponse? =
+                        response.errorBody()?.let {
+                            val gson = Gson()
+                            gson.fromJson(
+                                it.charStream(),
+                                DuplicationNicknameErrorResponse::class.java
+                            )
+                        }
+                    if (errorResponse != null) {
+                        val status = errorResponse.message
+                    }
+                }
+            } catch (e: Exception) {
+                throw IllegalArgumentException(e.message)
+            }
+        }
+    }
 }
