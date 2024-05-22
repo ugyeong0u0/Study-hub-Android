@@ -167,7 +167,7 @@ class CreateStudyFragment : Fragment() {
             persons.observe(viewLifecycleOwner) {
                 if (!viewModel.persons.value.isNullOrEmpty())
                     if (viewModel.persons.value.toString()
-                            .toInt() == 0 || viewModel.persons.value.toString().toInt() > 50
+                            .toInt() <= 1 || viewModel.persons.value.toString().toInt() > 50
                     ) {
                         viewModel.setErrorPersons(true)
                     } else {
