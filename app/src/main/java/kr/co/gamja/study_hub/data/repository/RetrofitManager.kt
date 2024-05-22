@@ -11,7 +11,7 @@ object RetrofitManager {
     private const val BASE_URL = "https://study-hub.site"
     val gson =GsonBuilder().setLenient().create()
 
-    // 레트로핏 생성
+    // 레트로핏 생성 
     val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(gson))
