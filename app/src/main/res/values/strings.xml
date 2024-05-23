@@ -192,7 +192,7 @@
     <!--    북마크-->
     <string name="txt_bookMark">북마크</string>
     <string name="btn_allDelete">전체삭제</string>
-    <string name="txt_all">전체 %1$d</string>
+    <string name="txt_all">전체</string>
     <string name="txt_available">잔여%1$d자리</string>
     <string name="btn_join">신청하기</string>
     <string name="txt_binBookmark">북마크 글이 없어요</string>
