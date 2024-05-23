@@ -90,10 +90,17 @@ class SearchingFragment : Fragment() {
                 }
             })
 
-            //ime action (search) event
+            //ime action (search) event >> 검색어 내용을 기반으로 search fragment로 이동
             editSearch.setOnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH || event.keyCode == KeyEvent.KEYCODE_ENTER){
-                    viewModel.searchRecommend(editSearch.text.toString())
+                    val keyword = editSearch.text.toString()
+                    val bundle = Bundle()
+                    bundle.putString("keyword", keyword)
+                    arguments = bundle
+                    findNavController().navigate(
+                        R.id.action_search_recommend_to_search_main,
+                        arguments
+                    )
                     return@setOnEditorActionListener true
                 }
                 false
