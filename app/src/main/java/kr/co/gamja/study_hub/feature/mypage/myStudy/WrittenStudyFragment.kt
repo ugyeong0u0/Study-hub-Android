@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +24,7 @@ import kr.co.gamja.study_hub.data.repository.*
 import kr.co.gamja.study_hub.databinding.FragmentWrittenStudyBinding
 import kr.co.gamja.study_hub.feature.mypage.MyInfoFragment
 import kr.co.gamja.study_hub.feature.studypage.apply.ApplicationFragmentDirections
+import kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.PostingId
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
@@ -64,6 +66,17 @@ class WrittenStudyFragment : Fragment() {
         writtenStudyAdapter = WrittenStudyAdapter(requireContext())
         binding.recylerWrittenList.adapter = writtenStudyAdapter
         binding.recylerWrittenList.layoutManager = LinearLayoutManager(requireContext())
+        //item 별 three dot 메뉴 클릭 이벤트 추가
+        writtenStudyAdapter.setOnMenuClickListener(object: OnMenuClickListener{
+            override fun onClickThreeDot(postId : Int) {
+                val bundle = Bundle()
+                bundle.putInt("postId", postId)
+                val modal = BottomSheetFragment()
+                modal.arguments = bundle
+                modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
+                modal.show(parentFragmentManager, modal.tag)
+            }
+        })
 
 //        setUpRecyclerView()
         observeData()
