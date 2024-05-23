@@ -55,6 +55,11 @@ class WrittenStudyFragment : Fragment() {
             findNavController().navigateUp() // 뒤로 가기
         }
 
+        //전체 삭제 버튼
+        binding.btnDeleteAll.setOnClickListener{
+            viewModel.deleteAllStudy()
+        }
+
         writtenStudyAdapter = WrittenStudyAdapter(requireContext())
         binding.recylerWrittenList.adapter = writtenStudyAdapter
         binding.recylerWrittenList.layoutManager = LinearLayoutManager(requireContext())
@@ -62,7 +67,6 @@ class WrittenStudyFragment : Fragment() {
 //        setUpRecyclerView()
         observeData()
         viewModel.updateMyStudyListSize()
-
 
         writtenStudyAdapter.setOnItemClickListener(object: OnPostingIdClickListener {
             override fun getItemValue(whatItem: Int, postingId: PostingId) {
@@ -127,12 +131,11 @@ class WrittenStudyFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-//        val writtenAdapter = this@WrittenStudyFragment.writtenStudyAdapter
-//        binding.recylerWrittenList.apply {
-//            layoutManager = LinearLayoutManager(requireContext())
-//            adapter = writtenAdapter
-//        }
-//        Log.e("호출", "")
+        val writtenAdapter = this@WrittenStudyFragment.writtenStudyAdapter
+        binding.recylerWrittenList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = writtenAdapter
+        }
     }
 
     private fun observeData() {

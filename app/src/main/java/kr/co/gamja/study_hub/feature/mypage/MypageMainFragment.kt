@@ -39,7 +39,6 @@ class MypageMainFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mypage_main, container, false)
         return binding.root
-
     }
 
     override fun onAttach(context: Context) {
@@ -118,7 +117,7 @@ class MypageMainFragment : Fragment() {
         }
         // 작성한 글 누를 시
         binding.btnUserContent.setOnClickListener {
-            Log.e(tagMsg, "작성한 글로 넘어가는 버튼 클릭됨")
+            Log.d(tagMsg, "작성한 글로 넘어가는 버튼 클릭됨")
             if (viewModel.isUserLogin.value==true) {
                 findNavController().navigate(
                     R.id.action_mypageMainFragment_to_writtenStudyFragment,
