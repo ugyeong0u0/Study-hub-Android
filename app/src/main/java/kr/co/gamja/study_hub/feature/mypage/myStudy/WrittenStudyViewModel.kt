@@ -12,7 +12,9 @@ import androidx.paging.cachedIn
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.ContentXX
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
@@ -23,11 +25,7 @@ class WrittenStudyViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     private val tag = this.javaClass.simpleName
 
     // paging 초기화
-    private val _reloadTrigger = MutableStateFlow(Unit)
-
-    fun setReloadTrigger() {
-        _reloadTrigger.value = Unit
-    }
+    private val _reloadTrigger = MutableStateFlow(false)
 
     // 리스트 개수
     private val _listSize = MutableLiveData<Int>(1)
@@ -84,6 +82,7 @@ class WrittenStudyViewModel(studyHubApi: StudyHubApi) : ViewModel() {
             try{
                 if (response.isSuccessful){
                     Log.d(tag, "삭제 성공")
+                    _reloadTrigger.update{ !_reloadTrigger.value }
                 } else {
                     Log.d(tag, "삭제 실패")
                 }
