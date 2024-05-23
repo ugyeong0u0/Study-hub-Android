@@ -12,8 +12,8 @@ import androidx.paging.cachedIn
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.ContentXX
@@ -28,8 +28,10 @@ class WrittenStudyViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     private val _reloadTrigger = MutableStateFlow(false)
 
     // 리스트 개수
-    private val _listSize = MutableLiveData<Int>(1)
+    private val _listSize = MutableLiveData<Int>(0)
     val listSize: LiveData<Int> get() = _listSize
+
+    private val count = MutableStateFlow<Int>(0)
 
     val myStudyFlow: Flow<PagingData<ContentXX>> = _reloadTrigger.flatMapLatest {
         Pager(
@@ -83,6 +85,7 @@ class WrittenStudyViewModel(studyHubApi: StudyHubApi) : ViewModel() {
                 if (response.isSuccessful){
                     Log.d(tag, "삭제 성공")
                     _reloadTrigger.update{ !_reloadTrigger.value }
+                    updateMyStudyListSize()
                 } else {
                     Log.d(tag, "삭제 실패")
                 }
