@@ -25,34 +25,18 @@ class WaitingViewModel : ViewModel() {
     private val _errMsg = MutableLiveData<String>()
     val errMsg: LiveData<String>
         get() = _errMsg
-
-
     //waitingList 갱신
     fun fetchData(
-        isAdd : Boolean,
         studyId: Int,
-        page: Int,
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             //신청 리스트 받아오기
             try {
-                val response = RetrofitManager.api.getRegisterList("STANDBY", page, 10, studyId)
+                val response = RetrofitManager.api.getRegisterList("STANDBY", 0, 10, studyId)
 
                 if (response.isSuccessful) {
                     val result = response.body() ?: throw NullPointerException("Result is NULL")
-
-                    //page 증가 시
-                    if (isAdd) {
-                        _participantWaitingList.postValue(
-                            participantWaitingList.value?:emptyList<RegisterListContent>()
-                                .plus(result.applyUserData.content)
-                        )
-                    }
-                    // 데이터 갱신 시 (초기)
-                    else {
-                        _participantWaitingList.postValue(result.applyUserData.content)
-                    }
-
+                    _participantWaitingList.postValue(result.applyUserData.content)
                 } else {
                     /** fetch data 실패 로직 */
                 }
@@ -92,6 +76,7 @@ class WaitingViewModel : ViewModel() {
                         val status = errorResponse.message
                     }
                 }
+                fetchData(studyId)
             } catch (e: Exception) {
                 throw IllegalArgumentException(e.message)
             }
@@ -121,10 +106,10 @@ class WaitingViewModel : ViewModel() {
                 } else {
                     /** accept api 실패 로직 */
                 }
+                fetchData(studyId)
             } catch (e: Exception) {
                 throw IllegalArgumentException(e)
             }
         }
     }
-
 }

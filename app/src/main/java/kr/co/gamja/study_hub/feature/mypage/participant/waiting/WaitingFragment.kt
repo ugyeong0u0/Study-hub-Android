@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +26,6 @@ class WaitingFragment : Fragment() {
     private val viewModel : WaitingViewModel by viewModels()
 
     private var studyId = -1
-    private var page = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,12 +44,12 @@ class WaitingFragment : Fragment() {
         initRecyclerView(studyId)
 
         if (studyId != -1) {
-            viewModel.fetchData(isAdd = false, studyId = studyId, page = page)
+            viewModel.fetchData(studyId = studyId)
         }
 
         //observing
         viewModel.participantWaitingList.observe(viewLifecycleOwner, Observer{
-            adapter.submitList(it, page)
+            adapter.submitList(it, 0)
             if (it.isEmpty()){
                 binding.imgEmptyParticipation.visibility = View.VISIBLE
                 binding.tvComment.visibility = View.VISIBLE
@@ -63,7 +63,7 @@ class WaitingFragment : Fragment() {
     }
 
     override fun onResume() {
-        viewModel.fetchData(false, studyId, 0)
+        viewModel.fetchData(studyId)
         super.onResume()
     }
 
@@ -81,8 +81,8 @@ class WaitingFragment : Fragment() {
             /** 수락 선택 >> Dialog 띄워야 함 */
             override fun onAcceptClick(userId : Int) {
                 viewModel.accept(studyId, userId)
-                viewModel.fetchData(false, studyId, page)
-                page = 0
+                viewModel.fetchData(studyId)
+                refreshFragment(this@WaitingFragment, parentFragmentManager)
             }
 
             //거절 선택 >> BottomFragment
@@ -92,10 +92,11 @@ class WaitingFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putInt("userId", userId)
                 bundle.putInt("studyId", studyId)
-                bundle.putInt("page", page)
+                bundle.putInt("page", 0)
                 bottomSheetFragment.arguments = bundle
                 bottomSheetFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
                 bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                refreshFragment(this@WaitingFragment, parentFragmentManager)
             }
         }
 
@@ -105,5 +106,11 @@ class WaitingFragment : Fragment() {
         val itemSpace = resources.getDimensionPixelSize(R.dimen.thirty)
         val deco = RcvDecoration(itemSpace)
         binding.rcvContent.addItemDecoration(deco)
+    }
+
+    //fragment refresh
+    private fun refreshFragment(fragment : Fragment, fragmentManager : FragmentManager){
+        val ft = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
     }
 }

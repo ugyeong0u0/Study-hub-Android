@@ -14,15 +14,8 @@ import kr.co.gamja.study_hub.global.Functions
 class RefusalAdapter(val context : Context) : RecyclerView.Adapter<RefusalAdapter.ContentHolder>() {
 
     private val itemList = mutableListOf<RegisterListContent>()
-
-    private var page = 0
-
     fun submitList(itemList : List<RegisterListContent>, page : Int){
-        if (this.page < page){
-            this.page += 1
-        } else {
-            this.itemList.clear()
-        }
+        this.itemList.clear()
         this.itemList.addAll(itemList)
         notifyDataSetChanged()
     }

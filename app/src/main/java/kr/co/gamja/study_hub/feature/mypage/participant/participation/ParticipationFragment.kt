@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -77,5 +79,11 @@ class ParticipationFragment : Fragment() {
         val space = resources.getDimensionPixelSize(R.dimen.thirty)
         val itemDecoration = RcvDecoration(space)
         binding.rcvContent.addItemDecoration(itemDecoration)
+    }
+
+    //fragment 새로고침
+    private fun refreshFragment(fragment : Fragment, fragmentManager : FragmentManager){
+        val ft : FragmentTransaction = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
     }
 }
