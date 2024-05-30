@@ -101,101 +101,125 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/layout_button"
+                    android:layout_alignBottom="@id/ly_nickname"
+                    android:layout_alignTop="@id/ly_nickname"
                     android:layout_alignParentStart="true"
                     android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginTop="16dp"
                     android:text="@string/txt_word_nickname"
                     android:textColor="@color/sysblack1"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:gravity="center"/>
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_txtNickname"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/ly_nickname"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/layout_button"
+                    android:orientation="horizontal"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:background="#00000000"
-                    android:text="@{viewModel.nicknameData}"
-                    android:textAlignment="center"
-                    android:textColor="@color/BG_80"
-                    android:textSize="16sp"
-                    tools:text="횃불이" />
+                    android:layout_toRightOf="@id/txt_nickName"
+                    android:layout_below="@id/layout_button"
+                    android:gravity="end|center_vertical"
+                    android:layout_marginEnd="20dp">
 
-                <ImageView
-                    android:layout_width="@dimen/resized_item"
-                    android:layout_height="@dimen/resized_item"
-                    android:layout_below="@+id/layout_button"
-                    android:layout_alignEnd="@id/btn_txtNickname"
-                    android:layout_marginTop="13dp"
-                    android:src="@drawable/icon_arrow_right_gray" />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_txtNickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:text="@{viewModel.nicknameData}"
+                        android:textColor="@color/BG_80"
+                        android:textSize="16sp"
+                        android:gravity="end|center_vertical"
+                        tools:text="테스트 계정" />
+
+                    <ImageView
+                        android:layout_width="@dimen/resized_item"
+                        android:layout_height="@dimen/resized_item"
+                        android:src="@drawable/icon_arrow_right_gray" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/txt_major"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txt_nickName"
-                    android:layout_alignBaseline="@+id/btn_txt_major"
                     android:layout_alignParentStart="true"
+                    android:layout_alignBottom="@id/ly_major"
+                    android:layout_alignTop="@id/ly_major"
                     android:layout_marginHorizontal="@dimen/twenty"
                     android:text="@string/txt_word_major"
+                    android:gravity="center"
                     android:textColor="@color/sysblack1"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_txt_major"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/ly_major"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/btn_txtNickname"
+                    android:orientation="horizontal"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:background="#00000000"
-                    android:text="@{viewModel.majorData}"
-                    android:textAlignment="center"
-                    android:textColor="@color/BG_80"
-                    android:textSize="16sp"
-                    android:paddingEnd="@dimen/sixteen"
-                    tools:text="경영학부" />
+                    android:layout_toRightOf="@id/txt_major"
+                    android:layout_below="@id/ly_nickname"
+                    android:gravity="end|center_vertical"
+                    android:layout_marginEnd="20dp">
 
-                <ImageView
-                    android:layout_width="@dimen/resized_item"
-                    android:layout_height="@dimen/resized_item"
-                    android:layout_below="@+id/btn_txtNickname"
-                    android:layout_alignEnd="@id/btn_txtNickname"
-                    android:layout_marginTop="13dp"
-                    android:src="@drawable/icon_arrow_right_gray" />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_txt_major"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:text="@{viewModel.majorData}"
+                        android:textColor="@color/BG_80"
+                        android:textSize="16sp"
+                        android:gravity="end|center_vertical"
+                        tools:text="경영학부" />
+
+                    <ImageView
+                        android:layout_width="@dimen/resized_item"
+                        android:layout_height="@dimen/resized_item"
+                        android:src="@drawable/icon_arrow_right_gray" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/txt_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txt_major"
-                    android:layout_alignBaseline="@+id/btn_txt_password"
                     android:layout_alignParentStart="true"
                     android:layout_marginHorizontal="@dimen/twenty"
+                    android:layout_alignBottom="@id/ly_password"
+                    android:layout_alignTop="@id/ly_password"
                     android:text="@string/txt_word_password"
                     android:textColor="@color/sysblack1"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:gravity="center"/>
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_txt_password"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/ly_password"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/btn_txt_major"
+                    android:orientation="horizontal"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginHorizontal="@dimen/twenty"
-                    android:background="#00000000" />
+                    android:layout_toRightOf="@id/txt_password"
+                    android:layout_below="@id/ly_major"
+                    android:gravity="end|center_vertical"
+                    android:layout_marginEnd="20dp">
 
-                <ImageView
-                    android:layout_width="@dimen/resized_item"
-                    android:layout_height="@dimen/resized_item"
-                    android:layout_below="@+id/btn_txt_major"
-                    android:layout_alignEnd="@id/btn_txtNickname"
-                    android:layout_marginTop="13dp"
-                    android:src="@drawable/icon_arrow_right_gray" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_txt_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000" />
+
+                    <ImageView
+                        android:layout_width="@dimen/resized_item"
+                        android:layout_height="@dimen/resized_item"
+                        android:src="@drawable/icon_arrow_right_gray" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/txt_gender"
@@ -205,7 +229,6 @@
                     android:layout_alignBaseline="@+id/txt_userGender"
                     android:layout_alignParentStart="true"
                     android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginTop="16dp"
                     android:text="@string/txt_gender"
                     android:textColor="@color/sysblack1"
                     android:textSize="16sp"
@@ -215,7 +238,8 @@
                     android:id="@+id/txt_userGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/btn_txt_password"
+                    android:layout_below="@+id/txt_password"
+                    android:layout_marginTop="8dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/twenty"
                     android:text="@{viewModel.genderData}"
