@@ -96,7 +96,6 @@ class StudyMainFragment : Fragment() {
             }
         })
 
-
         selectedDrawable =
             ResourcesCompat.getDrawable(resources, R.drawable.bg_black_radius_20, null)!!
         nonSelectedDrawable =

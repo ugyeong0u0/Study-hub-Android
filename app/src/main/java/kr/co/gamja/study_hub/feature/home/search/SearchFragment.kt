@@ -61,7 +61,6 @@ class SearchFragment : Fragment() {
 
         if (keyword != null) {
             viewModel.saveKeyword(keyword)
-
         }
         binding.keyword = viewModel.getKeyword()
 

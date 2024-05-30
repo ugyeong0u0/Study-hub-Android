@@ -44,3 +44,7 @@ interface OnCommentClickListener{
 interface OnPostingIdClickListener{
     fun getItemValue(whatItem: Int, postingId: PostingId)
 }
+// Adapter 아이템 별 바텀 수정 시트 열기
+interface OnMenuClickListener{
+    fun onClickThreeDot(postId : Int)
+}

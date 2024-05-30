@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -77,13 +78,9 @@ class SearchingFragment : Fragment() {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 }
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    viewModel.resetList()
                     if (!s.isNullOrEmpty()){
-                        if (s.length > lastLength){
-                            viewModel.searchRecommend(s.toString())
-                        } else {
-                            viewModel.resetList()
-                        }
-                        isEnabled = false
+                        viewModel.searchRecommend(s.toString())
                     } else {
                         isEnabled = true
                     }
@@ -93,10 +90,17 @@ class SearchingFragment : Fragment() {
                 }
             })
 
-            //ime action (search) event
+            //ime action (search) event >> 검색어 내용을 기반으로 search fragment로 이동
             editSearch.setOnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH || event.keyCode == KeyEvent.KEYCODE_ENTER){
-                    viewModel.searchRecommend(editSearch.text.toString())
+                    val keyword = editSearch.text.toString()
+                    val bundle = Bundle()
+                    bundle.putString("keyword", keyword)
+                    arguments = bundle
+                    findNavController().navigate(
+                        R.id.action_search_recommend_to_search_main,
+                        arguments
+                    )
                     return@setOnEditorActionListener true
                 }
                 false

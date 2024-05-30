@@ -132,6 +132,9 @@ interface StudyHubApi {
     /** notification-controller */
 
     /** study-post-controller */
+    // 스터디 전체 삭제
+    @DELETE("/api/v1/all/study-post")
+    suspend fun deleteAllStudy() : Response<String>
     // 스터디 수정
     @PUT("/api/v1/study-posts")
     suspend fun correctMyStudy(@Body correctStudyRequest: CorrectStudyRequest): Response<Int>

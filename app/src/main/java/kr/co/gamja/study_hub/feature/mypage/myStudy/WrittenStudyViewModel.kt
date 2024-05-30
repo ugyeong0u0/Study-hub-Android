@@ -9,9 +9,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.ContentXX
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
@@ -22,18 +25,15 @@ class WrittenStudyViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     private val tag = this.javaClass.simpleName
 
     // paging 초기화
-    private val _reloadTrigger = MutableStateFlow(Unit)
-
-    fun setReloadTrigger() {
-        _reloadTrigger.value = Unit
-    }
+    private val _reloadTrigger = MutableStateFlow(false)
 
     // 리스트 개수
-    private val _listSize = MutableLiveData<Int>(1)
+    private val _listSize = MutableLiveData<Int>(0)
     val listSize: LiveData<Int> get() = _listSize
 
-    val myStudyFlow: Flow<PagingData<ContentXX>> = _reloadTrigger.flatMapLatest {
+    private val count = MutableStateFlow<Int>(0)
 
+    val myStudyFlow: Flow<PagingData<ContentXX>> = _reloadTrigger.flatMapLatest {
         Pager(
             PagingConfig(
                 pageSize = 10, // 한페이지당 로드할 수
@@ -73,6 +73,24 @@ class WrittenStudyViewModel(studyHubApi: StudyHubApi) : ViewModel() {
                 }
             } catch (e: Exception) {
                 Log.e(tag, "스터디 삭제 오류 code" + response.code().toString())
+            }
+        }
+    }
+
+    //전체 스터디 삭제
+    fun deleteAllStudy(){
+        viewModelScope.launch(Dispatchers.IO){
+            val response = AuthRetrofitManager.api.deleteAllStudy()
+            try{
+                if (response.isSuccessful){
+                    Log.d(tag, "삭제 성공")
+                    _reloadTrigger.update{ !_reloadTrigger.value }
+                    updateMyStudyListSize()
+                } else {
+                    Log.d(tag, "삭제 실패")
+                }
+            } catch (e : Exception){
+                Log.e(tag, "전체 삭제 오류 : ${response.errorBody().toString()}")
             }
         }
     }

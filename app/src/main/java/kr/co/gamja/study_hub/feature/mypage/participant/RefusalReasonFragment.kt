@@ -13,12 +13,14 @@ import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentRefusalReasonBinding
+import kr.co.gamja.study_hub.feature.mypage.participant.participation.ParticipationViewModel
+import kr.co.gamja.study_hub.feature.mypage.participant.refusal.RefusalViewModel
 
 class RefusalReasonFragment : Fragment() {
 
     private lateinit var binding : FragmentRefusalReasonBinding
 
-    private val viewModel : ParticipantViewModel by viewModels()
+    private val viewModel : RefusalViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

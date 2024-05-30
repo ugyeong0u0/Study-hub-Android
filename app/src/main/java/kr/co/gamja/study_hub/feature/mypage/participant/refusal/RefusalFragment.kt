@@ -11,16 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
-import kr.co.gamja.study_hub.databinding.FragmentParticipationBinding
 import kr.co.gamja.study_hub.databinding.FragmentRefusalBinding
-import kr.co.gamja.study_hub.feature.mypage.participant.ParticipantViewModel
-import kr.co.gamja.study_hub.feature.mypage.participant.participation.ParticipationAdapter
 
 class RefusalFragment : Fragment() {
 
     private lateinit var binding : FragmentRefusalBinding
     private lateinit var adapter : RefusalAdapter
-    private val viewModel : ParticipantViewModel by viewModels()
+    private val viewModel : RefusalViewModel by viewModels()
 
     private var page = 0
 
@@ -37,12 +34,12 @@ class RefusalFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerView()
-
         val studyId = arguments?.getInt("studyId") ?: throw NullPointerException("Arguments is NULL")
 
+        initRecyclerView(studyId)
+
         //data fetch
-        viewModel.fetchData("REJECT", studyId, page)
+        viewModel.fetchData(false, studyId, page)
 
         //observing
         viewModel.refuseList.observe(viewLifecycleOwner, Observer{
@@ -60,7 +57,7 @@ class RefusalFragment : Fragment() {
     }
 
     //RecyclerView 초기화
-    private fun initRecyclerView(){
+    private fun initRecyclerView(studyId : Int){
         adapter = RefusalAdapter(requireContext())
         binding.rcvContent.adapter = adapter
         binding.rcvContent.layoutManager = LinearLayoutManager(requireContext())
@@ -76,6 +73,7 @@ class RefusalFragment : Fragment() {
                 if (visibleItemCount + firstVisibleItem >= totalItemCount) {
                     page += 1
                 }
+                viewModel.fetchData(true, studyId, page)
             }
         })
     }
