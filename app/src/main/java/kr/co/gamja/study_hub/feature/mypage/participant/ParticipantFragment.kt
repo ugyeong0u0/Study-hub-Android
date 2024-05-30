@@ -64,7 +64,5 @@ class ParticipantFragment : Fragment() {
         binding.iconBack.setOnClickListener {
             findNavController().navigateUp() // 뒤로 가기
         }
-
-
     }
 }

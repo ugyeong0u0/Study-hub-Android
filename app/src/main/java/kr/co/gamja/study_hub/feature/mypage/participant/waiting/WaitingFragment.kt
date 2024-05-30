@@ -24,6 +24,7 @@ class WaitingFragment : Fragment() {
 
     private val viewModel : WaitingViewModel by viewModels()
 
+    private var studyId = -1
     private var page = 0
 
     override fun onCreateView(
@@ -38,7 +39,7 @@ class WaitingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val studyId = arguments?.getInt("studyId") ?: -1
+        studyId = arguments?.getInt("studyId") ?: -1
 
         initRecyclerView(studyId)
 
@@ -59,6 +60,11 @@ class WaitingFragment : Fragment() {
                 binding.rcvContent.visibility = View.VISIBLE
             }
         })
+    }
+
+    override fun onResume() {
+        viewModel.fetchData(false, studyId, 0)
+        super.onResume()
     }
 
     //RecyclerView 초기화
@@ -96,21 +102,6 @@ class WaitingFragment : Fragment() {
         adapter.setOnClickListener(listener)
         binding.rcvContent.adapter = adapter
         binding.rcvContent.layoutManager = LinearLayoutManager(requireContext())
-        binding.rcvContent.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val visibleItemCount = layoutManager.childCount
-                val totalItemCount = layoutManager.itemCount
-                val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
-
-                if (visibleItemCount + firstVisibleItem >= totalItemCount) {
-                    page += 1
-                }
-                viewModel.fetchData(true, studyId, page)
-            }
-        })
         val itemSpace = resources.getDimensionPixelSize(R.dimen.thirty)
         val deco = RcvDecoration(itemSpace)
         binding.rcvContent.addItemDecoration(deco)
