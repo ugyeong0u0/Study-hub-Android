@@ -17,6 +17,7 @@ import kr.co.gamja.study_hub.databinding.FragmentApplicationBinding
 import kr.co.gamja.study_hub.global.CustomSnackBar
 
 class ApplicationFragment : Fragment() {
+    val msg = this.javaClass.simpleName
     private lateinit var binding: FragmentApplicationBinding
     private val viewModel: ApplicationViewModel by viewModels()
     lateinit var navOptions: NavOptions
@@ -46,57 +47,58 @@ class ApplicationFragment : Fragment() {
             findNavController().navigateUp() // 뒤로 가기
         }
         binding.btnComplete.setOnClickListener {
-            viewModel.applyEditTextLength.observe(viewLifecycleOwner) {
-                if (it < 11) {
-                    CustomSnackBar.make(
-                        binding.layoutRelative,
-                        getString(R.string.apply_error),
-                        binding.btnComplete,
-                        true,
-                        R.drawable.icon_warning_m_orange_8_12
-                    ).show()
-                } else {
-                    viewModel.applyStudy(studyId!!, object : CallBackListener {
-                        override fun isSuccess(result: Boolean) {
-                            if (result) {
-                                CustomSnackBar.make(
-                                    binding.layoutRelative,
-                                    getString(R.string.apply_ok),
-                                    binding.btnComplete
-                                ).show()
 
-                                when (page) {
-                                    "content" -> {
-                                        Log.i(tag, "신청 page로 들어온 페이지 : content")
-                                        navOptions = NavOptions.Builder() // 백스택에서 제거
-                                            .setPopUpTo(R.id.studyContentFragment, true)
-                                            .build()
-                                    }
-                                    "bookmark" -> {
-                                        Log.i(tag, "신청 page로 들어온 페이지 : bookmark")
-                                        navOptions = NavOptions.Builder() // 백스택에서 제거
-                                            .setPopUpTo(R.id.bookmarkFragment, false)
-                                            .build()
-                                    }
+            if (viewModel.applyEditTextLength.value!! < 11) {
+                CustomSnackBar.make(
+                    binding.layoutRelative,
+                    getString(R.string.apply_error),
+                    binding.btnComplete,
+                    true,
+                    R.drawable.icon_warning_m_orange_8_12
+                ).show(1000)
+            } else {
+                Log.e(msg, "신청하기 api 전송")
+                viewModel.applyStudy(studyId!!, object : CallBackListener {
+                    override fun isSuccess(result: Boolean) {
+                        if (result) {
+                            CustomSnackBar.make(
+                                binding.layoutRelative,
+                                getString(R.string.apply_ok),
+                                binding.btnComplete
+                            ).show()
+
+                            when (page) {
+                                "content" -> {
+                                    Log.i(tag, "신청 page로 들어온 페이지 : content")
+                                    navOptions = NavOptions.Builder() // 백스택에서 제거
+                                        .setPopUpTo(R.id.studyContentFragment, true)
+                                        .build()
                                 }
-                                val action =
-                                    ApplicationFragmentDirections.actionGlobalStudyContentFragment(
-                                        true,
-                                        postId!!
-                                    ) // 컨텐츠로 가니까 단건조회에 쓸 postId필요
-                                findNavController().navigate(action, navOptions) // 백스택에서 생성 페이지 제거
-                            } else {
-                                CustomSnackBar.make(
-                                    binding.layoutRelative,
-                                    getString(R.string.already_existStudy),
-                                    binding.btnComplete,
-                                    false
-                                ).show()
+                                "bookmark" -> {
+                                    Log.i(tag, "신청 page로 들어온 페이지 : bookmark")
+                                    navOptions = NavOptions.Builder() // 백스택에서 제거
+                                        .setPopUpTo(R.id.bookmarkFragment, false)
+                                        .build()
+                                }
                             }
+                            val action =
+                                ApplicationFragmentDirections.actionGlobalStudyContentFragment(
+                                    true,
+                                    postId!!
+                                ) // 컨텐츠로 가니까 단건조회에 쓸 postId필요
+                            findNavController().navigate(action, navOptions) // 백스택에서 생성 페이지 제거
+                        } else {
+                            CustomSnackBar.make(
+                                binding.layoutRelative,
+                                getString(R.string.already_existStudy),
+                                binding.btnComplete,
+                                false
+                            ).show()
                         }
-                    })
-                }
+                    }
+                })
             }
+
 
         }
     }

@@ -27,7 +27,7 @@ class BottomSheet() : BottomSheetDialogFragment() {
         val bottomSheetDialog = BottomSheetDialog(requireContext(), theme)
         bottomSheetDialog.setOnShowListener { dialog ->
             val bottomSheet =
-                (dialog as BottomSheetDialog).findViewById<FrameLayout>(R.id.refusalBottomDialog)
+                (dialog as BottomSheetDialog).findViewById<FrameLayout>(R.id.design_bottom_sheet)
                     ?: throw NullPointerException("Bottom Dialog is NULL")
             val behavior = BottomSheetBehavior.from(bottomSheet)
 
