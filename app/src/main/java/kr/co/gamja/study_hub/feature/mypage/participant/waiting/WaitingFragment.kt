@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +25,7 @@ class WaitingFragment : Fragment() {
 
     private val viewModel : WaitingViewModel by viewModels()
 
-    private var page = 0
+    private var studyId = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,17 +39,17 @@ class WaitingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val studyId = arguments?.getInt("studyId") ?: -1
+        studyId = arguments?.getInt("studyId") ?: -1
 
         initRecyclerView(studyId)
 
         if (studyId != -1) {
-            viewModel.fetchData(isAdd = false, studyId = studyId, page = page)
+            viewModel.fetchData(studyId = studyId)
         }
 
         //observing
         viewModel.participantWaitingList.observe(viewLifecycleOwner, Observer{
-            adapter.submitList(it, page)
+            adapter.submitList(it, 0)
             if (it.isEmpty()){
                 binding.imgEmptyParticipation.visibility = View.VISIBLE
                 binding.tvComment.visibility = View.VISIBLE
@@ -59,6 +60,11 @@ class WaitingFragment : Fragment() {
                 binding.rcvContent.visibility = View.VISIBLE
             }
         })
+    }
+
+    override fun onResume() {
+        viewModel.fetchData(studyId)
+        super.onResume()
     }
 
     //RecyclerView 초기화
@@ -75,8 +81,8 @@ class WaitingFragment : Fragment() {
             /** 수락 선택 >> Dialog 띄워야 함 */
             override fun onAcceptClick(userId : Int) {
                 viewModel.accept(studyId, userId)
-                viewModel.fetchData(false, studyId, page)
-                page = 0
+                viewModel.fetchData(studyId)
+                refreshFragment(this@WaitingFragment, parentFragmentManager)
             }
 
             //거절 선택 >> BottomFragment
@@ -86,33 +92,25 @@ class WaitingFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putInt("userId", userId)
                 bundle.putInt("studyId", studyId)
-                bundle.putInt("page", page)
+                bundle.putInt("page", 0)
                 bottomSheetFragment.arguments = bundle
                 bottomSheetFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
                 bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                refreshFragment(this@WaitingFragment, parentFragmentManager)
             }
         }
 
         adapter.setOnClickListener(listener)
         binding.rcvContent.adapter = adapter
         binding.rcvContent.layoutManager = LinearLayoutManager(requireContext())
-        binding.rcvContent.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val visibleItemCount = layoutManager.childCount
-                val totalItemCount = layoutManager.itemCount
-                val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
-
-                if (visibleItemCount + firstVisibleItem >= totalItemCount) {
-                    page += 1
-                }
-                viewModel.fetchData(true, studyId, page)
-            }
-        })
         val itemSpace = resources.getDimensionPixelSize(R.dimen.thirty)
         val deco = RcvDecoration(itemSpace)
         binding.rcvContent.addItemDecoration(deco)
+    }
+
+    //fragment refresh
+    private fun refreshFragment(fragment : Fragment, fragmentManager : FragmentManager){
+        val ft = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
     }
 }

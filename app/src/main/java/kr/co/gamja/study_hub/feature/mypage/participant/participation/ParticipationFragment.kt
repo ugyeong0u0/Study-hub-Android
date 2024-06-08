@@ -1,11 +1,15 @@
 package kr.co.gamja.study_hub.feature.mypage.participant.participation
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +23,8 @@ class ParticipationFragment : Fragment() {
     private lateinit var binding : FragmentParticipationBinding
     private lateinit var adapter : ParticipationAdapter
 
+    private var studyId : Int = -1
+
     private val viewModel : ParticipationViewModel by viewModels()
 
     private var page = 0
@@ -27,6 +33,7 @@ class ParticipationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("Participant", "onCreateView Participant Fragment")
         binding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_participation, container, false)
         return binding.root
     }
@@ -34,7 +41,7 @@ class ParticipationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val studyId = arguments?.getInt("studyId") ?: throw NullPointerException("arguments is null")
+        studyId = arguments?.getInt("studyId") ?: throw NullPointerException("arguments is null")
 
         initRecyclerView(studyId)
 
@@ -55,29 +62,28 @@ class ParticipationFragment : Fragment() {
             }
         })
     }
+    override fun onResume() {
+        if (studyId != -1){
+            viewModel.fetchData(false, studyId, 0)
+        } else {
+            Log.e("Participant", "Study ID is NOT FOUND")
+        }
+        super.onResume()
+    }
 
     //RecyclerView 초기화
     private fun initRecyclerView(studyId : Int){
         adapter = ParticipationAdapter(requireContext())
         binding.rcvContent.adapter = adapter
         binding.rcvContent.layoutManager = LinearLayoutManager(requireContext())
-        binding.rcvContent.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val visibleItemCount = layoutManager.childCount
-                val totalItemCount = layoutManager.itemCount
-                val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
-
-                if (visibleItemCount + firstVisibleItem >= totalItemCount) {
-                    page += 1
-                }
-                viewModel.fetchData(true, studyId, page)
-            }
-        })
         val space = resources.getDimensionPixelSize(R.dimen.thirty)
         val itemDecoration = RcvDecoration(space)
         binding.rcvContent.addItemDecoration(itemDecoration)
+    }
+
+    //fragment 새로고침
+    private fun refreshFragment(fragment : Fragment, fragmentManager : FragmentManager){
+        val ft : FragmentTransaction = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
     }
 }

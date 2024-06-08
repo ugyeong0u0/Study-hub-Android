@@ -1,6 +1,7 @@
 package kr.co.gamja.study_hub.feature.mypage.participant.refusal
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ class RefusalFragment : Fragment() {
     private lateinit var adapter : RefusalAdapter
     private val viewModel : RefusalViewModel by viewModels()
 
+    private var studyId = -1
     private var page = 0
 
     override fun onCreateView(
@@ -34,9 +36,9 @@ class RefusalFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val studyId = arguments?.getInt("studyId") ?: throw NullPointerException("Arguments is NULL")
+        studyId = arguments?.getInt("studyId") ?: throw NullPointerException("Arguments is NULL")
 
-        initRecyclerView(studyId)
+        initRecyclerView()
 
         //data fetch
         viewModel.fetchData(false, studyId, page)
@@ -56,25 +58,19 @@ class RefusalFragment : Fragment() {
         })
     }
 
+    override fun onResume() {
+        if(studyId != -1){
+            viewModel.fetchData(false, studyId, 0)
+        } else {
+            Log.e("Participant", "Refusal Study ID is NOT FOUND")
+        }
+        super.onResume()
+    }
+
     //RecyclerView 초기화
-    private fun initRecyclerView(studyId : Int){
+    private fun initRecyclerView(){
         adapter = RefusalAdapter(requireContext())
         binding.rcvContent.adapter = adapter
         binding.rcvContent.layoutManager = LinearLayoutManager(requireContext())
-        binding.rcvContent.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val visibleItemCount = layoutManager.childCount
-                val totalItemCount = layoutManager.itemCount
-                val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
-
-                if (visibleItemCount + firstVisibleItem >= totalItemCount) {
-                    page += 1
-                }
-                viewModel.fetchData(true, studyId, page)
-            }
-        })
     }
 }
