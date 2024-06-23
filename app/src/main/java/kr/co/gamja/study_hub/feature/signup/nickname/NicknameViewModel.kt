@@ -28,6 +28,15 @@ class NicknameViewModel :ViewModel(){
     private val _nicknameError = MutableLiveData<Boolean?>(null)
     val nicknameError: LiveData<Boolean?> get()=_nicknameError
 
+    // 다음 버튼 활성화
+    private val _nextBtn = MutableLiveData<Boolean>(false)
+    val nextBtn: LiveData<Boolean> get()=_nextBtn
+
+    fun setEnableNextBtn( newValue : Boolean){
+        _nextBtn.value= newValue
+    }
+
+
     fun isDuplicationNickname() {
         viewModelScope.launch {
             val response =

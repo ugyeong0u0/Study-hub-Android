@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="8dp"
             android:src="@drawable/congratulation" />
 
@@ -85,9 +85,10 @@
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/twenty_four"
-            android:backgroundTint="@color/O_50"
+            android:background="@drawable/solid_o_50_corner_6"
             android:text="@string/btn_start"
             android:textColor="@color/syswhite"
+
             android:textSize="16sp" />
     </RelativeLayout>
 </layout>

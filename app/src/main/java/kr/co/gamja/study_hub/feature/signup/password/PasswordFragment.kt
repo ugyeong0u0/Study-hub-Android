@@ -181,7 +181,7 @@ class PasswordFragment : Fragment() {
                     setTextColor(greenColor)
                     isVisible = true
                 }
-                binding.btnNext.isEnabled = true
+                viewModel.setEnableNextBtn(true)
             } else {
                 binding.editRePassword.backgroundTintList = redStateList
                 binding.errorRePassword.apply {
@@ -189,7 +189,7 @@ class PasswordFragment : Fragment() {
                     setTextColor(redColor)
                     isVisible = true
                 }
-                binding.btnNext.isEnabled = false
+                viewModel.setEnableNextBtn(false)
             }
         }
     }

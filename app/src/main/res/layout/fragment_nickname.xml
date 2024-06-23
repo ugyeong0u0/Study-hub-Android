@@ -201,10 +201,11 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginHorizontal="@dimen/twenty"
                 android:layout_marginBottom="@dimen/twenty_four"
-                android:backgroundTint="@color/O_50"
-                android:enabled="false"
+                android:background="@{viewModel.nextBtn?@drawable/solid_o_50_corner_6:@drawable/background_o_deactivation_corner_4}"
+                android:enabled="@{viewModel.nextBtn}"
+                android:textColor="@{viewModel.nextBtn?@color/syswhite:@color/W_Deactivation}"
+
                 android:text="@string/btn_nextpage"
-                android:textColor="@color/syswhite"
                 android:textSize="16sp" />
         </RelativeLayout>
     </LinearLayout>

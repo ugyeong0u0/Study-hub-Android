@@ -89,9 +89,10 @@ class NicknameFragment : Fragment() {
             Log.d("회원가입 - 여자", User.gender.toString())
 
             if (User.nickname != null && User.gender != null && viewModel.nicknameError.value==false && !isSpaced) {
-                binding.btnNext.isEnabled = true
+               viewModel.setEnableNextBtn(true)
             } else {
                 Log.d("회원가입 - 닉네임이나 성별 null", User.gender.toString() + User.nickname.toString())
+                viewModel.setEnableNextBtn(false)
             }
         }
         binding.btnMale.setOnClickListener {
@@ -104,9 +105,10 @@ class NicknameFragment : Fragment() {
             User.gender = "MALE"
             Log.d("회원가입 - 남자", User.gender.toString())
             if (User.nickname != null && User.gender != null && viewModel.nicknameError.value==false && !isSpaced) {
-                binding.btnNext.isEnabled = true
+                viewModel.setEnableNextBtn(true)
             } else {
                 Log.d("회원가입 - 닉네임이나 성별 null", User.gender.toString() + User.nickname.toString())
+                viewModel.setEnableNextBtn(false)
             }
         }
 
