@@ -1,6 +1,8 @@
 package kr.co.gamja.study_hub.feature.signup.major
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
@@ -11,6 +13,15 @@ import kr.co.gamja.study_hub.data.repository.RetrofitManager
 
 class MajorViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
+
+    // 다음 버튼 활성화
+    private val _nextBtn = MutableLiveData<Boolean>(false)
+    val nextBtn: LiveData<Boolean> get()=_nextBtn
+
+    fun setEnableNextBtn( newValue : Boolean){
+        _nextBtn.value= newValue
+    }
+
 
     fun requestSignup(params: RegisterCallback) {
         val signupReq = SignupRequest(
