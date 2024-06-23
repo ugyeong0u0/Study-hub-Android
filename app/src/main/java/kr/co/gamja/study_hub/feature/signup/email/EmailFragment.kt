@@ -188,6 +188,11 @@ class EmailFragment : Fragment() {
         viewModel.authNumber.observe(viewLifecycleOwner) {
             if (it != binding.editAuthCode.text.toString())
                 binding.editAuthCode.setText(it)
+            if(binding.editAuthCode.text.toString().length==8) {
+                viewModel.setEnableNextBtn(true) // 인증번호 길이에 따라 다음 버튼 활성화
+            }else{
+                viewModel.setEnableNextBtn(false)
+            }
         }
         viewModel.validAuthNumber.observe(viewLifecycleOwner) {
             if (it) binding.editAuthCode.backgroundTintList = greenStateList

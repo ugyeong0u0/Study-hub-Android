@@ -30,6 +30,14 @@ class EmailViewModel : ViewModel() {
         _validEmail.value = newEmail.matches(EMAIL.toRegex())
     }
 
+    // 다음 버튼 활성화
+    private val _nextBtn = MutableLiveData<Boolean>(false)
+    val nextBtn:LiveData<Boolean> get()=_nextBtn
+
+    fun setEnableNextBtn( newValue : Boolean){
+        _nextBtn.value= newValue
+    }
+
 
     // 인증 번호
     private val _authNumber = MutableLiveData<String>()
