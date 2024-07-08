@@ -17,7 +17,30 @@ class ChangeNickNameViewModel : ViewModel() {
     val tag = this.javaClass.simpleName
 
     // 통신- 닉네임 값
-    val nickname = MutableLiveData<String>()
+    private val _nickname = MutableLiveData<String>()
+    val nickname : LiveData<String> get() = _nickname
+
+    fun updateNickname(newNickname: String) {
+
+        _nickname.value = newNickname
+    }
+
+    fun filterText(text: String): String {
+        val builder = StringBuilder()
+        val pattern = Regex("^[a-zA-Z\\dㄱ-ㅎ가-힣]*$")
+
+        text.forEach { char ->
+            val type = Character.getType(char)
+            if (char.toString().matches(pattern)) {
+                builder.append(char)
+            } else if (type != Character.SURROGATE.toInt() && type != Character.OTHER_SYMBOL.toInt() && char != ' ') {
+                // 영어, 숫자, 한글 외의 문자를 무시하고 추가하지 않음
+                builder.append("")
+            }
+        }
+        return builder.toString()
+    }
+
 
     // 닉네임 입력 길이
     private val _nicknameLength = MutableLiveData<Int>(0)

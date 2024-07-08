@@ -90,7 +90,6 @@
             android:paddingTop="13dp"
             android:paddingEnd="@dimen/fourteen"
             android:paddingBottom="13dp"
-            android:text="@={viewModel.nickname}"
             android:textColor="@color/sysblack1"
             android:textSize="14sp" />
 

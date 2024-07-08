@@ -131,6 +131,7 @@
                         android:textColor="@color/BG_80"
                         android:textSize="16sp"
                         android:gravity="end|center_vertical"
+                        android:textAllCaps="false"
                         tools:text="테스트 계정" />
 
                     <ImageView

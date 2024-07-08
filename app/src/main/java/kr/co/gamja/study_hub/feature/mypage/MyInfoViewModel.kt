@@ -82,6 +82,7 @@ class MyInfoViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val result = response.body() as UsersResponse
                     Log.d(tag, "회원조회 성공 code" + response.code().toString())
+                    Log.d(tag, "회원조회 닉네임" + result.nickname.toString())
                     _emailData.value = result.email
                     _nicknameData.value = result.nickname
                     _isNicknameData.value = true
