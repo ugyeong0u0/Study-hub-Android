@@ -134,8 +134,9 @@
     <!--    회원탈퇴-->
     <string name="txt_withdrawal">탈퇴하기</string>
     <string name="q_withdrawal">정말 탈퇴하시나요?</string>
-    <string name="a_withdrawal">회원님이 떠나신다니 너무 아쉬워요</string>
-    <string name="guide_withdrawal">스터디 허브를 탈퇴하시면,\n 수정시 변경 \n 수정시 변경 \n 수정시 변경 \n 재가입 다시, 다시 처음부터 인증해야해 임시 작성</string>
+    <string name="a_withdrawal">회원님이 떠나신다니 너무 아쉬워요 🥲</string>
+    <string name="guide_withdrawalTitle">스터디 허브를 탈퇴하시면,</string>
+    <string name="guide_withdrawalContent">해당 계정으로 활동하신 모든 내역과 개인정보가 삭제되어 복구가 어려워요. \n\n스터디에 참여한 참여자들의 정보를 다시 볼 수 없어요. \n\n맞춤 스터디 소식을 알려드릴 수 있어요. \n\n재가입 시, 다시 처음부터 계정 인증을 받아야해요. </string>
     <string name="btn_next">계속</string>
     <string name="txt_withdrawalCompletion">탈퇴가 완료되었어요</string>
     <string name="txt_subwithdrawalCompletion">지금까지 스터디 허브를 이용해 주셔서\n\t\t감사합니다.</string>
@@ -146,6 +147,7 @@
     <string name="q_deleteStudySub">삭제한 글과 참여자는 다시 볼 수 없어요</string>
     <string name="alarm_completeAlter">글이 수정됐어요.</string>
     <string name="alarm_completeCreateStudy">글 작성이 완료됐어요.</string>
+    <string name="go_CreateStudy">글 작성하기</string>
 <!--    문의하기-->
     <string name="txt_complaint">문의하기</string>
     <string name="title">제목</string>
@@ -157,6 +159,8 @@
 <!--    마감하기-->
     <string name="head_shutdownStudy">이 글의 모집을 마감할까요?</string>
     <string name="sub_shutdownStudy">이 글의 모집을 마감할까요?</string>
+    <string name="sub_deleteStudy">마감하면 다시 모집할 수 없어요</string>
+    <string name="shutdownYes">마감</string>
 
 <!--    비밀번호 변경-->
     <string name="error_noRegisteredEmail">가입되지 않은 이메일이에요. 다시 입력해 주세요.</string>

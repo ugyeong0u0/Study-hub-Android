@@ -73,6 +73,10 @@ class MypageMainFragment : Fragment() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
+
+
+
+
         viewModel.getUsers(object : CallBackListener{
             override fun isSuccess(result: Boolean) { // 회원정보가 확인 된 후에 클릭가능하게
                 binding.myPageProgressBar.isVisible = !result
@@ -81,8 +85,21 @@ class MypageMainFragment : Fragment() {
                 binding.btnUserContent.isEnabled=result
                 binding.btnUserStudy.isEnabled=result
                 binding.btnUserBookmark.isEnabled=result
+                binding.iconBookmark.isClickable=result
             }
         })
+
+        // 북마크 클릭 todo
+        binding.iconBookmark.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putBoolean("isUser", viewModel.isUserLogin.value!!)
+            findNavController().navigate(
+                R.id.action_global_mainBookmarkFragment,
+                bundle
+            )
+        }
+
+
 
         viewModel.imgData.observe(viewLifecycleOwner, Observer { img ->
             Glide.with(this).load(viewModel.imgData.value)

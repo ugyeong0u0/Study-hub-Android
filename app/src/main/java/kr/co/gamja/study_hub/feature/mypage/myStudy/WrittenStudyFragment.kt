@@ -58,10 +58,42 @@ class WrittenStudyFragment : Fragment() {
             findNavController().navigateUp() // 뒤로 가기
         }
 
+        // 스터디 생성하기 버튼-> 내가 쓴 스터디가 하나도 없을 때
+
+        binding.btnCreateStudy.setOnClickListener{
+
+            // 스터디 새로 생성함을 알리는 bundle(수정하기랑 구분하기 위해)
+            val bundle = Bundle()
+            bundle.putBoolean("isCorrectStudy", false)
+            findNavController().navigate(
+                R.id.action_global_createStudyFragment,
+                bundle
+            )
+
+        }
+
+
         //전체 삭제 버튼
         binding.btnDeleteAll.setOnClickListener{
-            viewModel.deleteAllStudy()
+
+            val head = requireContext().resources.getString(R.string.head_shutdownStudy)
+            val sub = requireContext().resources.getString(R.string.sub_deleteStudy)
+
+            val no = requireContext().resources.getString(R.string.btn_cancel)
+            val yes = requireContext().resources.getString(R.string.shutdownYes)
+            val dialog = CustomDialog(requireContext(), head, sub, no, yes)
+            dialog.showDialog()
+            dialog.setOnClickListener(object : OnDialogClickListener {
+                override fun onclickResult() {
+                    viewModel.deleteAllStudy() // 작성한 스터디 모집 글 전체 삭제
+
+                }
+            })
+
+
+
         }
+
 
         writtenStudyAdapter = WrittenStudyAdapter(requireContext())
         binding.recylerWrittenList.adapter = writtenStudyAdapter
@@ -81,6 +113,7 @@ class WrittenStudyFragment : Fragment() {
 //        setUpRecyclerView()
         observeData()
         viewModel.updateMyStudyListSize()
+
 
         writtenStudyAdapter.setOnItemClickListener(object: OnPostingIdClickListener {
             override fun getItemValue(whatItem: Int, postingId: PostingId) {

@@ -289,7 +289,7 @@ class ContentViewModel : ViewModel() {
                     .append(result.penalty.toString())
                     .append("원")
                 _feeWithReason.value = builder.toString()
-                _fee.value = result.penaltyWay.toString() + "원"
+                _fee.value = result.penalty.toString() + "원"
             }
         }
         // 대면여부

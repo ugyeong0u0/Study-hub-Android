@@ -130,6 +130,20 @@
             android:textSize="16sp"
             android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}" />
 
+        <Button
+            android:id="@+id/btn_CreateStudy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/thirty"
+            android:background="@drawable/solid_o_50_corner_6"
+            android:visibility="@{viewModel.listSize!=0 ?  View.INVISIBLE : View.VISIBLE}"
+            android:text="@string/go_CreateStudy"
+            android:textColor="@color/syswhite"
+            android:layout_below="@+id/txt_sub_binBookmark"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/twenty_four"
+            android:textSize="16sp" />
+
         <ProgressBar
             android:id="@+id/written_ProgressBar"
             style="@style/CustomProgressBar"
