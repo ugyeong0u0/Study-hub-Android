@@ -139,6 +139,7 @@
             android:visibility="@{viewModel.isRelativeMajor?  View.VISIBLE :  View.GONE}"
             app:chipIconVisible="false"
             app:closeIconTint="@color/BG_70"
+            app:chipBackgroundColor="@color/BG_30"
             app:closeIconVisible="true" />
 
     </RelativeLayout>
