@@ -14,14 +14,8 @@ class ParticipationAdapter(val context : Context) : RecyclerView.Adapter<Partici
 
     private val itemList = mutableListOf<RegisterListContent>()
 
-    private var page = 0
-
     fun submitList(itemList : List<RegisterListContent>, page : Int){
-        if (this.page < page){
-            this.page += 1
-        } else {
-            this.itemList.clear()
-        }
+        this.itemList.clear()
         this.itemList.addAll(itemList)
         notifyDataSetChanged()
     }

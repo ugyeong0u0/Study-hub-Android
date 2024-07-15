@@ -62,8 +62,8 @@
             android:textColor="@color/sysblack1"
             android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/txt_guide_withdrawal"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_a_withdrawal"
@@ -73,10 +73,29 @@
             android:paddingStart="@dimen/twenty"
             android:paddingTop="@dimen/thirty_two"
             android:paddingEnd="@dimen/twenty"
-            android:paddingBottom="@dimen/thirty_two"
-            android:text="@string/guide_withdrawal"
-            android:textColor="@color/sysblack1"
-            android:textSize="14sp" />
+            android:paddingBottom="@dimen/thirty_two">
+            <TextView
+                android:id="@+id/txt_guide_withdrawalTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/guide_withdrawalTitle"
+                android:textColor="@color/sysblack1"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/txt_guide_withdrawal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="@string/guide_withdrawalContent"
+                android:textColor="@color/BG_80"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,24 +106,27 @@
             android:orientation="horizontal"
             android:weightSum="2">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_cancel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_30_corner_6"
-                android:text="@string/btn_cancel"
-                android:textColor="@color/BG_80"
-                android:textSize="14sp" />
+
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_next"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/solid_o_50_corner_6"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_30_corner_6"
                 android:text="@string/btn_next"
+
+                android:textColor="@color/BG_80"
+                android:textSize="14sp" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:background="@drawable/solid_o_50_corner_6"
+                android:text="@string/btn_cancel"
                 android:textColor="@color/syswhite"
                 android:textSize="14sp" />
         </LinearLayout>

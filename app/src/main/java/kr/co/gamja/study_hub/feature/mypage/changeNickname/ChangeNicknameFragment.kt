@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -50,6 +51,27 @@ class ChangeNicknameFragment : Fragment() {
         viewModel.nickname.observe(viewLifecycleOwner) {
             viewModel.updateNicknameLength(it.length) // 닉네임 길이 업뎃
         }
+
+        // 닉네임 띄어쓰기, 이모지 방지
+        val nicknameEditText = binding.editNewNickname
+
+        nicknameEditText.doOnTextChanged { text, _, _, _ ->
+            text?.let {
+                val filteredText = viewModel.filterText(it.toString())
+                if (it.toString() != viewModel.nickname.value) {
+                    Log.d("nickname수정fragment", "닉네임 바뀜")
+                    viewModel.updateNickname(filteredText)
+                }
+            }
+        }
+
+        viewModel.nickname.observe(viewLifecycleOwner) { newNickname ->
+            if (nicknameEditText.text.toString() != newNickname) {
+                nicknameEditText.setText(newNickname)
+                nicknameEditText.setSelection(newNickname.length) // 커서 마지막으로 이동시킴
+            }
+        }
+
         binding.btnComplete.setOnClickListener {
             hideKeyboardForBtnComplete()
             viewModel.isDuplicationNickname(object : CallBackListener {
@@ -87,6 +109,8 @@ class ChangeNicknameFragment : Fragment() {
 
 
     }
+
+
 
     private fun hideKeyboardForBtnComplete() {
         val inputMethodManager =

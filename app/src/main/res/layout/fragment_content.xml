@@ -143,7 +143,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="@{@string/txt_people_number(viewModel.participatingPeople, viewModel.totalPeople)}"
                                 android:textColor="@color/syswhite"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
@@ -171,7 +170,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="@{viewModel.fee}"
                                 android:textColor="@color/syswhite"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
@@ -346,6 +344,8 @@
                             android:layout_below="@+id/head_major"
                             android:layout_marginHorizontal="@dimen/twenty"
                             android:layout_marginBottom="40dp"
+                            app:chipBackgroundColor="@color/BG_30"
+                            android:textColor="@color/BG_80"
                             android:text="@{viewModel.relativeMajor}" />
 
                         <View

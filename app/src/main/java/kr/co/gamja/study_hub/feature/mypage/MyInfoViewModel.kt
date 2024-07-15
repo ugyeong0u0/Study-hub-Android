@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.data.model.UsersErrorResponse
 import kr.co.gamja.study_hub.data.model.UsersResponse
 import kr.co.gamja.study_hub.data.repository.AuthRetrofitManager
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.global.Functions
 
 class MyInfoViewModel : ViewModel() {
@@ -74,13 +75,14 @@ class MyInfoViewModel : ViewModel() {
     }
 
     // 회원조회
-    fun getUsers() {
+    fun getUsers(params : CallBackListener) {
         viewModelScope.launch {
             try {
                 val response = AuthRetrofitManager.api.getUserInfo()
                 if (response.isSuccessful) {
                     val result = response.body() as UsersResponse
                     Log.d(tag, "회원조회 성공 code" + response.code().toString())
+                    Log.d(tag, "회원조회 닉네임" + result.nickname.toString())
                     _emailData.value = result.email
                     _nicknameData.value = result.nickname
                     _isNicknameData.value = true
@@ -96,7 +98,9 @@ class MyInfoViewModel : ViewModel() {
                     _participantData.value=result.participateCount.toString()
                     onClickListener.myInfoCallbackResult(true)
                     isUserLogin.value=true
+                    params.isSuccess(true)
                 } else {
+                    params.isSuccess(false) // 회원조회가 안된 경우
                     Log.e(tag, "회원조회 실패")
                     onClickListener.myInfoCallbackResult(false)
                     val errorResponse: UsersErrorResponse? = response.errorBody()?.let {
@@ -109,6 +113,7 @@ class MyInfoViewModel : ViewModel() {
                     }
                 }
             } catch (e: Exception) {
+                params.isSuccess(true) // 비회원인 경우에도 프로그래스바 제어해야해서 필요
                 Log.e(tag, "회원조회 Excep: ${e.message}")
             }
         }

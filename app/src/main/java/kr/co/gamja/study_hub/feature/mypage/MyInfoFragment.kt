@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.datastore.App
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.SecondCallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentMyInfoBinding
 import kr.co.gamja.study_hub.feature.mypage.uploadImg.UploadImageFragment
@@ -61,7 +62,11 @@ class MyInfoFragment : Fragment(), SecondCallBackListener {
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
-        viewModel.getUsers()
+        viewModel.getUsers(object : CallBackListener{
+            override fun isSuccess(result: Boolean) {
+                // mymaininfo 프로그래스바때문에 만듦
+            }
+        })
         viewModel.imgData.observe(viewLifecycleOwner, Observer { img ->
             Glide.with(this).load(viewModel.imgData.value)
                 .apply(
@@ -134,7 +139,11 @@ class MyInfoFragment : Fragment(), SecondCallBackListener {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getUsers() // 데이터 변경 시
+        viewModel.getUsers(object : CallBackListener{
+            override fun isSuccess(result: Boolean) {
+                // mypagemaininfo 프로그래스바 땜에 만듦
+            }
+        }) // 데이터 변경 시
     }
 
     fun deleteLoginData(goLogin: Boolean) {

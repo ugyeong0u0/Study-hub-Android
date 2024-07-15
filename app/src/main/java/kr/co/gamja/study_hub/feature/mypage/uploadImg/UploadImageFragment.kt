@@ -150,6 +150,8 @@ class UploadImageFragment : BottomSheetDialogFragment() {
                     galleryPermissionLauncher.launch(permissions)
                 }
             }
+            /** 갤러리 클릭 시 로직 동작 후 dismiss */
+            dismiss()
         }
 
         // 사진찍기 클릭
@@ -189,6 +191,8 @@ class UploadImageFragment : BottomSheetDialogFragment() {
                     cameraPermissionLauncher.launch(permissions)
                 }
             }
+            /** 사진찍기 클릭 시 비즈니스 로직 동작 후 dismiss */
+            dismiss()
         }
     }
 

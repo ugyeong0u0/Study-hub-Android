@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kr.co.gamja.study_hub.R
+import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentMypageMainBinding
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.CustomSnackBar
@@ -36,7 +39,6 @@ class MypageMainFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mypage_main, container, false)
         return binding.root
-
     }
 
     override fun onAttach(context: Context) {
@@ -71,7 +73,33 @@ class MypageMainFragment : Fragment() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
 
-        viewModel.getUsers()
+
+
+
+
+        viewModel.getUsers(object : CallBackListener{
+            override fun isSuccess(result: Boolean) { // 회원정보가 확인 된 후에 클릭가능하게
+                binding.myPageProgressBar.isVisible = !result
+                binding.layoutUserInfo.isClickable =result
+                binding.btnUsingGuide.isEnabled=result
+                binding.btnUserContent.isEnabled=result
+                binding.btnUserStudy.isEnabled=result
+                binding.btnUserBookmark.isEnabled=result
+                binding.iconBookmark.isClickable=result
+            }
+        })
+
+        // 북마크 클릭 todo
+        binding.iconBookmark.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putBoolean("isUser", viewModel.isUserLogin.value!!)
+            findNavController().navigate(
+                R.id.action_global_mainBookmarkFragment,
+                bundle
+            )
+        }
+
+
 
         viewModel.imgData.observe(viewLifecycleOwner, Observer { img ->
             Glide.with(this).load(viewModel.imgData.value)
@@ -106,7 +134,7 @@ class MypageMainFragment : Fragment() {
         }
         // 작성한 글 누를 시
         binding.btnUserContent.setOnClickListener {
-            Log.e(tagMsg, "작성한 글로 넘어가는 버튼 클릭됨")
+            Log.d(tagMsg, "작성한 글로 넘어가는 버튼 클릭됨")
             if (viewModel.isUserLogin.value==true) {
                 findNavController().navigate(
                     R.id.action_mypageMainFragment_to_writtenStudyFragment,

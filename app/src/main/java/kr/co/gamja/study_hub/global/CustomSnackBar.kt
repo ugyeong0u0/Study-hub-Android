@@ -55,13 +55,14 @@ class CustomSnackBar(
         snackbarBinding.iconCheak.setImageDrawable(AppCompatResources.getDrawable(context, imgRes))
     }
 
-    fun show() {
+    fun show(duration: Int = Snackbar.LENGTH_SHORT) {
         if (anchorview != null) {
             snackbar.apply {
                 anchorView = anchorview
+                setDuration(duration)
             }.show()
         } else {
-            snackbar.show()
+            snackbar.setDuration(duration).show()
         }
     }
 

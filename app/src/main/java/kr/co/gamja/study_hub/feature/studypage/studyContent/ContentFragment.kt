@@ -2,6 +2,9 @@ package kr.co.gamja.study_hub.feature.studypage.studyContent
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +12,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -89,6 +93,46 @@ class ContentFragment : Fragment() {
                     ).circleCrop()
                 )
                 .into(binding.iconProfile)
+        }
+        // 참여 인원수 표시+ 주황색 넣음
+        viewModel.participatingPeople.observe(viewLifecycleOwner){ participantPeople ->
+            viewModel.totalPeople.observe(viewLifecycleOwner){
+                val peopleNumberText = "$participantPeople/$it"
+                val slashIndex = peopleNumberText.indexOf("/")
+
+                val spannable = SpannableString(peopleNumberText)
+                val orangeColor = ContextCompat.getColor(requireContext(), R.color.O_50)
+
+                spannable.setSpan(
+                    ForegroundColorSpan(orangeColor),
+                    0,
+                    slashIndex,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                binding.imgTxtPeopleNumber.text=spannable
+            }
+
+
+        }
+
+        // 벌금 표시 + 색 : 숫자만 주황색
+        viewModel.fee.observe(viewLifecycleOwner){
+            if(!it.equals("없어요")){
+                val wonIndex = it.indexOf("원")
+                val spannable = SpannableString(it)
+                val orangeColor = ContextCompat.getColor(requireContext(), R.color.O_50)
+                spannable.setSpan(
+                    ForegroundColorSpan(orangeColor),
+                    0,
+                    wonIndex,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                binding.imgTxtFee.text = spannable
+
+            }else{
+                binding.imgTxtFee.text = it
+            }
         }
 
 

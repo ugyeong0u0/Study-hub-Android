@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -16,12 +17,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.launch
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.*
 import kr.co.gamja.study_hub.databinding.FragmentWrittenStudyBinding
 import kr.co.gamja.study_hub.feature.mypage.MyInfoFragment
 import kr.co.gamja.study_hub.feature.studypage.apply.ApplicationFragmentDirections
+import kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.PostingId
 import kr.co.gamja.study_hub.global.CustomDialog
 import kr.co.gamja.study_hub.global.OnDialogClickListener
@@ -55,9 +58,57 @@ class WrittenStudyFragment : Fragment() {
             findNavController().navigateUp() // 뒤로 가기
         }
 
+        // 스터디 생성하기 버튼-> 내가 쓴 스터디가 하나도 없을 때
+
+        binding.btnCreateStudy.setOnClickListener{
+
+            // 스터디 새로 생성함을 알리는 bundle(수정하기랑 구분하기 위해)
+            val bundle = Bundle()
+            bundle.putBoolean("isCorrectStudy", false)
+            findNavController().navigate(
+                R.id.action_global_createStudyFragment,
+                bundle
+            )
+
+        }
+
+
+        //전체 삭제 버튼
+        binding.btnDeleteAll.setOnClickListener{
+
+            val head = requireContext().resources.getString(R.string.head_shutdownStudy)
+            val sub = requireContext().resources.getString(R.string.sub_deleteStudy)
+
+            val no = requireContext().resources.getString(R.string.btn_cancel)
+            val yes = requireContext().resources.getString(R.string.shutdownYes)
+            val dialog = CustomDialog(requireContext(), head, sub, no, yes)
+            dialog.showDialog()
+            dialog.setOnClickListener(object : OnDialogClickListener {
+                override fun onclickResult() {
+                    viewModel.deleteAllStudy() // 작성한 스터디 모집 글 전체 삭제
+
+                }
+            })
+
+
+
+        }
+
+
         writtenStudyAdapter = WrittenStudyAdapter(requireContext())
         binding.recylerWrittenList.adapter = writtenStudyAdapter
         binding.recylerWrittenList.layoutManager = LinearLayoutManager(requireContext())
+        //item 별 three dot 메뉴 클릭 이벤트 추가
+        writtenStudyAdapter.setOnMenuClickListener(object: OnMenuClickListener{
+            override fun onClickThreeDot(postId : Int) {
+                val bundle = Bundle()
+                bundle.putInt("postId", postId)
+                val modal = BottomSheetFragment()
+                modal.arguments = bundle
+                modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
+                modal.show(parentFragmentManager, modal.tag)
+            }
+        })
 
 //        setUpRecyclerView()
         observeData()
@@ -127,12 +178,11 @@ class WrittenStudyFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-//        val writtenAdapter = this@WrittenStudyFragment.writtenStudyAdapter
-//        binding.recylerWrittenList.apply {
-//            layoutManager = LinearLayoutManager(requireContext())
-//            adapter = writtenAdapter
-//        }
-//        Log.e("호출", "")
+        val writtenAdapter = this@WrittenStudyFragment.writtenStudyAdapter
+        binding.recylerWrittenList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = writtenAdapter
+        }
     }
 
     private fun observeData() {

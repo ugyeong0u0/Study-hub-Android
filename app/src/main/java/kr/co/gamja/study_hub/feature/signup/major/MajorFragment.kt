@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -86,6 +87,14 @@ class MajorFragment : Fragment() {
         binding.txtPageNumber.text = getString(R.string.txt_pagenumber, 5)
         // 학과 선택박스(AutoCompleteTextView)
         selectMajor()
+
+        binding.autoMajor.doOnTextChanged{ text,_,_,_ ->
+            if(text.toString().isEmpty()){
+               viewModel.setEnableNextBtn(false) // 완전 다 지웠을 땐 다음 버튼 못누르게 하기
+            }
+
+        }
+
     }
 
     // 학과 선택박스(AutoCompleteTextView)
@@ -99,6 +108,7 @@ class MajorFragment : Fragment() {
         binding.viewDelete.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 binding.autoMajor.text.clear()
+                viewModel.setEnableNextBtn(false)
             }
         })
 
@@ -107,11 +117,14 @@ class MajorFragment : Fragment() {
             var selectedItem=parent.adapter.getItem(position) as String
             viewModel.setUserMajor(selectedItem)
 
+            viewModel.setEnableNextBtn(true)
+
         }
         // 드랍다운 배경셋팅
         binding.autoMajor.let {
             it.setDropDownBackgroundResource(R.drawable.back_select_major)
             it.dropDownVerticalOffset = 10 // TODO("위치 물어봐야 함")
+
         }
 
     }

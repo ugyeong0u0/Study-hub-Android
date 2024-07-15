@@ -1,27 +1,34 @@
 package kr.co.gamja.study_hub.feature.mypage.myStudy
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.model.ContentXX
+import kr.co.gamja.study_hub.data.repository.OnMenuClickListener
 import kr.co.gamja.study_hub.data.repository.OnPostingIdClickListener
 import kr.co.gamja.study_hub.databinding.WrittenstudyItemBinding
+import kr.co.gamja.study_hub.feature.studypage.studyContent.correctStudy.BottomSheetFragment
 import kr.co.gamja.study_hub.feature.toolbar.bookmark.PostingId
 import kr.co.gamja.study_hub.global.Functions
 // todo("인터페이스 클래스담기는것으로 변경하기 ")
 class WrittenStudyAdapter(private val context: Context) :
     PagingDataAdapter<ContentXX, WrittenStudyAdapter.WrittenStudyHolder>(DIFF_CALLBACK) {
     private lateinit var mOnItemsClickListener: OnPostingIdClickListener// item 내부요소 구별 클릭리스너
+    private lateinit var mOnMenuClickListener : OnMenuClickListener
     val whatItem = mapOf("shutdownStudy" to 1, "goParticipant" to 2, "goStudyPage" to 3)
     fun setOnItemClickListener(listener: OnPostingIdClickListener) {
         mOnItemsClickListener = listener
     }
-
+    fun setOnMenuClickListener(listener : OnMenuClickListener){
+        mOnMenuClickListener = listener
+    }
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContentXX>() {
             // 리스트 아이템이 같은지
@@ -78,6 +85,9 @@ class WrittenStudyAdapter(private val context: Context) :
                     whatItem["goStudyPage"]!!,
                     PostingId(postId, studyId)
                 )
+            }
+            binding.btnThreeDot.setOnClickListener{
+                mOnMenuClickListener.onClickThreeDot(postId)
             }
         }
     }
