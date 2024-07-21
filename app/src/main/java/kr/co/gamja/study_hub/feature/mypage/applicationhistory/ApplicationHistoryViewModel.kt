@@ -34,6 +34,23 @@ class ApplicationHistoryViewModel(studyHubApi: StudyHubApi) : ViewModel() {
     private val _listSize = MutableLiveData<Int>()
     val listSize: LiveData<Int> get() = _listSize
 
+
+    fun updateListSize() {
+        viewModelScope.launch {
+            val response = AuthRetrofitManager.api.getUserApplyHistory(0, 10)
+            try {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    _listSize.value = result?.requestStudyData?.numberOfElements
+                    Log.d("신청스터디개수", _listSize.toString())
+                }
+            } catch (e: Exception) {
+                Log.e(tag, "내가 신청한 스터디api에서 개수 조회 실패 code" + response.code().toString())
+            }
+        }
+    }
+
+
     // 리스트 있는지 여부
     var isList=MutableLiveData<Boolean>(true)
 

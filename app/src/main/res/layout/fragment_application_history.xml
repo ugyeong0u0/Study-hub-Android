@@ -52,11 +52,24 @@
             android:layout_below="@+id/applicationHistory_toolbar"
             android:layout_marginStart="@dimen/twenty"
             android:layout_marginVertical="12dp"
-            android:text="@{@string/txt_all(viewModel.listSize)}"
+            android:text="전체"
             android:textColor="@color/BG_80"
             android:textSize="16sp"
-            tools:text="전체 2"
-            android:visibility="gone"/>
+           />
+        <TextView
+            android:id="@+id/txt_allList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/applicationHistory_toolbar"
+            android:layout_toRightOf="@+id/txt_all"
+            android:layout_marginStart="6dp"
+            android:layout_marginVertical="12dp"
+            android:text="@{viewModel.listSize.toString()}"
+            android:fontFamily="@font/pretendard_medium"
+            android:textColor="@color/sysblack1"
+            android:textSize="16sp"
+            tools:text="2"
+            />
 
         <ImageView
             android:id="@+id/img_emptyEngagedStudy"
@@ -103,7 +116,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_all"
-            android:layout_marginTop="50dp"
             android:layout_marginHorizontal="@dimen/twenty" />
     </RelativeLayout>
 
