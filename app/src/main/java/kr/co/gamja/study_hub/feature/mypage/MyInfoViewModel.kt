@@ -58,6 +58,18 @@ class MyInfoViewModel : ViewModel() {
     private val _bookmarkData = MutableLiveData<String>("0")
     val bookmarkData: LiveData<String> get() = _bookmarkData
 
+
+    // 프로그래스 바 (사진 업로드 시 )
+    private val _progressBar = MutableLiveData<Boolean>(false)
+    val progressBar: LiveData<Boolean> get() = _progressBar
+
+    fun setProgressBar(status : Boolean){
+
+        _progressBar.value = status
+
+    }
+
+
     private lateinit var onClickListener: MyInfoCallbackListener
     fun mSetOnClickListener(listener: MyInfoCallbackListener) {
         onClickListener = listener
