@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_chatLink_sub"
                     android:layout_marginHorizontal="@dimen/twenty"
-                    android:layout_marginBottom="32dp"
+                    android:layout_marginBottom="13dp"
                     android:background="@drawable/edit_from_stroke_bg_50_to_stroke_black"
                     android:gravity="top|start"
                     android:hint="@string/txt_chatLink"
@@ -112,12 +112,23 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/icon_circle_delete_bright"
                     android:visibility="invisible" />
+                <TextView
+                    android:id="@+id/error_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/edit_chatLink"
+                    android:layout_marginBottom="13dp"
+                    android:layout_marginHorizontal="@dimen/twenty"
+                    android:text="@string/error_chatLink"
+                    android:textColor="@color/R_50"
+                    android:textSize="12sp"
+                    android:visibility="@{viewModel.errorChatLink? View.VISIBLE : View.GONE}"/>
 
                 <View
                     android:id="@+id/view_edit_chatLink"
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
-                    android:layout_below="@+id/edit_chatLink"
+                    android:layout_below="@+id/error_chat"
                     android:background="@color/BG_30" />
 
                 <TextView

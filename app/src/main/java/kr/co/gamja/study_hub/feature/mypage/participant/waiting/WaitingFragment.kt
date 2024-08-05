@@ -2,14 +2,11 @@ package kr.co.gamja.study_hub.feature.mypage.participant.waiting
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +20,7 @@ class WaitingFragment : Fragment() {
     private lateinit var binding : FragmentWaitingBinding
     private lateinit var adapter : WaitingContentAdapter
 
-    private val viewModel : WaitingViewModel by viewModels()
+    private val viewModel : WaitingViewModel by activityViewModels()
 
     private var studyId = -1
 
@@ -97,6 +94,7 @@ class WaitingFragment : Fragment() {
                 bottomSheetFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
                 bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
                 refreshFragment(this@WaitingFragment, parentFragmentManager)
+
             }
         }
 

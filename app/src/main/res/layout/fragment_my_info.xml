@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="kr.co.gamja.study_hub.feature.mypage.MyInfoViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <ScrollView
@@ -307,7 +308,18 @@
                     android:textColor="@color/BG_90"
                     android:textSize="14sp" />
 
+                <ProgressBar
+                    android:id="@+id/uploadProgressBar"
+                    style="@style/CustomProgressBar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:visibility="@{viewModel.progressBar ? View.VISIBLE : View.GONE}"/>
+                    />
+
+
             </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 </layout>

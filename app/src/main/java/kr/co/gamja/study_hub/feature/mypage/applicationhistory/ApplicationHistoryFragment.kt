@@ -65,6 +65,7 @@ class ApplicationHistoryFragment : Fragment() {
         viewModel.setReloadTrigger()
 
         observeData()
+        viewModel.updateListSize() // 리스트 개수 업데이트
 
         // 툴바 설정
         val toolbar = binding.applicationHistoryToolbar
@@ -98,6 +99,7 @@ class ApplicationHistoryFragment : Fragment() {
                                                 getString(R.string.complete_deletion), null, true
                                             ).show()
                                             adapter.refresh() // 리사이클러뷰 refresh
+                                            viewModel.updateListSize() // 신청 내역 리스트 개수 업데이트
                                         }
                                     }
                                 })
@@ -105,7 +107,7 @@ class ApplicationHistoryFragment : Fragment() {
                         })
                     }
                     2 -> {
-                        Log.i(msg, "거절 이유 눌림")
+                        Log.i(msg, "거절 이유 보기 눌림")
                         val bundle = Bundle()
                         bundle.putInt("studyId", itemValue)
                         findNavController().navigate(

@@ -129,11 +129,14 @@ class MyInfoFragment : Fragment(), SecondCallBackListener {
         }
         // 사진 수정 프레그먼트로
         binding.btnModifyImg.setOnClickListener {
+
+            viewModel.setProgressBar(true)
             getModal()
         }
         // 사진 삭제
         binding.btnDeleteImg.setOnClickListener {
             viewModel.deleteImg()
+            binding.imgProfile.setImageResource(R.drawable.avatar_s) // 사진 삭제 누를 시 바로 기본 이미지로 변경
         }
     }
 

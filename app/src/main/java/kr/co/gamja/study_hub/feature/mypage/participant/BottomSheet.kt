@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -20,7 +21,7 @@ import kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingViewModel
 class BottomSheet() : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentBottomSheetListDialogBinding
-    private val viewModel: WaitingViewModel by viewModels()
+    private val viewModel: WaitingViewModel by activityViewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         //dialog height 수정
@@ -94,6 +95,7 @@ class BottomSheet() : BottomSheetDialogFragment() {
                         R.id.action_participantFragment_to_refusalReasonFragment,
                         arguments
                     )
+                    viewModel.fetchData(studyId)
                     dismiss()
                 } else {
                     if (userId != -1 && studyId != -1 && page != -1) {
@@ -115,6 +117,7 @@ class BottomSheet() : BottomSheetDialogFragment() {
                                             requireActivity().supportFragmentManager,
                                             "Toast"
                                         )
+                                        viewModel.fetchData(studyId) // todo
                                         dismiss()
                                     }
                                 }

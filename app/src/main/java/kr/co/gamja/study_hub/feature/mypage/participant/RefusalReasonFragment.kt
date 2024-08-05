@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kr.co.gamja.study_hub.R
@@ -15,12 +16,14 @@ import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentRefusalReasonBinding
 import kr.co.gamja.study_hub.feature.mypage.participant.participation.ParticipationViewModel
 import kr.co.gamja.study_hub.feature.mypage.participant.refusal.RefusalViewModel
+import kr.co.gamja.study_hub.feature.mypage.participant.waiting.WaitingViewModel
 
 class RefusalReasonFragment : Fragment() {
 
     private lateinit var binding : FragmentRefusalReasonBinding
 
     private val viewModel : RefusalViewModel by viewModels()
+    private val waitingViewModel : WaitingViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,6 +85,7 @@ class RefusalReasonFragment : Fragment() {
                             bundle.putInt("studyId", studyId)
                             arguments = bundle
 
+                            waitingViewModel.fetchData(studyId) // todo
                             // Navigation back stack에서 현재 프래그먼트를 제거
                             findNavController().popBackStack(R.id.participantFragment, false)
 

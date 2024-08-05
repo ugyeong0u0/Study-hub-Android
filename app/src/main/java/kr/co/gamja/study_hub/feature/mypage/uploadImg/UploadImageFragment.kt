@@ -20,12 +20,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kr.co.gamja.study_hub.R
 import kr.co.gamja.study_hub.data.repository.CallBackListener
 import kr.co.gamja.study_hub.data.repository.SecondCallBackListener
 import kr.co.gamja.study_hub.databinding.FragmentUploadImageBinding
+import kr.co.gamja.study_hub.feature.mypage.MyInfoViewModel
 import kr.co.gamja.study_hub.global.CustomSnackBar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -40,13 +42,17 @@ class UploadImageFragment : BottomSheetDialogFragment() {
     private val msgTag = this.javaClass.simpleName
     private lateinit var binding: FragmentUploadImageBinding
     private lateinit var cameraPermissionLauncher: ActivityResultLauncher<Array<String>> // 카메라 권한 반환값
-    private lateinit var takePictureLauncher: ActivityResultLauncher<Intent>
+
+    private lateinit var takePictureLauncher: ActivityResultLauncher<Uri>
     private lateinit var currentPhotoPath: String // 사진 절대 경로
     private lateinit var storageDir: File // 갤러리 경로
     private lateinit var timeStamp: String // 파일명 만들 때 "yyyyMMdd_HHmmss"
     private lateinit var galleryPermissionLauncher: ActivityResultLauncher<Array<String>> // 갤러리 권한 반환값
     private lateinit var getGalleryLauncher: ActivityResultLauncher<Intent> // 갤러리에서 선택한 사진 반환
     private val viewModel: UploadImgViewModel by viewModels()
+
+    private val myInfoViewModel: MyInfoViewModel by activityViewModels()
+
 //    private lateinit var snackBarListener :SecondCallBackListener
     var snackBarListener :SecondCallBackListener?=null
     /*fun setOnSnackBarListener(listener: SecondCallBackListener){
@@ -65,9 +71,12 @@ class UploadImageFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+
         cameraPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 if (permissions.all { it.value }) {
+//                    Log.e("UploadImageFragment바텀 싯" , "3-1. 사진 촬영 퍼미션 요청 런처")
                     openCamera()
                 } else {
                     Toast.makeText(requireContext(), "카메라 권한 거부됨", Toast.LENGTH_SHORT).show()
@@ -75,12 +84,15 @@ class UploadImageFragment : BottomSheetDialogFragment() {
             }
         // 사진 촬영 이미지
         takePictureLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
+                if (result) {
+//                    Log.e("UploadImageFragment바텀 싯" , "3-3 사진 촬영 후 이미지업로드 전")
                     setPicture(currentPhotoPath)
                 } else {
-                    Log.e(msgTag, " 사진 촬영 결과 받기 실패")
+//                    Log.e(msgTag, " 사진 촬영 결과 받기 실패")
                 }
+//                Log.e(msgTag, " 사진 촬영 결과 받기 실패- else뒤")
+
             }
         // 갤러리 권한
         galleryPermissionLauncher =
@@ -117,7 +129,9 @@ class UploadImageFragment : BottomSheetDialogFragment() {
             SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         // 닫기
         binding.btnClose.setOnClickListener {
+            myInfoViewModel.setProgressBar(false)
             dismiss()
+
         }
 
         // 갤러리 클릭
@@ -151,11 +165,12 @@ class UploadImageFragment : BottomSheetDialogFragment() {
                 }
             }
             /** 갤러리 클릭 시 로직 동작 후 dismiss */
-            dismiss()
+//            dismiss()
         }
 
         // 사진찍기 클릭
         binding.btnTakingPhoto.setOnClickListener {
+//            Log.e("UploadImageFragment바텀 싯" , "1. 사진 촬영 클릭")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 val permissions = arrayOf(
                     Manifest.permission.READ_MEDIA_IMAGES,
@@ -168,8 +183,10 @@ class UploadImageFragment : BottomSheetDialogFragment() {
                         ) == PackageManager.PERMISSION_GRANTED
                     }
                 ) {
+//                    Log.e("UploadImageFragment바텀 싯" , "2. 사진 촬영 퍼미션 허용됨")
                     openCamera()
                 } else {
+//                    Log.e("UploadImageFragment바텀 싯" , "3-1. 사진 촬영 퍼미션 요청")
                     cameraPermissionLauncher.launch(
                         permissions
                     )
@@ -192,8 +209,13 @@ class UploadImageFragment : BottomSheetDialogFragment() {
                 }
             }
             /** 사진찍기 클릭 시 비즈니스 로직 동작 후 dismiss */
-            dismiss()
+//            dismiss()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        myInfoViewModel.setProgressBar(false)
     }
 
     private fun openCamera() {
@@ -203,15 +225,19 @@ class UploadImageFragment : BottomSheetDialogFragment() {
             Toast.makeText(context, "이미지 파일 생성 실패", Toast.LENGTH_SHORT).show()
             null
         }
-        photoFile.also { // uri 생성
+        photoFile?.also { // uri 생성
+//            Log.e("UploadImageFragment바텀 싯" , "3-1-2. 사진 촬영 시작 ")
             val photoUri: Uri = FileProvider.getUriForFile(
                 requireContext(),
                 "kr.co.gamja.study_hub.fileprovider",
                 it!!
             )
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri) // 데이터 저장 위치
-            takePictureLauncher.launch(intent) // 사진 촬영 시작
+//            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri) // 데이터 저장 위치
+//            Log.e("UploadImageFragment바텀 싯" , "3-2-1. 사진 촬영 시작전")
+//            Log.e(msgTag, "Uri 생성: $photoUri")
+            takePictureLauncher.launch(photoUri) // 사진 촬영 시작
+//            Log.e("UploadImageFragment바텀 싯" , "3-3. 사진 촬영 끝")
         }
     }
 
@@ -229,6 +255,7 @@ class UploadImageFragment : BottomSheetDialogFragment() {
 
     // 촬영한 사진 api연결
     private fun setPicture(path: String) {
+//        Log.e("UploadImageFragment바텀 싯" , "사진 촬영 이미지setPicture")
         val file = File(path)
         // 콘텐츠 타입 지정
         val contentType = "image/jpeg".toMediaTypeOrNull()
@@ -237,8 +264,11 @@ class UploadImageFragment : BottomSheetDialogFragment() {
         val requestBody = MultipartBody.Part.createFormData("image", file.name, requestFile)
         // 업로딩 api 연결
         viewModel.uploadImg(requestBody, object : CallBackListener {
+
             override fun isSuccess(result: Boolean) {
+//                Log.e("UploadImageFragment바텀 싯" , "사진 촬영 이미지 업로딩 viewModel 결과$result")
                snackBarListener?.isSuccess(result) // snackBar 개인정보 페이지에 띄우기위한 리스너
+                myInfoViewModel.setProgressBar(false)
                 dismiss() // 바텀 싯 종료
             }
         })

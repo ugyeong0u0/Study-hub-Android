@@ -18,6 +18,7 @@ import java.util.*
 
 class CreateStudyViewModel : ViewModel() {
     private val tag = this.javaClass.simpleName
+
     val function = Functions()
 
     // 화면 표시 여부 Boolean - 학과 chip
@@ -73,7 +74,15 @@ class CreateStudyViewModel : ViewModel() {
     // CreateStudyRequest에 넣을값
 
     // url editText 양방향
-    val urlEditText = MutableLiveData<String>()
+    val urlEditText = MutableLiveData<String>() // todo("챗링크")
+
+    // chatlink가 올바르지 않을 경우  에러메시지
+    private val _errorChatLink = MutableLiveData<Boolean>(false)
+    val errorChatLink: LiveData<Boolean> get() = _errorChatLink
+    fun setErrorChatLink(new: Boolean) {
+        _errorChatLink.value = new
+    }
+
 
     // 스터디 제목
     val studyTitle = MutableLiveData<String>()
@@ -471,8 +480,9 @@ class CreateStudyViewModel : ViewModel() {
 
     // 입력 확인 후 생성 버튼 가능 여부
     fun setButtonEnable() {
+        val CHATLINK = "^https:\\/\\/open\\.kakao\\.com\\/o\\/[A-Za-z0-9]+\$".toRegex()
         Log.d(tag, "버튼 확인 호출됨")
-        if (!urlEditText.value.isNullOrEmpty() && !studyTitle.value.isNullOrEmpty() && !studyContent.value.isNullOrEmpty()
+        if (!urlEditText.value.isNullOrEmpty() && CHATLINK.matches(urlEditText.value.toString()) && !studyTitle.value.isNullOrEmpty() && !studyContent.value.isNullOrEmpty()
             && !persons.value.isNullOrEmpty() && persons.value.toString()
                 .toInt() >=2 && persons.value.toString()
                 .toInt() <= 50 && !editStartDay.value.isNullOrEmpty() && !editEndDay.value.isNullOrEmpty()

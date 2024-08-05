@@ -57,7 +57,12 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@color/BG_30"
+            android:paddingHorizontal="@dimen/twenty"
+            android:paddingTop="@dimen/twenty"
+            android:paddingBottom="@dimen/twenty"
+            />
 
     </LinearLayout>
 
