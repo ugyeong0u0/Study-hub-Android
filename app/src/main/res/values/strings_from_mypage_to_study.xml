@@ -46,6 +46,7 @@
     <string name="txt_aboutPNumber">스터디 인원을 알려주세요</string>
     <string name="txt_persons">명</string>
     <string name="error_persons">스터디장 포함하여 2명부터 50명 이하로 가능해요</string>
+    <string name="error_chatLink">올바른 카카오톡 오픈채팅방 링크를 넣어주세요</string>
     <string name="txt_gender_sub">참여자의 성별 선택</string>
     <string name="txt_gender_all">무관</string>
     <string name="txt_gender_male">남자만</string>

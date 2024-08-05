@@ -152,8 +152,16 @@ class CreateStudyFragment : Fragment() {
 
         with(viewModel) {
             // 스터디 생성 레트로핏 통신 가능 여부 확인
-            urlEditText.observe(viewLifecycleOwner) {
-                viewModel.setButtonEnable()
+            urlEditText.observe(viewLifecycleOwner) {text ->
+                val CHATLINK = "^https://open\\.kakao\\.com/o/[A-Za-z\\d]+\$".toRegex()
+
+                if (CHATLINK.matches(text.toString())) {
+                    viewModel.setButtonEnable()
+                    viewModel.setErrorChatLink(false)
+                } else {
+                    viewModel.setErrorChatLink(true)
+                }
+
             }
             studyTitle.observe(viewLifecycleOwner) {
                 viewModel.setButtonEnable()
